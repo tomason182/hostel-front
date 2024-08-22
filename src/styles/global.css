@@ -1,6 +1,37 @@
-@import "modern-normalize";
+@import "modern-normalize.css";
 
 html {
   font-size: 100%;
   scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1rem;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+/* Global link style */
+
+a {
+  color: var(--primary-color-dark);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Global button style */
+button {
+  color: var(--text-color-light);
+  background-color: var(--primary-color);
+  border: var(--border-width) var(--border-style) var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--padding-s) var(--padding-m);
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--primary-color-dark);
 }
