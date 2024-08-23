@@ -12,6 +12,7 @@
   /* Neutral Colors */
   --background-color: rgb(255, 255, 255);
   --text-color: rgb(51, 51, 51);
+  --text-color-light: rgb(163, 163, 163);
   --muted-color: rgb(127, 140, 141);
   --border-color: rgb(224, 224, 224);
 
@@ -43,6 +44,7 @@
   --spacing-xl: 2rem;
 
   /* Padding */
+  --padding-xs: 0.25rem;
   --padding-s: 0.5rem;
   --padding-m: 1rem;
   --padding-l: 1.5rem;
@@ -50,13 +52,14 @@
   /* Margin */
   --margin-s: 0.5rem;
   --margin-m: 1rem;
-  --margin-l: 1.5rem;
+  --margin-l: 2rem;
+  --margin-xxl: 5rem;
 
   /* Borders */
   --border-width: 1px;
   --border-style: solid;
-  --border-radius: 4px;
-  --border-radius-large: 8px;
+  --border-radius: 0.25rem;
+  --border-radius-large: 0.5rem;
 
   /* Box Shadow */
   --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
