@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: var(--margin-xxl);
+}
+
+.nav > a {
+  margin: 0 var(--margin-s);
+}
+
+.btn button:last-child {
+  margin-left: var(--margin-l);
+}
