@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 0.5rem 1.5rem;
 }
 
 .logo {
@@ -20,9 +21,32 @@
 }
 
 .nav > a {
-  margin: 0 var(--margin-s);
+  margin: 0 var(--margin-l);
+  color: var(--text-color-light);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-small);
+  font-weight: 500;
 }
 
-.btn button:last-child {
-  margin-left: var(--margin-l);
+.nav > a:hover {
+  color: var(--text-color-dark);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: var(--spacing-sm);
+}
+
+.nav > a:last-child {
+  color: #ffff;
+  text-decoration: none;
+}
+
+.btnPrimary {
+  border-radius: var(--border-radius);
+  background-color: var(--primary-color);
+  padding: var(--padding-s) var(--padding-l);
+  color: white;
+}
+
+.btnPrimary:hover {
+  background-color: var(--primary-color-dark);
 }

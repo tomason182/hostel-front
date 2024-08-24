@@ -1,8 +1,15 @@
+@font-face {
+  font-family: Inter;
+  src: url("../assets/fonts/inter/Inter_18pt-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   /* Primary Colors */
-  --primary-color: rgb(52, 152, 219);
-  --primary-color-light: rgb(93, 173, 226);
-  --primary-color-dark: rgb(44, 128, 180);
+  --primary-color: #2d6a4f;
+  --primary-color-light: rgb(116, 198, 157);
+  --primary-color-dark: #1b4332;
 
   /* Secondary Colors */
   --secondary-color: rgb(46, 204, 113);
@@ -11,10 +18,11 @@
 
   /* Neutral Colors */
   --background-color: rgb(255, 255, 255);
-  --text-color: rgb(51, 51, 51);
-  --text-color-light: rgb(163, 163, 163);
+  --text-color: rgb(0 0 0);
+  --text-color-dark: rgb(51 51 51);
+  --text-color-light: rgb(51 51 51 / 0.75);
   --muted-color: rgb(127, 140, 141);
-  --border-color: rgb(224, 224, 224);
+  --border-color: rgb(201, 203, 207);
 
   /* Alert Colors */
   --error-color: rgb(231, 76, 60);
@@ -23,7 +31,8 @@
   --info-color: rgb(52, 152, 219);
 
   /* Font Family */
-  --font-size-small: 0.75rem;
+  --font-primary: "Inter", sans-serif;
+  --font-size-small: 0.875rem;
   --font-size-large: 1.25rem;
   --font-size-h1: 2rem;
   --font-size-h2: 1.75rem;
@@ -52,7 +61,7 @@
   /* Margin */
   --margin-s: 0.5rem;
   --margin-m: 1rem;
-  --margin-l: 2rem;
+  --margin-l: 1.25rem;
   --margin-xxl: 5rem;
 
   /* Borders */

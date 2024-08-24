@@ -6,21 +6,20 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.logo}>
         <h3>Hostel App Logo</h3>
+      </div>
+
+      <div className={styles.btn}>
         <nav className={styles.nav}>
           <Link to="#">Home</Link>
           <Link to="#">Services</Link>
           <Link to="#">Pricing</Link>
           <Link to="#">Contact</Link>
           <Link to="#">About us</Link>
+          <Link to="#"> Sign in</Link>
+          <Link to="#" className={styles.btnPrimary}>
+            Sign Up
+          </Link>
         </nav>
-      </div>
-      <div className={styles.btn}>
-        <button>
-          <Link to="#">Sign Up</Link>
-        </button>
-        <button>
-          <Link to="#">Sign Up</Link>
-        </button>
       </div>
     </header>
   );

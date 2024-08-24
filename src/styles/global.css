@@ -1,4 +1,17 @@
-@import "modern-normalize.css";
+@import "modern_normalize.css";
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 html {
   font-size: 100%;
@@ -16,20 +29,11 @@ body {
 a {
   color: var(--primary-color-dark);
   text-decoration: none;
+  padding: 0;
 }
 
 a:hover {
-  text-decoration: underline;
-}
-
-/* Global button style */
-button {
-  color: var(--text-color-light);
-  background-color: var(--primary-color);
-  border: var(--border-width) var(--border-style) var(--border-color);
-  border-radius: var(--border-radius);
-  padding: var(--padding-s) var(--padding-m);
-  cursor: pointer;
+  text-decoration: none;
 }
 
 button:hover {
