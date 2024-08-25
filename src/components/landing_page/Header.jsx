@@ -17,7 +17,7 @@ function Header() {
           <Link to="#">About us</Link>
           <Link to="#"> Sign in</Link>
           <Link to="#" className={styles.btnPrimary}>
-            Sign Up
+            Create Account
           </Link>
         </nav>
       </div>
