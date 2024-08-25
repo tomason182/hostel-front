@@ -5,33 +5,43 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: Inter-Italic;
+  src: url("../assets//fonts/inter/Inter_18pt-Italic.ttf") format("truetype");
+  font-weight: lighter;
+  font-style: italic;
+}
+
 :root {
   /* Primary Colors */
   --primary-color: #2d6a4f;
-  --primary-color-light: rgb(116, 198, 157);
+  --primary-color-light: #40916c;
   --primary-color-dark: #1b4332;
 
   /* Secondary Colors */
-  --secondary-color: rgb(46, 204, 113);
+  --secondary-color: rgb(64, 145, 108);
   --secondary-color-light: rgb(88, 214, 141);
   --secondary-color-dark: rgb(40, 167, 69);
 
   /* Neutral Colors */
   --background-color: rgb(255, 255, 255);
+  --second-background: #edf2f4;
   --text-color: rgb(0 0 0);
   --text-color-dark: rgb(51 51 51);
   --text-color-light: rgb(51 51 51 / 0.75);
   --muted-color: rgb(127, 140, 141);
-  --border-color: rgb(201, 203, 207);
+  --border-color: rgb(209 213 219);
 
   /* Alert Colors */
   --error-color: rgb(231, 76, 60);
   --warning-color: rgb(243, 156, 18);
   --success-color: rgb(39, 174, 96);
   --info-color: rgb(52, 152, 219);
+  --active-color: #023e8a;
 
   /* Font Family */
   --font-primary: "Inter", sans-serif;
+  --font-italic: "Inter-Italic", sans-serif;
   --font-size-small: 0.875rem;
   --font-size-large: 1.25rem;
   --font-size-h1: 2rem;

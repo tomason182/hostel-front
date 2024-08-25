@@ -39,3 +39,32 @@ a:hover {
 button:hover {
   background-color: var(--primary-color-dark);
 }
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-family: var(--font-primary);
+}
+
+/* From default style */
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+}
+
+input {
+  border: 1px solid black;
+  background: none;
+  color: black;
+}
+
+input:focus {
+  outline: 2px solid var(--active-color);
+}
+
+button {
+  border: none;
+}

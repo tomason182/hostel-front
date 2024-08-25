@@ -10,13 +10,13 @@ function Header() {
 
       <div className={styles.btn}>
         <nav className={styles.nav}>
-          <Link to="#">Home</Link>
+          <Link to="/">Home</Link>
           <Link to="#">Services</Link>
           <Link to="#">Pricing</Link>
           <Link to="#">Contact</Link>
           <Link to="#">About us</Link>
           <Link to="#"> Sign in</Link>
-          <Link to="#" className={styles.btnPrimary}>
+          <Link to="/accounts/signup" className={styles.btnPrimary}>
             Create Account
           </Link>
         </nav>
