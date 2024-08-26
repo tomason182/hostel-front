@@ -20,8 +20,94 @@
   stroke: var(--text-color-dark);
 }
 
+.btnClose {
+  background: none;
+  z-index: 3;
+  position: absolute;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 1.1rem 0;
+  left: 18rem;
+  top: 0.5rem;
+}
+
+.btnClose:hover {
+  background: none;
+}
+
+.btnClose:active {
+  border: 2px solid black;
+}
+
+.btnClose svg {
+  fill: none;
+  stroke: var(--text-color-dark);
+  stroke-width: 2;
+}
+
+.blurContent {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  position: fixed;
+  opacity: 0;
+  backdrop-filter: contrast(50%);
+  transition: backdrop-filter 0.2s ease-in-out, opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.showBlur {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.menu {
+  position: fixed;
+  z-index: 2;
+  background-color: #fff;
+  width: 22rem;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: -22rem;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0.5rem;
+  transition: left 0.6s ease-in-out;
+}
+
+.menu h1 {
+  font-size: x-large;
+  margin-bottom: 2rem;
+}
+
+.menu a {
+  margin-bottom: 1rem;
+  color: var(--text-color-light);
+  width: 100%;
+  height: 2.3rem;
+  padding-left: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.menu a:hover {
+  color: var(--text-color-dark);
+  background-color: #f3f3f3;
+}
+
+.showMenu {
+  left: 0;
+}
+
 @media (min-width: 985px) {
   .btn {
+    display: none;
+  }
+  .blurContent {
     display: none;
   }
 }

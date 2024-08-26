@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
 import styles from "../../styles/HeaderLanding.module.css";
+import OpenMenuBtn from "../buttons/OpenMenuBtn";
+import NavigationMenu from "./NavigationMenu";
 
 function Header() {
   return (
@@ -7,20 +8,8 @@ function Header() {
       <div className={styles.logo}>
         <h3>Hostel App Logo</h3>
       </div>
-
-      <div className={styles.btn}>
-        <nav className={styles.nav}>
-          <Link to="/">Home</Link>
-          <Link to="#">Services</Link>
-          <Link to="#">Pricing</Link>
-          <Link to="#">Contact</Link>
-          <Link to="#">About us</Link>
-          <Link to="#"> Sign in</Link>
-          <Link to="/accounts/signup" className={styles.btnPrimary}>
-            Create Account
-          </Link>
-        </nav>
-      </div>
+      <NavigationMenu />
+      <OpenMenuBtn />
     </header>
   );
 }

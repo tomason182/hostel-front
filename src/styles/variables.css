@@ -94,4 +94,7 @@
   --transition-fast: 0.2s ease-in-out;
   --transition-medium: 0.3s ease-in-out;
   --transition-slow: 0.5s ease-in-out;
+
+  /* List color transition */
+  --transition-list-elements: color 0.3s ease;
 }

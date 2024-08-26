@@ -50,3 +50,9 @@
 .btnPrimary:hover {
   background-color: var(--primary-color-dark);
 }
+
+@media (max-width: 984px) {
+  .nav {
+    display: none;
+  }
+}
