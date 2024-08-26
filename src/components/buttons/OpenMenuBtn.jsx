@@ -32,7 +32,7 @@ function OpenMenuBtn() {
         className={`${styles.blurContent} ${isClicked ? styles.showBlur : ""}`}
       >
         <nav
-          className={`${styles.menu} ${isClicked ? styles.showMenu : ""} `}
+          className={`${styles.menu} ${isClicked ? styles.showMenu : ""}`}
           role="navigation"
         >
           <button
