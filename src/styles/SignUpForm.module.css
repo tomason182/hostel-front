@@ -41,12 +41,12 @@ p > small {
 
 @media (max-width: 959px) {
   .form {
-    width: 80vw;
+    width: 50vw;
   }
 }
 
 @media (max-width: 640px) {
   .form {
-    width: 100vw;
+    width: 80vw;
   }
 }
