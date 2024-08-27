@@ -1,0 +1,18 @@
+.btn {
+  background-color: none;
+  background: none;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  outline: 2px solid black;
+  background: none;
+}
+
+.avatar {
+  stroke: #000000;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
