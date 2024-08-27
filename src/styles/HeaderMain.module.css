@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+}
+
+.hostelInfo h3 {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-small);
+}
+
+.hostelInfo p {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-xs);
+}

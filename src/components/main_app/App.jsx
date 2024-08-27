@@ -1,7 +1,9 @@
+import HeaderMain from "./HeaderMain";
+
 function App() {
   return (
     <>
-      <h1>Welcome to the main app</h1>
+      <HeaderMain />
     </>
   );
 }
