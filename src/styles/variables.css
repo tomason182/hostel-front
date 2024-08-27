@@ -6,6 +6,13 @@
 }
 
 @font-face {
+  font-family: Inter-Bold;
+  src: url("../assets//fonts/inter/Inter_18pt-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
   font-family: Inter-Italic;
   src: url("../assets//fonts/inter/Inter_18pt-Italic.ttf") format("truetype");
   font-weight: lighter;
@@ -42,6 +49,7 @@
   /* Font Family */
   --font-primary: "Inter", sans-serif;
   --font-italic: "Inter-Italic", sans-serif;
+  --font-bold: "Inter-Bold", sans-serif;
   --font-size-xs: 0.6rem;
   --font-size-small: 0.875rem;
   --font-size-large: 1.25rem;
