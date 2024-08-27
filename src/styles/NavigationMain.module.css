@@ -1,0 +1,23 @@
+.mainMenu {
+  display: flex;
+  justify-content: left;
+  gap: 2rem;
+  padding: 0 0 0.5rem 3rem;
+  font-size: var(--font-size-small);
+  font-family: var(--font-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.currentLink {
+  text-decoration: underline;
+  text-decoration-thickness: 0.3rem;
+  text-underline-offset: 0.4rem;
+  text-decoration-color: var(--secondary-color);
+}
+
+.mainMenu a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 0.3rem;
+  text-underline-offset: 0.4rem;
+  text-decoration-color: var(--secondary-color);
+}
