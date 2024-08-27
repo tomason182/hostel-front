@@ -1,5 +1,5 @@
 import styles from "../../styles/HeaderLanding.module.css";
-import OpenMenuBtn from "../buttons/OpenMenuBtn";
+import PhoneMenuBtn from "../buttons/PhoneMenuBtn";
 import NavigationMenu from "./NavigationMenu";
 
 function Header() {
@@ -9,7 +9,7 @@ function Header() {
         <h3>Hostel App Logo</h3>
       </div>
       <NavigationMenu />
-      <OpenMenuBtn />
+      <PhoneMenuBtn />
     </header>
   );
 }

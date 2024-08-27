@@ -1,8 +1,8 @@
-import styles from "../../styles/OpenMenuBtn.module.css";
+import styles from "../../styles/PhoneMenuBtn.module.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-function OpenMenuBtn() {
+function PhoneMenuBtn() {
   const [isClicked, setIsClicked] = useState(false);
 
   function handleClick() {
@@ -66,4 +66,4 @@ function OpenMenuBtn() {
   );
 }
 
-export default OpenMenuBtn;
+export default PhoneMenuBtn;
