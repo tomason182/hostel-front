@@ -1,0 +1,17 @@
+.btn {
+  background-color: none;
+  background: none;
+}
+
+.btn:hover {
+  background: none;
+  background-color: none;
+}
+
+.svgImg {
+  fill: none;
+  stroke-width: 1.5;
+  stroke: black;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
