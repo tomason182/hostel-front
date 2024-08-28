@@ -2,46 +2,41 @@ import { NavLink } from "react-router-dom";
 import styles from "../../styles/NavigationMain.module.css";
 function NavigationMain() {
   return (
-    <menu role="menu" className={styles.mainMenu}>
+    <menu role="menu" id={styles.mainMenu}>
       <NavLink
         exact
-        to="/Dashboard"
-        className={styles.menuLink}
-        activeClassName={styles.currentLink}
+        to="home"
+        className={({ isActive }) => (isActive ? styles.active : "")}
       >
-        Dashboard
+        Home
       </NavLink>
 
       <NavLink
-        to="#"
-        className={styles.menuLink}
-        activeClassName={styles.currentLink}
+        to="calendar"
+        className={({ isActive }) => (isActive ? styles.active : "")}
       >
         Calendar
       </NavLink>
 
       <NavLink
-        to="#"
-        className={styles.menuLink}
-        activeClassName={styles.currentLink}
+        to="rates-and-availability"
+        className={({ isActive }) => (isActive ? styles.active : "")}
       >
         Rates & availability
       </NavLink>
 
       <NavLink
-        to="#"
-        className={styles.menuLink}
-        activeClassName={styles.currentLink}
+        to="reservations"
+        className={({ isActive }) => (isActive ? styles.active : "")}
       >
         Reservations
       </NavLink>
 
       <NavLink
-        to="#"
-        className={styles.menuLink}
-        activeClassName={styles.currentLink}
+        to="property"
+        className={({ isActive }) => (isActive ? styles.active : "")}
       >
-        Settings
+        Property
       </NavLink>
     </menu>
   );

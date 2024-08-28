@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import HeaderMain from "./HeaderMain";
 import NavigationMain from "./NavigationMain";
 
@@ -6,6 +7,7 @@ function App() {
     <>
       <HeaderMain />
       <NavigationMain />
+      <Outlet />
     </>
   );
 }
