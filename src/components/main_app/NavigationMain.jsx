@@ -4,8 +4,7 @@ function NavigationMain() {
   return (
     <menu role="menu" id={styles.mainMenu}>
       <NavLink
-        exact
-        to="home"
+        to=""
         className={({ isActive }) => (isActive ? styles.active : "")}
       >
         Home
