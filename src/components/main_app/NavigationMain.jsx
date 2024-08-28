@@ -32,12 +32,50 @@ function NavigationMain() {
         Reservations
       </NavLink>
 
-      <NavLink
-        to="/app/property"
-        className={({ isActive }) => (isActive ? styles.active : "")}
-      >
-        Property
-      </NavLink>
+      {/* Dropdown Menu for Property */}
+      <div className={styles.propertyDropdownContainer} tabIndex="0">
+        <span
+          className={styles.propertyLink}
+          aria-label="Property menu"
+          role="button"
+        >
+          Property
+        </span>
+        <ul className={styles.propertyDropdown} role="menu">
+          <li role="menuitem">
+            <NavLink
+              to="/app/property/general-info"
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
+              General info
+            </NavLink>
+          </li>
+          <li role="menuitem">
+            <NavLink
+              to="/app/property/property-details"
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
+              Property details
+            </NavLink>
+          </li>
+          <li role="menuitem">
+            <NavLink
+              to="/app/property/room-types"
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
+              Room types
+            </NavLink>
+          </li>
+          <li role="menuitem">
+            <NavLink
+              to="/property/users"
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
+              Users
+            </NavLink>
+          </li>
+        </ul>
+      </div>
     </menu>
   );
 }
