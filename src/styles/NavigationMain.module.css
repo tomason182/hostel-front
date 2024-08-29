@@ -2,9 +2,11 @@
   display: flex;
   justify-content: space-between;
   gap: 2rem;
-  padding: 0 13rem 0.5rem 13rem;
+  padding: 0.75rem 13rem 0.75rem 13rem;
   font-size: var(--font-size-small);
   font-family: var(--font-primary);
+  background-color: var(--background-color);
+
   border-bottom: 1px solid var(--border-color);
 }
 

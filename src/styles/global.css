@@ -24,6 +24,12 @@ body {
   background-color: var(--background-color);
 }
 
+/* Main content container */
+
+#root {
+  background-color: var(--second-background);
+}
+
 /* Global link style */
 
 a {
@@ -68,4 +74,9 @@ input:focus {
 button {
   border: none;
   cursor: pointer;
+}
+
+menu {
+  margin: 0;
+  padding: 0;
 }

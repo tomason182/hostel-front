@@ -1,22 +1,49 @@
-.mainContent {
-  padding-left: var(--spacing-lg);
+.mainForm {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  max-width: 39vw;
+  margin: 2rem auto;
+  border-radius: var(--border-radius-large);
+  padding: 1rem 2rem;
+  box-shadow: var(--box-shadow-large);
+  background-color: #fff;
 }
 
-.title {
-  font-family: var(--font-primary);
-  font-size: var(--font-size-h2);
+.hidden {
+  display: none;
 }
 
-.mainContent dl {
-  padding-left: var(--spacing-xl);
+.mainForm fieldset {
+  position: relative;
+  display: block;
+  margin-bottom: 1rem;
 }
 
-.mainContent dl dt {
+.mainForm fieldset legend {
+  border: 1px solid #333;
+  padding: 0.1rem 0.5rem;
   font-family: var(--font-bold);
-  padding-bottom: var(--padding-xs);
+  color: #fff;
+  background-color: var(--text-color-dark);
+  font-size: var(--font-size-small);
 }
 
-.mainContent dl dd {
-  font-family: var(--font-primary);
+.mainForm label {
   font-size: var(--font-size-small);
+}
+
+.mainForm input {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: var(--border-radius-large);
+  border-color: var(--border-color);
+  color: var(--text-color-light);
+  font-size: var(--font-size-small);
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
 }
