@@ -1,11 +1,27 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "../../styles/NavigationMain.module.css";
 function NavigationMain() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   let location = useLocation();
 
   const isPropertyActive = location.pathname.includes("/property");
+
+  useEffect(() => {
+    function handleClicksOutside(e) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target))
+        setIsDropdownOpen(false);
+    }
+
+    if (isDropdownOpen === true) {
+      document.addEventListener("click", handleClicksOutside);
+    } else {
+      document.removeEventListener("click", handleClicksOutside);
+    }
+
+    return () => document.removeEventListener("click", handleClicksOutside);
+  }, [isDropdownOpen]);
 
   return (
     <menu role="menu" id={styles.mainMenu}>
@@ -38,34 +54,29 @@ function NavigationMain() {
       </NavLink>
 
       {/* Dropdown Menu for Property */}
-      <div
-        tabIndex={0}
-        className={`${styles.propertyDropdownContainer} ${
-          isPropertyActive ? styles.active : ""
-        }`}
-        onMouseEnter={() => setIsDropdownOpen(true)}
-        onMouseLeave={() => setIsDropdownOpen(false)}
-      >
-        <span
-          className={styles.propertyDropdownLabel}
-          aria-label="Property menu"
-          role="button"
+      <div className={styles.propertyDropdownContainer}>
+        <a
+          className={isPropertyActive ? styles.active : ""}
+          href="#"
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          ref={dropdownRef}
         >
           Property
-        </span>
-        <div
-          className={`${styles.propertyDropdown} ${
-            isDropdownOpen ? styles.open : ""
-          } `}
-        >
-          <NavLink to="/app/property/general-info">General info</NavLink>
-          <NavLink to="/app/property/property-details">
-            Property details
-          </NavLink>
-          <NavLink to="/app/property/room-types">Room types</NavLink>
-
-          <NavLink to="/property/users">Users</NavLink>
-        </div>
+        </a>
+        {isDropdownOpen && (
+          <div
+            className={`${styles.propertyDropdown} ${
+              isDropdownOpen ? styles.open : ""
+            }`}
+          >
+            <NavLink to="/app/property/general-info">General info</NavLink>
+            <NavLink to="/app/property/property-details">
+              Property details
+            </NavLink>
+            <NavLink to="/app/property/room-types">Room types</NavLink>
+            <NavLink to="/property/users">Users</NavLink>
+          </div>
+        )}
       </div>
     </menu>
   );
