@@ -1,0 +1,22 @@
+.mainContent {
+  padding-left: var(--spacing-lg);
+}
+
+.title {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-h2);
+}
+
+.mainContent dl {
+  padding-left: var(--spacing-xl);
+}
+
+.mainContent dl dt {
+  font-family: var(--font-bold);
+  padding-bottom: var(--padding-xs);
+}
+
+.mainContent dl dd {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-small);
+}
