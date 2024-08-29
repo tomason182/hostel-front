@@ -96,8 +96,12 @@ function PropertyDetails() {
           />
         </fieldset>
         <div className={styles.buttonContainer}>
-          <button type="reset">Reset</button>
-          <button type="submit">Save changes</button>
+          <button type="reset" className={styles.resetBtn}>
+            Reset
+          </button>
+          <button type="submit" className={styles.submitBtn}>
+            Save changes
+          </button>
         </div>
       </form>
     </div>

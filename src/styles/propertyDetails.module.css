@@ -31,6 +31,7 @@
 
 .mainForm label {
   font-size: var(--font-size-small);
+  color: var(--text-color-dark);
 }
 
 .mainForm input {
@@ -46,4 +47,27 @@
 .buttonContainer {
   display: flex;
   justify-content: space-around;
+}
+
+.buttonContainer button {
+  padding: var(--padding-s) var(--padding-m);
+  border-radius: var(--border-radius);
+}
+
+.resetBtn {
+  background-color: #333;
+  opacity: 0.8;
+}
+
+.resetBtn:hover {
+  background-color: #333;
+  opacity: 1;
+}
+
+.submitBtn {
+  background-color: var(--primary-color);
+}
+
+.submitBtn:hover {
+  background-color: var(--primary-color-dark);
 }

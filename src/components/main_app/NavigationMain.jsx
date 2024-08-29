@@ -39,10 +39,10 @@ function NavigationMain() {
 
       {/* Dropdown Menu for Property */}
       <div
+        tabIndex={0}
         className={`${styles.propertyDropdownContainer} ${
           isPropertyActive ? styles.active : ""
         }`}
-        tabIndex="0"
         onMouseEnter={() => setIsDropdownOpen(true)}
         onMouseLeave={() => setIsDropdownOpen(false)}
       >
