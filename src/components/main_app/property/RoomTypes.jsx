@@ -28,23 +28,28 @@ function RoomTypes() {
     </tr>
   ));
   return (
-    <table id={styles.roomTypeTable}>
-      <caption>Room types</caption>
-      <thead>
-        <tr>
-          <th scope="col">Description</th>
-          <th scope="col">Type</th>
-          <th scope="col">gender</th>
-          <th scope="col">bathroom</th>
-          <th scope="col">Max occupancy</th>
-          <th scope="col">Inventory</th>
-          <th scope="col">Base rate</th>
-          <th scope="col">Currency</th>
-          <th scope="col">Edit</th>
-        </tr>
-      </thead>
-      <tbody>{tableRows}</tbody>
-    </table>
+    <div className={styles.roomTypeContainer}>
+      <button className={styles.createRoomTypeBtn} type="button">
+        Create Room Type
+      </button>
+      <table id={styles.table}>
+        <caption>Room types</caption>
+        <thead>
+          <tr>
+            <th scope="col">Description</th>
+            <th scope="col">Type</th>
+            <th scope="col">gender</th>
+            <th scope="col">bathroom</th>
+            <th scope="col">Max occupancy</th>
+            <th scope="col">Inventory</th>
+            <th scope="col">Base rate</th>
+            <th scope="col">Currency</th>
+            <th scope="col">Edit</th>
+          </tr>
+        </thead>
+        <tbody>{tableRows}</tbody>
+      </table>
+    </div>
   );
 }
 

@@ -1,41 +1,73 @@
-#roomTypeTable {
-  display: block;
-  padding: 1rem 3rem;
-  border-collapse: collapse;
-  background-color: #fff;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+.roomTypeContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  max-width: 1326px;
+  margin: 0 auto;
 }
 
-#roomTypeTable caption {
+.createRoomTypeBtn {
+  width: 13rem;
+  align-self: flex-end;
+  padding: 1rem 1rem;
+  background-color: var(--primary-color);
+  border-radius: var(--border-radius-large);
+}
+
+#table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  background-color: #fff;
+  width: 100%;
+  font-size: var(--font-size-small);
+}
+
+#table thead th:nth-child(1) {
+  width: 60%;
+}
+
+#table thead th:nth-child(2),
+#table thead th:nth-child(3),
+#table thead th:nth-child(4),
+#table thead th:nth-child(6),
+#table thead th:nth-child(7),
+#table thead th:nth-child(8),
+#table thead th:nth-child(9) {
+  width: 15%;
+}
+
+#table thead th:nth-child(5) {
+  width: 25%;
+}
+
+#table caption {
   transform: translateX();
   font-size: var(--font-size-h2);
   padding: 0.5rem 0 1rem 0;
 }
 
-#roomTypeTable thead {
-  font-size: var(--font-size-small);
-  background-color: brown;
-  color: #fff;
+#table thead {
+  background-color: #fff;
+  color: #000;
+  height: 4rem;
 }
 
-#roomTypeTable td,
-#roomTypeTable th {
-  border: 1px solid #ccc;
-  padding: 0.3rem 0.5rem;
-  font-size: small;
+#table td,
+#table th {
   padding: 0.8rem 1rem;
+  border-bottom: 1px solid #ccc;
 }
 
-#roomTypeTable th:first-child {
+#table th:first-child {
   text-align: left;
 }
 
-#roomTypeTable td {
-  text-align: center;
+#table th {
+  font-family: var(--font-bold);
 }
 
-#roomTypeTable tr {
-  font-size: var(--font-size-small);
+#table td {
+  text-align: center;
 }
 
 .editBtn {
