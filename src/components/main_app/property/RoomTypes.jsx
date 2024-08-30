@@ -1,7 +1,11 @@
 import { roomTypes } from "./room_types_mocked.js";
+import { useRef } from "react";
+import RoomTypeForm from "../../forms/RoomTypeForm.jsx";
 import styles from "../../../styles/RoomTypes.module.css";
 
 function RoomTypes() {
+  const dialogRef = useRef(null);
+
   const tableRows = roomTypes.map(roomType => (
     <tr key={roomType._id}>
       <th scope="row">{roomType.description}</th>
@@ -29,7 +33,14 @@ function RoomTypes() {
   ));
   return (
     <div className={styles.roomTypeContainer}>
-      <button className={styles.createRoomTypeBtn} type="button">
+      <dialog ref={dialogRef} id="createRoomTypeDialog">
+        <RoomTypeForm refProps={dialogRef} />
+      </dialog>
+      <button
+        className={styles.createRoomTypeBtn}
+        type="button"
+        onClick={() => dialogRef.current?.showModal()}
+      >
         Create Room Type
       </button>
       <table id={styles.table}>
