@@ -95,14 +95,14 @@ function PropertyDetails() {
             defaultValue={propertyDetails.address.country_code}
           />
         </fieldset>
-        <div className={styles.buttonContainer}>
+        <menu className={styles.buttonContainer}>
           <button type="reset" className={styles.resetBtn}>
             Reset
           </button>
           <button type="submit" className={styles.submitBtn}>
             Save changes
           </button>
-        </div>
+        </menu>
       </form>
     </div>
   );
