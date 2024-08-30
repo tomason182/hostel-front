@@ -21,12 +21,6 @@ html {
 body {
   font-size: 1rem;
   color: var(--text-color);
-  background-color: var(--background-color);
-}
-
-/* Main content container */
-
-#root {
   background-color: var(--second-background);
 }
 
