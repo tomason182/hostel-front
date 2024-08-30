@@ -33,7 +33,7 @@ function RoomTypes() {
   ));
   return (
     <div className={styles.roomTypeContainer}>
-      <dialog ref={dialogRef} id="createRoomTypeDialog">
+      <dialog ref={dialogRef} id={styles.dialog}>
         <RoomTypeForm refProps={dialogRef} />
       </dialog>
       <button

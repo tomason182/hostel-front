@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import styles from "../../styles/RoomTypeForm.module.css";
 
 export default function RoomTypeForm({ refProps }) {
   const handleSubmit = e => {
@@ -10,7 +11,7 @@ export default function RoomTypeForm({ refProps }) {
   };
 
   return (
-    <form method="dialog" onSubmit={handleSubmit}>
+    <form className={styles.form} method="dialog" onSubmit={handleSubmit}>
       <section>
         <label htmlFor="description">Description</label>
         <input
