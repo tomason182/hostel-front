@@ -19,20 +19,25 @@ export default function RoomTypeForm({ refProps }) {
       onSubmit={handleSubmit}
     >
       <section>
-        <label htmlFor="description">Description</label>
-        <input
-          type="text"
-          id="description"
-          name="description"
-          minLength={3}
-          maxLength={100}
-          required
-          aria-required
-          autoFocus
-        />
+        <fieldset>
+          <legend>Room Type description</legend>
+          <label htmlFor="description" className={formDefault.hidden}>
+            Description
+          </label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            minLength={3}
+            maxLength={100}
+            required
+            aria-required
+          />
+        </fieldset>
+
         <div className={styles.flexContainer}>
           <fieldset>
-            <legend>Select the room type</legend>
+            <legend>Room Type selection: Dormitory or Private</legend>
             <div className={styles.radioInputContainer}>
               <label htmlFor="private">Private</label>
               <input
@@ -80,11 +85,87 @@ export default function RoomTypeForm({ refProps }) {
         <fieldset>
           <legend>Room Capacity & Pricing Details</legend>
           <div className={styles.gridContainer}>
-            <label htmlFor="max_occupancy">Max occupancy</label>
+            <label htmlFor="max_occupancy" className={styles.labelContainer}>
+              Max occupancy
+              <span className={styles.tooltipContainer}>
+                <svg
+                  className={styles.infoIcon}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-describedby="maxOccupancyInfo"
+                  role="img"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span
+                  id="maxOccupancyInfo"
+                  role="tooltip"
+                  className={styles.tooltip}
+                >
+                  Maximum number of guests allowed in the room
+                </span>
+              </span>
+            </label>
             <input type="number" id="max_occupancy" required min={1} max={20} />
-            <label htmlFor="inventory">Inventory</label>
+            <label htmlFor="inventory" className={styles.labelContainer}>
+              Inventory
+              <span className={styles.tooltipContainer}>
+                <svg
+                  className={styles.infoIcon}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-describedby="inventory"
+                  role="img"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span id="inventory" role="tooltip" className={styles.tooltip}>
+                  Number of room of the same type
+                </span>
+              </span>
+            </label>
             <input type="number" id="inventory" required min={1} max={10} />
-            <label htmlFor="base_rate">Base rate</label>
+            <label htmlFor="base_rate" className={styles.labelContainer}>
+              Base rate{" "}
+              <span className={styles.tooltipContainer}>
+                <svg
+                  className={styles.infoIcon}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-labelledby="base_rate"
+                  role="img"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span id="base_rate" role="tooltip" className={styles.tooltip}>
+                  Base rate per night and per guest
+                </span>
+              </span>
+            </label>
             <input
               type="number"
               id="base_rate"

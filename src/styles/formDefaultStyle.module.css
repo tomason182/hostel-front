@@ -62,12 +62,6 @@
   padding: 0;
 }
 
-.mainForm input[type="radio"]:focus,
-.mainForm input[type="radio"]:active {
-  appearance: none;
-  outline: none;
-}
-
 .buttonContainer {
   display: flex;
   justify-content: space-around;
