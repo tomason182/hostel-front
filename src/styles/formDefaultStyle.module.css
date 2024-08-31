@@ -1,8 +1,5 @@
 .mainForm {
-  display: flex;
-  gap: 1rem;
-  flex-direction: column;
-  max-width: 39vw;
+  max-width: 32rem;
   margin: 2rem auto;
   border-radius: var(--border-radius-large);
   padding: 1rem 2rem;
