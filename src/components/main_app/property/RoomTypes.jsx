@@ -34,6 +34,23 @@ function RoomTypes() {
   return (
     <div className={styles.roomTypeContainer}>
       <dialog ref={dialogRef} id={styles.dialog}>
+        <div className={styles.dialogHeader}>
+          <h3>Create a new Room type</h3>
+          <button type="button">
+            <svg
+              xmlns="http://w3.org/2000/svg"
+              aria-label="Dialog close button"
+              width={24}
+              height={24}
+              viewBox="0 0 24 24"
+              fill="none"
+              className={styles.dialogCloseIcon}
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
         <RoomTypeForm refProps={dialogRef} />
       </dialog>
       <button

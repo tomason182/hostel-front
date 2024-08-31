@@ -1,4 +1,4 @@
-import styles from "../../../styles/propertyDetails.module.css";
+import styles from "../../../styles/formDefaultStyle.module.css";
 
 function PropertyDetails() {
   const propertyDetails = {

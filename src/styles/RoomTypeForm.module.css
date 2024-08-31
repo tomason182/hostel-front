@@ -1,3 +1,27 @@
-::backdrop {
-  backdrop-filter: blur(10px);
+#form {
+  box-shadow: none;
+}
+
+.flexContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.flexContainer fieldset {
+  width: 100%;
+}
+
+.radioInputContainer {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
 }

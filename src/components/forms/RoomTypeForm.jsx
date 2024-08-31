@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import formDefault from "../../styles/formDefaultStyle.module.css";
 import styles from "../../styles/RoomTypeForm.module.css";
 
 export default function RoomTypeForm({ refProps }) {
@@ -11,7 +12,12 @@ export default function RoomTypeForm({ refProps }) {
   };
 
   return (
-    <form className={styles.form} method="dialog" onSubmit={handleSubmit}>
+    <form
+      id={styles.form}
+      className={formDefault.mainForm}
+      method="dialog"
+      onSubmit={handleSubmit}
+    >
       <section>
         <label htmlFor="description">Description</label>
         <input
@@ -23,64 +29,79 @@ export default function RoomTypeForm({ refProps }) {
           required
           aria-required
         />
-        <fieldset>
-          <legend>RoomType</legend>
-          <div>
-            <label htmlFor="private">Private room</label>
-            <input
-              type="radio"
-              id="private"
-              name="type"
-              value="private"
-              checked
-            />
-          </div>
-          <div>
-            <label htmlFor="dormitory">Dormitory</label>
-            <input type="radio" id="dormitory" name="type" value="dormitory" />
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Bathroom type</legend>
-          <div>
-            <label htmlFor="private_bathroom">Private bathroom</label>
-            <input
-              type="radio"
-              id="private_bathroom"
-              name="bathroom"
-              value="private"
-              checked
-            />
-          </div>
-          <div>
-            <label htmlFor="share_bathroom">Share bathroom</label>
-            <input
-              type="radio"
-              id="share_bathroom"
-              name="bathroom"
-              value="share"
-            />
-          </div>
-        </fieldset>
-        <label htmlFor="max_occupancy">Max occupancy</label>
-        <input type="number" id="max_occupancy" required min={1} max={20} />
-        <label htmlFor="inventory">Inventory</label>
-        <input type="number" id="inventory" required min={1} max={10} />
-        <label htmlFor="base_rate">Base rate</label>
-        <input
-          type="number"
-          id="base_rate"
-          name="base_rate"
-          required
-          min={1}
-          max={1000}
-        />
+        <div className={styles.flexContainer}>
+          <fieldset>
+            <legend>Select the room type</legend>
+            <div className={styles.radioInputContainer}>
+              <label htmlFor="private">Private</label>
+              <input
+                type="radio"
+                id="private"
+                name="type"
+                value="private"
+                checked
+              />
+            </div>
+            <div className={styles.radioInputContainer}>
+              <label htmlFor="dormitory">Dorm</label>
+              <input
+                type="radio"
+                id="dormitory"
+                name="type"
+                value="dormitory"
+              />
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Bathroom type</legend>
+            <div className={styles.radioInputContainer}>
+              <label htmlFor="private_bathroom">Private</label>
+              <input
+                type="radio"
+                id="private_bathroom"
+                name="bathroom"
+                value="private"
+                checked
+              />
+            </div>
+            <div className={styles.radioInputContainer}>
+              <label htmlFor="share_bathroom">Shared</label>
+              <input
+                type="radio"
+                id="share_bathroom"
+                name="bathroom"
+                value="share"
+              />
+            </div>
+          </fieldset>
+        </div>
+        <div className={styles.gridContainer}>
+          <label htmlFor="max_occupancy">Max occupancy</label>
+          <input type="number" id="max_occupancy" required min={1} max={20} />
+          <label htmlFor="inventory">Inventory</label>
+          <input type="number" id="inventory" required min={1} max={10} />
+          <label htmlFor="base_rate">Base rate</label>
+          <input
+            type="number"
+            id="base_rate"
+            name="base_rate"
+            required
+            min={1}
+            max={1000}
+          />
+        </div>
       </section>
-      <menu>
-        <button type="reset" onClick={() => refProps.current?.close()}>
+      <menu className={formDefault.buttonContainer}>
+        <button
+          className={formDefault.resetBtn}
+          type="reset"
+          onClick={() => refProps.current?.close()}
+        >
           Cancel
         </button>
-        <button type="submit">Save</button>
+        <button className={formDefault.submitBtn} type="submit">
+          Save
+        </button>
       </menu>
     </form>
   );
