@@ -28,6 +28,7 @@ export default function RoomTypeForm({ refProps }) {
           maxLength={100}
           required
           aria-required
+          autoFocus
         />
         <div className={styles.flexContainer}>
           <fieldset>
@@ -75,21 +76,25 @@ export default function RoomTypeForm({ refProps }) {
             </div>
           </fieldset>
         </div>
-        <div className={styles.gridContainer}>
-          <label htmlFor="max_occupancy">Max occupancy</label>
-          <input type="number" id="max_occupancy" required min={1} max={20} />
-          <label htmlFor="inventory">Inventory</label>
-          <input type="number" id="inventory" required min={1} max={10} />
-          <label htmlFor="base_rate">Base rate</label>
-          <input
-            type="number"
-            id="base_rate"
-            name="base_rate"
-            required
-            min={1}
-            max={1000}
-          />
-        </div>
+
+        <fieldset>
+          <legend>Room Capacity & Pricing Details</legend>
+          <div className={styles.gridContainer}>
+            <label htmlFor="max_occupancy">Max occupancy</label>
+            <input type="number" id="max_occupancy" required min={1} max={20} />
+            <label htmlFor="inventory">Inventory</label>
+            <input type="number" id="inventory" required min={1} max={10} />
+            <label htmlFor="base_rate">Base rate</label>
+            <input
+              type="number"
+              id="base_rate"
+              name="base_rate"
+              required
+              min={1}
+              max={1000}
+            />
+          </div>
+        </fieldset>
       </section>
       <menu className={formDefault.buttonContainer}>
         <button
