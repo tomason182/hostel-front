@@ -1,9 +1,11 @@
 import styles from "../../../styles/Reservations.module.css";
+import { Link } from "react-router-dom";
 import { reservations } from "../../../data_mocked";
+
 function Reservations() {
   const listItems = reservations.map(reservation => (
     <li key={reservation._id}>
-      <p>{reservation._id}</p>
+      <Link>{reservation._id}</Link>
       <p>{reservation.guest_id}</p>
       <p className={styles.dates}>{reservation.check_in_date}</p>
       <p className={styles.dates}>{reservation.check_out_date}</p>
