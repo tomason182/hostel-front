@@ -1,4 +1,4 @@
-import { roomTypes } from "./room_types_mocked.js";
+import { roomTypes } from "../../../data_mocked.js";
 import { useRef } from "react";
 import RoomTypeForm from "../../forms/RoomTypeForm.jsx";
 import styles from "../../../styles/RoomTypes.module.css";
