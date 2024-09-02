@@ -9,6 +9,7 @@ import Reservations from "../components/main_app/reservations/Reservations";
 import GeneralInfo from "../components/main_app/property/GeneralInfo";
 import PropertyDetails from "../components/main_app/property/PropertyDetails";
 import RoomTypes from "../components/main_app/property/RoomTypes";
+import LoginPage from "../components/accounts/LoginPage";
 
 const routes = [
   {
@@ -19,6 +20,10 @@ const routes = [
   {
     path: "/accounts/signup",
     element: <RegistrationPage />,
+  },
+  {
+    path: "/accounts/login",
+    element: <LoginPage />,
   },
   {
     path: "/app",

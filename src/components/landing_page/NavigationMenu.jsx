@@ -9,7 +9,7 @@ function NavigationMenu() {
       <Link to="#">Pricing</Link>
       <Link to="#">Contact</Link>
       <Link to="#">About us</Link>
-      <Link to="#"> Sign in</Link>
+      <Link to="/accounts/login"> Sign in</Link>
       <Link to="/accounts/signup" className={styles.btnPrimary}>
         Create Account
       </Link>

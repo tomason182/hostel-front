@@ -2,8 +2,8 @@
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  width: 33vw;
+  /* margin: 0 auto; */
+  max-width: 26rem;
   padding: var(--padding-m) var(--padding-l);
   border-radius: var(--border-radius-large);
   box-shadow: var(--box-shadow-large);
@@ -35,11 +35,17 @@
   margin-bottom: var(--margin-s);
 }
 
+.extras {
+  font-size: var(--font-size-small);
+  margin-top: var(--margin-l);
+  text-align: right;
+}
+
 p > small {
   font-family: var(--font-italic);
 }
 
-@media (max-width: 959px) {
+/* @media (max-width: 959px) {
   .form {
     width: 50vw;
   }
@@ -49,4 +55,4 @@ p > small {
   .form {
     width: 80vw;
   }
-}
+} */
