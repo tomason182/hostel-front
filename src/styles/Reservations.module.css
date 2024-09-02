@@ -1,0 +1,70 @@
+.title {
+  font-size: var(--font-size-h3);
+  padding: 0.5rem 0 0.25rem 1rem;
+}
+
+hr.solid {
+  width: 75%;
+  text-align: left;
+  margin: 0;
+}
+
+.form {
+  margin-top: 1rem;
+  padding-left: 1rem;
+  max-width: 55rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form label {
+  font-size: var(--font-size-small);
+  color: var(--text-color-light);
+}
+
+.form > input {
+  appearance: none;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-color-dark);
+  font-size: var(--font-size-small);
+  padding: 0.25rem 0.75rem;
+}
+
+.form button {
+  margin-left: 3rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius);
+  background-color: var(--primary-color);
+}
+
+.form button:hover {
+  background-color: var(--primary-color-light);
+}
+
+.reservationsList {
+  margin-top: 2rem;
+}
+
+.reservationsList li {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+  max-width: 60rem;
+  border-top: 1px solid var(--border-color);
+  padding: 0.5rem 0;
+  font-size: var(--font-size-small);
+  color: var(--text-color);
+}
+
+.reservationsList li:last-child {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.prices {
+  text-align: right;
+}
+
+.dates {
+  text-align: center;
+}
