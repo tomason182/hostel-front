@@ -88,7 +88,14 @@ export default function ReservationDetails() {
         </div>
       </div>
       <div className={styles.controlPanel}>
-        <h1>Control panel</h1>
+        <p>Update this reservation</p>
+        <button className={styles.btnLarge}>
+          Change reservation dates & price
+        </button>
+        <button className={styles.btnLarge}>Change reservation details</button>
+        <button className={styles.btnLarge}>Not a button</button>
+        <button className={styles.btnCancel}>Cancel reservation</button>
+        <button className={styles.btnPaid}>Paid</button>
       </div>
     </div>
   );
