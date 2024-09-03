@@ -21,7 +21,7 @@ html {
 body {
   font-size: 1rem;
   color: var(--text-color);
-  background-color: var(--second-background);
+  background-color: #fff;
 }
 
 /* Global link style */
