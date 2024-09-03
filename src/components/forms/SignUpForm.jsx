@@ -38,18 +38,12 @@ function SignUpForm() {
         type="password"
         id="psw"
         name="password"
-        title="Must contain at least fourteen characters, four lower case letters, two upper case letters, two digits and two special characters"
         required
         aria-required
+        aria-labelledby="psw_requirements"
         minLength={14}
         pattern="(^(?=(?:.*\d){2,})(?=(?:.*[a-z]){4,})(?=(?:.*[A-Z]){2,})(?=(?:.*[\W_]){2,}).+$)"
       />
-      <p className={styles.info}>
-        <small>
-          Password must contain at least 14 characters, 4 lower case letters,
-          two upper case letters, two digits and two special characters
-        </small>
-      </p>
       <label htmlFor="psw_confirm">Password confirmation</label>
       <input
         type="password"
@@ -58,6 +52,12 @@ function SignUpForm() {
         required
         aria-required
       />
+      <p id="psw_requirements" className={styles.info}>
+        <small>
+          Password must contain at least 14 characters, 4 lower case letters,
+          two upper case letters, two digits and two special characters
+        </small>
+      </p>
       <button className={styles.submitBtn} type="submit">
         Sign up
       </button>

@@ -36,7 +36,8 @@
 }
 
 .info {
-  margin-bottom: var(--margin-s);
+  margin: var(--margin-s) 0;
+  color: var(--text-color-dark);
 }
 
 .extras {
