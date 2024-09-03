@@ -24,11 +24,15 @@
 }
 
 .submitBtn {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   padding: var(--padding-m) var(--padding-m);
   border-radius: var(--border-radius);
   margin-top: var(--margin-l);
   margin-bottom: 4rem;
+}
+
+.submitBtn:hover {
+  background-color: var(--secondary-color-dark);
 }
 
 .info {
