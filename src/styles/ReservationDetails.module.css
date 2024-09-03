@@ -25,15 +25,12 @@
   margin-bottom: 0.5rem;
 }
 
-.one span {
-  padding-left: 1rem;
+.one dt {
   font-size: var(--font-size-small);
   color: var(--text-color-light);
 }
 
-.one p {
-  padding-left: 2.5rem;
-  margin: 0.5rem 0;
+.one dd {
   display: flex;
   gap: 0.5rem;
   font-size: var(--font-size-small);
