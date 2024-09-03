@@ -50,6 +50,11 @@ p > small {
   font-family: var(--font-italic);
 }
 
+.error {
+  font-size: var(--font-size-small);
+  color: var(--error-color);
+}
+
 /* @media (max-width: 959px) {
   .form {
     width: 50vw;

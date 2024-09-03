@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 
-export default function useFetch({ url }) {
+export default function useFetch({ url, options }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(url, { mode: "cors" })
+    fetch(url, options, { mode: "cors" })
       .then(response => {
         if (response.status >= 400) {
           throw new Error("Server Error");
