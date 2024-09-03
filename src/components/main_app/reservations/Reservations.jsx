@@ -5,7 +5,7 @@ import { reservations } from "../../../data_mocked";
 function Reservations() {
   const listItems = reservations.map(reservation => (
     <li key={reservation._id}>
-      <Link>{reservation._id}</Link>
+      <Link to={reservation._id}>{reservation._id}</Link>
       <p>{reservation.guest_id}</p>
       <p className={styles.dates}>{reservation.check_in_date}</p>
       <p className={styles.dates}>{reservation.check_out_date}</p>

@@ -10,6 +10,7 @@ import GeneralInfo from "../components/main_app/property/GeneralInfo";
 import PropertyDetails from "../components/main_app/property/PropertyDetails";
 import RoomTypes from "../components/main_app/property/RoomTypes";
 import LoginPage from "../components/accounts/LoginPage";
+import ReservationDetails from "../components/main_app/reservations/ReservationDetails";
 
 const routes = [
   {
@@ -44,6 +45,10 @@ const routes = [
       {
         path: "reservations",
         element: <Reservations />,
+      },
+      {
+        path: "reservations/:id",
+        element: <ReservationDetails />,
       },
       {
         path: "property/general-info",
