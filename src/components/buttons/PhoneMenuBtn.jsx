@@ -53,13 +53,13 @@ function PhoneMenuBtn() {
             </svg>
           </button>
           <h1>The Hostel Project</h1>
-          <Link>Home</Link>
+          <Link to="/">Home</Link>
           <Link>Services</Link>
           <Link>Pricing</Link>
           <Link>Contact</Link>
           <Link>About As</Link>
-          <Link>Sign In</Link>
-          <Link>Create Account</Link>
+          <Link to="/accounts/login">Sign In</Link>
+          <Link to="/accounts/signup">Create Account</Link>
         </nav>
       </div>
     </>
