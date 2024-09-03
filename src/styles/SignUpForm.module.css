@@ -12,7 +12,7 @@
 .form > label {
   font-size: var(--font-size-small);
   font-family: var(--primary-font);
-  color: var(--text-color-dark);
+  color: var(--text-color);
   margin-bottom: var(--margin-s);
 }
 
@@ -25,7 +25,7 @@
 
 .submitBtn {
   background-color: var(--primary-color);
-  padding: var(--padding-s) var(--padding-m);
+  padding: var(--padding-m) var(--padding-m);
   border-radius: var(--border-radius);
   margin-top: var(--margin-l);
   margin-bottom: 4rem;

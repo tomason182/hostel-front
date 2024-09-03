@@ -37,7 +37,6 @@
   --text-color-dark: rgb(51 51 51);
   --text-color-light: rgb(51 51 51 / 0.75);
   --muted-color: rgb(127, 140, 141);
-  --border-color: rgb(209 213 219);
 
   /* Alert Colors */
   --error-color: #c1121f;
@@ -88,6 +87,8 @@
   --border-style: solid;
   --border-radius: 0.25rem;
   --border-radius-large: 0.5rem;
+  --border-color: #adb5bd;
+  --border-color-dark: #495057;
 
   /* Box Shadow */
   --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
