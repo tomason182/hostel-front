@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import styles from "../../../styles/ReservationDetails.module.css";
 import { reservations } from "../../../data_mocked";
 
@@ -11,6 +11,22 @@ export default function ReservationDetails() {
 
   return (
     <div className={styles.mainContainer}>
+      <Link className={styles.goBackLink} to="/app/reservations">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#000000"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M19 12H6M12 5l-7 7 7 7" />
+        </svg>
+        <span>back</span>
+      </Link>
       <div className={styles.reservationDetails}>
         <div className={styles.one}>
           <h3>{reservationData[0].guest_id}</h3>

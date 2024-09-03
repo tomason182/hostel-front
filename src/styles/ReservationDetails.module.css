@@ -1,8 +1,14 @@
 .mainContainer {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 5rem;
-  padding: 3rem;
+  grid-auto-rows: minmax(1rem, auto);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.goBackLink {
+  display: flex;
+  gap: 0.25rem;
 }
 
 /* Reservation Container & Control panel common properties*/
@@ -10,6 +16,7 @@
 .reservationDetails,
 .controlPanel {
   padding: 1rem 0.5rem;
+  grid-row: 2;
 }
 
 /* Reservation Container */
@@ -28,6 +35,7 @@
 .one dt {
   font-size: var(--font-size-small);
   color: var(--text-color-light);
+  margin: 0.5rem 0;
 }
 
 .one dd {
