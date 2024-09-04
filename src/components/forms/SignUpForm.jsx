@@ -7,7 +7,7 @@ function SignUpForm() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [submit, setSubmit] = useState(false);
 
-  function handleClick(event) {
+  function handleSubmit(event) {
     event.preventDefault();
 
     const { name, property_name, username, password, psw_confirm } =
@@ -29,7 +29,7 @@ function SignUpForm() {
   }
 
   const { data, error, loading } = useFetch(
-    submit && formBody !== null
+    submit !== null && formBody !== null
       ? {
           url: "http://localhost:5000/api/v1/users/register",
           options: {
@@ -65,7 +65,7 @@ function SignUpForm() {
   }, [data, error]);
 
   return (
-    <form className={styles.form} onSubmit={handleClick}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <label htmlFor="name">Name</label>
       <input
         type="text"
