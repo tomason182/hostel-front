@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 
 function SignUpForm() {
   const [formBody, setFormBody] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [submit, setSubmit] = useState(false);
 
   function handleClick(event) {
@@ -33,6 +33,7 @@ function SignUpForm() {
       ? {
           url: "http://localhost:5000/api/v1/users/register",
           options: {
+            mode: "cors",
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -40,18 +41,30 @@ function SignUpForm() {
             body: JSON.stringify(formBody),
           },
         }
-      : null
+      : { url: null, options: null }
   );
 
-  console.log(data, error, loading);
+  useEffect(() => {
+    if (data) {
+      console.log("User registered successfully", data);
+      // Handle successful registration (redirect to mail confirmation)
+    }
+    if (error) {
+      console.log("Error during registration", error);
+      setErrorMessage(
+        "There was an issue with the registration. Please try again"
+      );
+    }
+    setSubmit(false);
+  }, [data, error]);
 
   return (
     <form className={styles.form} onSubmit={handleClick}>
-      <label htmlFor="name">Name</label>
+      <label htmlFor="firstName">Name</label>
       <input
         type="text"
-        id="name"
-        name="first_name"
+        id="firstName"
+        name="firstName"
         required
         aria-required
         minLength={2}
@@ -67,13 +80,14 @@ function SignUpForm() {
         minLength={2}
         maxLength={100}
       />
-      <label htmlFor="email">Email</label>
+      <label htmlFor="username">Email</label>
       <input
         type="email"
-        id="email"
+        id="username"
         name="username"
         required
         aria-required
+        aria-labelledby={errorMessage ? "emailError" : null}
         minLength={5}
         maxLength={50}
       />
@@ -86,7 +100,7 @@ function SignUpForm() {
         aria-required
         aria-labelledby="psw_requirements"
         minLength={14}
-        pattern="(^(?=(?:.*\d){2,})(?=(?:.*[a-z]){4,})(?=(?:.*[A-Z]){2,})(?=(?:.*[\W_]){2,}).+$)"
+        pattern="(^(?!.*\s)(?=(?:.*\d){2,})(?=(?:.*[a-z]){4,})(?=(?:.*[A-Z]){2,})(?=(?:.*[\W_]){2,}).+$)"
       />
       <label htmlFor="psw_confirm">Password confirmation</label>
       <input
@@ -95,9 +109,19 @@ function SignUpForm() {
         name="psw_confirm"
         required
         aria-required
+        aria-describedby={errorMessage ? "passwordError" : null}
       />
       {errorMessage && (
-        <span className={styles.error}>Passwords don&#39;t match</span>
+        <span
+          id={
+            errorMessage === "Passwords don't match"
+              ? "passwordError"
+              : "emailError"
+          }
+          className={styles.error}
+        >
+          {errorMessage}
+        </span>
       )}
       <p id="psw_requirements" className={styles.info}>
         <small>
@@ -105,8 +129,8 @@ function SignUpForm() {
           two upper case letters, two digits and two special characters
         </small>
       </p>
-      <button className={styles.submitBtn} type="submit">
-        Sign up
+      <button className={styles.submitBtn} type="submit" disabled={loading}>
+        {loading ? "Signing up..." : "Sign up"}
       </button>
     </form>
   );
