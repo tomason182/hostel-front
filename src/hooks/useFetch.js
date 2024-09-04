@@ -6,14 +6,15 @@ export default function useFetch({ url, options }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (url && options !== null) {
+    if (url !== null && options !== null) {
       setLoading(true);
       setError(null);
 
       fetch(url, options)
-        .then(response => {
+        .then(async response => {
           if (response.status >= 400) {
-            throw new Error(`Server error: ${response.status}`);
+            const errorMessage = await response.json();
+            throw new Error(JSON.stringify(errorMessage));
           }
           return response.json();
         })

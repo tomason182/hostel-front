@@ -18,7 +18,7 @@ function SignUpForm() {
     } else {
       setErrorMessage(null);
       setFormBody({
-        name: name.value,
+        firstName: name.value,
         propertyName: property_name.value,
         username: username.value,
         password: password.value,
@@ -50,21 +50,27 @@ function SignUpForm() {
       // Handle successful registration (redirect to mail confirmation)
     }
     if (error) {
-      console.log("Error during registration", error);
-      setErrorMessage(
-        "There was an issue with the registration. Please try again"
-      );
+      let errorMsg = null;
+      try {
+        const errorObj = JSON.parse(error.message);
+        errorMsg = errorObj.msg;
+      } catch (parseError) {
+        console.log(parseError);
+        errorMsg = "An unexpected error ocurred.";
+      }
+
+      setErrorMessage(errorMsg);
     }
     setSubmit(false);
   }, [data, error]);
 
   return (
     <form className={styles.form} onSubmit={handleClick}>
-      <label htmlFor="firstName">Name</label>
+      <label htmlFor="name">Name</label>
       <input
         type="text"
-        id="firstName"
-        name="firstName"
+        id="name"
+        name="name"
         required
         aria-required
         minLength={2}
