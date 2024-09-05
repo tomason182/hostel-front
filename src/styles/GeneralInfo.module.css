@@ -1,0 +1,13 @@
+.mainContainer {
+  margin-top: 1rem;
+  display: grid;
+  gap: 2rem;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(250px, max-content));
+}
+
+.subContainer {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  min-height: 10rem;
+}
