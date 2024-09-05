@@ -1,5 +1,5 @@
 import styles from "../../../styles/GeneralInfo.module.css";
-import { property } from "../../../data_mocked";
+import PropertyInfoSub from "./PropertyInfoSub";
 
 function GeneralInfo() {
   return (
@@ -9,6 +9,7 @@ function GeneralInfo() {
       <div className={styles.mainContainer}>
         <div className={styles.subContainer}>
           <h4>Property info</h4>
+          <PropertyInfoSub />
         </div>
         <div className={styles.subContainer}>
           <h4>Room types</h4>
