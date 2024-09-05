@@ -1,3 +1,30 @@
+export const property = {
+  _id: "66ba803852508c4e121f1f5d",
+  property_name: "The best hostel",
+  address: {
+    street: "Alguna calle 234",
+    city: "Azul",
+    postal_code: "7300",
+    country_code: "AR",
+  },
+  contact_info: {
+    phone_number: "+542281456213",
+    email: "myemail@mail.com",
+  },
+  access_control: [
+    {
+      user_id: "66ba803852508c4e121f1f5c",
+      role: "admin",
+    },
+    {
+      user_id: "66ba8eab7300af884eff1a88",
+      role: "employee",
+    },
+  ],
+  createdAt: "2024-08-12T21:35:52.477Z",
+  updatedAt: "2024-08-12T21:35:52.477Z",
+};
+
 export const roomTypes = [
   {
     _id: "00001",
@@ -81,5 +108,22 @@ export const reservations = [
     special_request: "late check in",
     created_At: "2024-09-01",
     updated_At: "2024-09-01",
+  },
+];
+
+export const users = [
+  {
+    _id: "U0001",
+    username: "tomas@mail.com",
+    first_name: "Tomas",
+    last_name: "",
+    role: "admin",
+  },
+  {
+    _id: "U0002",
+    username: "dario@mail.com",
+    first_name: "Dario",
+    last_name: "",
+    role: "slave",
   },
 ];
