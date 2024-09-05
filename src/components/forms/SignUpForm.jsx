@@ -29,7 +29,7 @@ function SignUpForm() {
   }
 
   const { data, error, loading } = useFetch(
-    submit !== null && formBody !== null
+    submit === true && formBody !== null
       ? {
           url: "http://localhost:5000/api/v1/users/register",
           options: {

@@ -16,6 +16,7 @@ export default function useFetch({ url, options }) {
             const errorMessage = await response.json();
             throw new Error(JSON.stringify(errorMessage));
           }
+
           return response.json();
         })
         .then(response => setData(response))
