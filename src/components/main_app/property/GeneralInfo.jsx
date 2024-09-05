@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "../../../styles/GeneralInfo.module.css";
 import PropertyInfoSub from "./PropertyInfoSub";
 import RoomTypesSub from "./RoomTypesSub";
@@ -17,7 +18,9 @@ function GeneralInfo() {
         <div className={styles.subContainer}>
           <h4>Room types</h4>
           <RoomTypesSub />
-          <button className={styles.editBtn}>Edit</button>
+          <Link to="/app/property/room-types">
+            <button className={styles.editBtn}>Edit</button>
+          </Link>
         </div>
         <div className={styles.subContainer}>
           <h4>Users</h4>
