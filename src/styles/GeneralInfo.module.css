@@ -1,20 +1,30 @@
 .mainContainer {
   margin-top: 1rem;
   padding: 0 1rem;
-  display: grid;
+  display: flex;
   gap: 2rem;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(250px, max-content));
+  flex-wrap: wrap;
+  /*   display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, max-content)); */
 }
 
 .subContainer {
   position: relative;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  min-height: 10rem;
+  min-width: 250px;
   padding: 0.25rem;
 }
 
 .subContainer h4 {
   font-size: var(--font-size-small);
+}
+
+.editBtn {
+  position: absolute;
+  bottom: 0.25rem;
+  right: 0.25rem;
+  padding: 0.25rem 0.5rem;
 }

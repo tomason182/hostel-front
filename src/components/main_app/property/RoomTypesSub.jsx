@@ -14,10 +14,5 @@ export default function RoomTypesSub() {
     </li>
   ));
 
-  return (
-    <>
-      <ul className={styles.roomTypesList}>{roomTypeList}</ul>
-      <button className={styles.editBtn}>Edit</button>
-    </>
-  );
+  return <ul className={styles.roomTypesList}>{roomTypeList}</ul>;
 }

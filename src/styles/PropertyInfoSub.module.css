@@ -1,15 +1,10 @@
 .dlist {
   font-size: var(--font-size-xs);
   padding: 0 0 1rem 0rem;
+  margin-bottom: 1.5rem;
 }
 
 .dlist dt {
   font-family: var(--font-bold);
   margin: 0.25rem 0;
-}
-
-.btn {
-  position: relative;
-  float: right;
-  padding: 0.25rem 0.5rem;
 }

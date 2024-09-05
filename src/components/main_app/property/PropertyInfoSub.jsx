@@ -16,7 +16,6 @@ export default function PropertyInfoSub() {
         <dd>Phone number: {property.contact_info.phone_number}</dd>
         <dd>email: {property.contact_info.email}</dd>
       </dl>
-      <button className={styles.btn}>Edit</button>
     </>
   );
 }

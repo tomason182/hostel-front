@@ -116,7 +116,7 @@ export const users = [
     _id: "U0001",
     username: "tomas@mail.com",
     first_name: "Tomas",
-    last_name: "",
+    last_name: "Flema",
     role: "admin",
   },
   {

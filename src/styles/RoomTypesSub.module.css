@@ -5,11 +5,16 @@
 }
 
 .roomTypesList li {
-  display: grid;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   margin-bottom: 0.25rem;
-  grid-template-columns: 1fr 3fr 2fr;
   gap: 1rem;
   align-items: center;
+}
+
+.roomTypesList li:last-child {
+  margin-bottom: 2.5rem;
 }
 
 .info {
@@ -23,11 +28,4 @@
   border-radius: 5px;
   font-size: 0.65rem;
   color: var(--muted-color);
-}
-
-.editBtn {
-  position: absolute;
-  bottom: 0.25rem;
-  right: 0.25rem;
-  padding: 0.25rem 0.5rem;
 }

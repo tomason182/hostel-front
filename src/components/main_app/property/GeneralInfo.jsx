@@ -12,14 +12,17 @@ function GeneralInfo() {
         <div className={styles.subContainer}>
           <h4>Property info</h4>
           <PropertyInfoSub />
+          <button className={styles.editBtn}>Edit</button>
         </div>
         <div className={styles.subContainer}>
           <h4>Room types</h4>
           <RoomTypesSub />
+          <button className={styles.editBtn}>Edit</button>
         </div>
         <div className={styles.subContainer}>
           <h4>Users</h4>
           <UsersSub />
+          <button className={styles.editBtn}>Edit</button>
         </div>
         <div className={styles.subContainer}>
           <h4>Active rate plans</h4>

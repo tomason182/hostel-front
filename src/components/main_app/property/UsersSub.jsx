@@ -1,4 +1,5 @@
 import { users } from "../../../data_mocked";
+import styles from "../../../styles/RoomTypesSub.module.css";
 
 export default function UsersSub() {
   const usersList = users.map(user => (
@@ -8,9 +9,11 @@ export default function UsersSub() {
         {user.first_name}&nbsp;{user.last_name}
       </p>
       <p>{user.username}</p>
-      <span>{user.role}</span>
+      <div className={styles.info}>
+        <span>{user.role}</span>
+      </div>
     </li>
   ));
 
-  return <ul>{usersList}</ul>;
+  return <ul className={styles.roomTypesList}>{usersList}</ul>;
 }
