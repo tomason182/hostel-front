@@ -15,8 +15,8 @@ function Reservations() {
 
   return (
     <>
-      <h3 className={styles.title}>Reservations</h3>
-      <hr className={styles.solid} />
+      <h3 className="dashboardTitles">Reservations</h3>
+      <hr className="solidBreakLine" />
       <form className={styles.form}>
         <label htmlFor="from">From</label>
         <input type="date" id="from" name="from_date" />
