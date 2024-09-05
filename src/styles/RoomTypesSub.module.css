@@ -1,0 +1,33 @@
+.roomTypesList {
+  font-size: var(--font-size-xs);
+  margin: 1rem 0 0 0;
+  padding: 0rem 0rem;
+}
+
+.roomTypesList li {
+  display: grid;
+  margin-bottom: 0.25rem;
+  grid-template-columns: 1fr 3fr 2fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.info span {
+  border: 1px solid var(--border-color);
+  padding: 0.25rem;
+  border-radius: 5px;
+  font-size: 0.65rem;
+  color: var(--muted-color);
+}
+
+.editBtn {
+  position: absolute;
+  bottom: 0.25rem;
+  right: 0.25rem;
+  padding: 0.25rem 0.5rem;
+}

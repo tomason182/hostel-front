@@ -1,5 +1,6 @@
 .mainContainer {
   margin-top: 1rem;
+  padding: 0 1rem;
   display: grid;
   gap: 2rem;
   justify-content: center;
@@ -7,6 +8,7 @@
 }
 
 .subContainer {
+  position: relative;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   min-height: 10rem;
