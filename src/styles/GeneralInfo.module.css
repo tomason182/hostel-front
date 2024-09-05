@@ -27,4 +27,14 @@
   bottom: 0.25rem;
   right: 0.25rem;
   padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  border: 1px solid var(--muted-color);
+  background-color: none;
+  background: none;
+  color: var(--text-color-dark);
+}
+
+.editBtn:hover {
+  background: var(--text-color-dark);
+  color: var(--text-color-light);
 }
