@@ -1,33 +1,7 @@
 import styles from "../../../styles/formDefaultStyle.module.css";
+import { property } from "../../../data_mocked";
 
 function PropertyDetails() {
-  const propertyDetails = {
-    _id: "66ba803852508c4e121f1f5d",
-    property_name: "The best hostel",
-    address: {
-      street: "Alguna calle 234",
-      city: "Azul",
-      postal_code: "7300",
-      country_code: "AR",
-    },
-    contact_info: {
-      phone_number: "+542281456213",
-      email: "myemail@mail.com",
-    },
-    access_control: [
-      {
-        user_id: "66ba803852508c4e121f1f5c",
-        role: "admin",
-      },
-      {
-        user_id: "66ba8eab7300af884eff1a88",
-        role: "employee",
-      },
-    ],
-    createdAt: "2024-08-12T21:35:52.477Z",
-    updatedAt: "2024-08-12T21:35:52.477Z",
-  };
-
   return (
     <form className={styles.mainForm}>
       <fieldset>
@@ -41,7 +15,7 @@ function PropertyDetails() {
           aria-required
           minLength={2}
           maxLength={50}
-          defaultValue={propertyDetails.property_name}
+          defaultValue={property.property_name}
           required
         />
       </fieldset>
@@ -52,14 +26,14 @@ function PropertyDetails() {
           type="text"
           name="email"
           id="email"
-          defaultValue={propertyDetails.contact_info.email}
+          defaultValue={property.contact_info.email}
         />
         <label htmlFor="phone">Phone number</label>
         <input
           type="text"
           name="phoneNumber"
           id="phone"
-          defaultValue={propertyDetails.contact_info.phone_number}
+          defaultValue={property.contact_info.phone_number}
         />
       </fieldset>
       <fieldset>
@@ -70,28 +44,28 @@ function PropertyDetails() {
           name="street"
           id="street"
           maxLength={50}
-          defaultValue={propertyDetails.address.street}
+          defaultValue={property.address.street}
         />
         <label htmlFor="city">City</label>
         <input
           type="text"
           name="city"
           id="city"
-          defaultValue={propertyDetails.address.city}
+          defaultValue={property.address.city}
         />
         <label htmlFor="postal_code">Postal Code</label>
         <input
           type="text"
           name="postalCode"
           id="postal_code"
-          defaultValue={propertyDetails.address.postal_code}
+          defaultValue={property.address.postal_code}
         />
         <label htmlFor="country_code">Country code</label>
         <input
           type="text"
           name="countryCode"
           id="country_code"
-          defaultValue={propertyDetails.address.country_code}
+          defaultValue={property.address.country_code}
         />
       </fieldset>
       <menu className={styles.buttonContainer}>
