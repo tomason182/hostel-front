@@ -10,4 +10,9 @@
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   min-height: 10rem;
+  padding: 0.25rem;
+}
+
+.subContainer h4 {
+  font-size: var(--font-size-small);
 }

@@ -1,4 +1,5 @@
 import styles from "../../../styles/GeneralInfo.module.css";
+import { property } from "../../../data_mocked";
 
 function GeneralInfo() {
   return (
