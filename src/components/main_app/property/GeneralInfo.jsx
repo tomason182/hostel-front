@@ -1,6 +1,7 @@
 import styles from "../../../styles/GeneralInfo.module.css";
 import PropertyInfoSub from "./PropertyInfoSub";
 import RoomTypesSub from "./RoomTypesSub";
+import UsersSub from "./UsersSub";
 
 function GeneralInfo() {
   return (
@@ -18,6 +19,7 @@ function GeneralInfo() {
         </div>
         <div className={styles.subContainer}>
           <h4>Users</h4>
+          <UsersSub />
         </div>
         <div className={styles.subContainer}>
           <h4>Active rate plans</h4>
