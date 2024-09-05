@@ -1,10 +1,11 @@
 import { property } from "../../../data_mocked";
+import styles from "../../../styles/PropertyInfoSub.module.css";
 
 export default function PropertyInfoSub() {
   return (
     <>
-      <dl>
-        <dt>Property name:</dt>
+      <dl className={styles.dlist}>
+        <dt>Property name</dt>
         <dd>{property.property_name}</dd>
         <dt>Address</dt>
         <dd>Street: {property.address.street}</dd>
@@ -15,6 +16,7 @@ export default function PropertyInfoSub() {
         <dd>Phone number: {property.contact_info.phone_number}</dd>
         <dd>email: {property.contact_info.email}</dd>
       </dl>
+      <button className={styles.btn}>Edit</button>
     </>
   );
 }
