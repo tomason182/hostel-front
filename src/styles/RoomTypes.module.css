@@ -91,39 +91,3 @@
   border: none;
   color: var(--text-color);
 }
-
-.dialogHeader {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #ccc;
-  padding: 0.5rem 0rem;
-}
-
-.dialogHeader h1 {
-  font-family: var(--font-bold);
-  font-size: var(--font-size-h3);
-}
-
-.dialogHeader button {
-  background-color: none;
-  background: none;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  margin: 0;
-}
-
-.dialogHeader button:hover {
-  background: none;
-}
-
-.dialogCloseIcon {
-  stroke: var(--text-color-light);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.dialogCloseIcon:hover {
-  stroke: var(--text-color);
-}
