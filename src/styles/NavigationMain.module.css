@@ -6,7 +6,6 @@
   font-size: var(--font-size-small);
   font-family: var(--font-primary);
   background-color: var(--background-color);
-
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -26,6 +25,7 @@
 
 .propertyDropdownContainer {
   position: relative;
+  z-index: 1;
   cursor: pointer;
   outline: none;
 }
