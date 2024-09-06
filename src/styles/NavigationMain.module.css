@@ -59,3 +59,9 @@
   text-decoration: none;
   font-size: var(--font-size-xs);
 }
+
+@media (max-width: 984px) {
+  #mainMenu {
+    display: none;
+  }
+}

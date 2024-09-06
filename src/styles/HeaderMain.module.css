@@ -22,3 +22,9 @@
   font-family: var(--font-primary);
   font-size: var(--font-size-xs);
 }
+
+@media (max-width: 984px) {
+  .header {
+    display: none;
+  }
+}

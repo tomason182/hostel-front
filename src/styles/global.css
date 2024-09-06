@@ -105,3 +105,8 @@ dialog {
   backdrop-filter: blur(0.1px);
   background-color: rgba(0, 0, 0, 0.4);
 }
+
+/* Main content class */
+.main-content {
+  padding-bottom: 6rem;
+}

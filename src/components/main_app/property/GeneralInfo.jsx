@@ -14,7 +14,7 @@ function GeneralInfo() {
   const userDialog = useRef(null);
 
   return (
-    <>
+    <div className="main-content">
       <ContentTitle title={"General info"} />
       <div className={styles.mainContainer}>
         <dialog ref={propertyDialog} className="dialog">
@@ -56,7 +56,7 @@ function GeneralInfo() {
           <h4>Active rate plans</h4>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

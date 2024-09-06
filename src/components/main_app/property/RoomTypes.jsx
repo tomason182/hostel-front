@@ -49,7 +49,7 @@ function RoomTypes() {
     </tr>
   ));
   return (
-    <div className={styles.roomTypeContainer}>
+    <div className={`${styles.roomTypeContainer} main-content`}>
       <dialog ref={dialogRef} className="dialog">
         <DialogHeader title={"Create room type"} refProps={dialogRef} />
         <RoomTypeForm refProps={dialogRef} data={null} />

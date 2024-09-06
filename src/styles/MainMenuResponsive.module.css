@@ -1,0 +1,24 @@
+.menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  background-color: #fff;
+  z-index: 100;
+}
+
+.iconContainer {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 984px) {
+  .menu {
+    display: none;
+  }
+}

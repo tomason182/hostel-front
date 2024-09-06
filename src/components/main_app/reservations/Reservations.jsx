@@ -15,7 +15,7 @@ function Reservations() {
   ));
 
   return (
-    <>
+    <div className="main-content">
       <ContentTitle title={"Reservations"} />
       <form className={styles.form}>
         <label htmlFor="from">From</label>
@@ -28,7 +28,7 @@ function Reservations() {
       </form>
 
       <ul className={styles.reservationsList}>{listItems}</ul>
-    </>
+    </div>
   );
 }
 
