@@ -19,21 +19,16 @@ export default function RoomTypeForm({ refProps }) {
       onSubmit={handleSubmit}
     >
       <section>
-        <fieldset>
-          <legend>Room Type description</legend>
-          <label htmlFor="description" className={formDefault.hidden}>
-            Description
-          </label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            minLength={3}
-            maxLength={100}
-            required
-            aria-required
-          />
-        </fieldset>
+        <label htmlFor="description">Room type name:</label>
+        <input
+          type="text"
+          id="description"
+          name="description"
+          minLength={3}
+          maxLength={100}
+          required
+          aria-required
+        />
 
         <div className={styles.flexContainer}>
           <fieldset>
@@ -59,9 +54,9 @@ export default function RoomTypeForm({ refProps }) {
             </div>
           </fieldset>
           <fieldset>
-            <legend>Bathroom type</legend>
+            <legend>Gender</legend>
             <div className={styles.radioInputContainer}>
-              <label htmlFor="private_bathroom">Private</label>
+              <label htmlFor="private_bathroom">Mixed</label>
               <input
                 type="radio"
                 id="private_bathroom"
@@ -71,7 +66,7 @@ export default function RoomTypeForm({ refProps }) {
               />
             </div>
             <div className={styles.radioInputContainer}>
-              <label htmlFor="share_bathroom">Shared</label>
+              <label htmlFor="share_bathroom">Female</label>
               <input
                 type="radio"
                 id="share_bathroom"
