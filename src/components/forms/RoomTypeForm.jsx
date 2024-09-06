@@ -40,7 +40,7 @@ export default function RoomTypeForm({ refProps }) {
                 id="private"
                 name="type"
                 value="private"
-                checked
+                defaultChecked
               />
             </div>
             <div className={styles.radioInputContainer}>
@@ -62,7 +62,7 @@ export default function RoomTypeForm({ refProps }) {
                 id="private_bathroom"
                 name="bathroom"
                 value="private"
-                checked
+                defaultChecked
               />
             </div>
             <div className={styles.radioInputContainer}>

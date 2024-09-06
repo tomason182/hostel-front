@@ -43,7 +43,7 @@ export default function UserForm({ refProps }) {
             id="employee"
             name="role"
             value="employee"
-            checked
+            defaultChecked
           />
         </div>
       </fieldset>
