@@ -20,7 +20,7 @@ function GeneralInfo() {
           <DialogHeader title={"Property details"} refProps={propertyDialog} />
           <PropertyInfoForm />
         </dialog>
-        <dialog ref={userDialog} className={styles.dialog}>
+        <dialog ref={userDialog} className="dialog">
           This is the dialog to update Users
         </dialog>
         <div className={styles.subContainer}>

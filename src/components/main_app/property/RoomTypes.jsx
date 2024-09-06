@@ -34,7 +34,7 @@ function RoomTypes() {
   ));
   return (
     <div className={styles.roomTypeContainer}>
-      <dialog ref={dialogRef} id={styles.dialog}>
+      <dialog ref={dialogRef} className="dialog">
         <DialogHeader title={"Create room type"} refProps={dialogRef} />
         <RoomTypeForm refProps={dialogRef} />
       </dialog>
