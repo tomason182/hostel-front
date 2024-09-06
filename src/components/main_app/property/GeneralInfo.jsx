@@ -6,6 +6,7 @@ import RoomTypesSub from "./RoomTypesSub";
 import UsersSub from "./UsersSub";
 import PropertyInfoForm from "../../forms/PropertyInfoForm";
 import DialogHeader from "../../dialogs/DialogHeader";
+import ContentTitle from "../../headers/ContentTitle";
 
 function GeneralInfo() {
   const propertyDialog = useRef(null);
@@ -13,14 +14,15 @@ function GeneralInfo() {
 
   return (
     <>
-      <h3 className="dashboardTitles">General information</h3>
-      <hr className="solidBreakLine" />
+      <ContentTitle title={"General info"} />
       <div className={styles.mainContainer}>
-        <dialog ref={propertyDialog}>
+        <dialog ref={propertyDialog} className="dialog">
           <DialogHeader title={"Property details"} refProps={propertyDialog} />
           <PropertyInfoForm />
         </dialog>
-        <dialog ref={userDialog}>This is the dialog to update Users</dialog>
+        <dialog ref={userDialog} className={styles.dialog}>
+          This is the dialog to update Users
+        </dialog>
         <div className={styles.subContainer}>
           <h4>Property info</h4>
           <PropertyInfoSub />

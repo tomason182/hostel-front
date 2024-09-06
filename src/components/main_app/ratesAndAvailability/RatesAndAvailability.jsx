@@ -1,5 +1,11 @@
+import ContentTitle from "../../headers/ContentTitle";
+
 function RateAndAvailability() {
-  return <h1>Rate and Availability Related Content</h1>;
+  return (
+    <>
+      <ContentTitle title={"Rates & Availability"} />
+    </>
+  );
 }
 
 export default RateAndAvailability;

@@ -1,5 +1,6 @@
 import styles from "../../../styles/Reservations.module.css";
 import { Link } from "react-router-dom";
+import ContentTitle from "../../headers/ContentTitle";
 import { reservations } from "../../../data_mocked";
 
 function Reservations() {
@@ -15,8 +16,7 @@ function Reservations() {
 
   return (
     <>
-      <h3 className="dashboardTitles">Reservations</h3>
-      <hr className="solidBreakLine" />
+      <ContentTitle title={"Reservations"} />
       <form className={styles.form}>
         <label htmlFor="from">From</label>
         <input type="date" id="from" name="from_date" />

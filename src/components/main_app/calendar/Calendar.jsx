@@ -1,5 +1,11 @@
+import ContentTitle from "../../headers/ContentTitle";
+
 function Calendar() {
-  return <h1>Calendar Related Content</h1>;
+  return (
+    <>
+      <ContentTitle title={"Calendar"} />
+    </>
+  );
 }
 
 export default Calendar;

@@ -1,5 +1,6 @@
+import ContentTitle from "../../headers/ContentTitle";
 function Home() {
-  return <h1>Home Related Content</h1>;
+  return <ContentTitle title={"Home"} />;
 }
 
 export default Home;
