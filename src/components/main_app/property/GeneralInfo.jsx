@@ -7,6 +7,7 @@ import UsersSub from "./UsersSub";
 import PropertyInfoForm from "../../forms/PropertyInfoForm";
 import DialogHeader from "../../dialogs/DialogHeader";
 import ContentTitle from "../../headers/ContentTitle";
+import UserForm from "../../forms/UserForm";
 
 function GeneralInfo() {
   const propertyDialog = useRef(null);
@@ -18,10 +19,11 @@ function GeneralInfo() {
       <div className={styles.mainContainer}>
         <dialog ref={propertyDialog} className="dialog">
           <DialogHeader title={"Property details"} refProps={propertyDialog} />
-          <PropertyInfoForm />
+          <PropertyInfoForm refProps={propertyDialog} />
         </dialog>
         <dialog ref={userDialog} className="dialog">
-          This is the dialog to update Users
+          <DialogHeader title={"Add a User"} refProps={userDialog} />
+          <UserForm refProps={userDialog} />
         </dialog>
         <div className={styles.subContainer}>
           <h4>Property info</h4>

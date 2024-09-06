@@ -1,9 +1,10 @@
 import { property } from "../../data_mocked.js";
 import styles from "../../styles/formDefaultStyle.module.css";
+import PropTypes from "prop-types";
 
-function PropertyDetails() {
+function PropertyDetails({ refProps }) {
   return (
-    <form className={styles.mainForm}>
+    <form method="dialog" className={styles.mainForm}>
       <label htmlFor="property_name" className={styles.label}>
         Property name:
       </label>
@@ -64,8 +65,12 @@ function PropertyDetails() {
         />
       </fieldset>
       <menu className={styles.buttonContainer}>
-        <button type="reset" className={styles.resetBtn}>
-          Reset
+        <button
+          type="reset"
+          className={styles.resetBtn}
+          onClick={() => refProps.current?.close()}
+        >
+          Cancel
         </button>
         <button type="submit" className={styles.submitBtn}>
           Save changes
@@ -74,5 +79,9 @@ function PropertyDetails() {
     </form>
   );
 }
+
+PropertyDetails.propTypes = {
+  refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+};
 
 export default PropertyDetails;

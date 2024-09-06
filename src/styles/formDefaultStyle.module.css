@@ -12,7 +12,7 @@
 .mainForm fieldset {
   position: relative;
   display: block;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 .mainForm fieldset legend {
@@ -37,6 +37,14 @@
   border-color: var(--border-color);
   color: var(--text-color-light);
   font-size: var(--font-size-small);
+}
+
+.radioContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.3rem;
 }
 
 .mainForm input[type="radio"] {
