@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import formDefault from "../../styles/formDefaultStyle.module.css";
 import styles from "../../styles/RoomTypeForm.module.css";
 
-export default function RoomTypeForm({ refProps }) {
+export default function RoomTypeForm({ refProps, data }) {
   const handleSubmit = e => {
     e.preventDefault();
     // Handle form submission here
@@ -26,10 +26,10 @@ export default function RoomTypeForm({ refProps }) {
           name="description"
           minLength={3}
           maxLength={100}
+          value={data && data.description}
           required
           aria-required
         />
-
         <div className={styles.flexContainer}>
           <fieldset>
             <legend>Room Type selection: Dormitory or Private</legend>
@@ -40,7 +40,7 @@ export default function RoomTypeForm({ refProps }) {
                 id="private"
                 name="type"
                 value="private"
-                defaultChecked
+                defaultChecked={data && data.type === "private"}
               />
             </div>
             <div className={styles.radioInputContainer}>
@@ -50,33 +50,34 @@ export default function RoomTypeForm({ refProps }) {
                 id="dormitory"
                 name="type"
                 value="dormitory"
+                defaultChecked={data && data.type === "dormitory"}
               />
             </div>
           </fieldset>
           <fieldset>
             <legend>Gender</legend>
             <div className={styles.radioInputContainer}>
-              <label htmlFor="private_bathroom">Mixed</label>
+              <label htmlFor="mixed_dorm">Mixed</label>
               <input
                 type="radio"
-                id="private_bathroom"
-                name="bathroom"
-                value="private"
-                defaultChecked
+                id="mixed_dorm"
+                name="gender"
+                value="mixed"
+                defaultChecked={data && data.gender === "mixed"}
               />
             </div>
             <div className={styles.radioInputContainer}>
-              <label htmlFor="share_bathroom">Female</label>
+              <label htmlFor="female_dorm">Female</label>
               <input
                 type="radio"
-                id="share_bathroom"
-                name="bathroom"
-                value="share"
+                id="female_dorm"
+                name="gender"
+                value="female"
+                defaultChecked={data && data.gender === "female"}
               />
             </div>
           </fieldset>
         </div>
-
         <fieldset>
           <legend>Room Capacity & Pricing Details</legend>
           <div className={styles.gridContainer}>
@@ -109,7 +110,14 @@ export default function RoomTypeForm({ refProps }) {
                 </span>
               </span>
             </label>
-            <input type="number" id="max_occupancy" required min={1} max={20} />
+            <input
+              type="number"
+              id="max_occupancy"
+              required
+              min={1}
+              max={20}
+              value={data && data.max_occupancy}
+            />
             <label htmlFor="inventory" className={styles.labelContainer}>
               Inventory
               <span className={styles.tooltipContainer}>
@@ -135,7 +143,14 @@ export default function RoomTypeForm({ refProps }) {
                 </span>
               </span>
             </label>
-            <input type="number" id="inventory" required min={1} max={10} />
+            <input
+              type="number"
+              id="inventory"
+              required
+              min={1}
+              max={10}
+              value={data && data.inventory}
+            />
             <label htmlFor="base_rate" className={styles.labelContainer}>
               Base rate{" "}
               <span className={styles.tooltipContainer}>
@@ -168,6 +183,7 @@ export default function RoomTypeForm({ refProps }) {
               required
               min={1}
               max={1000}
+              value={data && data.base_rate}
             />
           </div>
         </fieldset>
@@ -181,7 +197,7 @@ export default function RoomTypeForm({ refProps }) {
           Cancel
         </button>
         <button className={formDefault.submitBtn} type="submit">
-          Save
+          {data === null ? "Create" : "Update"}
         </button>
       </menu>
     </form>
@@ -190,4 +206,5 @@ export default function RoomTypeForm({ refProps }) {
 
 RoomTypeForm.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  data: PropTypes.object,
 };

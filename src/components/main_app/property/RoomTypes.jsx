@@ -1,11 +1,19 @@
 import { roomTypes } from "../../../data_mocked.js";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import RoomTypeForm from "../../forms/RoomTypeForm.jsx";
 import styles from "../../../styles/RoomTypes.module.css";
 import DialogHeader from "../../dialogs/DialogHeader.jsx";
 
 function RoomTypes() {
   const dialogRef = useRef(null);
+  const editRef = useRef(null);
+
+  const [roomTypeData, setRoomTypeData] = useState(null);
+
+  function handleRoomSelection(id) {
+    const data = roomTypes.find(room => room._id === id);
+    setRoomTypeData(data);
+  }
 
   const tableRows = roomTypes.map(roomType => (
     <tr key={roomType._id}>
@@ -18,7 +26,15 @@ function RoomTypes() {
       <td>{`$ ${roomType.base_rate}`}</td>
       <td>{roomType.currency}</td>
       <td>
-        <a role="button" tabIndex={0} aria-label="Edit room type">
+        <a
+          role="button"
+          tabIndex={0}
+          aria-label="Edit room type"
+          onClick={() => {
+            handleRoomSelection(roomType._id);
+            editRef.current?.showModal();
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -36,7 +52,11 @@ function RoomTypes() {
     <div className={styles.roomTypeContainer}>
       <dialog ref={dialogRef} className="dialog">
         <DialogHeader title={"Create room type"} refProps={dialogRef} />
-        <RoomTypeForm refProps={dialogRef} />
+        <RoomTypeForm refProps={dialogRef} data={null} />
+      </dialog>
+      <dialog ref={editRef} className="dialog">
+        <DialogHeader title={"Edit room Type"} refProps={editRef} />
+        <RoomTypeForm refProps={editRef} data={roomTypeData} />
       </dialog>
       <button
         className={styles.createRoomTypeBtn}

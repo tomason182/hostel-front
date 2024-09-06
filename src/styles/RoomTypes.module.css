@@ -15,10 +15,9 @@
 }
 
 #table {
-  table-layout: fixed;
+  table-layout: auto;
   border-collapse: collapse;
   background-color: #fff;
-  width: 100%;
   font-size: var(--font-size-small);
 }
 
