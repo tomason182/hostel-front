@@ -1,0 +1,44 @@
+.tableContainer {
+  padding: 2rem;
+}
+
+.ratesAndAvailability {
+  border: 1px solid var(--border-color);
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.ratesAndAvailability th {
+  width: 12%;
+  text-align: left;
+}
+
+.ratesAndAvailability th,
+.ratesAndAvailability td {
+  vertical-align: middle;
+  font-size: x-small;
+  padding: 0.3rem;
+}
+
+.ratesAndAvailability td {
+  text-align: center;
+}
+
+#description {
+  font-family: var(--font-bold);
+  background-color: #ddd;
+  text-align: left;
+  padding: 1rem;
+}
+
+#dates {
+  font-family: var(--font-bold);
+  color: var(--text-color-light-2);
+  text-align: center;
+}
+
+#mainDate {
+  font-family: var(--font-bold);
+  font-size: xx-small;
+}
