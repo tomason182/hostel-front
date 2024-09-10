@@ -27,7 +27,7 @@ export const property = {
 
 export const roomTypes = [
   {
-    _id: "00001",
+    _id: "RT0001",
     description: "Cuarto compartido 6 camas mixto",
     type: "Dorm",
     gender: "mixed",
@@ -52,7 +52,7 @@ export const roomTypes = [
     ],
   },
   {
-    _id: "00002",
+    _id: "RT0002",
     description: "Cuarto compartido 4 camas femenino",
     type: "Dorm",
     gender: "female",
@@ -72,6 +72,31 @@ export const roomTypes = [
       },
     ],
   },
+  {
+    _id: "RT0003",
+    description: "Cuarto compartido 4 camas mixto",
+    type: "Dorm",
+    gender: "mixed",
+    bathroom: "share",
+    max_occupancy: 4,
+    inventory: 3,
+    base_rate: 15,
+    currency: "USD",
+    products: [
+      {
+        room_name: "Room 01",
+        beds: [],
+      },
+      {
+        room_name: "Room 02",
+        beds: [],
+      },
+      {
+        room_name: "Room 03",
+        beds: [],
+      },
+    ],
+  },
 ];
 
 export const reservations = [
@@ -82,7 +107,7 @@ export const reservations = [
     room_type_id: "RT0001",
     booking_source: "booking.com",
     check_in_date: "2024-09-10",
-    check_out_date: "2024-09-12",
+    check_out_date: "2024-09-13",
     number_of_guest: 2,
     total_price: 124,
     currency: "USD",
@@ -98,8 +123,25 @@ export const reservations = [
     guest_id: "G0002",
     room_type_id: "RT0001",
     booking_source: "booking.com",
-    check_in_date: "2024-10-02",
-    check_out_date: "2024-10-03",
+    check_in_date: "2024-09-11",
+    check_out_date: "2024-09-13",
+    number_of_guest: 1,
+    total_price: 24,
+    currency: "USD",
+    reservation_status: "confirm",
+    payment_status: "pending",
+    special_request: "late check in",
+    created_At: "2024-09-01",
+    updated_At: "2024-09-01",
+  },
+  {
+    _id: "R00003",
+    property_id: "P00001",
+    guest_id: "G0004",
+    room_type_id: "RT0003",
+    booking_source: "booking.com",
+    check_in_date: "2024-09-11",
+    check_out_date: "2024-09-13",
     number_of_guest: 1,
     total_price: 24,
     currency: "USD",
