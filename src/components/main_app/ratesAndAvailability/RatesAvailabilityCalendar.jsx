@@ -9,15 +9,33 @@ export default function RatesAvailabilityCalendar() {
   const month = today.getMonth();
   const MMM = format(today, "MMM");
   const year = format(today, "yyyy");
-  const firstDay = new Date(year, month, "01");
-  const lastDay = new Date(year, month, "31");
   const daysArray = array.map(index => new Date(year, month, index));
 
-  const bookings = reservations.filter(
-    r =>
-      new Date(r.check_out_date) >= firstDay &&
-      new Date(r.check_in_date) <= lastDay
-  );
+  const listOfRooms = roomTypes.map(room => {
+    return daysArray.map(day => {
+      const bookings = reservations.filter(reservation => {
+        const checkIn = new Date(reservation.check_in_date);
+        const checkOut = new Date(reservation.check_out_date);
+
+        return (
+          reservation.room_type_id === room._id &&
+          checkIn <= day &&
+          checkOut > day
+        );
+      });
+
+      return {
+        _id: room._id,
+        toSell: room.max_occupancy * room.inventory - bookings.length,
+        standardRate: room.base_rate,
+        bookings: bookings.length,
+        status:
+          room.max_occupancy * room.inventory - bookings.length > 0
+            ? "Open"
+            : "Close",
+      };
+    });
+  });
 
   const daysOfMonth = daysArray.map((day, index) => (
     <th scope="col" id={styles.dates} key={index}>
@@ -25,53 +43,6 @@ export default function RatesAvailabilityCalendar() {
       <br />
       {format(new Date(day), "dd")}
     </th>
-  ));
-
-  const rooms = roomTypes.map(room => (
-    <Fragment key={room._id}>
-      <tr key={room._id}>
-        <th colSpan={32} id={styles.description}>
-          {room.description}
-        </th>
-      </tr>
-      <tr>
-        <th>Room status</th>
-        {daysArray.map((day, index) => (
-          <td key={index} ref={day}>
-            {room.max_occupancy * room.inventory > room.booking
-              ? "Open"
-              : "Close"}
-          </td>
-        ))}
-      </tr>
-      <tr>
-        <th>Rooms to sell</th>
-        {daysArray.map((day, index) => (
-          <td key={index} ref={day}>
-            {room.max_occupancy * room.inventory}
-          </td>
-        ))}
-      </tr>
-      <tr>
-        <th>Booking</th>
-        {daysArray.map((day, index) => (
-          <td key={index} ref={day}>
-            {bookings.map(booking =>
-              new Date(day) >= new Date(booking.check_in_date) &&
-              new Date(day) <= new Date(booking.check_out_date)
-                ? 1
-                : 0
-            )}
-          </td>
-        ))}
-      </tr>
-      <tr>
-        <th>Standard rate</th>
-        {array.map(day => (
-          <td key={day}>$ {room.base_rate}</td>
-        ))}
-      </tr>
-    </Fragment>
   ));
 
   return (
@@ -89,7 +60,41 @@ export default function RatesAvailabilityCalendar() {
             {daysOfMonth}
           </tr>
         </thead>
-        <tbody>{rooms}</tbody>
+        <tbody>
+          {listOfRooms.map((roomDays, roomIndex) => (
+            <Fragment key={roomTypes[roomIndex]._id}>
+              <tr>
+                <th colSpan={32} id={styles.description}>
+                  {roomTypes[roomIndex].description}
+                </th>
+              </tr>
+              <tr>
+                <th>Room status</th>
+                {roomDays.map((dayData, dayIndex) => (
+                  <td key={dayIndex}>{dayData.status}</td>
+                ))}
+              </tr>
+              <tr>
+                <th>Room to Sell</th>
+                {roomDays.map((dayData, dayIndex) => (
+                  <td key={dayIndex}>{dayData.toSell}</td>
+                ))}
+              </tr>
+              <tr>
+                <th>Bookings</th>
+                {roomDays.map((dayData, dayIndex) => (
+                  <td key={dayIndex}>{dayData.bookings}</td>
+                ))}
+              </tr>
+              <tr>
+                <th>Standard rate</th>
+                {roomDays.map((dayData, dayIndex) => (
+                  <td key={dayIndex}>$&nbsp;{dayData.standardRate}</td>
+                ))}
+              </tr>
+            </Fragment>
+          ))}
+        </tbody>
       </table>
     </div>
   );
