@@ -5,10 +5,8 @@ import { Fragment } from "react";
 
 export default function Calendar() {
   const today = new Date();
-  const month = today.getMonth();
   const year = format(today, "yyyy");
   const MMM = format(today, "MMM");
-  const dayOfMonth = format(today, "dd");
   const dayOfWeekNumber = parseInt(format(today, "e"), 10); // Empieza en domingo
   const firstDayOfWeek = sub(today, { days: dayOfWeekNumber - 1 });
 
