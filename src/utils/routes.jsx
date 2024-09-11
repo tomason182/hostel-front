@@ -3,7 +3,7 @@ import App from "../components/main_app/App";
 import RegistrationPage from "../components/accounts/RegistrationPage";
 import ErrorPage from "../components/error_page/ErrorPage";
 import Home from "../components/main_app/home/Home";
-import Calendar from "../components/main_app/calendar/Calendar";
+import CalendarMainPage from "../components/main_app/calendar/CalendarMainPage";
 import RateAndAvailability from "../components/main_app/ratesAndAvailability/RatesAndAvailability";
 import Reservations from "../components/main_app/reservations/Reservations";
 import GeneralInfo from "../components/main_app/property/GeneralInfo";
@@ -36,7 +36,7 @@ const routes = [
       },
       {
         path: "calendar",
-        element: <Calendar />,
+        element: <CalendarMainPage />,
       },
       {
         path: "rates-and-availability",
