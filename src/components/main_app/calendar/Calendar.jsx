@@ -1,6 +1,6 @@
 import { format, sub, add } from "date-fns";
 import styles from "../../../styles/Calendar.module.css";
-import { roomTypes } from "../../../data_mocked";
+import { roomTypes, reservationSchedule } from "../../../data_mocked";
 import { Fragment } from "react";
 
 export default function Calendar() {
@@ -15,12 +15,10 @@ export default function Calendar() {
   const array = Array.from({ length: 14 }, (x, i) => i);
   const weeksArray = array.map(i => add(firstDayOfWeek, { days: i }));
 
-  console.log(weeksArray);
-
-  const daysOfWeek = weeksArray.map((day, index) => (
+  const daysOfWeek = weeksArray.map(day => (
     <th
       scope="col"
-      key={index}
+      key={day.toISOString()}
       className={styles.dates}
       style={{ textAlign: "center" }}
     >
@@ -31,7 +29,6 @@ export default function Calendar() {
   ));
 
   const listOfRooms = roomTypes.map(room => room.products);
-  console.log(listOfRooms);
 
   return (
     <div id={styles.tableContainer}>
@@ -49,17 +46,63 @@ export default function Calendar() {
           </tr>
         </thead>
         <tbody>
-          {listOfRooms.map((room, index) =>
-            room.map((obj, i) => {
+          {listOfRooms.map(room =>
+            room.map(obj => {
               return (
-                <Fragment key={index}>
-                  <tr key={i}>
+                <Fragment key={obj.room_id}>
+                  <tr key={`${room._id}-${obj.room_id}`}>
                     <th rowSpan={obj.beds.length + 1}>{obj.room_name}</th>
                   </tr>
                   {obj.beds.map((bed, j) => {
+                    let skipDays = 0;
+
                     return (
-                      <tr key={j}>
-                        <th>{bed}</th>
+                      <tr key={bed}>
+                        <th className={styles.beds}>{j + 1}</th>
+                        {weeksArray.map((day, index) => {
+                          if (skipDays > 0) {
+                            skipDays -= 1;
+                            return null;
+                          }
+                          const filteredList = reservationSchedule.filter(
+                            res => res._id === bed
+                          );
+
+                          const hasReservation =
+                            filteredList.length > 0
+                              ? filteredList[0].availability?.find(date => {
+                                  const [y, m, d] =
+                                    date.check_in_date.split("-");
+                                  const checkInDate = new Date(y, m - 1, d);
+                                  checkInDate.setHours(0, 0, 0, 0);
+                                  day.setHours(0, 0, 0, 0);
+                                  return checkInDate.getTime() === day.getTime()
+                                    ? date
+                                    : null;
+                                })
+                              : null;
+
+                          if (hasReservation) {
+                            const checkInDate = new Date(
+                              hasReservation.check_in_date
+                            );
+                            const checkOutDate = new Date(
+                              hasReservation.check_out_date
+                            );
+                            const nights =
+                              (checkOutDate - checkInDate) /
+                              (1000 * 60 * 60 * 24);
+                            skipDays = nights - 1;
+
+                            return (
+                              <td colSpan={nights} key={index}>
+                                {hasReservation.reserved_by}
+                              </td>
+                            );
+                          } else {
+                            return <td key={index}></td>;
+                          }
+                        })}
                       </tr>
                     );
                   })}

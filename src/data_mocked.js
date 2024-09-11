@@ -38,14 +38,17 @@ export const roomTypes = [
     currency: "USD",
     products: [
       {
+        room_id: "RM001",
         room_name: "Room 01",
         beds: ["B0001", "B0002", "B0003", "B0004", "B0005", "B0006"],
       },
       {
+        room_id: "RM002",
         room_name: "Room 02",
         beds: ["B0007", "B0008", "B0009", "B0010", "B0011", "B0012"],
       },
       {
+        room_id: "RM003",
         room_name: "Room 03",
         beds: ["B0013", "B0014", "B0015", "B0016", "B0017", "B0018"],
       },
@@ -63,12 +66,14 @@ export const roomTypes = [
     currency: "USD",
     products: [
       {
+        room_id: "RM004",
         room_name: "Room 01",
-        beds: ["B0001", "B0002", "B0003", "B0004"],
+        beds: ["B0019", "B0020", "B0021", "B0022"],
       },
       {
+        room_id: "RM005",
         room_name: "Room 02",
-        beds: ["B0005", "B0006", "B0007", "B0008"],
+        beds: ["B0023", "B0024", "B0025", "B0026"],
       },
     ],
   },
@@ -84,16 +89,19 @@ export const roomTypes = [
     currency: "USD",
     products: [
       {
+        room_id: "RM006",
         room_name: "Room 01",
-        beds: ["B0001", "B0002", "B0003", "B0004"],
+        beds: ["B0027", "B0028", "B0029", "B0030"],
       },
       {
+        room_id: "RM007",
         room_name: "Room 02",
-        beds: ["B0005", "B0006", "B0007", "B0008"],
+        beds: ["B0031", "B0032", "B0033", "B0034"],
       },
       {
+        room_id: "RM008",
         room_name: "Room 03",
-        beds: ["B0009", "B0010", "B0011", "B0012"],
+        beds: ["B0035", "B0036", "B0037", "B0038"],
       },
     ],
   },
@@ -181,6 +189,24 @@ export const ratesAndAvailability = [
         standard_rate: 28,
         currency: "USD",
         custom_availability: 1,
+      },
+    ],
+  },
+];
+
+export const reservationSchedule = [
+  {
+    _id: "B0001",
+    availability: [
+      {
+        reserved_by: "G0001",
+        check_in_date: "2024-09-10",
+        check_out_date: "2024-09-13",
+      },
+      {
+        reserved_by: "G0002",
+        check_in_date: "2024-09-15",
+        check_out_date: "2024-09-19",
       },
     ],
   },

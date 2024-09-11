@@ -12,3 +12,11 @@ table th,
 table td {
   border: 1px solid black;
 }
+
+.dates {
+  width: 4.5rem;
+}
+
+.beds {
+  padding: 0.5rem;
+}
