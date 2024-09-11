@@ -15,8 +15,6 @@ export default function RatesAvailabilityCalendar() {
   const year = format(today, "yyyy");
   const daysArray = array.map(index => new Date(year, month, index));
 
-  console.log(daysArray);
-
   const listOfRooms = roomTypes.map(room => {
     return daysArray.map(day => {
       const bookings = reservations.filter(reservation => {
@@ -70,7 +68,12 @@ export default function RatesAvailabilityCalendar() {
   });
 
   const daysOfMonth = daysArray.map((day, index) => (
-    <th scope="col" id={styles.dates} key={index}>
+    <th
+      scope="col"
+      className={styles.dates}
+      key={index}
+      style={{ textAlign: "center" }}
+    >
       {format(new Date(day), "iii")}
       <br />
       {format(new Date(day), "dd")}

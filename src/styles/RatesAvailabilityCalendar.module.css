@@ -32,10 +32,9 @@
   padding: 1rem;
 }
 
-#dates {
+.dates {
   font-family: var(--font-bold);
   color: var(--text-color-light-2);
-  text-align: center;
 }
 
 #mainDate {
