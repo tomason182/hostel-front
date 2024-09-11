@@ -1,0 +1,14 @@
+#tableContainer {
+  border: 1px solid red;
+  padding: 2rem;
+}
+
+#calendarTable {
+  border: 1px solid black;
+  width: 100%;
+}
+
+table th,
+table td {
+  border: 1px solid black;
+}

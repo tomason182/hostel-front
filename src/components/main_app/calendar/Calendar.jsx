@@ -1,5 +1,7 @@
 import { format, sub, add } from "date-fns";
-import styles from "../../../styles/RatesAvailabilityCalendar.module.css";
+import styles from "../../../styles/Calendar.module.css";
+import { roomTypes } from "../../../data_mocked";
+import { Fragment } from "react";
 
 export default function Calendar() {
   const today = new Date();
@@ -28,9 +30,12 @@ export default function Calendar() {
     </th>
   ));
 
+  const listOfRooms = roomTypes.map(room => room.products);
+  console.log(listOfRooms);
+
   return (
-    <div className={styles.tableContainer}>
-      <table className={styles.ratesAndAvailability}>
+    <div id={styles.tableContainer}>
+      <table id={styles.calendarTable}>
         <thead>
           <tr>
             <th>
@@ -39,10 +44,30 @@ export default function Calendar() {
             </th>
           </tr>
           <tr>
-            <th></th>
+            <th colSpan={2}></th>
             {daysOfWeek}
           </tr>
         </thead>
+        <tbody>
+          {listOfRooms.map((room, index) =>
+            room.map((obj, i) => {
+              return (
+                <Fragment key={index}>
+                  <tr key={i}>
+                    <th rowSpan={obj.beds.length + 1}>{obj.room_name}</th>
+                  </tr>
+                  {obj.beds.map((bed, j) => {
+                    return (
+                      <tr key={j}>
+                        <th>{bed}</th>
+                      </tr>
+                    );
+                  })}
+                </Fragment>
+              );
+            })
+          )}
+        </tbody>
       </table>
     </div>
   );
