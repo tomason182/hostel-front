@@ -39,15 +39,15 @@ export const roomTypes = [
     products: [
       {
         room_name: "Room 01",
-        beds: [],
+        beds: ["B0001", "B0002", "B0003", "B0004", "B0005", "B0006"],
       },
       {
         room_name: "Room 02",
-        beds: [],
+        beds: ["B0007", "B0008", "B0009", "B0010", "B0011", "B0012"],
       },
       {
         room_name: "Room 03",
-        beds: [],
+        beds: ["B0013", "B0014", "B0015", "B0016", "B0017", "B0018"],
       },
     ],
   },
@@ -64,11 +64,11 @@ export const roomTypes = [
     products: [
       {
         room_name: "Room 01",
-        beds: [],
+        beds: ["B0001", "B0002", "B0003", "B0004"],
       },
       {
         room_name: "Room 02",
-        beds: [],
+        beds: ["B0005", "B0006", "B0007", "B0008"],
       },
     ],
   },
@@ -85,15 +85,15 @@ export const roomTypes = [
     products: [
       {
         room_name: "Room 01",
-        beds: [],
+        beds: ["B0001", "B0002", "B0003", "B0004"],
       },
       {
         room_name: "Room 02",
-        beds: [],
+        beds: ["B0005", "B0006", "B0007", "B0008"],
       },
       {
         room_name: "Room 03",
-        beds: [],
+        beds: ["B0009", "B0010", "B0011", "B0012"],
       },
     ],
   },
