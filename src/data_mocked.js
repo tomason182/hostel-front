@@ -169,3 +169,19 @@ export const users = [
     role: "slave",
   },
 ];
+
+export const ratesAndAvailability = [
+  {
+    _id: "RA0001",
+    room_type_id: "RT0001",
+    dates: [
+      {
+        start_date: "2024-09-03",
+        end_date: "2024-09-06",
+        standard_rate: 28,
+        currency: "USD",
+        custom_availability: 1,
+      },
+    ],
+  },
+];

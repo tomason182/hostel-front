@@ -1,6 +1,10 @@
 import { format } from "date-fns";
 import styles from "../../../styles/RatesAvailabilityCalendar.module.css";
-import { roomTypes, reservations } from "../../../data_mocked";
+import {
+  roomTypes,
+  reservations,
+  ratesAndAvailability,
+} from "../../../data_mocked";
 import { Fragment } from "react";
 
 export default function RatesAvailabilityCalendar() {
@@ -11,28 +15,56 @@ export default function RatesAvailabilityCalendar() {
   const year = format(today, "yyyy");
   const daysArray = array.map(index => new Date(year, month, index));
 
+  console.log(daysArray);
+
   const listOfRooms = roomTypes.map(room => {
     return daysArray.map(day => {
       const bookings = reservations.filter(reservation => {
-        const checkIn = new Date(reservation.check_in_date);
-        const checkOut = new Date(reservation.check_out_date);
+        const [y, m, d] = reservation.check_in_date.split("-");
+        const checkIn = new Date(y, m - 1, d);
+        const [yy, mm, dd] = reservation.check_out_date.split("-");
+        const checkOut = new Date(yy, mm - 1, dd);
 
         return (
           reservation.room_type_id === room._id &&
-          checkIn <= day &&
-          checkOut > day
+          checkIn.getTime() <= day.getTime() &&
+          checkOut.getTime() >= day.getTime()
         );
       });
 
+      const roomAvailability = ratesAndAvailability.find(
+        ra => ra.room_type_id === room._id
+      );
+
+      const customAvailability = roomAvailability
+        ? roomAvailability.dates.find(date => {
+            const [y, m, d] = date.start_date.split("-");
+            const startDate = new Date(y, m - 1, d);
+            const [yy, mm, dd] = date.end_date.split("-");
+            const endDate = new Date(yy, mm - 1, dd);
+            console.log(endDate === day);
+
+            return (
+              startDate.getTime() <= day.getTime() &&
+              endDate.getTime() >= day.getTime()
+            );
+          })
+        : null;
+
+      const toSell = customAvailability
+        ? customAvailability.custom_availability
+        : room.max_occupancy * room.inventory;
+
+      const standardRate = customAvailability
+        ? customAvailability.standard_rate
+        : room.base_rate;
+
       return {
         _id: room._id,
-        toSell: room.max_occupancy * room.inventory - bookings.length,
-        standardRate: room.base_rate,
+        toSell: toSell - bookings.length,
+        standardRate,
         bookings: bookings.length,
-        status:
-          room.max_occupancy * room.inventory - bookings.length > 0
-            ? "Open"
-            : "Close",
+        status: toSell - bookings.length > 0 ? "Open" : "Close",
       };
     });
   });
