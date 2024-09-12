@@ -1,17 +1,32 @@
 import { format, sub, add } from "date-fns";
+import { useState } from "react";
 import styles from "../../../styles/Calendar.module.css";
 import { roomTypes, reservationSchedule } from "../../../data_mocked";
 import { Fragment } from "react";
 
 export default function Calendar() {
   const today = new Date();
-  const year = format(today, "yyyy");
-  const MMM = format(today, "MMM");
-  const dayOfWeekNumber = parseInt(format(today, "e"), 10); // Empieza en domingo
-  const firstDayOfWeek = sub(today, { days: dayOfWeekNumber - 1 });
 
+  /*   const dayOfWeekNumber = parseInt(format(today, "e"), 10); // Empieza en domingo */
+
+  const [startDate, setStartDate] = useState(today);
+
+  const year = format(startDate, "yyyy");
+  const MMM = format(startDate, "MMM");
+
+  function handleNextBtn() {
+    const date = add(startDate, { days: 7 });
+    setStartDate(date);
+  }
+
+  function handlePrevBtn() {
+    const date = sub(startDate, { days: 7 });
+    setStartDate(date);
+  }
+
+  const firstDayOfCalendar = sub(startDate, { days: 3 });
   const array = Array.from({ length: 14 }, (x, i) => i);
-  const weeksArray = array.map(i => add(firstDayOfWeek, { days: i }));
+  const weeksArray = array.map(i => add(firstDayOfCalendar, { days: i }));
   weeksArray.map(i => i.setHours(1, 0, 0, 0));
 
   const daysOfWeek = weeksArray.map(day => (
@@ -55,9 +70,15 @@ export default function Calendar() {
       <table id={styles.calendarTable}>
         <thead>
           <tr>
-            <th>
+            <th colSpan={15} style={{ textAlign: "left" }}>
               {MMM}&nbsp;
               {year}
+            </th>
+            <th>
+              <button onClick={handlePrevBtn}>Prev</button>
+            </th>
+            <th>
+              <button onClick={handleNextBtn}>Next</button>
             </th>
           </tr>
           <tr>
@@ -135,7 +156,7 @@ export default function Calendar() {
                               ? new Date(hasReservation.hasOverlap)
                               : new Date(hasReservation.check_in_date);
                             checkInDate.setHours(1, 0, 0, 0);
-                            console.log(checkInDate);
+
                             const checkOutDate = new Date(
                               hasReservation.check_out_date
                             );
