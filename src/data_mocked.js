@@ -200,8 +200,8 @@ export const reservationSchedule = [
     availability: [
       {
         reserved_by: "G0001",
-        check_in_date: "2024-09-10",
-        check_out_date: "2024-09-13",
+        check_in_date: "2024-09-08",
+        check_out_date: "2024-09-09",
       },
       {
         reserved_by: "G0002",

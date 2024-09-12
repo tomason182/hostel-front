@@ -101,17 +101,41 @@ export default function Calendar() {
                                   const checkInDate = new Date(y, m - 1, d);
                                   checkInDate.setHours(1, 0, 0, 0);
                                   day.setHours(1, 0, 0, 0);
-                                  return checkInDate.getDate() === day.getDate()
-                                    ? date
-                                    : null;
+                                  const [yy, mm, dd] =
+                                    date.check_out_date.split("-");
+                                  const checkOutDate = new Date(yy, mm, dd);
+                                  checkOutDate.setHours(1, 0, 0, 0);
+
+                                  const overlap =
+                                    index === 0 &&
+                                    checkInDate.getDate() <
+                                      weeksArray[0].getDate() &&
+                                    checkOutDate.getDate() >=
+                                      weeksArray[0].getDate();
+                                  if (overlap) {
+                                    return {
+                                      ...date,
+                                      hasOverlap: weeksArray[0],
+                                    };
+                                  } else if (
+                                    checkInDate.getDate() === day.getDate()
+                                  ) {
+                                    return date;
+                                  }
+
+                                  return null;
                                 })
                               : null;
 
+                          // hay que solucionar temas de fechas. Como estan en data_mocked (2024,09,18), JS toma un dia anterior.
+                          // Pero si del servidor viene y se guardan en la hora local, posiblemente todo este problema no lo tengamos.
+
                           if (hasReservation) {
-                            const checkInDate = new Date(
-                              hasReservation.check_in_date
-                            );
+                            const checkInDate = hasReservation.hasOverlap
+                              ? new Date(hasReservation.hasOverlap)
+                              : new Date(hasReservation.check_in_date);
                             checkInDate.setHours(1, 0, 0, 0);
+                            console.log(checkInDate);
                             const checkOutDate = new Date(
                               hasReservation.check_out_date
                             );
@@ -127,7 +151,6 @@ export default function Calendar() {
                               weeksArray[weeksArray.length - 1].getDate()
                             ) {
                               skipDays = weeksArray.length - index - 1;
-                              console.log(skipDays);
                             } else {
                               skipDays = nights - 1;
                             }
