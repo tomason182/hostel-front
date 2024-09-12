@@ -12,6 +12,7 @@ export default function Calendar() {
 
   const array = Array.from({ length: 14 }, (x, i) => i);
   const weeksArray = array.map(i => add(firstDayOfWeek, { days: i }));
+  weeksArray.map(i => i.setHours(1, 0, 0, 0));
 
   const daysOfWeek = weeksArray.map(day => (
     <th
@@ -98,9 +99,9 @@ export default function Calendar() {
                                   const [y, m, d] =
                                     date.check_in_date.split("-");
                                   const checkInDate = new Date(y, m - 1, d);
-                                  checkInDate.setHours(0, 0, 0, 0);
-                                  day.setHours(0, 0, 0, 0);
-                                  return checkInDate.getTime() === day.getTime()
+                                  checkInDate.setHours(1, 0, 0, 0);
+                                  day.setHours(1, 0, 0, 0);
+                                  return checkInDate.getDate() === day.getDate()
                                     ? date
                                     : null;
                                 })
@@ -110,13 +111,26 @@ export default function Calendar() {
                             const checkInDate = new Date(
                               hasReservation.check_in_date
                             );
+                            checkInDate.setHours(1, 0, 0, 0);
                             const checkOutDate = new Date(
                               hasReservation.check_out_date
                             );
-                            const nights =
-                              (checkOutDate - checkInDate) /
-                              (1000 * 60 * 60 * 24);
-                            skipDays = nights - 1;
+                            checkOutDate.setHours(1, 0, 0, 0);
+
+                            const nights = Math.min(
+                              checkOutDate.getDate() - checkInDate.getDate(),
+                              weeksArray.length - index
+                            );
+
+                            if (
+                              checkOutDate.getDate() >
+                              weeksArray[weeksArray.length - 1].getDate()
+                            ) {
+                              skipDays = weeksArray.length - index - 1;
+                              console.log(skipDays);
+                            } else {
+                              skipDays = nights - 1;
+                            }
 
                             return (
                               <td
