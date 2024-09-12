@@ -119,7 +119,15 @@ export default function Calendar() {
                             skipDays = nights - 1;
 
                             return (
-                              <td colSpan={nights} key={index}>
+                              <td
+                                colSpan={nights}
+                                key={index}
+                                style={{
+                                  backgroundColor: "blue",
+                                  color: "white",
+                                  paddingLeft: "1rem",
+                                }}
+                              >
                                 {hasReservation.reserved_by}
                               </td>
                             );

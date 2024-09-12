@@ -210,4 +210,19 @@ export const reservationSchedule = [
       },
     ],
   },
+  {
+    _id: "B0003",
+    availability: [
+      {
+        reserved_by: "G0004",
+        check_in_date: "2024-09-08",
+        check_out_date: "2024-09-09",
+      },
+      {
+        reserved_by: "G0005",
+        check_in_date: "2024-09-20",
+        check_out_date: "2024-09-22",
+      },
+    ],
+  },
 ];
