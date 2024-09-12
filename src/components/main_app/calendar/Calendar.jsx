@@ -39,7 +39,7 @@ export default function Calendar() {
             </th>
           </tr>
           <tr>
-            <th colSpan={2}></th>
+            <th colSpan={3}></th>
             {daysOfWeek}
           </tr>
         </thead>
@@ -49,7 +49,13 @@ export default function Calendar() {
               return (
                 <Fragment key={obj.room_id}>
                   <tr key={`${room._id}-${obj.room_id}`}>
-                    <th rowSpan={obj.beds.length + 1}>{obj.room_name}</th>
+                    <th
+                      rowSpan={obj.beds.length + 1}
+                      colSpan={2}
+                      className={styles.roomInfo}
+                    >
+                      {obj.room_name}
+                    </th>
                   </tr>
                   {obj.beds.map((bed, j) => {
                     let skipDays = 0;

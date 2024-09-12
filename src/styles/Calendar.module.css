@@ -4,19 +4,12 @@
 }
 
 #calendarTable {
-  border: 1px solid black;
   width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
 
 table th,
 table td {
-  border: 1px solid black;
-}
-
-.dates {
-  width: 4.5rem;
-}
-
-.beds {
-  padding: 0.5rem;
+  border: 1px solid var(--border-color);
 }
