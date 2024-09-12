@@ -1,5 +1,5 @@
 #tableContainer {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   padding: 2rem;
 }
 
@@ -30,4 +30,12 @@
 
 #tableContainer tr:last-child {
   border-bottom: 2px solid var(--border-color-dark);
+}
+
+.roomInfo {
+  background-color: #ccc;
+}
+
+#today {
+  background-color: var(--secondary-color);
 }

@@ -17,14 +17,31 @@ export default function Calendar() {
     <th
       scope="col"
       key={day.toISOString()}
+      id={
+        format(new Date(today), "dd") === format(new Date(day), "dd")
+          ? styles.today
+          : ""
+      }
       className={styles.dates}
       style={{ textAlign: "center" }}
     >
-      <span style={{ fontSize: "0.75rem", color: "#7c7c7c" }}>
+      <span
+        style={
+          format(new Date(today), "dd") === format(new Date(day), "dd")
+            ? { fontSize: "0.75rem", color: "white" }
+            : { fontSize: "0.75rem", color: "#7c7c7c" }
+        }
+      >
         {format(new Date(day), "iii")}
       </span>
       <br />
-      <span style={{ fontSize: "1.25rem", color: "#636363" }}>
+      <span
+        style={
+          format(new Date(today), "dd") === format(new Date(day), "dd")
+            ? { fontSize: "1.25rem", color: "white" }
+            : { fontSize: "1.25rem", color: "#636363" }
+        }
+      >
         {format(new Date(day), "dd")}
       </span>
     </th>
@@ -56,11 +73,7 @@ export default function Calendar() {
                     key={`${room._id}-${obj.room_id}`}
                     className={styles.roomRow}
                   >
-                    <th
-                      rowSpan={obj.beds.length + 1}
-                      colSpan={2}
-                      className={styles.roomInfo}
-                    >
+                    <th rowSpan={obj.beds.length + 1} colSpan={2}>
                       {obj.room_name}
                     </th>
                   </tr>
