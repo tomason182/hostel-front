@@ -11,6 +11,7 @@ import PropertyDetails from "../components/main_app/property/PropertyDetails";
 import RoomTypes from "../components/main_app/property/RoomTypes";
 import LoginPage from "../components/accounts/LoginPage";
 import ReservationDetails from "../components/main_app/reservations/ReservationDetails";
+import ProtectedRoutes from "../hooks/ProtectedRoutes";
 
 const routes = [
   {
@@ -27,40 +28,45 @@ const routes = [
     element: <LoginPage />,
   },
   {
-    path: "/app",
-    element: <App />,
+    element: <ProtectedRoutes isAuthenticated={false} />,
     children: [
       {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: "calendar",
-        element: <CalendarMainPage />,
-      },
-      {
-        path: "rates-and-availability",
-        element: <RateAndAvailability />,
-      },
-      {
-        path: "reservations",
-        element: <Reservations />,
-      },
-      {
-        path: "reservations/:id",
-        element: <ReservationDetails />,
-      },
-      {
-        path: "property/general-info",
-        element: <GeneralInfo />,
-      },
-      {
-        path: "property/property-details",
-        element: <PropertyDetails />,
-      },
-      {
-        path: "property/room-types",
-        element: <RoomTypes />,
+        path: "/app",
+        element: <App />,
+        children: [
+          {
+            index: true,
+            element: <Home />,
+          },
+          {
+            path: "calendar",
+            element: <CalendarMainPage />,
+          },
+          {
+            path: "rates-and-availability",
+            element: <RateAndAvailability />,
+          },
+          {
+            path: "reservations",
+            element: <Reservations />,
+          },
+          {
+            path: "reservations/:id",
+            element: <ReservationDetails />,
+          },
+          {
+            path: "property/general-info",
+            element: <GeneralInfo />,
+          },
+          {
+            path: "property/property-details",
+            element: <PropertyDetails />,
+          },
+          {
+            path: "property/room-types",
+            element: <RoomTypes />,
+          },
+        ],
       },
     ],
   },
