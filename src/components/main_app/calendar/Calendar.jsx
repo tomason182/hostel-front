@@ -20,9 +20,13 @@ export default function Calendar() {
       className={styles.dates}
       style={{ textAlign: "center" }}
     >
-      {format(new Date(day), "iii")}
+      <span style={{ fontSize: "0.75rem", color: "#7c7c7c" }}>
+        {format(new Date(day), "iii")}
+      </span>
       <br />
-      {format(new Date(day), "dd")}
+      <span style={{ fontSize: "1.25rem", color: "#636363" }}>
+        {format(new Date(day), "dd")}
+      </span>
     </th>
   ));
 
@@ -48,7 +52,10 @@ export default function Calendar() {
             room.map(obj => {
               return (
                 <Fragment key={obj.room_id}>
-                  <tr key={`${room._id}-${obj.room_id}`}>
+                  <tr
+                    key={`${room._id}-${obj.room_id}`}
+                    className={styles.roomRow}
+                  >
                     <th
                       rowSpan={obj.beds.length + 1}
                       colSpan={2}

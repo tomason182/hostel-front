@@ -9,7 +9,25 @@
   table-layout: fixed;
 }
 
-table th,
-table td {
+#calendarTable td {
   border: 1px solid var(--border-color);
+}
+
+.beds {
+  border-top: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.roomRow,
+.roomRow th {
+  border-bottom: 2px solid var(--border-color-dark);
+}
+
+.roomRow th:first-child {
+  border-top: 2px solid var(--border-color-dark);
+}
+
+#tableContainer tr:last-child {
+  border-bottom: 2px solid var(--border-color-dark);
 }
