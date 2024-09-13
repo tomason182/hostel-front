@@ -12,6 +12,7 @@ import RoomTypes from "../components/main_app/property/RoomTypes";
 import LoginPage from "../components/accounts/LoginPage";
 import ReservationDetails from "../components/main_app/reservations/ReservationDetails";
 import ProtectedRoutes from "../hooks/ProtectedRoutes";
+import isAuthenticated from "../hooks/isAuthenticated.js";
 
 const routes = [
   {
@@ -28,7 +29,7 @@ const routes = [
     element: <LoginPage />,
   },
   {
-    element: <ProtectedRoutes isAuthenticated={false} />,
+    element: <ProtectedRoutes isAuthenticated={isAuthenticated} />,
     children: [
       {
         path: "/app",
