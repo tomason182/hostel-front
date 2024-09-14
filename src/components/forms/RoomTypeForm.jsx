@@ -1,8 +1,26 @@
 import PropTypes from "prop-types";
 import formDefault from "../../styles/formDefaultStyle.module.css";
 import styles from "../../styles/RoomTypeForm.module.css";
+import { useState } from "react";
 
 export default function RoomTypeForm({ refProps, data }) {
+  const [formValues, setFormValues] = useState({
+    description: data?.description || "",
+    max_occupancy: data?.max_occupancy || "",
+    inventory: data?.inventory || "",
+    base_rate: data?.base_rate || "",
+    type: data?.type || "private",
+    gender: data?.gender || "mixed",
+  });
+
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     // Handle form submission here
@@ -26,7 +44,8 @@ export default function RoomTypeForm({ refProps, data }) {
           name="description"
           minLength={3}
           maxLength={100}
-          value={data && data.description}
+          value={formValues.description}
+          onChange={handleInputChange}
           required
           aria-required
         />
@@ -40,7 +59,8 @@ export default function RoomTypeForm({ refProps, data }) {
                 id="private"
                 name="type"
                 value="private"
-                defaultChecked={data && data.type === "private"}
+                checked={formValues.type === "private"}
+                onChange={handleInputChange}
               />
             </div>
             <div className={styles.radioInputContainer}>
@@ -50,7 +70,8 @@ export default function RoomTypeForm({ refProps, data }) {
                 id="dormitory"
                 name="type"
                 value="dormitory"
-                defaultChecked={data && data.type === "dormitory"}
+                checked={formValues.type === "dormitory"}
+                onChange={handleInputChange}
               />
             </div>
           </fieldset>
@@ -63,7 +84,8 @@ export default function RoomTypeForm({ refProps, data }) {
                 id="mixed_dorm"
                 name="gender"
                 value="mixed"
-                defaultChecked={data && data.gender === "mixed"}
+                checked={formValues.gender === "mixed"}
+                onChange={handleInputChange}
               />
             </div>
             <div className={styles.radioInputContainer}>
@@ -73,7 +95,8 @@ export default function RoomTypeForm({ refProps, data }) {
                 id="female_dorm"
                 name="gender"
                 value="female"
-                defaultChecked={data && data.gender === "female"}
+                checked={formValues.gender === "female"}
+                onChange={handleInputChange}
               />
             </div>
           </fieldset>
@@ -116,7 +139,8 @@ export default function RoomTypeForm({ refProps, data }) {
               required
               min={1}
               max={20}
-              value={data && data.max_occupancy}
+              value={formValues.max_occupancy}
+              onChange={handleInputChange}
             />
             <label htmlFor="inventory" className={styles.labelContainer}>
               Inventory
@@ -149,7 +173,8 @@ export default function RoomTypeForm({ refProps, data }) {
               required
               min={1}
               max={10}
-              value={data && data.inventory}
+              value={formValues.input}
+              onChange={handleInputChange}
             />
             <label htmlFor="base_rate" className={styles.labelContainer}>
               Base rate{" "}
@@ -183,7 +208,8 @@ export default function RoomTypeForm({ refProps, data }) {
               required
               min={1}
               max={1000}
-              value={data && data.base_rate}
+              value={formValues.base_rate}
+              onChange={handleInputChange}
             />
           </div>
         </fieldset>
