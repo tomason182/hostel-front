@@ -1,9 +1,53 @@
 import styles from "../../styles/ProfileBtn.module.css";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function ProfileBtn() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLogOut, setIsLogOut] = useState(false);
+  const [error, setError] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLogOut) {
+      navigate("/");
+    }
+  }, [isLogOut, navigate]);
+
+  useEffect(() => {
+    if (error) {
+      alert("An Error Occurred while logging out. Please try again");
+    }
+  });
+
+  function handleLogOutClick() {
+    const url = import.meta.env.VITE_URL_BASE + "users/logout";
+    const options = {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    };
+
+    fetch(url, options)
+      .then(response => {
+        setError(false);
+        if (response.status >= 400)
+          throw new Error(
+            "An unexpected error occurred logging out. Try again"
+          );
+
+        setIsLogOut(true);
+      })
+      .catch(error => {
+        console.error(error);
+        setError(true);
+      });
+  }
+
   return (
     <div className={styles.menuBar}>
       <button
@@ -29,7 +73,7 @@ function ProfileBtn() {
       </button>
       <div className={`${styles.profileMenu} ${isMenuOpen && styles.open}`}>
         <Link to="#">Profile</Link>
-        <Link to="#">Log out</Link>
+        <Link onClick={handleLogOutClick}>Log out</Link>
       </div>
     </div>
   );
