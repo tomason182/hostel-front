@@ -8,14 +8,16 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/users/profile", {
+    const url = import.meta.env.VITE_URL_BASE + "users/profile";
+    const options = {
       mode: "cors",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
       credentials: "include",
-    })
+    };
+    fetch(url, options)
       .then(response => response.json())
       .then(data => setUser(data.msg))
       .catch(err => console.error("Error fetching users data: ", err));
