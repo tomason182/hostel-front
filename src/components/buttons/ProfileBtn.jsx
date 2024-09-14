@@ -1,9 +1,13 @@
 import styles from "../../styles/ProfileBtn.module.css";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function ProfileBtn() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <>
+    <div className={styles.menuBar}>
       <button
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
         className={styles.btn}
         type="button"
         aria-expanded="false"
@@ -23,7 +27,11 @@ function ProfileBtn() {
           <circle cx={12} cy={7} r={4}></circle>
         </svg>
       </button>
-    </>
+      <div className={`${styles.profileMenu} ${isMenuOpen && styles.open}`}>
+        <Link to="#">Profile</Link>
+        <Link to="#">Log out</Link>
+      </div>
+    </div>
   );
 }
 
