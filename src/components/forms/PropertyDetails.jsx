@@ -148,6 +148,7 @@ function PropertyDetails({
             handleCloseBtn();
             refProps.current?.close();
           }}
+          disabled={loading}
         >
           Cancel
         </button>
