@@ -7,7 +7,6 @@ import CalendarMainPage from "../components/main_app/calendar/CalendarMainPage";
 import RateAndAvailability from "../components/main_app/ratesAndAvailability/RatesAndAvailability";
 import Reservations from "../components/main_app/reservations/Reservations";
 import GeneralInfo from "../components/main_app/property/GeneralInfo";
-import PropertyDetails from "../components/main_app/property/PropertyDetails";
 import RoomTypes from "../components/main_app/property/RoomTypes";
 import LoginPage from "../components/accounts/LoginPage";
 import ReservationDetails from "../components/main_app/reservations/ReservationDetails";
@@ -58,10 +57,6 @@ const routes = [
           {
             path: "property/general-info",
             element: <GeneralInfo />,
-          },
-          {
-            path: "property/property-details",
-            element: <PropertyDetails />,
           },
           {
             path: "property/room-types",
