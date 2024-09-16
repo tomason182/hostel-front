@@ -46,12 +46,12 @@ function PropertyDetails({ refProps, data }) {
 
     const formBody = {
       propertyName: formValues.propertyName,
-      street: formValues.street,
-      city: formValues.city,
-      postalCode: formValues.postalCode,
-      countryCode: formValues.countryCode,
-      email: formValues.email,
-      phoneNumber: formValues.phoneNumber,
+      ...(formValues.street && { street: formValues.street }),
+      ...(formValues.city && { city: formValues.city }),
+      ...(formValues.postalCode && { postalCode: formValues.postalCode }),
+      ...(formValues.countryCode && { countryCode: formValues.countryCode }),
+      ...(formValues.email && { email: formValues.email }),
+      ...(formValues.phoneNumber && { phoneNumber: formValues.phoneNumber }),
     };
 
     const url = import.meta.env.VITE_URL_BASE + "properties/update";
