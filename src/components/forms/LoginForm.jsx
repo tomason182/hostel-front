@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/SignUpForm.module.css";
 export default function LoginForm() {
   const [data, setData] = useState(null);
@@ -7,6 +7,12 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (data) {
+      navigate("/app");
+    }
+  }, [data, navigate]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -46,8 +52,6 @@ export default function LoginForm() {
       .catch(err => setError(err.message))
       .finally(setLoading(false));
   }
-
-  if (data) return navigate("/app");
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
