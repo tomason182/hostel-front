@@ -16,6 +16,7 @@ function GeneralInfo() {
   const [propertyData, setPropertyData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [refreshData, setRefreshData] = useState(false);
 
   useEffect(() => {
     async function fetchPropertyData() {
@@ -34,19 +35,19 @@ function GeneralInfo() {
         };
         const { data, errors } = await fetchDataHelper(url, options);
         if (data) {
-          setLoading(false);
           setPropertyData(data);
         }
         if (errors) {
-          setLoading(false);
           setError(errors);
         }
       } catch (err) {
         setError([err.message || "Unexpected error occurred"]);
+      } finally {
+        setLoading(false); // Remove this to style loading container;
       }
     }
     fetchPropertyData();
-  }, []);
+  }, [refreshData]);
 
   return (
     <div className="main-content">
@@ -54,7 +55,12 @@ function GeneralInfo() {
       <div className={styles.mainContainer}>
         <dialog ref={propertyDialog} className="dialog">
           <DialogHeader title={"Property details"} refProps={propertyDialog} />
-          <PropertyDetails refProps={propertyDialog} data={propertyData} />
+          <PropertyDetails
+            refProps={propertyDialog}
+            data={propertyData}
+            refreshData={refreshData}
+            setRefreshData={setRefreshData}
+          />
         </dialog>
         <dialog ref={userDialog} className="dialog">
           <DialogHeader title={"Add a User"} refProps={userDialog} />
@@ -69,7 +75,9 @@ function GeneralInfo() {
           />
           <button
             className={styles.editBtn}
-            onClick={() => propertyDialog.current?.showModal()}
+            onClick={() => {
+              propertyDialog.current?.showModal();
+            }}
           >
             Edit
           </button>

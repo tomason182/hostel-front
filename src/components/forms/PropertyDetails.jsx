@@ -2,9 +2,10 @@ import styles from "../../styles/formDefaultStyle.module.css";
 import { useEffect, useState } from "react";
 import Error from "../error_page/Error";
 import PropTypes from "prop-types";
+import fetchDataHelper from "../../utils/fetchDataHelper";
 
-function PropertyDetails({ refProps, data }) {
-  const [isSubmit, setIsSubmit] = useState(false);
+function PropertyDetails({ refProps, data, refreshData, setRefreshData }) {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [formValues, setFormValues] = useState({
     propertyName: "",
@@ -22,8 +23,8 @@ function PropertyDetails({ refProps, data }) {
         propertyName: data?.property_name || "",
         street: data?.address.street || "",
         city: data?.address.city || "",
-        postalCode: data?.postal_code || "",
-        countryCode: data?.country_code || "",
+        postalCode: data?.address.postal_code || "",
+        countryCode: data?.address.country_code || "",
         phoneNumber: data?.contact_info.phone_number || "",
         email: data?.contact_info.email || "",
       });
@@ -42,7 +43,7 @@ function PropertyDetails({ refProps, data }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setIsSubmit(true);
+    setLoading(true);
 
     const formBody = {
       propertyName: formValues.propertyName,
@@ -54,36 +55,45 @@ function PropertyDetails({ refProps, data }) {
       ...(formValues.phoneNumber && { phoneNumber: formValues.phoneNumber }),
     };
 
-    const url = import.meta.env.VITE_URL_BASE + "properties/update";
-    const options = {
-      mode: "cors",
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(formBody),
-    };
-
     try {
-      const response = await fetch(url, options);
-      const newData = await response.json();
-      console.log(newData);
+      const url = import.meta.env.VITE_URL_BASE + "properties/update";
+      const options = {
+        mode: "cors",
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formBody),
+      };
 
-      if (response.ok) {
-        alert("Property data updated successfully");
-      } else if (response.status === 400 && Array.isArray(newData)) {
-        setError(newData);
-      } else {
-        throw new Error(newData.message || "Error updating property data");
+      const { data, errors } = await fetchDataHelper(url, options);
+      if (data) {
+        setRefreshData(!refreshData);
+        refProps.current?.close();
+      }
+
+      if (errors) {
+        setError(errors);
       }
     } catch (err) {
-      setError(err);
-      console.error("Error during property update: ", err);
+      setError([err.message || "Unexpected error occurred"]);
     } finally {
-      setIsSubmit(false);
-      /* refProps.current?.close(); */
+      setLoading(false);
     }
+  }
+
+  function handleCloseBtn() {
+    setFormValues({
+      propertyName: data?.property_name || "",
+      street: data?.address.street || "",
+      city: data?.address.city || "",
+      postalCode: data?.address.postal_code || "",
+      countryCode: data?.address.country_code || "",
+      phoneNumber: data?.contact_info.phone_number || "",
+      email: data?.contact_info.email || "",
+    });
+    setError(null);
   }
 
   return (
@@ -159,19 +169,18 @@ function PropertyDetails({ refProps, data }) {
         <button
           type="reset"
           className={styles.resetBtn}
-          onClick={() => refProps.current?.close()}
+          onClick={() => {
+            handleCloseBtn();
+            refProps.current?.close();
+          }}
         >
           Cancel
         </button>
-        <button type="submit" className={styles.submitBtn} disabled={isSubmit}>
-          {isSubmit ? "Saving..." : "Save changes"}
+        <button type="submit" className={styles.submitBtn} disabled={loading}>
+          {loading ? "Saving..." : "Save changes"}
         </button>
       </menu>
-      {error && (
-        <ul className="errorMsg">
-          <Error error={error} />
-        </ul>
-      )}
+      {error && <Error errors={error} />}
     </form>
   );
 }
