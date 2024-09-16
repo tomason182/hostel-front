@@ -27,5 +27,5 @@ export default function PropertyInfoSub({ data, loading, error }) {
 PropertyInfoSub.propTypes = {
   data: PropTypes.object,
   loading: PropTypes.bool,
-  error: PropTypes.object,
+  error: PropTypes.array,
 };

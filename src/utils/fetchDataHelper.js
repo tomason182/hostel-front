@@ -7,9 +7,9 @@ export default async function fetchDataHelper(url, options) {
       const errorResponse = await response.json();
       Array.isArray(errorResponse)
         ? (errors = errorResponse)
-        : errors.push(
-            errorResponse.message || "An error ocurred during request"
-          );
+        : errors.push({
+            msg: errorResponse.message || "An error ocurred during request",
+          });
       return { data: null, errors };
     }
 
