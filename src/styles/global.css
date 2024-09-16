@@ -110,3 +110,16 @@ dialog {
 .main-content {
   padding-bottom: 6rem;
 }
+
+/* Error message class */
+.errorMsg {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding-top: 1rem;
+  padding-left: 0;
+}
+
+.errorMsg li {
+  color: red;
+  font-size: small;
+}
