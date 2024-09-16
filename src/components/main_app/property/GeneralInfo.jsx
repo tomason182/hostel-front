@@ -16,6 +16,15 @@ function GeneralInfo() {
   const [propertyData, setPropertyData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [formPropertyValues, setFormPropertyValues] = useState({
+    propertyName: "",
+    street: "",
+    city: "",
+    postalCode: "",
+    countryCode: "",
+    phoneNumber: "",
+    email: "",
+  });
   const [refreshData, setRefreshData] = useState(false);
 
   useEffect(() => {
@@ -33,7 +42,7 @@ function GeneralInfo() {
           },
           credentials: "include",
         };
-        const { data, errors } = await fetchDataHelper(url, options);
+        const { data, errors = [] } = await fetchDataHelper(url, options);
         if (data) {
           setPropertyData(data);
         }
@@ -49,21 +58,67 @@ function GeneralInfo() {
     fetchPropertyData();
   }, [refreshData]);
 
+  useEffect(() => {
+    function handlePropertyFormValues() {
+      setFormPropertyValues({
+        propertyName: propertyData?.property_name || "",
+        street: propertyData?.address.street || "",
+        city: propertyData?.address.city || "",
+        postalCode: propertyData?.address.postal_code || "",
+        countryCode: propertyData?.address.country_code || "",
+        phoneNumber: propertyData?.contact_info.phone_number || "",
+        email: propertyData?.contact_info.email || "",
+      });
+    }
+
+    handlePropertyFormValues();
+  }, [propertyData]);
+
+  function handleCloseBtn() {
+    setFormPropertyValues({
+      propertyName: propertyData?.property_name || "",
+      street: propertyData?.address.street || "",
+      city: propertyData?.address.city || "",
+      postalCode: propertyData?.address.postal_code || "",
+      countryCode: propertyData?.address.country_code || "",
+      phoneNumber: propertyData?.contact_info.phone_number || "",
+      email: propertyData?.contact_info.email || "",
+    });
+    setError(null);
+  }
+
   return (
     <div className="main-content">
       <ContentTitle title={"General info"} />
       <div className={styles.mainContainer}>
         <dialog ref={propertyDialog} className="dialog">
-          <DialogHeader title={"Property details"} refProps={propertyDialog} />
+          <DialogHeader
+            title={"Property details"}
+            refProps={propertyDialog}
+            handleCloseBtn={handleCloseBtn}
+            loading={loading}
+          />
           <PropertyDetails
             refProps={propertyDialog}
-            data={propertyData}
+            propertyData={propertyData}
+            loading={loading}
+            setLoading={setLoading}
+            error={error}
+            setError={setError}
             refreshData={refreshData}
             setRefreshData={setRefreshData}
+            formPropertyValues={formPropertyValues}
+            setFormPropertyValues={setFormPropertyValues}
+            handleCloseBtn={handleCloseBtn}
           />
         </dialog>
         <dialog ref={userDialog} className="dialog">
-          <DialogHeader title={"Add a User"} refProps={userDialog} />
+          <DialogHeader
+            title={"Add a User"}
+            refProps={userDialog}
+            handleCloseBtn={handleCloseBtn}
+            loading={loading}
+          />
           <UserForm refProps={userDialog} />
         </dialog>
         <div className={styles.subContainer}>

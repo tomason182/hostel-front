@@ -1,42 +1,24 @@
 import styles from "../../styles/formDefaultStyle.module.css";
-import { useEffect, useState } from "react";
 import Error from "../error_page/Error";
 import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 
-function PropertyDetails({ refProps, data, refreshData, setRefreshData }) {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [formValues, setFormValues] = useState({
-    propertyName: "",
-    street: "",
-    city: "",
-    postalCode: "",
-    countryCode: "",
-    phoneNumber: "",
-    email: "",
-  });
-
-  useEffect(() => {
-    function handleFormValues() {
-      setFormValues({
-        propertyName: data?.property_name || "",
-        street: data?.address.street || "",
-        city: data?.address.city || "",
-        postalCode: data?.address.postal_code || "",
-        countryCode: data?.address.country_code || "",
-        phoneNumber: data?.contact_info.phone_number || "",
-        email: data?.contact_info.email || "",
-      });
-    }
-
-    handleFormValues();
-  }, [data]);
-
+function PropertyDetails({
+  refProps,
+  loading,
+  setLoading,
+  error,
+  setError,
+  refreshData,
+  setRefreshData,
+  formPropertyValues,
+  setFormPropertyValues,
+  handleCloseBtn,
+}) {
   function handleInputChange(e) {
     const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
+    setFormPropertyValues({
+      ...formPropertyValues,
       [name]: value,
     });
   }
@@ -46,13 +28,19 @@ function PropertyDetails({ refProps, data, refreshData, setRefreshData }) {
     setLoading(true);
 
     const formBody = {
-      propertyName: formValues.propertyName,
-      ...(formValues.street && { street: formValues.street }),
-      ...(formValues.city && { city: formValues.city }),
-      ...(formValues.postalCode && { postalCode: formValues.postalCode }),
-      ...(formValues.countryCode && { countryCode: formValues.countryCode }),
-      ...(formValues.email && { email: formValues.email }),
-      ...(formValues.phoneNumber && { phoneNumber: formValues.phoneNumber }),
+      propertyName: formPropertyValues.propertyName,
+      ...(formPropertyValues.street && { street: formPropertyValues.street }),
+      ...(formPropertyValues.city && { city: formPropertyValues.city }),
+      ...(formPropertyValues.postalCode && {
+        postalCode: formPropertyValues.postalCode,
+      }),
+      ...(formPropertyValues.countryCode && {
+        countryCode: formPropertyValues.countryCode,
+      }),
+      ...(formPropertyValues.email && { email: formPropertyValues.email }),
+      ...(formPropertyValues.phoneNumber && {
+        phoneNumber: formPropertyValues.phoneNumber,
+      }),
     };
 
     try {
@@ -83,19 +71,6 @@ function PropertyDetails({ refProps, data, refreshData, setRefreshData }) {
     }
   }
 
-  function handleCloseBtn() {
-    setFormValues({
-      propertyName: data?.property_name || "",
-      street: data?.address.street || "",
-      city: data?.address.city || "",
-      postalCode: data?.address.postal_code || "",
-      countryCode: data?.address.country_code || "",
-      phoneNumber: data?.contact_info.phone_number || "",
-      email: data?.contact_info.email || "",
-    });
-    setError(null);
-  }
-
   return (
     <form method="dialog" className={styles.mainForm} onSubmit={handleSubmit}>
       <label htmlFor="propertyName" className={styles.label}>
@@ -108,7 +83,7 @@ function PropertyDetails({ refProps, data, refreshData, setRefreshData }) {
         aria-required
         minLength={2}
         maxLength={50}
-        value={formValues.propertyName}
+        value={formPropertyValues.propertyName}
         onChange={handleInputChange}
         required
       />
@@ -119,7 +94,7 @@ function PropertyDetails({ refProps, data, refreshData, setRefreshData }) {
         name="street"
         id="street"
         maxLength={50}
-        value={formValues.street}
+        value={formPropertyValues.street}
         onChange={handleInputChange}
       />
       <label htmlFor="city">City</label>
@@ -127,7 +102,7 @@ function PropertyDetails({ refProps, data, refreshData, setRefreshData }) {
         type="text"
         name="city"
         id="city"
-        value={formValues.city}
+        value={formPropertyValues.city}
         onChange={handleInputChange}
       />
       <label htmlFor="postalCode">Postal Code</label>
@@ -135,7 +110,7 @@ function PropertyDetails({ refProps, data, refreshData, setRefreshData }) {
         type="text"
         name="postalCode"
         id="postalCode"
-        value={formValues.postalCode}
+        value={formPropertyValues.postalCode}
         onChange={handleInputChange}
       />
       <label htmlFor="countryCode">Country code</label>
@@ -143,7 +118,7 @@ function PropertyDetails({ refProps, data, refreshData, setRefreshData }) {
         type="text"
         name="countryCode"
         id="countryCode"
-        value={formValues.countryCode}
+        value={formPropertyValues.countryCode}
         onChange={handleInputChange}
       />
       <fieldset>
@@ -153,7 +128,7 @@ function PropertyDetails({ refProps, data, refreshData, setRefreshData }) {
           type="text"
           name="email"
           id="email"
-          value={formValues.email}
+          value={formPropertyValues.email}
           onChange={handleInputChange}
         />
         <label htmlFor="phoneNumber">Phone number</label>
@@ -161,7 +136,7 @@ function PropertyDetails({ refProps, data, refreshData, setRefreshData }) {
           type="text"
           name="phoneNumber"
           id="phoneNumber"
-          value={formValues.phoneNumber}
+          value={formPropertyValues.phoneNumber}
           onChange={handleInputChange}
         />
       </fieldset>
@@ -187,7 +162,15 @@ function PropertyDetails({ refProps, data, refreshData, setRefreshData }) {
 
 PropertyDetails.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  data: PropTypes.object,
+  loading: PropTypes.bool.isRequired,
+  setLoading: PropTypes.func.isRequired,
+  error: PropTypes.array,
+  setError: PropTypes.func.isRequired,
+  refreshData: PropTypes.bool.isRequired,
+  setRefreshData: PropTypes.func.isRequired,
+  formPropertyValues: PropTypes.object.isRequired,
+  setFormPropertyValues: PropTypes.func.isRequired,
+  handleCloseBtn: PropTypes.func.isRequired,
 };
 
 export default PropertyDetails;
