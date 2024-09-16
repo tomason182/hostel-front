@@ -1,14 +1,12 @@
-export default function Error({ error }) {
-  let listOfErrors = [];
-  if (Array.isArray(error)) {
-    listOfErrors = error;
-  } else {
-    listOfErrors.push({ msg: error });
-  }
+import PropTypes from "prop-types";
 
-  const errors = listOfErrors.map((err, index) => (
-    <li key={index}>{err.msg}</li>
+export default function Error({ errors }) {
+  const listErrors = errors.map((error, index) => (
+    <li key={index}>{error.msg}</li>
   ));
-
-  return errors;
+  return <ul>{listErrors}</ul>;
 }
+
+Error.propTypes = {
+  errors: PropTypes.array.isRequired,
+};
