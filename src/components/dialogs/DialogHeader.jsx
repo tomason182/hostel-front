@@ -1,11 +1,23 @@
 import styles from "../../styles/DialogHeader.module.css";
 import PropTypes from "prop-types";
 
-export default function DialogHeader({ title, refProps }) {
+export default function DialogHeader({
+  title,
+  refProps,
+  handleCloseBtn,
+  loading,
+}) {
   return (
     <div className={styles.dialogHeader}>
       <h3>{title}</h3>
-      <button type="button" onClick={() => refProps?.current.close()}>
+      <button
+        type="button"
+        onClick={() => {
+          handleCloseBtn();
+          refProps?.current.close();
+        }}
+        disabled={loading}
+      >
         <svg
           xmlns="http://w3.org/2000/svg"
           aria-label="Dialog close button"
@@ -26,4 +38,6 @@ export default function DialogHeader({ title, refProps }) {
 DialogHeader.propTypes = {
   title: PropTypes.string,
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  handleCloseBtn: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
