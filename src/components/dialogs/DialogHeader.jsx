@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 export default function DialogHeader({
   title,
   refProps,
+  formRef,
   handleCloseBtn,
   loading,
 }) {
@@ -13,8 +14,8 @@ export default function DialogHeader({
       <button
         type="button"
         onClick={() => {
-          handleCloseBtn();
           refProps?.current.close();
+          handleCloseBtn(refProps, formRef);
         }}
         disabled={loading}
       >
@@ -38,6 +39,7 @@ export default function DialogHeader({
 DialogHeader.propTypes = {
   title: PropTypes.string,
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  formRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   handleCloseBtn: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 };

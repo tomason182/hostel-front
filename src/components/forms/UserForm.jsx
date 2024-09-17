@@ -2,14 +2,16 @@ import { useState } from "react";
 import styles from "../../styles/formDefaultStyle.module.css";
 import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
+import ErrorComponent from "../error_page/ErrorComponent";
 
-export default function UserForm({ refProps }) {
+export default function UserForm({ refProps, formRef }) {
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState(null);
+  const [error, setError] = useState(null);
 
   async function handleSubmit(e) {
+    e.preventDefault();
     setLoading(true);
-    setErrors(null);
+    setError(null);
 
     const { username, firstName, lastName, password, role } = e.target;
 
@@ -35,27 +37,26 @@ export default function UserForm({ refProps }) {
         body: JSON.stringify(formBody),
       };
 
-      const { data, error } = await fetchDataHelper(url, options);
+      const { data, errors } = await fetchDataHelper(url, options);
 
-      if (error) {
-        setErrors(errors);
-        return;
+      if (errors) {
+        console.log(errors);
+        setError(errors);
       }
 
       if (data) {
         console.log(data);
         // handle successful data.
-        return;
       }
     } catch (err) {
       console.log(err.message);
-      setErrors([{ msg: err.message || "Unexpected error occurred" }]);
+      setError([{ msg: err.message || "Unexpected error occurred" }]);
     } finally {
       setLoading(false);
     }
   }
   return (
-    <form method="dialog" className={styles.mainForm} onSubmit={handleSubmit}>
+    <form className={styles.mainForm} onSubmit={handleSubmit} ref={formRef}>
       <label htmlFor="username">User&#39;s Email</label>
       <input
         type="email"
@@ -105,7 +106,10 @@ export default function UserForm({ refProps }) {
         <button
           type="reset"
           className={styles.resetBtn}
-          onClick={() => refProps.current?.close()}
+          onClick={() => {
+            refProps.current?.close();
+            setError(null);
+          }}
           disabled={loading}
         >
           Cancel
@@ -114,10 +118,12 @@ export default function UserForm({ refProps }) {
           {loading ? "Saving..." : "Save"}
         </button>
       </menu>
+      {error && <ErrorComponent errors={error} />}
     </form>
   );
 }
 
 UserForm.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  formRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
 };

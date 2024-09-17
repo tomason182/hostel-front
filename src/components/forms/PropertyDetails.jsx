@@ -6,6 +6,7 @@ import { useEffect } from "react";
 
 function PropertyDetails({
   refProps,
+  formRef,
   loading,
   setLoading,
   error,
@@ -85,7 +86,12 @@ function PropertyDetails({
   }
 
   return (
-    <form method="dialog" className={styles.mainForm} onSubmit={handleSubmit}>
+    <form
+      method="dialog"
+      className={styles.mainForm}
+      onSubmit={handleSubmit}
+      ref={formRef}
+    >
       <label htmlFor="propertyName" className={styles.label}>
         Property name:
       </label>
@@ -158,7 +164,7 @@ function PropertyDetails({
           type="reset"
           className={styles.resetBtn}
           onClick={() => {
-            handleCloseBtn();
+            handleCloseBtn(refProps, formRef);
             refProps.current?.close();
           }}
           disabled={loading}
@@ -176,6 +182,7 @@ function PropertyDetails({
 
 PropertyDetails.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  formRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   loading: PropTypes.bool.isRequired,
   setLoading: PropTypes.func.isRequired,
   error: PropTypes.array,

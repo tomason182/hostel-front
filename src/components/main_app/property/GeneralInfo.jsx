@@ -13,6 +13,8 @@ import fetchDataHelper from "../../../utils/fetchDataHelper";
 function GeneralInfo() {
   const propertyDialog = useRef(null);
   const userDialog = useRef(null);
+  const propertyFormRef = useRef(null);
+  const userFormRef = useRef(null);
   const [propertyData, setPropertyData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -74,17 +76,21 @@ function GeneralInfo() {
     handlePropertyFormValues();
   }, [propertyData]);
 
-  function handleCloseBtn() {
-    setFormPropertyValues({
-      propertyName: propertyData?.property_name || "",
-      street: propertyData?.address.street || "",
-      city: propertyData?.address.city || "",
-      postalCode: propertyData?.address.postal_code || "",
-      countryCode: propertyData?.address.country_code || "",
-      phoneNumber: propertyData?.contact_info.phone_number || "",
-      email: propertyData?.contact_info.email || "",
-    });
-    setError(null);
+  function handleCloseBtn(refProps, formRef) {
+    if (formRef?.current && formRef === userFormRef) {
+      formRef.current.reset();
+    } else if (formRef?.current && formRef === propertyFormRef) {
+      setFormPropertyValues({
+        propertyName: propertyData?.property_name || "",
+        street: propertyData?.address.street || "",
+        city: propertyData?.address.city || "",
+        postalCode: propertyData?.address.postal_code || "",
+        countryCode: propertyData?.address.country_code || "",
+        phoneNumber: propertyData?.contact_info.phone_number || "",
+        email: propertyData?.contact_info.email || "",
+      });
+    }
+    refProps.current?.close();
   }
 
   return (
@@ -95,11 +101,13 @@ function GeneralInfo() {
           <DialogHeader
             title={"Property details"}
             refProps={propertyDialog}
+            formRef={propertyFormRef}
             handleCloseBtn={handleCloseBtn}
             loading={loading}
           />
           <PropertyDetails
             refProps={propertyDialog}
+            formProps={propertyFormRef}
             propertyData={propertyData}
             loading={loading}
             setLoading={setLoading}
@@ -116,10 +124,11 @@ function GeneralInfo() {
           <DialogHeader
             title={"Create new user"}
             refProps={userDialog}
+            formRef={userFormRef}
             handleCloseBtn={handleCloseBtn}
             loading={loading}
           />
-          <UserForm refProps={userDialog} />
+          <UserForm refProps={userDialog} formRef={userFormRef} />
         </dialog>
         <div className={styles.subContainer}>
           <h4>Property info</h4>
