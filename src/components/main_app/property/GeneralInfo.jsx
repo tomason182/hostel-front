@@ -50,7 +50,7 @@ function GeneralInfo() {
           setError(errors);
         }
       } catch (err) {
-        setError([err.message || "Unexpected error occurred"]);
+        setError([{ msg: err.message || "Unexpected error occurred" }]);
       } finally {
         setLoading(false); // Remove this to style loading container;
       }
