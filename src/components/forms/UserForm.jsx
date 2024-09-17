@@ -1,12 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../../styles/formDefaultStyle.module.css";
 import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import ErrorComponent from "../error_page/ErrorComponent";
 
-export default function UserForm({ refProps, formRef }) {
+export default function UserForm({
+  refProps,
+  formRef,
+  handleCloseBtn,
+  error,
+  setError,
+}) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    function handleEscKeyOnUser(e) {
+      if (e.keyCode === 27) {
+        e.preventDefault();
+        handleCloseBtn(refProps, formRef);
+      }
+    }
+    window.addEventListener("keydown", handleEscKeyOnUser);
+
+    return () => window.removeEventListener("keydown", handleEscKeyOnUser);
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -22,8 +39,6 @@ export default function UserForm({ refProps, formRef }) {
       password: password.value,
       role: role.value,
     };
-
-    console.log(formBody);
 
     try {
       const url = import.meta.env.VITE_URL_BASE + "users/create";
@@ -104,10 +119,9 @@ export default function UserForm({ refProps, formRef }) {
       </fieldset>
       <menu className={styles.buttonContainer}>
         <button
-          type="reset"
           className={styles.resetBtn}
           onClick={() => {
-            refProps.current?.close();
+            handleCloseBtn(refProps, formRef);
             setError(null);
           }}
           disabled={loading}
@@ -126,4 +140,7 @@ export default function UserForm({ refProps, formRef }) {
 UserForm.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   formRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  handleCloseBtn: PropTypes.func.isRequired,
+  error: PropTypes.array.isRequired,
+  setError: PropTypes.func.isRequired,
 };

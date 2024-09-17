@@ -14,8 +14,7 @@ export default function DialogHeader({
       <button
         type="button"
         onClick={() => {
-          refProps?.current.close();
-          handleCloseBtn(refProps, formRef);
+          handleCloseBtn(refProps, formRef); // attach the function handleCloseBtn to the button
         }}
         disabled={loading}
       >

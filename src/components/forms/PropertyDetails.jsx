@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import { useEffect } from "react";
 
+// This code correspond to the property form. It values are controlled. In the user form are uncontrolled
 function PropertyDetails({
   refProps,
   formRef,
@@ -28,14 +29,14 @@ function PropertyDetails({
   useEffect(() => {
     function handleEscKey(e) {
       if (e.keyCode === 27) {
-        handleCloseBtn();
-        refProps.current?.close();
+        e.preventDefault();
+        handleCloseBtn(refProps, formRef);
       }
     }
     window.addEventListener("keydown", handleEscKey);
 
     return () => window.removeEventListener("keydown", handleEscKey);
-  }, [handleCloseBtn, refProps]);
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -164,8 +165,7 @@ function PropertyDetails({
           type="reset"
           className={styles.resetBtn}
           onClick={() => {
-            handleCloseBtn(refProps, formRef);
-            refProps.current?.close();
+            handleCloseBtn(refProps, formRef); // attach the function to the cancel button
           }}
           disabled={loading}
         >

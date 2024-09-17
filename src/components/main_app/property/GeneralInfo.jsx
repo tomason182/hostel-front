@@ -10,11 +10,13 @@ import ContentTitle from "../../headers/ContentTitle";
 import UserForm from "../../forms/UserForm";
 import fetchDataHelper from "../../../utils/fetchDataHelper";
 
+// In the following code I am going to comment the parts that are having issues
+
 function GeneralInfo() {
-  const propertyDialog = useRef(null);
-  const userDialog = useRef(null);
-  const propertyFormRef = useRef(null);
-  const userFormRef = useRef(null);
+  const propertyDialog = useRef(null); // Create a ref for property dialog
+  const userDialog = useRef(null); // Create a ref for user dialog
+  const propertyFormRef = useRef(null); // Create a ref for property form
+  const userFormRef = useRef(null); // Create a ref for user form
   const [propertyData, setPropertyData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -54,7 +56,7 @@ function GeneralInfo() {
       } catch (err) {
         setError([{ msg: err.message || "Unexpected error occurred" }]);
       } finally {
-        setLoading(false); // Remove this to style loading container;
+        setLoading(false);
       }
     }
     fetchPropertyData();
@@ -76,10 +78,12 @@ function GeneralInfo() {
     handlePropertyFormValues();
   }, [propertyData]);
 
+  // handleCloseBtn should clear form values or restore them to default.
+  // For userFormRef seems working fine, but not for propertyFormRef
   function handleCloseBtn(refProps, formRef) {
-    if (formRef?.current && formRef === userFormRef) {
+    if (formRef === userFormRef) {
       formRef.current.reset();
-    } else if (formRef?.current && formRef === propertyFormRef) {
+    } else if (formRef === propertyFormRef) {
       setFormPropertyValues({
         propertyName: propertyData?.property_name || "",
         street: propertyData?.address.street || "",
@@ -91,6 +95,7 @@ function GeneralInfo() {
       });
     }
     refProps.current?.close();
+    setError(null);
   }
 
   return (
@@ -98,16 +103,16 @@ function GeneralInfo() {
       <ContentTitle title={"General info"} />
       <div className={styles.mainContainer}>
         <dialog ref={propertyDialog} className="dialog">
-          <DialogHeader
+          <DialogHeader // dialog header component has a close btn that should close dialog and restore form values
             title={"Property details"}
-            refProps={propertyDialog}
+            refProps={propertyDialog} // pass propertyDialog and PropertyFormRef
             formRef={propertyFormRef}
-            handleCloseBtn={handleCloseBtn}
+            handleCloseBtn={handleCloseBtn} // pass the handleCloseBtn function
             loading={loading}
           />
           <PropertyDetails
-            refProps={propertyDialog}
-            formProps={propertyFormRef}
+            refProps={propertyDialog} // Pass the same propertyDialog and PropertyFromRef as in the DialogHeader
+            formRef={propertyFormRef}
             propertyData={propertyData}
             loading={loading}
             setLoading={setLoading}
@@ -117,18 +122,24 @@ function GeneralInfo() {
             setRefreshData={setRefreshData}
             formPropertyValues={formPropertyValues}
             setFormPropertyValues={setFormPropertyValues}
-            handleCloseBtn={handleCloseBtn}
+            handleCloseBtn={handleCloseBtn} // also pass the handleCloseBtn function
           />
         </dialog>
         <dialog ref={userDialog} className="dialog">
           <DialogHeader
             title={"Create new user"}
+            refProps={userDialog} // pass the userDialog and userFormRef to the DialogHeader. But this time for the user dialog
+            formRef={userFormRef}
+            handleCloseBtn={handleCloseBtn} // pass the function
+            loading={loading}
+          />
+          <UserForm
             refProps={userDialog}
             formRef={userFormRef}
             handleCloseBtn={handleCloseBtn}
-            loading={loading}
+            error={error}
+            setError={setError}
           />
-          <UserForm refProps={userDialog} formRef={userFormRef} />
         </dialog>
         <div className={styles.subContainer}>
           <h4>Property info</h4>
