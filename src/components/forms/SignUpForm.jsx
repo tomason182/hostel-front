@@ -1,68 +1,59 @@
 import styles from "../../styles/SignUpForm.module.css";
-import { useState, useEffect } from "react";
-import useFetch from "../../hooks/useFetch";
+import { useState } from "react";
+import fetchDataHelper from "../../utils/fetchDataHelper";
+import ErrorComponent from "../error_page/ErrorComponent";
 
 function SignUpForm() {
-  const [formBody, setFormBody] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [submit, setSubmit] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState(null);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    setErrors(null);
+    setLoading(true);
 
     const { name, property_name, username, password, psw_confirm } =
       event.target;
 
-    if (password.value !== psw_confirm.value) {
-      setErrorMessage("Passwords don't match");
-    } else {
-      setErrorMessage(null);
-      setFormBody({
-        firstName: name.value,
-        propertyName: property_name.value,
-        username: username.value,
-        password: password.value,
-      });
+    const formBody = {
+      firstName: name.value,
+      propertyName: property_name.value,
+      username: username.value,
+      password: password.value,
+    };
 
-      setSubmit(true);
-    }
-  }
-
-  const { data, error, loading } = useFetch(
-    submit === true && formBody !== null
-      ? {
-          url: "http://localhost:5000/api/v1/users/register",
-          options: {
-            mode: "cors",
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formBody),
-          },
-        }
-      : { url: null, options: null }
-  );
-
-  useEffect(() => {
-    if (data) {
-      console.log("User registered successfully", data);
-      // Handle successful registration (redirect to mail confirmation)
-    }
-    if (error) {
-      let errorMsg = null;
-      try {
-        const errorObj = JSON.parse(error.message);
-        errorMsg = errorObj.msg;
-      } catch (parseError) {
-        console.log(parseError);
-        errorMsg = "An unexpected error ocurred.";
+    try {
+      if (password.value !== psw_confirm.value) {
+        throw new Error("Passwords don't match");
       }
 
-      setErrorMessage(errorMsg);
+      const url = import.meta.env.VITE_URL_BASE + "users/register";
+      const options = {
+        mode: "cors",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formBody),
+      };
+
+      const { data, errors } = await fetchDataHelper(url, options);
+
+      if (data) {
+        console.log("User register successfully", data);
+        // Redirect user to email was send message
+      }
+
+      if (errors) {
+        setErrors(errors);
+      }
+    } catch (err) {
+      setErrors([{ msg: err.message || "Unexpected error occurred" }]);
+    } finally {
+      setLoading(false);
     }
-    setSubmit(false);
-  }, [data, error]);
+  }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -93,7 +84,7 @@ function SignUpForm() {
         name="username"
         required
         aria-required
-        aria-labelledby={errorMessage ? "emailError" : null}
+        aria-labelledby={errors ? "emailError" : null}
         minLength={5}
         maxLength={50}
       />
@@ -115,20 +106,9 @@ function SignUpForm() {
         name="psw_confirm"
         required
         aria-required
-        aria-describedby={errorMessage ? "passwordError" : null}
+        aria-describedby={errors ? "passwordError" : null}
       />
-      {errorMessage && (
-        <span
-          id={
-            errorMessage === "Passwords don't match"
-              ? "passwordError"
-              : "emailError"
-          }
-          className={styles.error}
-        >
-          {errorMessage}
-        </span>
-      )}
+      {errors && <ErrorComponent errors={errors} />}
       <p id="psw_requirements" className={styles.info}>
         <small>
           Password must contain at least 14 characters, 4 lower case letters,

@@ -16,7 +16,7 @@ export default async function fetchDataHelper(url, options) {
     const data = await response.json();
     return { data, errors: null };
   } catch (err) {
-    errors.push(err.message);
+    errors.push({ msg: err.message });
     return { data: null, errors };
   }
 }
