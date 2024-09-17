@@ -28,7 +28,6 @@ function PropertyDetails({
     function handleEscKey(e) {
       if (e.keyCode === 27) {
         handleCloseBtn();
-        console.log("dialog close");
         refProps.current?.close();
       }
     }
