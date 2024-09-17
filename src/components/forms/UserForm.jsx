@@ -62,6 +62,7 @@ export default function UserForm({
       if (data) {
         console.log(data);
         // handle successful data.
+        refProps.current?.close();
       }
     } catch (err) {
       console.log(err.message);
