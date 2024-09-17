@@ -1,7 +1,8 @@
 import styles from "../../styles/formDefaultStyle.module.css";
-import Error from "../error_page/Error";
+import ErrorComponent from "../error_page/ErrorComponent";
 import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
+import { useEffect } from "react";
 
 function PropertyDetails({
   refProps,
@@ -22,6 +23,19 @@ function PropertyDetails({
       [name]: value,
     });
   }
+
+  useEffect(() => {
+    function handleEscKey(e) {
+      if (e.keyCode === 27) {
+        handleCloseBtn();
+        console.log("dialog close");
+        refProps.current?.close();
+      }
+    }
+    window.addEventListener("keydown", handleEscKey);
+
+    return () => window.removeEventListener("keydown", handleEscKey);
+  }, [handleCloseBtn, refProps]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -55,7 +69,7 @@ function PropertyDetails({
         body: JSON.stringify(formBody),
       };
 
-      const { data, errors } = await fetchDataHelper(url, options);
+      const { data, errors = [] } = await fetchDataHelper(url, options);
       if (data) {
         setRefreshData(!refreshData);
         refProps.current?.close();
@@ -156,7 +170,7 @@ function PropertyDetails({
           {loading ? "Saving..." : "Save changes"}
         </button>
       </menu>
-      {error && <Error errors={error} />}
+      {error && <ErrorComponent errors={error} />}
     </form>
   );
 }
