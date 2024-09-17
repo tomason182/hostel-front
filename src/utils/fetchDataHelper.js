@@ -5,11 +5,10 @@ export default async function fetchDataHelper(url, options) {
 
     if (!response.ok) {
       const errorResponse = await response.json();
-      console.log(errorResponse);
       Array.isArray(errorResponse)
         ? (errors = errorResponse)
         : errors.push({
-            msg: errorResponse.message || "An error ocurred during request",
+            msg: errorResponse.msg || "An error ocurred during request",
           });
       return { data: null, errors };
     }
