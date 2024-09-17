@@ -114,7 +114,7 @@ function GeneralInfo() {
         </dialog>
         <dialog ref={userDialog} className="dialog">
           <DialogHeader
-            title={"Add a User"}
+            title={"Create new user"}
             refProps={userDialog}
             handleCloseBtn={handleCloseBtn}
             loading={loading}
@@ -151,7 +151,7 @@ function GeneralInfo() {
             className={styles.editBtn}
             onClick={() => userDialog.current?.showModal()}
           >
-            Edit
+            Add user
           </button>
         </div>
         <div className={styles.subContainer}>
