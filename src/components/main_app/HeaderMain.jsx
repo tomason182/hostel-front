@@ -13,7 +13,7 @@ function HeaderMain({ user }) {
       <div className={styles.info}>
         <div className={styles.hostelInfo}>
           <h3>{user ? user.property_name : "Loading user name"}</h3>
-          <p>Hello {user ? user.user_info.first_name : "Guest"}</p>
+          <p>Hello, {user ? user.user_info.first_name : "Guest"}</p>
         </div>
         <NotificationBtn />
         <ToggleThemeBtn />
