@@ -15,6 +15,7 @@ export default function UserForm({
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    setError(null);
     function handleEscKeyOnUser(e) {
       if (e.keyCode === 27) {
         e.preventDefault();
@@ -66,6 +67,7 @@ export default function UserForm({
         // handle successful data.
         setIsUserUpdated(true);
         setSuccessfulMsg("User added successfully");
+        formRef.current?.reset();
         refProps.current?.close();
       }
     } catch (err) {
