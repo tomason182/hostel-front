@@ -68,6 +68,7 @@ export default function UsersSub({ refProps, setUserValues }) {
           <button
             onClick={() => {
               setUserValues({
+                userId: user._id,
                 firstName: user.first_name,
                 lastName: user.last_name,
                 role: user.role,
