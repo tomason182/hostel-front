@@ -18,6 +18,7 @@ function GeneralInfo() {
   const userFormRef = useRef(null);
   const userUpdateDialog = useRef(null);
   const userUpdateFormRef = useRef(null);
+  const successDialogRef = useRef(null);
   const [propertyData, setPropertyData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -31,7 +32,20 @@ function GeneralInfo() {
     email: "",
   });
   const [userValues, setUserValues] = useState(null);
+  const [isUserUpdated, setIsUserUpdated] = useState(false);
   const [refreshData, setRefreshData] = useState(false);
+  const [successFulMsg, setSuccessfulMsg] = useState(null);
+
+  useEffect(() => {
+    setRefreshData(false);
+    if (successFulMsg) {
+      successDialogRef.current?.showModal();
+
+      setTimeout(() => {
+        successDialogRef.current?.close();
+      }, 1000);
+    }
+  }, [successFulMsg]);
 
   useEffect(() => {
     async function fetchPropertyData() {
@@ -102,6 +116,9 @@ function GeneralInfo() {
     <div className="main-content">
       <ContentTitle title={"General info"} />
       <div className={styles.mainContainer}>
+        <dialog ref={successDialogRef}>
+          <p>{successFulMsg}</p>
+        </dialog>
         <dialog ref={propertyDialog} className="dialog">
           <DialogHeader
             title={"Property details"}
@@ -137,8 +154,8 @@ function GeneralInfo() {
             refProps={userDialog}
             formRef={userFormRef}
             handleCloseBtn={handleCloseBtn}
-            error={error}
-            setError={setError}
+            setSuccessfulMsg={setSuccessfulMsg}
+            setIsUserUpdated={setIsUserUpdated}
           />
         </dialog>
         <dialog ref={userUpdateDialog} className="dialog">
@@ -152,6 +169,8 @@ function GeneralInfo() {
             formRef={userUpdateFormRef}
             refProps={userUpdateDialog}
             userValues={userValues}
+            setSuccessfulMsg={setSuccessfulMsg}
+            setIsUserUpdated={setIsUserUpdated}
           />
         </dialog>
         <div className={styles.subContainer}>
@@ -179,10 +198,16 @@ function GeneralInfo() {
         </div>
         <div className={styles.subContainer}>
           <h4>Users</h4>
-          <UsersSub refProps={userUpdateDialog} setUserValues={setUserValues} />
+          <UsersSub
+            refProps={userUpdateDialog}
+            setUserValues={setUserValues}
+            isUserUpdated={isUserUpdated}
+          />
           <button
             className={styles.editBtn}
-            onClick={() => userDialog.current?.showModal()}
+            onClick={() => {
+              userDialog.current?.showModal(), userDialog.current?.focus();
+            }}
           >
             Add user
           </button>

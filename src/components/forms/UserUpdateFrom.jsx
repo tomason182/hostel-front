@@ -4,7 +4,13 @@ import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import ErrorComponent from "../error_page/ErrorComponent";
 
-export default function UserUpdateForm({ formRef, refProps, userValues }) {
+export default function UserUpdateForm({
+  formRef,
+  refProps,
+  userValues,
+  setSuccessfulMsg,
+  setIsUserUpdated,
+}) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [role, setRole] = useState("");
@@ -26,6 +32,7 @@ export default function UserUpdateForm({ formRef, refProps, userValues }) {
     e.preventDefault();
 
     setLoading(true);
+    setIsUserUpdated(false);
 
     const formBody = {
       ...(firstName && { firstName }),
@@ -50,11 +57,15 @@ export default function UserUpdateForm({ formRef, refProps, userValues }) {
 
       if (data) {
         console.log("user updated successfully", data);
+        setSuccessfulMsg("User Updated successfully");
+        setIsUserUpdated(true);
         refProps.current?.close();
+        return;
       }
 
       if (errors) {
         setError(errors);
+        return;
       }
     } catch (err) {
       console.error("An error occurred".err.message);
@@ -66,6 +77,7 @@ export default function UserUpdateForm({ formRef, refProps, userValues }) {
 
   async function handleUserDelete() {
     setLoading(true);
+    setIsUserUpdated(false);
     try {
       const url =
         import.meta.env.VITE_URL_BASE + "users/profile/delete/" + userId;
@@ -83,6 +95,8 @@ export default function UserUpdateForm({ formRef, refProps, userValues }) {
 
       if (data) {
         console.log("User deleted successfully", data);
+        setSuccessfulMsg("User deleted successfully");
+        setIsUserUpdated(true);
         refProps.current?.close();
         return;
       }
@@ -182,4 +196,6 @@ UserUpdateForm.propTypes = {
   formRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   userValues: PropTypes.object,
+  setSuccessfulMsg: PropTypes.func.isRequired,
+  setIsUserUpdated: PropTypes.func.isRequired,
 };

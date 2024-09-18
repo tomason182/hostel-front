@@ -8,10 +8,11 @@ export default function UserForm({
   refProps,
   formRef,
   handleCloseBtn,
-  error,
-  setError,
+  setSuccessfulMsg,
+  setIsUserUpdated,
 }) {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     function handleEscKeyOnUser(e) {
@@ -29,6 +30,7 @@ export default function UserForm({
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setIsUserUpdated(false);
 
     const { username, firstName, lastName, password, role } = e.target;
 
@@ -62,6 +64,8 @@ export default function UserForm({
       if (data) {
         console.log(data);
         // handle successful data.
+        setIsUserUpdated(true);
+        setSuccessfulMsg("User added successfully");
         refProps.current?.close();
       }
     } catch (err) {
@@ -148,6 +152,6 @@ UserForm.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   formRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   handleCloseBtn: PropTypes.func.isRequired,
-  error: PropTypes.array.isRequired,
-  setError: PropTypes.func.isRequired,
+  setSuccessfulMsg: PropTypes.func.isRequired,
+  setIsUserUpdated: PropTypes.func.isRequired,
 };

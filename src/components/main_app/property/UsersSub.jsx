@@ -3,7 +3,7 @@ import styles from "../../../styles/RoomTypesSub.module.css";
 import fetchDataHelper from "../../../utils/fetchDataHelper";
 import PropTypes from "prop-types";
 
-export default function UsersSub({ refProps, setUserValues }) {
+export default function UsersSub({ refProps, setUserValues, isUserUpdated }) {
   const [usersList, setUsersList] = useState(null);
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -42,7 +42,7 @@ export default function UsersSub({ refProps, setUserValues }) {
     }
 
     fetchPropertyUsers();
-  }, []);
+  }, [isUserUpdated]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -88,4 +88,5 @@ export default function UsersSub({ refProps, setUserValues }) {
 UsersSub.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   setUserValues: PropTypes.func.isRequired,
+  isUserUpdated: PropTypes.bool.isRequired,
 };
