@@ -148,7 +148,11 @@ function GeneralInfo() {
             formRef={userUpdateFormRef}
             handleCloseBtn={handleCloseBtn}
           />
-          <UserUpdateForm formRef={userUpdateFormRef} userValues={userValues} />
+          <UserUpdateForm
+            formRef={userUpdateFormRef}
+            refProps={userUpdateDialog}
+            userValues={userValues}
+          />
         </dialog>
         <div className={styles.subContainer}>
           <h4>Property info</h4>

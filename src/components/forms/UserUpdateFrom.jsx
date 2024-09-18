@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import ErrorComponent from "../error_page/ErrorComponent";
 
-export default function UserUpdateForm({ formRef, userValues }) {
+export default function UserUpdateForm({ formRef, refProps, userValues }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [role, setRole] = useState("");
@@ -18,6 +18,7 @@ export default function UserUpdateForm({ formRef, userValues }) {
       setLastName(userValues.lastName || "");
       setRole(userValues.role || "");
       setUserId(userValues.userId || "");
+      setError(null);
     }
   }, [userValues]);
 
@@ -49,6 +50,7 @@ export default function UserUpdateForm({ formRef, userValues }) {
 
       if (data) {
         console.log("user updated successfully", data);
+        refProps.current?.close();
       }
 
       if (errors) {
@@ -57,6 +59,40 @@ export default function UserUpdateForm({ formRef, userValues }) {
     } catch (err) {
       console.error("An error occurred".err.message);
       setError([{ msg: err.message || "Unexpected error ocurred" }]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleUserDelete() {
+    setLoading(true);
+    try {
+      const url =
+        import.meta.env.VITE_URL_BASE + "users/profile/delete/" + userId;
+
+      const options = {
+        mode: "cors",
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      };
+
+      const { data, errors } = await fetchDataHelper(url, options);
+
+      if (data) {
+        console.log("User deleted successfully", data);
+        refProps.current?.close();
+        return;
+      }
+
+      if (errors) {
+        setError(errors);
+        return;
+      }
+    } catch (err) {
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -130,8 +166,12 @@ export default function UserUpdateForm({ formRef, userValues }) {
         </div>
       </fieldset>
       <menu className={styles.buttonContainer}>
-        <button type="button">Delete user</button>
-        <button type="submit">Update user</button>
+        <button type="button" disabled={loading} onClick={handleUserDelete}>
+          Delete user
+        </button>
+        <button type="submit" disabled={loading}>
+          Update user
+        </button>
       </menu>
       {error && <ErrorComponent errors={error} />}
     </form>
@@ -140,5 +180,6 @@ export default function UserUpdateForm({ formRef, userValues }) {
 
 UserUpdateForm.propTypes = {
   formRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   userValues: PropTypes.object,
 };
