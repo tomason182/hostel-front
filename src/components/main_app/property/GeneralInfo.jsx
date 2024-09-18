@@ -43,7 +43,7 @@ function GeneralInfo() {
 
       setTimeout(() => {
         successDialogRef.current?.close();
-      }, 1000);
+      }, 2500);
     }
   }, [successFulMsg]);
 
