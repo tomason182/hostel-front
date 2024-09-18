@@ -94,7 +94,13 @@ export default function UserForm({
         aria-required
       />
       <label htmlFor="lastName">Last Name</label>
-      <input type="text" id="lastName" name="lastName" />
+      <input
+        type="text"
+        id="lastName"
+        name="lastName"
+        minLength={2}
+        maxLength={50}
+      />
       <label htmlFor="password">Password</label>
       <input type="password" name="password" id="password" />
       <fieldset>
