@@ -8,15 +8,16 @@ import PropertyDetails from "../../forms/PropertyDetails";
 import DialogHeader from "../../dialogs/DialogHeader";
 import ContentTitle from "../../headers/ContentTitle";
 import UserForm from "../../forms/UserForm";
+import UserUpdateForm from "../../forms/UserUpdateFrom";
 import fetchDataHelper from "../../../utils/fetchDataHelper";
 
-// In the following code I am going to comment the parts that are having issues
-
 function GeneralInfo() {
-  const propertyDialog = useRef(null); // Create a ref for property dialog
-  const userDialog = useRef(null); // Create a ref for user dialog
-  const propertyFormRef = useRef(null); // Create a ref for property form
-  const userFormRef = useRef(null); // Create a ref for user form
+  const propertyDialog = useRef(null);
+  const userDialog = useRef(null);
+  const propertyFormRef = useRef(null);
+  const userFormRef = useRef(null);
+  const userUpdateDialog = useRef(null);
+  const userUpdateFormRef = useRef(null);
   const [propertyData, setPropertyData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,7 @@ function GeneralInfo() {
     phoneNumber: "",
     email: "",
   });
+  const [userValues, setUserValues] = useState(null);
   const [refreshData, setRefreshData] = useState(false);
 
   useEffect(() => {
@@ -78,8 +80,6 @@ function GeneralInfo() {
     handlePropertyFormValues();
   }, [propertyData]);
 
-  // handleCloseBtn should clear form values or restore them to default.
-  // For userFormRef seems working fine, but not for propertyFormRef
   function handleCloseBtn(refProps, formRef) {
     if (formRef === userFormRef) {
       formRef.current.reset();
@@ -103,15 +103,15 @@ function GeneralInfo() {
       <ContentTitle title={"General info"} />
       <div className={styles.mainContainer}>
         <dialog ref={propertyDialog} className="dialog">
-          <DialogHeader // dialog header component has a close btn that should close dialog and restore form values
+          <DialogHeader
             title={"Property details"}
-            refProps={propertyDialog} // pass propertyDialog and PropertyFormRef
+            refProps={propertyDialog}
             formRef={propertyFormRef}
-            handleCloseBtn={handleCloseBtn} // pass the handleCloseBtn function
+            handleCloseBtn={handleCloseBtn}
             loading={loading}
           />
           <PropertyDetails
-            refProps={propertyDialog} // Pass the same propertyDialog and PropertyFromRef as in the DialogHeader
+            refProps={propertyDialog}
             formRef={propertyFormRef}
             propertyData={propertyData}
             loading={loading}
@@ -122,15 +122,15 @@ function GeneralInfo() {
             setRefreshData={setRefreshData}
             formPropertyValues={formPropertyValues}
             setFormPropertyValues={setFormPropertyValues}
-            handleCloseBtn={handleCloseBtn} // also pass the handleCloseBtn function
+            handleCloseBtn={handleCloseBtn}
           />
         </dialog>
         <dialog ref={userDialog} className="dialog">
           <DialogHeader
             title={"Create new user"}
-            refProps={userDialog} // pass the userDialog and userFormRef to the DialogHeader. But this time for the user dialog
+            refProps={userDialog}
             formRef={userFormRef}
-            handleCloseBtn={handleCloseBtn} // pass the function
+            handleCloseBtn={handleCloseBtn}
             loading={loading}
           />
           <UserForm
@@ -140,6 +140,15 @@ function GeneralInfo() {
             error={error}
             setError={setError}
           />
+        </dialog>
+        <dialog ref={userUpdateDialog} className="dialog">
+          <DialogHeader
+            title={"Update user"}
+            refProps={userUpdateDialog}
+            formRef={userUpdateFormRef}
+            handleCloseBtn={handleCloseBtn}
+          />
+          <UserUpdateForm formRef={userUpdateFormRef} userValues={userValues} />
         </dialog>
         <div className={styles.subContainer}>
           <h4>Property info</h4>
@@ -166,7 +175,7 @@ function GeneralInfo() {
         </div>
         <div className={styles.subContainer}>
           <h4>Users</h4>
-          <UsersSub />
+          <UsersSub refProps={userUpdateDialog} setUserValues={setUserValues} />
           <button
             className={styles.editBtn}
             onClick={() => userDialog.current?.showModal()}

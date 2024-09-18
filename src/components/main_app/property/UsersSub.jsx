@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "../../../styles/RoomTypesSub.module.css";
 import fetchDataHelper from "../../../utils/fetchDataHelper";
+import PropTypes from "prop-types";
 
-export default function UsersSub() {
+export default function UsersSub({ refProps, setUserValues }) {
   const [usersList, setUsersList] = useState(null);
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -64,10 +65,26 @@ export default function UsersSub() {
           <span>{user.role}</span>
         </div>
         <div>
-          <button>Edit</button>
+          <button
+            onClick={() => {
+              setUserValues({
+                firstName: user.first_name,
+                lastName: user.last_name,
+                role: user.role,
+              });
+              refProps.current?.showModal();
+            }}
+          >
+            Edit
+          </button>
         </div>
       </li>
     ));
 
   return <ul className={styles.roomTypesList}>{users}</ul>;
 }
+
+UsersSub.propTypes = {
+  refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  setUserValues: PropTypes.func.isRequired,
+};
