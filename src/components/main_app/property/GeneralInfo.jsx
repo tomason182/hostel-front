@@ -9,7 +9,6 @@ import DialogHeader from "../../dialogs/DialogHeader";
 import ContentTitle from "../../headers/ContentTitle";
 import UserForm from "../../forms/UserForm";
 import UserUpdateForm from "../../forms/UserUpdateFrom";
-import fetchDataHelper from "../../../utils/fetchDataHelper";
 
 function GeneralInfo() {
   const propertyDialog = useRef(null);
@@ -20,24 +19,12 @@ function GeneralInfo() {
   const userUpdateFormRef = useRef(null);
   const successDialogRef = useRef(null);
   const [propertyData, setPropertyData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [formPropertyValues, setFormPropertyValues] = useState({
-    propertyName: "",
-    street: "",
-    city: "",
-    postalCode: "",
-    countryCode: "",
-    phoneNumber: "",
-    email: "",
-  });
   const [userValues, setUserValues] = useState(null);
   const [isUserUpdated, setIsUserUpdated] = useState(false);
-  const [refreshData, setRefreshData] = useState(false);
+  const [isPropertyUpdated, setIsPropertyUpdated] = useState(false);
   const [successFulMsg, setSuccessfulMsg] = useState(null);
 
   useEffect(() => {
-    setRefreshData(false);
     if (successFulMsg) {
       successDialogRef.current?.showModal();
 
@@ -47,69 +34,21 @@ function GeneralInfo() {
     }
   }, [successFulMsg]);
 
-  useEffect(() => {
-    async function fetchPropertyData() {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const url = import.meta.env.VITE_URL_BASE + "properties";
-        const options = {
-          mode: "cors",
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        };
-        const { data, errors = [] } = await fetchDataHelper(url, options);
-        if (data) {
-          setPropertyData(data);
-        }
-        if (errors) {
-          setError(errors);
-        }
-      } catch (err) {
-        setError([{ msg: err.message || "Unexpected error occurred" }]);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchPropertyData();
-  }, [refreshData]);
-
-  useEffect(() => {
-    function handlePropertyFormValues() {
-      setFormPropertyValues({
-        propertyName: propertyData?.property_name || "",
-        street: propertyData?.address.street || "",
-        city: propertyData?.address.city || "",
-        postalCode: propertyData?.address.postal_code || "",
-        countryCode: propertyData?.address.country_code || "",
-        phoneNumber: propertyData?.contact_info.phone_number || "",
-        email: propertyData?.contact_info.email || "",
-      });
-    }
-
-    handlePropertyFormValues();
-  }, [propertyData]);
-
   function handleCloseBtn(refProps, formRef) {
     if (formRef === userFormRef) {
       formRef.current.reset();
     } else if (formRef === propertyFormRef) {
-      setFormPropertyValues({
-        propertyName: propertyData?.property_name || "",
-        street: propertyData?.address.street || "",
-        city: propertyData?.address.city || "",
-        postalCode: propertyData?.address.postal_code || "",
-        countryCode: propertyData?.address.country_code || "",
-        phoneNumber: propertyData?.contact_info.phone_number || "",
-        email: propertyData?.contact_info.email || "",
+      setPropertyData({
+        propertyName: propertyData?.propertyName || "",
+        street: propertyData?.street || "",
+        city: propertyData?.city || "",
+        postalCode: propertyData?.postalCode || "",
+        countryCode: propertyData?.countryCode || "",
+        phoneNumber: propertyData?.phoneNumber || "",
+        email: propertyData?.email || "",
       });
     }
     refProps.current?.close();
-    setError(null);
   }
 
   return (
@@ -125,21 +64,13 @@ function GeneralInfo() {
             refProps={propertyDialog}
             formRef={propertyFormRef}
             handleCloseBtn={handleCloseBtn}
-            loading={loading}
           />
           <PropertyDetails
             refProps={propertyDialog}
             formRef={propertyFormRef}
             propertyData={propertyData}
-            loading={loading}
-            setLoading={setLoading}
-            error={error}
-            setError={setError}
-            refreshData={refreshData}
-            setRefreshData={setRefreshData}
-            formPropertyValues={formPropertyValues}
-            setFormPropertyValues={setFormPropertyValues}
             handleCloseBtn={handleCloseBtn}
+            setIsPropertyUpdated={setIsPropertyUpdated}
           />
         </dialog>
         <dialog ref={userDialog} className="dialog">
@@ -148,7 +79,6 @@ function GeneralInfo() {
             refProps={userDialog}
             formRef={userFormRef}
             handleCloseBtn={handleCloseBtn}
-            loading={loading}
           />
           <UserForm
             refProps={userDialog}
@@ -176,9 +106,9 @@ function GeneralInfo() {
         <div className={styles.subContainer}>
           <h4>Property info</h4>
           <PropertyInfoSub
-            data={propertyData}
-            error={error}
-            loading={loading}
+            propertyData={propertyData}
+            setPropertyData={setPropertyData}
+            isPropertyUpdated={isPropertyUpdated}
           />
           <button
             className={styles.editBtn}

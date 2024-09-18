@@ -2,26 +2,47 @@ import styles from "../../styles/formDefaultStyle.module.css";
 import ErrorComponent from "../error_page/ErrorComponent";
 import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-// This code correspond to the property form. It values are controlled. In the user form are uncontrolled
 function PropertyDetails({
   refProps,
   formRef,
-  loading,
-  setLoading,
-  error,
-  setError,
-  refreshData,
-  setRefreshData,
-  formPropertyValues,
-  setFormPropertyValues,
+  propertyData,
   handleCloseBtn,
+  setIsPropertyUpdated,
 }) {
+  const [data, setData] = useState({
+    propertyName: "",
+    street: "",
+    city: "",
+    postalCode: "",
+    countryCode: "",
+    email: "",
+    phoneNumber: "",
+  });
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setError(null);
+    if (propertyData) {
+      const retrievedData = {
+        propertyName: propertyData.propertyName || "",
+        street: propertyData.street || "",
+        city: propertyData.city || "",
+        postalCode: propertyData.postalCode || "",
+        countryCode: propertyData.countryCode || "",
+        email: propertyData.email || "",
+        phoneNumber: propertyData.phoneNumber || "",
+      };
+      setData(retrievedData);
+    }
+  }, [propertyData]);
+
   function handleInputChange(e) {
     const { name, value } = e.target;
-    setFormPropertyValues({
-      ...formPropertyValues,
+    setData({
+      ...data,
       [name]: value,
     });
   }
@@ -41,20 +62,21 @@ function PropertyDetails({
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
+    setIsPropertyUpdated(false);
 
     const formBody = {
-      propertyName: formPropertyValues.propertyName,
-      ...(formPropertyValues.street && { street: formPropertyValues.street }),
-      ...(formPropertyValues.city && { city: formPropertyValues.city }),
-      ...(formPropertyValues.postalCode && {
-        postalCode: formPropertyValues.postalCode,
+      propertyName: data.propertyName,
+      ...(data.street && { street: data.street }),
+      ...(data.city && { city: data.city }),
+      ...(data.postalCode && {
+        postalCode: data.postalCode,
       }),
-      ...(formPropertyValues.countryCode && {
-        countryCode: formPropertyValues.countryCode,
+      ...(data.countryCode && {
+        countryCode: data.countryCode,
       }),
-      ...(formPropertyValues.email && { email: formPropertyValues.email }),
-      ...(formPropertyValues.phoneNumber && {
-        phoneNumber: formPropertyValues.phoneNumber,
+      ...(data.email && { email: data.email }),
+      ...(data.phoneNumber && {
+        phoneNumber: data.phoneNumber,
       }),
     };
 
@@ -72,7 +94,7 @@ function PropertyDetails({
 
       const { data, errors = [] } = await fetchDataHelper(url, options);
       if (data) {
-        setRefreshData(!refreshData);
+        setIsPropertyUpdated(true);
         refProps.current?.close();
       }
 
@@ -93,72 +115,76 @@ function PropertyDetails({
       onSubmit={handleSubmit}
       ref={formRef}
     >
-      <label htmlFor="propertyName" className={styles.label}>
+      <label className={styles.label}>
         Property name:
+        <input
+          type="text"
+          name="propertyName"
+          aria-required
+          minLength={2}
+          maxLength={50}
+          value={data.propertyName}
+          onChange={handleInputChange}
+          required
+        />
       </label>
-      <input
-        type="text"
-        id="propertyName"
-        name="propertyName"
-        aria-required
-        minLength={2}
-        maxLength={50}
-        value={formPropertyValues.propertyName}
-        onChange={handleInputChange}
-        required
-      />
-
-      <label htmlFor="street">Street</label>
-      <input
-        type="text"
-        name="street"
-        id="street"
-        maxLength={50}
-        value={formPropertyValues.street}
-        onChange={handleInputChange}
-      />
-      <label htmlFor="city">City</label>
-      <input
-        type="text"
-        name="city"
-        id="city"
-        value={formPropertyValues.city}
-        onChange={handleInputChange}
-      />
-      <label htmlFor="postalCode">Postal Code</label>
-      <input
-        type="text"
-        name="postalCode"
-        id="postalCode"
-        value={formPropertyValues.postalCode}
-        onChange={handleInputChange}
-      />
-      <label htmlFor="countryCode">Country code</label>
-      <input
-        type="text"
-        name="countryCode"
-        id="countryCode"
-        value={formPropertyValues.countryCode}
-        onChange={handleInputChange}
-      />
+      <label>
+        Street
+        <input
+          type="text"
+          name="street"
+          maxLength={50}
+          value={data.street}
+          onChange={handleInputChange}
+        />
+      </label>
+      <label>
+        City
+        <input
+          type="text"
+          name="city"
+          value={data.city}
+          onChange={handleInputChange}
+        />
+      </label>
+      <label>
+        Postal Code
+        <input
+          type="text"
+          name="postalCode"
+          value={data.postalCode}
+          onChange={handleInputChange}
+        />
+      </label>
+      <label>
+        Country code
+        <input
+          type="text"
+          name="countryCode"
+          value={data.countryCode}
+          onChange={handleInputChange}
+        />
+      </label>
       <fieldset>
         <legend>Contact info</legend>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          name="email"
-          id="email"
-          value={formPropertyValues.email}
-          onChange={handleInputChange}
-        />
-        <label htmlFor="phoneNumber">Phone number</label>
-        <input
-          type="text"
-          name="phoneNumber"
-          id="phoneNumber"
-          value={formPropertyValues.phoneNumber}
-          onChange={handleInputChange}
-        />
+        <label>
+          Email
+          <input
+            type="text"
+            name="email"
+            value={data.email}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Phone number
+          <input
+            type="text"
+            name="phoneNumber"
+            value={data.phoneNumber}
+            onChange={handleInputChange}
+          />
+        </label>
       </fieldset>
       <menu className={styles.buttonContainer}>
         <button
@@ -183,15 +209,9 @@ function PropertyDetails({
 PropertyDetails.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   formRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  loading: PropTypes.bool.isRequired,
-  setLoading: PropTypes.func.isRequired,
-  error: PropTypes.array,
-  setError: PropTypes.func.isRequired,
-  refreshData: PropTypes.bool.isRequired,
-  setRefreshData: PropTypes.func.isRequired,
-  formPropertyValues: PropTypes.object.isRequired,
-  setFormPropertyValues: PropTypes.func.isRequired,
   handleCloseBtn: PropTypes.func.isRequired,
+  setIsPropertyUpdated: PropTypes.func.isRequired,
+  propertyData: PropTypes.object,
 };
 
 export default PropertyDetails;

@@ -6,7 +6,6 @@ export default function DialogHeader({
   refProps,
   formRef,
   handleCloseBtn,
-  loading,
 }) {
   return (
     <div className={styles.dialogHeader}>
@@ -16,7 +15,6 @@ export default function DialogHeader({
         onClick={() => {
           handleCloseBtn(refProps, formRef); // attach the function handleCloseBtn to the button
         }}
-        disabled={loading}
       >
         <svg
           xmlns="http://w3.org/2000/svg"
@@ -40,5 +38,4 @@ DialogHeader.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   formRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   handleCloseBtn: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
 };
