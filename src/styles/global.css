@@ -124,3 +124,16 @@ dialog {
   color: red;
   font-size: small;
 }
+
+/* dl default styles */
+
+dl {
+  font-size: var(--font-size-xs);
+  padding: 0 0 1rem 0rem;
+  margin-bottom: 1.5rem;
+}
+
+dl dt {
+  font-family: var(--font-bold);
+  margin: 0.25rem 0;
+}
