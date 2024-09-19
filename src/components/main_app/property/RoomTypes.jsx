@@ -10,6 +10,7 @@ function RoomTypes() {
   const editRef = useRef(null);
 
   const [roomTypeData, setRoomTypeData] = useState(null);
+  const [selectedRoomType, setSelectedRoomType] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -50,7 +51,7 @@ function RoomTypes() {
 
   function handleRoomSelection(id) {
     const data = roomTypeData.find(room => room._id === id);
-    setRoomTypeData(data);
+    setSelectedRoomType(data);
   }
 
   if (loading) return <div>Loading...</div>;
@@ -70,7 +71,7 @@ function RoomTypes() {
       </dialog>
       <dialog ref={editRef} className="dialog">
         <DialogHeader title={"Edit room Type"} refProps={editRef} />
-        <RoomTypeForm refProps={editRef} data={roomTypeData} />
+        <RoomTypeForm refProps={editRef} data={selectedRoomType} />
       </dialog>
       <button
         className={styles.createRoomTypeBtn}

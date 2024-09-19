@@ -1,17 +1,28 @@
 import PropTypes from "prop-types";
 import formDefault from "../../styles/formDefaultStyle.module.css";
 import styles from "../../styles/RoomTypeForm.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function RoomTypeForm({ refProps, data }) {
   const [formValues, setFormValues] = useState({
-    description: data?.description || "",
-    max_occupancy: data?.max_occupancy || "",
-    inventory: data?.inventory || "",
-    base_rate: data?.base_rate || "",
-    type: data?.type || "private",
-    gender: data?.gender || "mixed",
+    description: "",
+    max_occupancy: "",
+    inventory: "",
+    base_rate: "",
+    type: "private",
+    gender: "mixed",
   });
+
+  useEffect(() => {
+    setFormValues({
+      description: data?.description || "",
+      max_occupancy: data?.max_occupancy || "",
+      inventory: data?.inventory || "",
+      base_rate: data?.base_rate || "",
+      type: data?.type || "private",
+      gender: data?.gender || "mixed",
+    });
+  }, [data]);
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -44,7 +55,7 @@ export default function RoomTypeForm({ refProps, data }) {
           name="description"
           minLength={3}
           maxLength={100}
-          value={formValues.description}
+          value={formValues?.description}
           onChange={handleInputChange}
           required
           aria-required
@@ -59,7 +70,7 @@ export default function RoomTypeForm({ refProps, data }) {
                 id="private"
                 name="type"
                 value="private"
-                checked={formValues.type === "private"}
+                checked={formValues?.type === "private"}
                 onChange={handleInputChange}
               />
             </div>
@@ -69,8 +80,8 @@ export default function RoomTypeForm({ refProps, data }) {
                 type="radio"
                 id="dormitory"
                 name="type"
-                value="dormitory"
-                checked={formValues.type === "dormitory"}
+                value="dorm"
+                checked={formValues?.type === "dorm"}
                 onChange={handleInputChange}
               />
             </div>
@@ -84,7 +95,7 @@ export default function RoomTypeForm({ refProps, data }) {
                 id="mixed_dorm"
                 name="gender"
                 value="mixed"
-                checked={formValues.gender === "mixed"}
+                checked={formValues?.gender === "mixed"}
                 onChange={handleInputChange}
               />
             </div>
@@ -95,7 +106,7 @@ export default function RoomTypeForm({ refProps, data }) {
                 id="female_dorm"
                 name="gender"
                 value="female"
-                checked={formValues.gender === "female"}
+                checked={formValues?.gender === "female"}
                 onChange={handleInputChange}
               />
             </div>
@@ -139,7 +150,7 @@ export default function RoomTypeForm({ refProps, data }) {
               required
               min={1}
               max={20}
-              value={formValues.max_occupancy}
+              value={formValues?.max_occupancy}
               onChange={handleInputChange}
             />
             <label htmlFor="inventory" className={styles.labelContainer}>
@@ -173,7 +184,7 @@ export default function RoomTypeForm({ refProps, data }) {
               required
               min={1}
               max={10}
-              value={formValues.input}
+              value={formValues?.inventory}
               onChange={handleInputChange}
             />
             <label htmlFor="base_rate" className={styles.labelContainer}>
@@ -208,7 +219,7 @@ export default function RoomTypeForm({ refProps, data }) {
               required
               min={1}
               max={1000}
-              value={formValues.base_rate}
+              value={formValues?.base_rate}
               onChange={handleInputChange}
             />
           </div>
@@ -218,7 +229,10 @@ export default function RoomTypeForm({ refProps, data }) {
         <button
           className={formDefault.resetBtn}
           type="reset"
-          onClick={() => refProps.current?.close()}
+          onClick={() => {
+            setFormValues(null);
+            refProps.current?.close();
+          }}
         >
           Cancel
         </button>
