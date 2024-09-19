@@ -1,4 +1,3 @@
-import styles from "../../../styles/PropertyInfoSub.module.css";
 import { useState, useEffect } from "react";
 import fetchDataHelper from "../../../utils/fetchDataHelper";
 import PropTypes from "prop-types";
@@ -59,7 +58,7 @@ export default function PropertyInfoSub({
 
   return (
     <>
-      <dl className={styles.dlist}>
+      <dl>
         <dt>Property name</dt>
         <dd>{propertyData ? propertyData.propertyName : ""}</dd>
         <dt>Address</dt>
