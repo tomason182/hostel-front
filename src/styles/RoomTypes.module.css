@@ -1,9 +1,27 @@
-.roomTypeContainer {
+.mainContainer {
   display: flex;
   flex-direction: column;
+  gap: 2rem;
   padding: 2rem;
   max-width: 1326px;
   margin: 0 auto;
+}
+
+.roomTypesContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.roomsContainer {
+  position: relative;
+  min-width: 250px;
+  padding: 1rem;
+  border: 1px solid black;
+}
+
+.dlList dd {
+  text-align: right;
 }
 
 .createRoomTypeBtn {
@@ -12,61 +30,6 @@
   padding: 1rem 1rem;
   background-color: var(--primary-color);
   border-radius: var(--border-radius-large);
-}
-
-#table {
-  table-layout: auto;
-  border-collapse: collapse;
-  background-color: #fff;
-  font-size: var(--font-size-small);
-}
-
-#table thead th:nth-child(1) {
-  width: 60%;
-}
-
-#table thead th:nth-child(2),
-#table thead th:nth-child(3),
-#table thead th:nth-child(4),
-#table thead th:nth-child(6),
-#table thead th:nth-child(7),
-#table thead th:nth-child(8),
-#table thead th:nth-child(9) {
-  width: 15%;
-}
-
-#table thead th:nth-child(5) {
-  width: 25%;
-}
-
-#table caption {
-  transform: translateX();
-  font-size: var(--font-size-h2);
-  padding: 0.5rem 0 1rem 0;
-}
-
-#table thead {
-  background-color: #fff;
-  color: #000;
-  height: 4rem;
-}
-
-#table td,
-#table th {
-  padding: 0.8rem 1rem;
-  border-bottom: 1px solid #ccc;
-}
-
-#table th:first-child {
-  text-align: left;
-}
-
-#table th {
-  font-family: var(--font-bold);
-}
-
-#table td {
-  text-align: center;
 }
 
 .editBtn {
