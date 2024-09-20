@@ -5,11 +5,11 @@ import fetchDataHelper from "../../utils/fetchDataHelper";
 import ErrorComponent from "../error_page/ErrorComponent";
 
 export default function UserUpdateForm({
-  formRef,
   refProps,
   userValues,
   setSuccessfulMsg,
   setIsUserUpdated,
+  setIsDialogOpen,
 }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -27,6 +27,19 @@ export default function UserUpdateForm({
       setError(null);
     }
   }, [userValues]);
+
+  useEffect(() => {
+    function handleEscKey(e) {
+      if (e.keyCode === 27) {
+        e.preventDefault();
+        setIsDialogOpen(false);
+        refProps.current?.close();
+      }
+    }
+    window.addEventListener("keydown", handleEscKey);
+
+    return () => window.removeEventListener("keydown", handleEscKey);
+  }, [refProps, setIsDialogOpen]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -59,6 +72,7 @@ export default function UserUpdateForm({
         console.log("user updated successfully", data);
         setSuccessfulMsg("User Updated successfully");
         setIsUserUpdated(true);
+        setIsDialogOpen(false);
         refProps.current?.close();
         return;
       }
@@ -97,6 +111,7 @@ export default function UserUpdateForm({
         console.log("User deleted successfully", data);
         setSuccessfulMsg("User deleted successfully");
         setIsUserUpdated(true);
+        setIsDialogOpen(false);
         refProps.current?.close();
         return;
       }
@@ -115,7 +130,7 @@ export default function UserUpdateForm({
   if (loading) return <div>Loading...</div>;
 
   return (
-    <form className={styles.mainForm} ref={formRef} onSubmit={handleSubmit}>
+    <form className={styles.mainForm} onSubmit={handleSubmit}>
       <label>
         First Name
         <input
@@ -193,9 +208,9 @@ export default function UserUpdateForm({
 }
 
 UserUpdateForm.propTypes = {
-  formRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   userValues: PropTypes.object,
   setSuccessfulMsg: PropTypes.func.isRequired,
   setIsUserUpdated: PropTypes.func.isRequired,
+  setIsDialogOpen: PropTypes.func.isRequired,
 };

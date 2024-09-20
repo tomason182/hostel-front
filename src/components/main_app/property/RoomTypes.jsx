@@ -70,15 +70,26 @@ function RoomTypes() {
       <dialog ref={dialogRef} className="dialog">
         {isDialogOpen && (
           <>
-            <DialogHeader title={"Create room type"} refProps={dialogRef} />
-            <RoomTypesFormCreate refProps={dialogRef} />
+            <DialogHeader
+              title={"Create room type"}
+              refProps={dialogRef}
+              setIsDialogOpen={setIsDialogOpen}
+            />
+            <RoomTypesFormCreate
+              refProps={dialogRef}
+              setIsDialogOpen={setIsDialogOpen}
+            />
           </>
         )}
       </dialog>
       <dialog ref={editRef} className="dialog">
         {isDialogOpen && (
           <>
-            <DialogHeader title={"Edit room Type"} refProps={editRef} />
+            <DialogHeader
+              title={"Edit room Type"}
+              refProps={editRef}
+              setIsDialogOpen={setIsDialogOpen}
+            />
             <RoomTypeFormUpdate
               refProps={editRef}
               data={selectedRoomType}

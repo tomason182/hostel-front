@@ -3,7 +3,12 @@ import styles from "../../../styles/RoomTypesSub.module.css";
 import fetchDataHelper from "../../../utils/fetchDataHelper";
 import PropTypes from "prop-types";
 
-export default function UsersSub({ refProps, setUserValues, isUserUpdated }) {
+export default function UsersSub({
+  refProps,
+  setUserValues,
+  isUserUpdated,
+  setIsDialogOpen,
+}) {
   const [usersList, setUsersList] = useState(null);
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -11,7 +16,6 @@ export default function UsersSub({ refProps, setUserValues, isUserUpdated }) {
   useEffect(() => {
     async function fetchPropertyUsers() {
       setLoading(true);
-      setErrors(null);
 
       try {
         const url = import.meta.env.VITE_URL_BASE + "users/all";
@@ -73,6 +77,7 @@ export default function UsersSub({ refProps, setUserValues, isUserUpdated }) {
                 lastName: user.last_name,
                 role: user.role,
               });
+              setIsDialogOpen(true);
               refProps.current?.showModal();
             }}
           >
@@ -89,4 +94,5 @@ UsersSub.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   setUserValues: PropTypes.func.isRequired,
   isUserUpdated: PropTypes.bool.isRequired,
+  setIsDialogOpen: PropTypes.func.isRequired,
 };

@@ -6,10 +6,9 @@ import { useState, useEffect } from "react";
 
 function PropertyDetails({
   refProps,
-  formRef,
   propertyData,
-  handleCloseBtn,
   setIsPropertyUpdated,
+  setIsDialogOpen,
 }) {
   const [data, setData] = useState({
     propertyName: "",
@@ -24,7 +23,6 @@ function PropertyDetails({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setError(null);
     if (propertyData) {
       const retrievedData = {
         propertyName: propertyData.propertyName || "",
@@ -51,13 +49,14 @@ function PropertyDetails({
     function handleEscKey(e) {
       if (e.keyCode === 27) {
         e.preventDefault();
-        handleCloseBtn(refProps, formRef);
+        setIsDialogOpen(false);
+        refProps.current?.close();
       }
     }
     window.addEventListener("keydown", handleEscKey);
 
     return () => window.removeEventListener("keydown", handleEscKey);
-  }, []);
+  }, [refProps, setIsDialogOpen]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -92,9 +91,10 @@ function PropertyDetails({
         body: JSON.stringify(formBody),
       };
 
-      const { data, errors = [] } = await fetchDataHelper(url, options);
+      const { data, errors } = await fetchDataHelper(url, options);
       if (data) {
         setIsPropertyUpdated(true);
+        setIsDialogOpen(false);
         refProps.current?.close();
       }
 
@@ -109,20 +109,15 @@ function PropertyDetails({
   }
 
   return (
-    <form
-      method="dialog"
-      className={styles.mainForm}
-      onSubmit={handleSubmit}
-      ref={formRef}
-    >
+    <form method="dialog" className={styles.mainForm} onSubmit={handleSubmit}>
       <label className={styles.label}>
         Property name:
         <input
           type="text"
           name="propertyName"
           aria-required
-          minLength={2}
-          maxLength={50}
+          minLength={1}
+          maxLength={100}
           value={data.propertyName}
           onChange={handleInputChange}
           required
@@ -133,7 +128,7 @@ function PropertyDetails({
         <input
           type="text"
           name="street"
-          maxLength={50}
+          maxLength={100}
           value={data.street}
           onChange={handleInputChange}
         />
@@ -191,7 +186,8 @@ function PropertyDetails({
           type="reset"
           className={styles.resetBtn}
           onClick={() => {
-            handleCloseBtn(refProps, formRef); // attach the function to the cancel button
+            setIsDialogOpen(false);
+            refProps.current?.close();
           }}
           disabled={loading}
         >
@@ -208,10 +204,9 @@ function PropertyDetails({
 
 PropertyDetails.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  formRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  handleCloseBtn: PropTypes.func.isRequired,
   setIsPropertyUpdated: PropTypes.func.isRequired,
   propertyData: PropTypes.object,
+  setIsDialogOpen: PropTypes.func,
 };
 
 export default PropertyDetails;

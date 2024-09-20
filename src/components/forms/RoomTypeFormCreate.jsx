@@ -1,10 +1,34 @@
 import stylesForm from "../../styles/formDefaultStyle.module.css";
 import styles from "../..//styles/RoomTypeForm.module.css";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 
-export default function RoomTypesFormCreate({ refProps }) {
+export default function RoomTypesFormCreate({ refProps, setIsDialogOpen }) {
+  function handleSubmit(e) {
+    e.preventDefault();
+    setIsDialogOpen(false);
+  }
+
+  useEffect(() => {
+    function handleEscKey(e) {
+      if (e.keyCode === 27) {
+        e.preventDefault();
+        setIsDialogOpen(false);
+        refProps.current?.close();
+      }
+    }
+    window.addEventListener("keydown", handleEscKey);
+
+    return () => window.removeEventListener("keydown", handleEscKey);
+  }, [refProps, setIsDialogOpen]);
+
   return (
-    <form id={styles.form} className={stylesForm.mainForm} method="dialog">
+    <form
+      id={styles.form}
+      className={stylesForm.mainForm}
+      method="dialog"
+      onSubmit={handleSubmit}
+    >
       <section>
         <label>
           Room type name
@@ -165,7 +189,10 @@ export default function RoomTypesFormCreate({ refProps }) {
         <button
           className={stylesForm.resetBtn}
           type="reset"
-          onClick={() => refProps.current?.close()}
+          onClick={() => {
+            setIsDialogOpen(false);
+            refProps.current?.close();
+          }}
         >
           Cancel
         </button>
@@ -179,4 +206,5 @@ export default function RoomTypesFormCreate({ refProps }) {
 
 RoomTypesFormCreate.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  setIsDialogOpen: PropTypes.func.isRequired,
 };

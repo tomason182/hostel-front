@@ -13,16 +13,14 @@ import UserUpdateForm from "../../forms/UserUpdateFrom";
 function GeneralInfo() {
   const propertyDialog = useRef(null);
   const userDialog = useRef(null);
-  const propertyFormRef = useRef(null);
-  const userFormRef = useRef(null);
   const userUpdateDialog = useRef(null);
-  const userUpdateFormRef = useRef(null);
   const successDialogRef = useRef(null);
   const [propertyData, setPropertyData] = useState(null);
   const [userValues, setUserValues] = useState(null);
   const [isUserUpdated, setIsUserUpdated] = useState(false);
   const [isPropertyUpdated, setIsPropertyUpdated] = useState(false);
   const [successFulMsg, setSuccessfulMsg] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     if (successFulMsg) {
@@ -34,23 +32,6 @@ function GeneralInfo() {
     }
   }, [successFulMsg]);
 
-  function handleCloseBtn(refProps, formRef) {
-    if (formRef === userFormRef) {
-      formRef.current.reset();
-    } else if (formRef === propertyFormRef) {
-      setPropertyData({
-        propertyName: propertyData?.propertyName || "",
-        street: propertyData?.street || "",
-        city: propertyData?.city || "",
-        postalCode: propertyData?.postalCode || "",
-        countryCode: propertyData?.countryCode || "",
-        phoneNumber: propertyData?.phoneNumber || "",
-        email: propertyData?.email || "",
-      });
-    }
-    refProps.current?.close();
-  }
-
   return (
     <div className="main-content">
       <ContentTitle title={"General info"} />
@@ -59,49 +40,56 @@ function GeneralInfo() {
           <p>{successFulMsg}</p>
         </dialog>
         <dialog ref={propertyDialog} className="dialog">
-          <DialogHeader
-            title={"Property details"}
-            refProps={propertyDialog}
-            formRef={propertyFormRef}
-            handleCloseBtn={handleCloseBtn}
-          />
-          <PropertyDetails
-            refProps={propertyDialog}
-            formRef={propertyFormRef}
-            propertyData={propertyData}
-            handleCloseBtn={handleCloseBtn}
-            setIsPropertyUpdated={setIsPropertyUpdated}
-          />
+          {isDialogOpen && (
+            <>
+              <DialogHeader
+                title={"Property details"}
+                refProps={propertyDialog}
+                setIsDialogOpen={setIsDialogOpen}
+              />
+              <PropertyDetails
+                refProps={propertyDialog}
+                propertyData={propertyData}
+                setIsPropertyUpdated={setIsPropertyUpdated}
+                setIsDialogOpen={setIsDialogOpen}
+              />
+            </>
+          )}
         </dialog>
         <dialog ref={userDialog} className="dialog">
-          <DialogHeader
-            title={"Create new user"}
-            refProps={userDialog}
-            formRef={userFormRef}
-            handleCloseBtn={handleCloseBtn}
-          />
-          <UserForm
-            refProps={userDialog}
-            formRef={userFormRef}
-            handleCloseBtn={handleCloseBtn}
-            setSuccessfulMsg={setSuccessfulMsg}
-            setIsUserUpdated={setIsUserUpdated}
-          />
+          {isDialogOpen && (
+            <>
+              <DialogHeader
+                title={"Create new user"}
+                refProps={userDialog}
+                setIsDialogOpen={setIsDialogOpen}
+              />
+              <UserForm
+                refProps={userDialog}
+                setSuccessfulMsg={setSuccessfulMsg}
+                setIsUserUpdated={setIsUserUpdated}
+                setIsDialogOpen={setIsDialogOpen}
+              />
+            </>
+          )}
         </dialog>
         <dialog ref={userUpdateDialog} className="dialog">
-          <DialogHeader
-            title={"Update user"}
-            refProps={userUpdateDialog}
-            formRef={userUpdateFormRef}
-            handleCloseBtn={handleCloseBtn}
-          />
-          <UserUpdateForm
-            formRef={userUpdateFormRef}
-            refProps={userUpdateDialog}
-            userValues={userValues}
-            setSuccessfulMsg={setSuccessfulMsg}
-            setIsUserUpdated={setIsUserUpdated}
-          />
+          {isDialogOpen && (
+            <>
+              <DialogHeader
+                title={"Update user"}
+                refProps={userUpdateDialog}
+                setIsDialogOpen={setIsDialogOpen}
+              />
+              <UserUpdateForm
+                refProps={userUpdateDialog}
+                userValues={userValues}
+                setSuccessfulMsg={setSuccessfulMsg}
+                setIsUserUpdated={setIsUserUpdated}
+                setIsDialogOpen={setIsDialogOpen}
+              />
+            </>
+          )}
         </dialog>
         <div className={styles.subContainer}>
           <h4>Property info</h4>
@@ -113,6 +101,7 @@ function GeneralInfo() {
           <button
             className={styles.editBtn}
             onClick={() => {
+              setIsDialogOpen(true);
               propertyDialog.current?.showModal();
             }}
           >
@@ -132,11 +121,13 @@ function GeneralInfo() {
             refProps={userUpdateDialog}
             setUserValues={setUserValues}
             isUserUpdated={isUserUpdated}
+            setIsDialogOpen={setIsDialogOpen}
           />
           <button
             className={styles.editBtn}
             onClick={() => {
-              userDialog.current?.showModal(), userDialog.current?.focus();
+              setIsDialogOpen(true);
+              userDialog.current?.showModal();
             }}
           >
             Add user

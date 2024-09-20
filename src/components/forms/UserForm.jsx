@@ -6,31 +6,29 @@ import ErrorComponent from "../error_page/ErrorComponent";
 
 export default function UserForm({
   refProps,
-  formRef,
-  handleCloseBtn,
   setSuccessfulMsg,
   setIsUserUpdated,
+  setIsDialogOpen,
 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setError(null);
     function handleEscKeyOnUser(e) {
       if (e.keyCode === 27) {
         e.preventDefault();
-        handleCloseBtn(refProps, formRef);
+        setIsDialogOpen(false);
+        refProps.current?.close();
       }
     }
     window.addEventListener("keydown", handleEscKeyOnUser);
 
     return () => window.removeEventListener("keydown", handleEscKeyOnUser);
-  }, []);
+  }, [refProps, setIsDialogOpen]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    setError(null);
     setIsUserUpdated(false);
 
     const { username, firstName, lastName, password, role } = e.target;
@@ -67,7 +65,7 @@ export default function UserForm({
         // handle successful data.
         setIsUserUpdated(true);
         setSuccessfulMsg("User added successfully");
-        formRef.current?.reset();
+        setIsDialogOpen(false);
         refProps.current?.close();
       }
     } catch (err) {
@@ -78,7 +76,7 @@ export default function UserForm({
     }
   }
   return (
-    <form className={styles.mainForm} onSubmit={handleSubmit} ref={formRef}>
+    <form className={styles.mainForm} onSubmit={handleSubmit}>
       <label htmlFor="username">User&#39;s Email</label>
       <input
         type="email"
@@ -134,8 +132,8 @@ export default function UserForm({
         <button
           className={styles.resetBtn}
           onClick={() => {
-            handleCloseBtn(refProps, formRef);
-            setError(null);
+            setIsDialogOpen(false);
+            refProps.current?.close();
           }}
           disabled={loading}
         >
@@ -152,8 +150,7 @@ export default function UserForm({
 
 UserForm.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  formRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  handleCloseBtn: PropTypes.func.isRequired,
   setSuccessfulMsg: PropTypes.func.isRequired,
   setIsUserUpdated: PropTypes.func.isRequired,
+  setIsDialogOpen: PropTypes.func.isRequired,
 };
