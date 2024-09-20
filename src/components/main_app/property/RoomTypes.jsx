@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import RoomTypeForm from "../../forms/RoomTypeForm.jsx";
+import RoomTypesFormCreate from "../../forms/RoomTypeFormCreate.jsx";
 import styles from "../../../styles/RoomTypes.module.css";
 import DialogHeader from "../../dialogs/DialogHeader.jsx";
 import fetchDataHelper from "../../../utils/fetchDataHelper.js";
 import ErrorComponent from "../../error_page/ErrorComponent.jsx";
+import RoomTypeFormUpdate from "../../forms/RoomTypeFormUpdate.jsx";
 
 function RoomTypes() {
   const dialogRef = useRef(null);
@@ -11,6 +12,7 @@ function RoomTypes() {
 
   const [roomTypeData, setRoomTypeData] = useState(null);
   const [selectedRoomType, setSelectedRoomType] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -66,17 +68,33 @@ function RoomTypes() {
   return (
     <div className={`${styles.mainContainer} main-content`}>
       <dialog ref={dialogRef} className="dialog">
-        <DialogHeader title={"Create room type"} refProps={dialogRef} />
-        <RoomTypeForm refProps={dialogRef} data={null} />
+        {isDialogOpen && (
+          <>
+            <DialogHeader title={"Create room type"} refProps={dialogRef} />
+            <RoomTypesFormCreate refProps={dialogRef} />
+          </>
+        )}
       </dialog>
       <dialog ref={editRef} className="dialog">
-        <DialogHeader title={"Edit room Type"} refProps={editRef} />
-        <RoomTypeForm refProps={editRef} data={selectedRoomType} />
+        {isDialogOpen && (
+          <>
+            <DialogHeader title={"Edit room Type"} refProps={editRef} />
+            <RoomTypeFormUpdate
+              refProps={editRef}
+              data={selectedRoomType}
+              setIsDialogOpen={setIsDialogOpen}
+            />
+          </>
+        )}
       </dialog>
+
       <button
         className={styles.createRoomTypeBtn}
         type="button"
-        onClick={() => dialogRef.current?.showModal()}
+        onClick={() => {
+          setIsDialogOpen(true);
+          dialogRef.current?.showModal();
+        }}
       >
         Create Room Type
       </button>
@@ -103,6 +121,7 @@ function RoomTypes() {
               tabIndex={0}
               aria-label="Edit room type"
               onClick={() => {
+                setIsDialogOpen(true);
                 handleRoomSelection(roomType._id);
                 editRef.current?.showModal();
               }}
