@@ -14,9 +14,20 @@
 
 .gridContainer {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
-  gap: 0.2rem;
+  gap: 0.5rem;
+}
+
+.labelContainer > input {
+  min-width: 4rem;
+}
+
+.labelContainer {
+  width: 100%;
+}
+.infoIcon {
+  stroke: var(--info-color);
 }
 
 .flexContainer fieldset {
@@ -24,10 +35,14 @@
 }
 
 .radioInputContainer {
-  display: flex;
+  display: block;
   width: 100%;
   align-items: flex-start;
   justify-content: space-between;
+}
+
+.radioInputContainer input {
+  float: right;
 }
 
 .tooltipContainer {
@@ -68,13 +83,4 @@
 .tooltipContainer:focus-within .tooltip {
   visibility: visible;
   opacity: 1;
-}
-
-.labelContainer {
-  display: flex;
-  gap: 0.3rem;
-}
-
-.infoIcon {
-  stroke: var(--info-color);
 }
