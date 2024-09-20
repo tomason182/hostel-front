@@ -1,12 +1,77 @@
 import stylesForm from "../../styles/formDefaultStyle.module.css";
 import styles from "../..//styles/RoomTypeForm.module.css";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import fetchDataHelper from "../../utils/fetchDataHelper";
+import ErrorComponent from "../error_page/ErrorComponent";
 
-export default function RoomTypesFormCreate({ refProps, setIsDialogOpen }) {
-  function handleSubmit(e) {
+export default function RoomTypesFormCreate({
+  refProps,
+  setIsDialogOpen,
+  isRoomTypeUpdated,
+  setIsRoomTypeUpdated,
+}) {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    setIsDialogOpen(false);
+    setLoading(true);
+
+    /*    const formBody = e.target;
+    const formData = new FormData(formBody); */
+
+    const {
+      description,
+      type,
+      gender,
+      max_occupancy,
+      inventory,
+      base_rate,
+      currency,
+    } = e.target;
+
+    const formBody = {
+      description: description.value,
+      type: type.value,
+      gender: gender.value,
+      max_occupancy: max_occupancy.value,
+      inventory: inventory.value,
+      base_rate: base_rate.value,
+      currency: currency.value,
+    };
+
+    try {
+      const url = import.meta.env.VITE_URL_BASE + "room-types/create";
+      const options = {
+        mode: "cors",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formBody),
+      };
+
+      const { data, errors } = await fetchDataHelper(url, options);
+
+      if (data) {
+        console.log(data);
+        setIsRoomTypeUpdated(!isRoomTypeUpdated);
+        setIsDialogOpen(false);
+        refProps.current?.close();
+        return;
+      }
+
+      if (errors) {
+        setError(errors);
+        return;
+      }
+    } catch (err) {
+      setError([err.message || "Unexpected Error ocurred"]);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -182,6 +247,10 @@ export default function RoomTypesFormCreate({ refProps, setIsDialogOpen }) {
               </span>
               <input type="number" name="base_rate" required min={1} />
             </label>
+            <label className={styles.labelContainer}>
+              Currency
+              <input type="text" name="currency" required min={1} />
+            </label>
           </div>
         </fieldset>
       </section>
@@ -189,6 +258,7 @@ export default function RoomTypesFormCreate({ refProps, setIsDialogOpen }) {
         <button
           className={stylesForm.resetBtn}
           type="reset"
+          disabled={loading}
           onClick={() => {
             setIsDialogOpen(false);
             refProps.current?.close();
@@ -196,10 +266,15 @@ export default function RoomTypesFormCreate({ refProps, setIsDialogOpen }) {
         >
           Cancel
         </button>
-        <button className={stylesForm.submitBtn} type="submit">
-          Create
+        <button
+          className={stylesForm.submitBtn}
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? "Creating..." : "Create"}
         </button>
       </menu>
+      {error && <ErrorComponent errors={error} />}
     </form>
   );
 }
@@ -207,4 +282,6 @@ export default function RoomTypesFormCreate({ refProps, setIsDialogOpen }) {
 RoomTypesFormCreate.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   setIsDialogOpen: PropTypes.func.isRequired,
+  isRoomTypeUpdated: PropTypes.bool.isRequired,
+  setIsRoomTypeUpdated: PropTypes.func.isRequired,
 };

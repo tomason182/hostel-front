@@ -13,6 +13,7 @@ function RoomTypes() {
   const [roomTypeData, setRoomTypeData] = useState(null);
   const [selectedRoomType, setSelectedRoomType] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isRoomTypeUpdate, setIsRoomTypeUpdated] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -49,7 +50,7 @@ function RoomTypes() {
     }
 
     handleRoomTypeData();
-  }, []);
+  }, [isRoomTypeUpdate]);
 
   function handleRoomSelection(id) {
     const data = roomTypeData.find(room => room._id === id);
@@ -78,6 +79,8 @@ function RoomTypes() {
             <RoomTypesFormCreate
               refProps={dialogRef}
               setIsDialogOpen={setIsDialogOpen}
+              isRoomTypeUpdated={isRoomTypeUpdate}
+              setIsRoomTypeUpdated={setIsRoomTypeUpdated}
             />
           </>
         )}
@@ -110,45 +113,49 @@ function RoomTypes() {
         Create Room Type
       </button>
       <div className={styles.roomTypesContainer}>
-        {roomTypeData.map(roomType => (
-          <div key={roomType._id} className={styles.roomsContainer}>
-            <h3>{roomType.description}</h3>
-            <dl className={styles.dlList}>
-              <dt>type</dt>
-              <dd>{roomType.type}</dd>
-              <dt>gender</dt>
-              <dd>{roomType.gender}</dd>
-              <dt>Max occupancy</dt>
-              <dd>{roomType.max_occupancy}</dd>
-              <dt>Inventory</dt>
-              <dd>{roomType.inventory}</dd>
-              <dt>Base rate</dt>
-              <dd>{`$ ${roomType.base_rate}`}</dd>
-              <dt>Currency</dt>
-              <dd>{roomType.currency}</dd>
-            </dl>
-            <a
-              role="button"
-              tabIndex={0}
-              aria-label="Edit room type"
-              onClick={() => {
-                setIsDialogOpen(true);
-                handleRoomSelection(roomType._id);
-                editRef.current?.showModal();
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                role="img"
-                className={styles.editBtn}
+        {roomTypeData.length === 0 ? (
+          <h1>No room types found. Please Create a room type</h1>
+        ) : (
+          roomTypeData.map(roomType => (
+            <div key={roomType._id} className={styles.roomsContainer}>
+              <h3>{roomType.description}</h3>
+              <dl className={styles.dlList}>
+                <dt>type</dt>
+                <dd>{roomType.type}</dd>
+                <dt>gender</dt>
+                <dd>{roomType.gender}</dd>
+                <dt>Max occupancy</dt>
+                <dd>{roomType.max_occupancy}</dd>
+                <dt>Inventory</dt>
+                <dd>{roomType.inventory}</dd>
+                <dt>Base rate</dt>
+                <dd>{`$ ${roomType.base_rate}`}</dd>
+                <dt>Currency</dt>
+                <dd>{roomType.currency}</dd>
+              </dl>
+              <a
+                role="button"
+                tabIndex={0}
+                aria-label="Edit room type"
+                onClick={() => {
+                  setIsDialogOpen(true);
+                  handleRoomSelection(roomType._id);
+                  editRef.current?.showModal();
+                }}
               >
-                <polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon>
-                <line x1="3" y1="22" x2="21" y2="22"></line>
-              </svg>
-            </a>
-          </div>
-        ))}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  className={styles.editBtn}
+                >
+                  <polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon>
+                  <line x1="3" y1="22" x2="21" y2="22"></line>
+                </svg>
+              </a>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
