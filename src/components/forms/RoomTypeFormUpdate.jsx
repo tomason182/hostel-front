@@ -2,25 +2,34 @@ import PropTypes from "prop-types";
 import formDefault from "../../styles/formDefaultStyle.module.css";
 import styles from "../../styles/RoomTypeForm.module.css";
 import { useEffect, useState } from "react";
+import fetchDataHelper from "../../utils/fetchDataHelper";
+import ErrorComponent from "../error_page/ErrorComponent";
 
 export default function RoomTypeFormUpdate({
   refProps,
   data,
   setIsDialogOpen,
+  isRoomTypeUpdated,
+  setIsRoomTypeUpdated,
 }) {
   const [formValues, setFormValues] = useState({
     description: "",
     base_rate: "",
-    type: "",
     gender: "",
+    currency: "",
   });
+
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const roomTypeId = data._id;
 
   useEffect(() => {
     setFormValues({
       description: data?.description || "",
       base_rate: data?.base_rate || "",
-      type: data?.type || "",
       gender: data?.gender || "",
+      currency: data?.currency || "",
     });
   }, [data]);
 
@@ -32,13 +41,43 @@ export default function RoomTypeFormUpdate({
     });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    setIsDialogOpen(false);
-    // Handle form submission here
+    setLoading(true);
+    /* 
+    const roomTypeId = data._id; */
 
-    // reset form
-    e.target.reset();
+    try {
+      const url =
+        import.meta.env.VITE_URL_BASE + "room-types/update/" + roomTypeId;
+      const options = {
+        mode: "cors",
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formValues),
+      };
+
+      const { data, errors } = await fetchDataHelper(url, options);
+
+      if (data) {
+        console.log(data);
+        setIsRoomTypeUpdated(!isRoomTypeUpdated);
+        setIsDialogOpen(false);
+        refProps.current?.close();
+      }
+
+      if (errors) {
+        setError(errors);
+      }
+    } catch (err) {
+      console.error(err.message);
+      setError([{ msg: err.message || "Unexpected error occurred" }]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -63,33 +102,6 @@ export default function RoomTypeFormUpdate({
           />
         </label>
         <div className={styles.flexContainer}>
-          <fieldset>
-            <legend>Room Type selection: Dormitory or Private</legend>
-            <div className={styles.radioInputContainer}>
-              <label>
-                Private
-                <input
-                  type="radio"
-                  name="type"
-                  value="private"
-                  checked={formValues?.type === "private"}
-                  onChange={handleInputChange}
-                />
-              </label>
-            </div>
-            <div className={styles.radioInputContainer}>
-              <label>
-                Dorm
-                <input
-                  type="radio"
-                  name="type"
-                  value="dorm"
-                  checked={formValues?.type === "dorm"}
-                  onChange={handleInputChange}
-                />
-              </label>
-            </div>
-          </fieldset>
           <fieldset>
             <legend>Gender</legend>
             <div className={styles.radioInputContainer}>
@@ -122,7 +134,7 @@ export default function RoomTypeFormUpdate({
           <legend>Pricing Details</legend>
           <div className={styles.gridContainer}>
             <label htmlFor="base_rate" className={styles.labelContainer}>
-              Base rate{" "}
+              Base rate
               <span className={styles.tooltipContainer}>
                 <svg
                   className={styles.infoIcon}
@@ -147,7 +159,6 @@ export default function RoomTypeFormUpdate({
               </span>
               <input
                 type="number"
-                id="base_rate"
                 name="base_rate"
                 required
                 min={1}
@@ -155,6 +166,17 @@ export default function RoomTypeFormUpdate({
                 value={formValues?.base_rate}
                 onChange={handleInputChange}
               />
+              <label className={styles.labelContainer}>
+                Currency
+                <input
+                  type="text"
+                  name="currency"
+                  required
+                  min={1}
+                  value={formValues?.currency}
+                  onChange={handleInputChange}
+                />
+              </label>
             </label>
           </div>
         </fieldset>
@@ -171,15 +193,18 @@ export default function RoomTypeFormUpdate({
           Cancel
         </button>
         <button className={formDefault.submitBtn} type="submit">
-          {data === null ? "Create" : "Update"}
+          {loading ? "Updating..." : "Update"}
         </button>
       </menu>
+      {error && <ErrorComponent errors={error} />}
     </form>
   );
 }
 
 RoomTypeFormUpdate.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  data: PropTypes.object,
-  setIsDialogOpen: PropTypes.func,
+  data: PropTypes.object.isRequired,
+  setIsDialogOpen: PropTypes.func.isRequired,
+  setIsRoomTypeUpdated: PropTypes.func.isRequired,
+  isRoomTypeUpdated: PropTypes.bool.isRequired,
 };

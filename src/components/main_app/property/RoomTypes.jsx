@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import RoomTypesFormCreate from "../../forms/RoomTypeFormCreate.jsx";
 import styles from "../../../styles/RoomTypes.module.css";
 import DialogHeader from "../../dialogs/DialogHeader.jsx";
 import fetchDataHelper from "../../../utils/fetchDataHelper.js";
 import ErrorComponent from "../../error_page/ErrorComponent.jsx";
 import RoomTypeFormUpdate from "../../forms/RoomTypeFormUpdate.jsx";
+import RoomTypesFormCreate from "../../forms/RoomTypeFormCreate.jsx";
 
 function RoomTypes() {
   const dialogRef = useRef(null);
@@ -13,7 +13,7 @@ function RoomTypes() {
   const [roomTypeData, setRoomTypeData] = useState(null);
   const [selectedRoomType, setSelectedRoomType] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isRoomTypeUpdate, setIsRoomTypeUpdated] = useState(false);
+  const [isRoomTypeUpdated, setIsRoomTypeUpdated] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -50,7 +50,7 @@ function RoomTypes() {
     }
 
     handleRoomTypeData();
-  }, [isRoomTypeUpdate]);
+  }, [isRoomTypeUpdated]);
 
   function handleRoomSelection(id) {
     const data = roomTypeData.find(room => room._id === id);
@@ -79,7 +79,7 @@ function RoomTypes() {
             <RoomTypesFormCreate
               refProps={dialogRef}
               setIsDialogOpen={setIsDialogOpen}
-              isRoomTypeUpdated={isRoomTypeUpdate}
+              isRoomTypeUpdated={isRoomTypeUpdated}
               setIsRoomTypeUpdated={setIsRoomTypeUpdated}
             />
           </>
@@ -97,6 +97,8 @@ function RoomTypes() {
               refProps={editRef}
               data={selectedRoomType}
               setIsDialogOpen={setIsDialogOpen}
+              isRoomTypeUpdated={isRoomTypeUpdated}
+              setIsRoomTypeUpdated={setIsRoomTypeUpdated}
             />
           </>
         )}
