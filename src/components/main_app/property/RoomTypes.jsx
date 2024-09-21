@@ -16,6 +16,8 @@ function RoomTypes() {
   const [isRoomTypeUpdated, setIsRoomTypeUpdated] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [deleteError, setDeleteError] = useState(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   useEffect(() => {
     async function handleRoomTypeData() {
@@ -55,6 +57,37 @@ function RoomTypes() {
   function handleRoomSelection(id) {
     const data = roomTypeData.find(room => room._id === id);
     setSelectedRoomType(data);
+  }
+
+  async function handleRoomTypeDelete(id) {
+    setDeleteLoading(true);
+    try {
+      const url = import.meta.env.VITE_URL_BASE + "room-types/delete/" + id;
+      const options = {
+        mode: "cors",
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      };
+
+      const { data, errors } = await fetchDataHelper(url, options);
+
+      if (data) {
+        console.log(data);
+        setIsRoomTypeUpdated(!isRoomTypeUpdated);
+      }
+
+      if (errors) {
+        console.error(errors);
+        setDeleteError(errors);
+      }
+    } catch (err) {
+      setDeleteError({ msg: err.message || "Unexpected error occurred" });
+    } finally {
+      setDeleteLoading(false);
+    }
   }
 
   if (loading) return <div>Loading...</div>;
@@ -135,26 +168,37 @@ function RoomTypes() {
                 <dt>Currency</dt>
                 <dd>{roomType.currency}</dd>
               </dl>
-              <a
-                role="button"
-                tabIndex={0}
-                aria-label="Edit room type"
-                onClick={() => {
-                  setIsDialogOpen(true);
-                  handleRoomSelection(roomType._id);
-                  editRef.current?.showModal();
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  role="img"
-                  className={styles.editBtn}
+              <menu className={styles.btnMenu}>
+                <button
+                  type="button"
+                  aria-label="delete room type"
+                  disabled={deleteLoading}
+                  onClick={() => handleRoomTypeDelete(roomType._id)}
                 >
-                  <polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon>
-                  <line x1="3" y1="22" x2="21" y2="22"></line>
-                </svg>
-              </a>
+                  Delete
+                </button>
+                <a
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Edit room type"
+                  onClick={() => {
+                    setIsDialogOpen(true);
+                    handleRoomSelection(roomType._id);
+                    editRef.current?.showModal();
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    role="img"
+                    className={styles.editBtn}
+                  >
+                    <polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon>
+                    <line x1="3" y1="22" x2="21" y2="22"></line>
+                  </svg>
+                </a>
+              </menu>
+              {deleteError && <ErrorComponent errors={deleteError} />}
             </div>
           ))
         )}
