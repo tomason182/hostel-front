@@ -1,6 +1,7 @@
 import styles from "../../styles/formDefaultStyle.module.css";
+import PropTypes from "prop-types";
 
-export default function GuestForm() {
+export default function GuestForm({ setIndex }) {
   return (
     <form className={styles.mainForm}>
       <label>
@@ -66,9 +67,25 @@ export default function GuestForm() {
         </label>
       </fieldset>
       <menu className={styles.buttonContainer}>
-        <button className={styles.resetBtn}>Cancel</button>
-        <button className={styles.submitBtn}>Continue</button>
+        <button
+          type="button"
+          className={styles.resetBtn}
+          onClick={() => setIndex(0)}
+        >
+          back
+        </button>
+        <button
+          type="submit"
+          className={styles.submitBtn}
+          onClick={() => setIndex(2)}
+        >
+          Continue
+        </button>
       </menu>
     </form>
   );
 }
+
+GuestForm.propTypes = {
+  setIndex: PropTypes.func.isRequired,
+};

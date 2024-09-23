@@ -2,12 +2,15 @@ import Calendar from "./Calendar";
 import CreateBtn from "../../buttons/BtnCreate";
 import styles from "../../../styles/CalendarMainPage.module.css";
 import DialogHeader from "../../dialogs/DialogHeader";
+import GuestEmailSearch from "../../forms/GuestEmailSearch";
 import GuestForm from "../../forms/GuestForm";
+import ReservationForm from "../../forms/ReservationForm";
 import { useRef, useState } from "react";
 
 function CalendarMainPage() {
   const dialogRef = useRef(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [index, setIndex] = useState(0);
 
   return (
     <div className={styles.mainContent}>
@@ -19,7 +22,9 @@ function CalendarMainPage() {
               refProps={dialogRef}
               setIsDialogOpen={setIsDialogOpen}
             />
-            <GuestForm />
+            {index === 0 && <GuestEmailSearch setIndex={setIndex} />}
+            {index === 1 && <GuestForm setIndex={setIndex} />}
+            {index === 2 && <ReservationForm />}
           </>
         )}
       </dialog>
