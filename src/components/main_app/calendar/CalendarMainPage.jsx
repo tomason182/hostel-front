@@ -1,10 +1,11 @@
-import ContentTitle from "../../headers/ContentTitle";
 import Calendar from "./Calendar";
+import CreateBtn from "../../buttons/BtnCreate";
+import styles from "../../../styles/CalendarMainPage.module.css";
 
 function CalendarMainPage() {
   return (
-    <div className="main-content">
-      <ContentTitle title={"Calendar"} />
+    <div className={styles.mainContent}>
+      <CreateBtn title={"New reservation"} />
       <Calendar />
     </div>
   );

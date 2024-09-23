@@ -1,0 +1,7 @@
+.btn {
+  width: 13rem;
+  align-self: flex-end;
+  padding: 1rem 1rem;
+  background-color: var(--primary-color);
+  border-radius: var(--border-radius-large);
+}

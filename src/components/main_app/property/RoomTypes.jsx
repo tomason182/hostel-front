@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../../../styles/RoomTypes.module.css";
 import DialogHeader from "../../dialogs/DialogHeader.jsx";
+import CreateBtn from "../../buttons/BtnCreate.jsx";
 import fetchDataHelper from "../../../utils/fetchDataHelper.js";
 import ErrorComponent from "../../error_page/ErrorComponent.jsx";
 import RoomTypeFormUpdate from "../../forms/RoomTypeFormUpdate.jsx";
@@ -136,17 +137,11 @@ function RoomTypes() {
           </>
         )}
       </dialog>
-
-      <button
-        className={styles.createRoomTypeBtn}
-        type="button"
-        onClick={() => {
-          setIsDialogOpen(true);
-          dialogRef.current?.showModal();
-        }}
-      >
-        Create Room Type
-      </button>
+      <CreateBtn
+        title={"Create Room Type"}
+        setIsDialogOpen={setIsDialogOpen}
+        refProps={dialogRef}
+      />
       <div className={styles.roomTypesContainer}>
         {roomTypeData.length === 0 ? (
           <h1>No room types found. Please Create a room type</h1>
