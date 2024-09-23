@@ -2,6 +2,7 @@ import Calendar from "./Calendar";
 import CreateBtn from "../../buttons/BtnCreate";
 import styles from "../../../styles/CalendarMainPage.module.css";
 import DialogHeader from "../../dialogs/DialogHeader";
+import GuestForm from "../../forms/GuestForm";
 import { useRef, useState } from "react";
 
 function CalendarMainPage() {
@@ -18,6 +19,7 @@ function CalendarMainPage() {
               refProps={dialogRef}
               setIsDialogOpen={setIsDialogOpen}
             />
+            <GuestForm />
           </>
         )}
       </dialog>
