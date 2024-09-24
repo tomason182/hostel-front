@@ -1,6 +1,8 @@
 import styles from "../../styles/formDefaultStyle.module.css";
+import PropTypes from "prop-types";
 
-export default function ReservationForm() {
+export default function ReservationForm({ guestId }) {
+  console.log(guestId);
   return (
     <form className={styles.mainForm}>
       <fieldset>
@@ -70,3 +72,7 @@ export default function ReservationForm() {
     </form>
   );
 }
+
+ReservationForm.propTypes = {
+  guestId: PropTypes.string.isRequired,
+};

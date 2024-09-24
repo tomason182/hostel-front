@@ -10,6 +10,9 @@ import { useRef, useState } from "react";
 function CalendarMainPage() {
   const dialogRef = useRef(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [guestData, setGuestData] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [guestId, setGuestId] = useState(null);
   const [index, setIndex] = useState(0);
 
   return (
@@ -22,9 +25,24 @@ function CalendarMainPage() {
               refProps={dialogRef}
               setIsDialogOpen={setIsDialogOpen}
             />
-            {index === 0 && <GuestEmailSearch setIndex={setIndex} />}
-            {index === 1 && <GuestForm setIndex={setIndex} />}
-            {index === 2 && <ReservationForm />}
+            {index === 0 && (
+              <GuestEmailSearch
+                setIndex={setIndex}
+                setGuestData={setGuestData}
+                setEmail={setEmail}
+                setGuestId={setGuestId}
+              />
+            )}
+            {index === 1 && (
+              <GuestForm
+                setIndex={setIndex}
+                guestData={guestData}
+                email={email}
+                guestId={guestId}
+                setGuestId={setGuestId}
+              />
+            )}
+            {index === 2 && <ReservationForm guestId={guestId} />}
           </>
         )}
       </dialog>
