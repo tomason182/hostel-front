@@ -64,7 +64,7 @@ export default function ReservationForm() {
         </label>
         <label>
           Special request
-          <input type="text" maxLength={50} />
+          <textarea name="specialRequest" rows={5} cols={50}></textarea>
         </label>
       </fieldset>
     </form>

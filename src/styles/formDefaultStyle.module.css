@@ -92,3 +92,19 @@
 .submitBtn:hover {
   background-color: var(--primary-color-dark);
 }
+
+.mainForm select {
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  appearance: none;
+  color: black;
+  border: 1px solid #caced1;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.mainForm textarea {
+  background-color: #fff;
+  color: black;
+}
