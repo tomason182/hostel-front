@@ -1,7 +1,12 @@
 import styles from "../../styles/DialogHeader.module.css";
 import PropTypes from "prop-types";
 
-export default function DialogHeader({ title, refProps, setIsDialogOpen }) {
+export default function DialogHeader({
+  title,
+  refProps,
+  setIsDialogOpen,
+  setIndex,
+}) {
   return (
     <div className={styles.dialogHeader}>
       <h3>{title}</h3>
@@ -9,6 +14,7 @@ export default function DialogHeader({ title, refProps, setIsDialogOpen }) {
         type="button"
         onClick={() => {
           setIsDialogOpen(false);
+          setIndex && setIndex(0);
           refProps.current?.close();
         }}
       >
@@ -33,4 +39,5 @@ DialogHeader.propTypes = {
   title: PropTypes.string,
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   setIsDialogOpen: PropTypes.func.isRequired,
+  setIndex: PropTypes.func,
 };

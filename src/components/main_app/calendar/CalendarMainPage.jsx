@@ -24,9 +24,11 @@ function CalendarMainPage() {
               title={"Add new reservation"}
               refProps={dialogRef}
               setIsDialogOpen={setIsDialogOpen}
+              setIndex={setIndex}
             />
             {index === 0 && (
               <GuestEmailSearch
+                refProps={dialogRef}
                 setIndex={setIndex}
                 setGuestData={setGuestData}
                 setEmail={setEmail}

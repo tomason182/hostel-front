@@ -5,6 +5,7 @@ import ErrorComponent from "../../components/error_page/ErrorComponent";
 import { useState } from "react";
 
 export default function GuestEmailSearch({
+  refProps,
   setIndex,
   setGuestData,
   setEmail,
@@ -76,7 +77,13 @@ export default function GuestEmailSearch({
         <input type="email" name="email" required aria-required />
       </label>
       <menu className={styles.buttonContainer}>
-        <button className={styles.resetBtn}>Cancel</button>
+        <button
+          type="reset"
+          className={styles.resetBtn}
+          onClick={() => refProps?.current.close()}
+        >
+          Cancel
+        </button>
         <button type="submit" className={styles.submitBtn} disabled={loading}>
           {loading ? "Searching..." : "Continue"}
         </button>
@@ -87,6 +94,8 @@ export default function GuestEmailSearch({
 }
 
 GuestEmailSearch.propTypes = {
+  refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    .isRequired,
   setIndex: PropTypes.func.isRequired,
   setGuestData: PropTypes.func.isRequired,
   setEmail: PropTypes.func.isRequired,
