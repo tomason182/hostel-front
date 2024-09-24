@@ -66,7 +66,7 @@ export default function ReservationForm({ guestId }) {
         </label>
         <label>
           Special request
-          <textarea name="specialRequest" rows={5} cols={50}></textarea>
+          <textarea name="specialRequest" rows={5} cols={45}></textarea>
         </label>
       </fieldset>
     </form>
