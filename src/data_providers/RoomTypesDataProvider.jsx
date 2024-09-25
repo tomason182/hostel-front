@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const RoomTypeContext = createContext();
 
 export default function RoomTypeDataProvider({ children }) {
-  const [roomTypeData, setRoomTypeData] = useState(null);
+  const [roomTypeData, setRoomTypesData] = useState(null);
 
   const fetchRoomTypeData = useCallback(() => {
     const url = import.meta.env.VITE_URL_BASE + "room-types";
@@ -18,7 +18,7 @@ export default function RoomTypeDataProvider({ children }) {
     };
     fetch(url, options)
       .then(response => response.json())
-      .then(data => setRoomTypeData(data))
+      .then(data => setRoomTypesData(data))
       .catch(err =>
         console.error("Error fetching room type data", err.message)
       );

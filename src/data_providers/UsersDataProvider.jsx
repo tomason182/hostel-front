@@ -27,9 +27,11 @@ export default function UsersDataProvider({ children }) {
   }, [fetchUsersData]);
 
   return (
-    <UsersContext value={{ usersData, refreshUsersData: fetchUsersData }}>
+    <UsersContext.Provider
+      value={{ usersData, refreshUsersData: fetchUsersData }}
+    >
       {children}
-    </UsersContext>
+    </UsersContext.Provider>
   );
 }
 
