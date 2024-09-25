@@ -2,11 +2,11 @@ import { Outlet } from "react-router-dom";
 import HeaderMain from "./HeaderMain";
 import NavigationMain from "./NavigationMain";
 import MainMenuResponsive from "../menus/MainMenuResponsive";
+import PropertyDetailsProvider from "../../data_providers/PropertyDetailsProvider";
 import { useState, useEffect } from "react";
 
 function App() {
   const [user, setUser] = useState(null);
-
   useEffect(() => {
     const url = import.meta.env.VITE_URL_BASE + "users/profile";
     const options = {
@@ -17,6 +17,7 @@ function App() {
       },
       credentials: "include",
     };
+
     fetch(url, options)
       .then(response => response.json())
       .then(data => setUser(data.msg))
@@ -28,7 +29,9 @@ function App() {
       <HeaderMain user={user} />
       <NavigationMain />
       <MainMenuResponsive />
-      <Outlet />
+      <PropertyDetailsProvider>
+        <Outlet />
+      </PropertyDetailsProvider>
     </>
   );
 }
