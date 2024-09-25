@@ -19,7 +19,9 @@ export default function RoomTypeDataProvider({ children }) {
     fetch(url, options)
       .then(response => response.json())
       .then(data => setRoomTypeData(data))
-      .catch(err => console.error("Error fetching room type data", err));
+      .catch(err =>
+        console.error("Error fetching room type data", err.message)
+      );
   }, []);
 
   useEffect(() => {

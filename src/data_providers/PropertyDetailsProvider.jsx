@@ -29,7 +29,7 @@ export default function PropertyDetailsProvider({ children }) {
           email: data.contact_info.email,
         })
       )
-      .catch(err => console.err("Error fetching property data", err));
+      .catch(err => console.err("Error fetching property data", err.message));
   }, []);
 
   useEffect(() => {
