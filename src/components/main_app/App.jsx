@@ -3,6 +3,8 @@ import HeaderMain from "./HeaderMain";
 import NavigationMain from "./NavigationMain";
 import MainMenuResponsive from "../menus/MainMenuResponsive";
 import PropertyDetailsProvider from "../../data_providers/PropertyDetailsProvider";
+import RoomTypeDataProvider from "../../data_providers/RoomTypesDataProvider";
+import UsersDataProvider from "../../data_providers/UsersDataProvider";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -30,7 +32,11 @@ function App() {
       <NavigationMain />
       <MainMenuResponsive />
       <PropertyDetailsProvider>
-        <Outlet />
+        <RoomTypeDataProvider>
+          <UsersDataProvider>
+            <Outlet />
+          </UsersDataProvider>
+        </RoomTypeDataProvider>
       </PropertyDetailsProvider>
     </>
   );
