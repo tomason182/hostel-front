@@ -53,6 +53,8 @@ function CalendarMainPage() {
                 guestId={guestId}
                 roomTypeData={roomTypeData}
                 setIndex={setIndex}
+                propRef={dialogRef}
+                setIsDialogOpen={setIsDialogOpen}
               />
             )}
           </>

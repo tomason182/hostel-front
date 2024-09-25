@@ -4,7 +4,12 @@ import fetchDataHelper from "../../utils/fetchDataHelper";
 import { useState } from "react";
 import ErrorComponent from "../error_page/ErrorComponent";
 
-export default function ReservationForm({ guestId, roomTypeData, setIndex }) {
+export default function ReservationForm({
+  guestId,
+  roomTypeData,
+  setIndex,
+  propRef,
+}) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -53,6 +58,9 @@ export default function ReservationForm({ guestId, roomTypeData, setIndex }) {
 
       if (data) {
         console.log(data);
+        setIndex(0);
+        propRef?.current.close();
+
         return;
       }
     } catch (err) {
@@ -63,7 +71,11 @@ export default function ReservationForm({ guestId, roomTypeData, setIndex }) {
     }
   }
   return (
-    <form className={styles.mainForm} onSubmit={handleReservationSubmit}>
+    <form
+      method="dialog"
+      className={styles.mainForm}
+      onSubmit={handleReservationSubmit}
+    >
       <fieldset>
         <legend>Room type</legend>
         <label>
@@ -152,4 +164,5 @@ ReservationForm.propTypes = {
   guestId: PropTypes.string.isRequired,
   roomTypeData: PropTypes.array.isRequired,
   setIndex: PropTypes.func.isRequired,
+  propRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
 };
