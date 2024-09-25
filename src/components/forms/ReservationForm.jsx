@@ -5,7 +5,6 @@ import { useState } from "react";
 import ErrorComponent from "../error_page/ErrorComponent";
 
 export default function ReservationForm({ guestId, roomTypeData, setIndex }) {
-  const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -23,8 +22,8 @@ export default function ReservationForm({ guestId, roomTypeData, setIndex }) {
       room_type_id: e.target.roomType.value,
       check_in: e.target.checkIn.value,
       check_out: e.target.checkOut.value,
-      number_of_guest: e.target.numberOfGuest.value,
-      total_price: e.target.totalPrice.value,
+      number_of_guest: parseInt(e.target.numberOfGuest.value, 10),
+      total_price: parseFloat(e.target.totalPrice.value),
       booking_source: e.target.bookingSource.value,
       reservation_status: e.target.reservationStatus.value,
       payment_status: e.target.paymentStatus.value,
@@ -44,7 +43,7 @@ export default function ReservationForm({ guestId, roomTypeData, setIndex }) {
         body: JSON.stringify(formData),
       };
 
-      const { data, errors } = fetchDataHelper(url, options);
+      const { data, errors } = await fetchDataHelper(url, options);
 
       if (errors) {
         console.error(errors);
@@ -91,13 +90,19 @@ export default function ReservationForm({ guestId, roomTypeData, setIndex }) {
         </label>
         <label>
           Total Price
-          <input type="number" name="totalPrice" required aria-required />
+          <input
+            type="number"
+            name="totalPrice"
+            required
+            aria-required
+            defaultValue={e => e.target.numberOfGuest * 2}
+          />
         </label>
         <label>
           Booking source
           <select name="bookingSource">
-            <option value="booking">Booking.com</option>
-            <option value="hostelWorld">HostelWorld.com</option>
+            <option value="booking.com">Booking.com</option>
+            <option value="hostelWorld.com">HostelWorld.com</option>
             <option value="direct">Direct</option>
           </select>
         </label>

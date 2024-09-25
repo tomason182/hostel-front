@@ -2,6 +2,7 @@ export default async function fetchDataHelper(url, options) {
   let errors = [];
   try {
     const response = await fetch(url, options);
+    console.log(response);
 
     if (!response.ok) {
       const errorResponse = await response.json();
