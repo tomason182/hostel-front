@@ -1,60 +1,17 @@
-import { useEffect, useState } from "react";
 import styles from "../../../styles/RoomTypesSub.module.css";
-import fetchDataHelper from "../../../utils/fetchDataHelper";
 import PropTypes from "prop-types";
 
 export default function UsersSub({
   refProps,
+  usersData,
   setUserValues,
-  isUserUpdated,
   setIsDialogOpen,
 }) {
-  const [usersList, setUsersList] = useState(null);
-  const [errors, setErrors] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    async function fetchPropertyUsers() {
-      setLoading(true);
-
-      try {
-        const url = import.meta.env.VITE_URL_BASE + "users/all";
-        const options = {
-          mode: "cors",
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        };
-        const { data, error } = await fetchDataHelper(url, options);
-
-        if (data) {
-          setUsersList(data.msg);
-          return;
-        }
-
-        if (error) {
-          setErrors(error);
-          return;
-        }
-      } catch (err) {
-        setErrors([{ msg: err.message || "Unexpected error occurred" }]);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchPropertyUsers();
-  }, [isUserUpdated]);
-
-  if (loading) return <div>Loading...</div>;
-
-  if (errors) return <div>Network errors</div>;
+  if (!usersData) return <div>Loading...</div>;
 
   const users =
-    usersList &&
-    usersList.map(user => (
+    usersData &&
+    usersData.map(user => (
       <li key={user._id}>
         <div>
           <p>
@@ -93,6 +50,6 @@ export default function UsersSub({
 UsersSub.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   setUserValues: PropTypes.func.isRequired,
-  isUserUpdated: PropTypes.bool.isRequired,
+  usersData: PropTypes.array.isRequired,
   setIsDialogOpen: PropTypes.func.isRequired,
 };

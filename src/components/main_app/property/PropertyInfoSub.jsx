@@ -1,8 +1,6 @@
-import { useContext } from "react";
-import { PropertyContext } from "../../../data_providers/PropertyDetailsProvider";
+import PropTypes from "prop-types";
 
-export default function PropertyInfoSub() {
-  const propertyData = useContext(PropertyContext);
+export default function PropertyInfoSub({ propertyData }) {
   if (!propertyData) return <div>Loading...</div>;
 
   return (
@@ -22,3 +20,7 @@ export default function PropertyInfoSub() {
     </>
   );
 }
+
+PropertyInfoSub.propTypes = {
+  propertyData: PropTypes.object.isRequired,
+};

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import styles from "../../../styles/RoomTypes.module.css";
 import DialogHeader from "../../dialogs/DialogHeader.jsx";
 import CreateBtn from "../../buttons/BtnCreate.jsx";
@@ -6,54 +6,19 @@ import fetchDataHelper from "../../../utils/fetchDataHelper.js";
 import ErrorComponent from "../../error_page/ErrorComponent.jsx";
 import RoomTypeFormUpdate from "../../forms/RoomTypeFormUpdate.jsx";
 import RoomTypesFormCreate from "../../forms/RoomTypeFormCreate.jsx";
+import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider.jsx";
 
 function RoomTypes() {
   const dialogRef = useRef(null);
   const editRef = useRef(null);
 
-  const [roomTypeData, setRoomTypeData] = useState(null);
+  const { roomTypeData, refreshRoomTypeData } = useContext(RoomTypeContext);
+
   const [selectedRoomType, setSelectedRoomType] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isRoomTypeUpdated, setIsRoomTypeUpdated] = useState(false);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [deleteError, setDeleteError] = useState(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
-
-  useEffect(() => {
-    async function handleRoomTypeData() {
-      try {
-        const url = import.meta.env.VITE_URL_BASE + "room-types";
-        const options = {
-          mode: "cors",
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        };
-
-        const { data, errors } = await fetchDataHelper(url, options);
-
-        if (data) {
-          console.log(data);
-          setRoomTypeData(data);
-          return;
-        }
-
-        if (errors) {
-          setError(errors);
-        }
-      } catch (err) {
-        console.error(err);
-        setError([{ msg: err.message || "Unexpected error occurred" }]);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    handleRoomTypeData();
-  }, [isRoomTypeUpdated]);
 
   function handleRoomSelection(id) {
     const data = roomTypeData.find(room => room._id === id);
@@ -91,14 +56,7 @@ function RoomTypes() {
     }
   }
 
-  if (loading) return <div>Loading...</div>;
-
-  if (error)
-    return (
-      <div>
-        <ErrorComponent errors={error} />
-      </div>
-    );
+  if (!roomTypeData) return <div>Loading...</div>;
 
   return (
     <div className={`${styles.mainContainer} main-content`}>
@@ -113,14 +71,13 @@ function RoomTypes() {
             <RoomTypesFormCreate
               refProps={dialogRef}
               setIsDialogOpen={setIsDialogOpen}
-              isRoomTypeUpdated={isRoomTypeUpdated}
-              setIsRoomTypeUpdated={setIsRoomTypeUpdated}
+              refreshRoomTypeData={refreshRoomTypeData}
             />
           </>
         )}
       </dialog>
       <dialog ref={editRef} className="dialog">
-        {isDialogOpen && (
+        {isDialogOpen && selectedRoomType && (
           <>
             <DialogHeader
               title={"Edit room Type"}
@@ -130,9 +87,8 @@ function RoomTypes() {
             <RoomTypeFormUpdate
               refProps={editRef}
               data={selectedRoomType}
+              refreshRoomTypeData={refreshRoomTypeData}
               setIsDialogOpen={setIsDialogOpen}
-              isRoomTypeUpdated={isRoomTypeUpdated}
-              setIsRoomTypeUpdated={setIsRoomTypeUpdated}
             />
           </>
         )}

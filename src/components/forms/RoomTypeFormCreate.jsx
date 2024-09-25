@@ -8,8 +8,7 @@ import ErrorComponent from "../error_page/ErrorComponent";
 export default function RoomTypesFormCreate({
   refProps,
   setIsDialogOpen,
-  isRoomTypeUpdated,
-  setIsRoomTypeUpdated,
+  refreshRoomTypeData,
 }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -57,7 +56,7 @@ export default function RoomTypesFormCreate({
 
       if (data) {
         console.log(data);
-        setIsRoomTypeUpdated(!isRoomTypeUpdated);
+        refreshRoomTypeData();
         setIsDialogOpen(false);
         refProps.current?.close();
         return;
@@ -282,6 +281,5 @@ export default function RoomTypesFormCreate({
 RoomTypesFormCreate.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   setIsDialogOpen: PropTypes.func.isRequired,
-  isRoomTypeUpdated: PropTypes.bool.isRequired,
-  setIsRoomTypeUpdated: PropTypes.func.isRequired,
+  refreshRoomTypeData: PropTypes.func.isRequired,
 };

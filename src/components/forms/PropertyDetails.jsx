@@ -7,35 +7,20 @@ import { useState, useEffect } from "react";
 function PropertyDetails({
   refProps,
   propertyData,
-  setIsPropertyUpdated,
+  refreshPropertyData,
   setIsDialogOpen,
 }) {
   const [data, setData] = useState({
-    propertyName: "",
-    street: "",
-    city: "",
-    postalCode: "",
-    countryCode: "",
-    email: "",
-    phoneNumber: "",
+    propertyName: propertyData?.propertyName || "",
+    street: propertyData?.street || "",
+    city: propertyData?.city || "",
+    postalCode: propertyData?.postalCode || "",
+    countryCode: propertyData?.countryCode || "",
+    email: propertyData?.email || "",
+    phoneNumber: propertyData?.phoneNumber || "",
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (propertyData) {
-      const retrievedData = {
-        propertyName: propertyData.propertyName || "",
-        street: propertyData.street || "",
-        city: propertyData.city || "",
-        postalCode: propertyData.postalCode || "",
-        countryCode: propertyData.countryCode || "",
-        email: propertyData.email || "",
-        phoneNumber: propertyData.phoneNumber || "",
-      };
-      setData(retrievedData);
-    }
-  }, [propertyData]);
 
   function handleInputChange(e) {
     const { name, value } = e.target;
@@ -61,7 +46,6 @@ function PropertyDetails({
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    setIsPropertyUpdated(false);
 
     const formBody = {
       propertyName: data.propertyName,
@@ -93,8 +77,8 @@ function PropertyDetails({
 
       const { data, errors } = await fetchDataHelper(url, options);
       if (data) {
-        setIsPropertyUpdated(true);
         setIsDialogOpen(false);
+        refreshPropertyData();
         refProps.current?.close();
       }
 
@@ -107,6 +91,8 @@ function PropertyDetails({
       setLoading(false);
     }
   }
+
+  if (!propertyData) return <p>Loading...</p>;
 
   return (
     <form method="dialog" className={styles.mainForm} onSubmit={handleSubmit}>
@@ -204,9 +190,9 @@ function PropertyDetails({
 
 PropertyDetails.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  setIsPropertyUpdated: PropTypes.func.isRequired,
-  propertyData: PropTypes.object,
-  setIsDialogOpen: PropTypes.func,
+  propertyData: PropTypes.object.isRequired,
+  refreshPropertyData: PropTypes.func.isRequired,
+  setIsDialogOpen: PropTypes.func.isRequired,
 };
 
 export default PropertyDetails;

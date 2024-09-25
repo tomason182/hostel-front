@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styles from "../../../styles/GeneralInfo.module.css";
 import RoomTypesSub from "./RoomTypesSub";
 import UsersSub from "./UsersSub";
@@ -9,18 +9,23 @@ import DialogHeader from "../../dialogs/DialogHeader";
 import ContentTitle from "../../headers/ContentTitle";
 import UserForm from "../../forms/UserForm";
 import UserUpdateForm from "../../forms/UserUpdateFrom";
+// Import data providers
+import { PropertyContext } from "../../../data_providers/PropertyDetailsProvider";
+import { UsersContext } from "../../../data_providers/UsersDataProvider";
+import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider";
 
 function GeneralInfo() {
   const propertyDialog = useRef(null);
   const userDialog = useRef(null);
   const userUpdateDialog = useRef(null);
   const successDialogRef = useRef(null);
-  const [propertyData, setPropertyData] = useState(null);
-  const [userValues, setUserValues] = useState(null);
-  const [isUserUpdated, setIsUserUpdated] = useState(false);
-  const [isPropertyUpdated, setIsPropertyUpdated] = useState(false);
   const [successFulMsg, setSuccessfulMsg] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [userValues, setUsersValue] = useState(null);
+
+  const { propertyData, refreshPropertyData } = useContext(PropertyContext);
+  const { usersData, refreshUsersData } = useContext(UsersContext);
+  const { roomTypeData } = useContext(RoomTypeContext);
 
   useEffect(() => {
     if (successFulMsg) {
@@ -50,7 +55,7 @@ function GeneralInfo() {
               <PropertyDetails
                 refProps={propertyDialog}
                 propertyData={propertyData}
-                setIsPropertyUpdated={setIsPropertyUpdated}
+                refreshPropertyData={refreshPropertyData}
                 setIsDialogOpen={setIsDialogOpen}
               />
             </>
@@ -67,14 +72,14 @@ function GeneralInfo() {
               <UserForm
                 refProps={userDialog}
                 setSuccessfulMsg={setSuccessfulMsg}
-                setIsUserUpdated={setIsUserUpdated}
+                refreshUsersData={refreshUsersData}
                 setIsDialogOpen={setIsDialogOpen}
               />
             </>
           )}
         </dialog>
         <dialog ref={userUpdateDialog} className="dialog">
-          {isDialogOpen && (
+          {isDialogOpen && userValues && (
             <>
               <DialogHeader
                 title={"Update user"}
@@ -85,7 +90,7 @@ function GeneralInfo() {
                 refProps={userUpdateDialog}
                 userValues={userValues}
                 setSuccessfulMsg={setSuccessfulMsg}
-                setIsUserUpdated={setIsUserUpdated}
+                refreshUsersData={refreshUsersData}
                 setIsDialogOpen={setIsDialogOpen}
               />
             </>
@@ -93,11 +98,12 @@ function GeneralInfo() {
         </dialog>
         <div className={styles.subContainer}>
           <h4>Property info</h4>
-          <PropertyInfoSub
-            propertyData={propertyData}
-            setPropertyData={setPropertyData}
-            isPropertyUpdated={isPropertyUpdated}
-          />
+          {!propertyData ? (
+            <p>Loading...</p>
+          ) : (
+            <PropertyInfoSub propertyData={propertyData} />
+          )}
+
           <button
             className={styles.editBtn}
             onClick={() => {
@@ -110,19 +116,29 @@ function GeneralInfo() {
         </div>
         <div className={styles.subContainer}>
           <h4>Room types</h4>
-          <RoomTypesSub />
+          {!roomTypeData ? (
+            <p>Loading...</p>
+          ) : (
+            <RoomTypesSub roomTypeData={roomTypeData} />
+          )}
+
           <Link to="/app/property/room-types">
             <button className={styles.editBtn}>Edit</button>
           </Link>
         </div>
         <div className={styles.subContainer}>
           <h4>Users</h4>
-          <UsersSub
-            refProps={userUpdateDialog}
-            setUserValues={setUserValues}
-            isUserUpdated={isUserUpdated}
-            setIsDialogOpen={setIsDialogOpen}
-          />
+          {!usersData ? (
+            <p>Loading...</p>
+          ) : (
+            <UsersSub
+              refProps={userUpdateDialog}
+              usersData={usersData}
+              setUserValues={setUsersValue}
+              setIsDialogOpen={setIsDialogOpen}
+            />
+          )}
+
           <button
             className={styles.editBtn}
             onClick={() => {

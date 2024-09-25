@@ -9,8 +9,7 @@ export default function RoomTypeFormUpdate({
   refProps,
   data,
   setIsDialogOpen,
-  isRoomTypeUpdated,
-  setIsRoomTypeUpdated,
+  refreshRoomTypeData,
 }) {
   const [formValues, setFormValues] = useState({
     description: "",
@@ -22,7 +21,7 @@ export default function RoomTypeFormUpdate({
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const roomTypeId = data._id;
+  const roomTypeId = data && data._id;
 
   useEffect(() => {
     setFormValues({
@@ -64,7 +63,7 @@ export default function RoomTypeFormUpdate({
 
       if (data) {
         console.log(data);
-        setIsRoomTypeUpdated(!isRoomTypeUpdated);
+        refreshRoomTypeData();
         setIsDialogOpen(false);
         refProps.current?.close();
       }
@@ -205,6 +204,5 @@ RoomTypeFormUpdate.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   data: PropTypes.object.isRequired,
   setIsDialogOpen: PropTypes.func.isRequired,
-  setIsRoomTypeUpdated: PropTypes.func.isRequired,
-  isRoomTypeUpdated: PropTypes.bool.isRequired,
+  refreshRoomTypeData: PropTypes.func.isRequired,
 };

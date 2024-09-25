@@ -7,8 +7,8 @@ import ErrorComponent from "../error_page/ErrorComponent";
 export default function UserUpdateForm({
   refProps,
   userValues,
+  refreshUsersData,
   setSuccessfulMsg,
-  setIsUserUpdated,
   setIsDialogOpen,
 }) {
   const [firstName, setFirstName] = useState("");
@@ -45,7 +45,6 @@ export default function UserUpdateForm({
     e.preventDefault();
 
     setLoading(true);
-    setIsUserUpdated(false);
 
     const formBody = {
       ...(firstName && { firstName }),
@@ -71,8 +70,8 @@ export default function UserUpdateForm({
       if (data) {
         console.log("user updated successfully", data);
         setSuccessfulMsg("User Updated successfully");
-        setIsUserUpdated(true);
         setIsDialogOpen(false);
+        refreshUsersData();
         refProps.current?.close();
         return;
       }
@@ -91,7 +90,6 @@ export default function UserUpdateForm({
 
   async function handleUserDelete() {
     setLoading(true);
-    setIsUserUpdated(false);
     try {
       const url =
         import.meta.env.VITE_URL_BASE + "users/profile/delete/" + userId;
@@ -110,7 +108,7 @@ export default function UserUpdateForm({
       if (data) {
         console.log("User deleted successfully", data);
         setSuccessfulMsg("User deleted successfully");
-        setIsUserUpdated(true);
+        refreshUsersData();
         setIsDialogOpen(false);
         refProps.current?.close();
         return;
@@ -209,8 +207,8 @@ export default function UserUpdateForm({
 
 UserUpdateForm.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  userValues: PropTypes.object,
+  userValues: PropTypes.object.isRequired,
+  refreshUsersData: PropTypes.func.isRequired,
   setSuccessfulMsg: PropTypes.func.isRequired,
-  setIsUserUpdated: PropTypes.func.isRequired,
   setIsDialogOpen: PropTypes.func.isRequired,
 };

@@ -7,7 +7,7 @@ import ErrorComponent from "../error_page/ErrorComponent";
 export default function UserForm({
   refProps,
   setSuccessfulMsg,
-  setIsUserUpdated,
+  refreshUsersData,
   setIsDialogOpen,
 }) {
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,6 @@ export default function UserForm({
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    setIsUserUpdated(false);
 
     const { username, firstName, lastName, password, role } = e.target;
 
@@ -63,9 +62,9 @@ export default function UserForm({
       if (data) {
         console.log(data);
         // handle successful data.
-        setIsUserUpdated(true);
         setSuccessfulMsg("User added successfully");
         setIsDialogOpen(false);
+        refreshUsersData();
         refProps.current?.close();
       }
     } catch (err) {
@@ -151,6 +150,6 @@ export default function UserForm({
 UserForm.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   setSuccessfulMsg: PropTypes.func.isRequired,
-  setIsUserUpdated: PropTypes.func.isRequired,
+  refreshUsersData: PropTypes.func.isRequired,
   setIsDialogOpen: PropTypes.func.isRequired,
 };
