@@ -46,8 +46,6 @@ export default function GuestForm({
       }),
     };
 
-    console.log(body);
-
     if (guestId === null) {
       try {
         setLoading(true);
@@ -73,7 +71,7 @@ export default function GuestForm({
 
         if (data) {
           console.log(data);
-          setGuestId(data._id);
+          setGuestId(data.msg);
           setIndex(2);
         }
       } catch (err) {
@@ -251,6 +249,6 @@ GuestForm.propTypes = {
   setIndex: PropTypes.func.isRequired,
   guestData: PropTypes.object.isRequired,
   email: PropTypes.string.isRequired,
-  guestId: PropTypes.string.isRequired,
+  guestId: PropTypes.string,
   setGuestId: PropTypes.func.isRequired,
 };
