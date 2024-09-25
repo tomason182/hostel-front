@@ -28,8 +28,9 @@ export default function PropertyDetailsProvider({ children }) {
           phoneNumber: data.contact_info.phone_number,
           email: data.contact_info.email,
         })
-      );
-  });
+      )
+      .catch(err => console.err("Error fetching property data", err));
+  }, []);
 
   useEffect(() => {
     fetchPropertyData();
