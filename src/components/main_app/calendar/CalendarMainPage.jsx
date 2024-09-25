@@ -5,7 +5,8 @@ import DialogHeader from "../../dialogs/DialogHeader";
 import GuestEmailSearch from "../../forms/GuestEmailSearch";
 import GuestForm from "../../forms/GuestForm";
 import ReservationForm from "../../forms/ReservationForm";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider";
 
 function CalendarMainPage() {
   const dialogRef = useRef(null);
@@ -14,6 +15,9 @@ function CalendarMainPage() {
   const [email, setEmail] = useState(null);
   const [guestId, setGuestId] = useState(null);
   const [index, setIndex] = useState(0);
+
+  const { roomTypeData } = useContext(RoomTypeContext);
+  /* console.log(roomTypeData); */
 
   return (
     <div className={styles.mainContent}>
@@ -44,7 +48,13 @@ function CalendarMainPage() {
                 setGuestId={setGuestId}
               />
             )}
-            {index === 2 && <ReservationForm guestId={guestId} />}
+            {index === 2 && roomTypeData && (
+              <ReservationForm
+                guestId={guestId}
+                roomTypeData={roomTypeData}
+                setIndex={setIndex}
+              />
+            )}
           </>
         )}
       </dialog>

@@ -1,19 +1,75 @@
 import styles from "../../styles/formDefaultStyle.module.css";
 import PropTypes from "prop-types";
+import fetchDataHelper from "../../utils/fetchDataHelper";
+import { useState } from "react";
+import ErrorComponent from "../error_page/ErrorComponent";
 
-export default function ReservationForm({ guestId }) {
-  console.log(guestId);
+export default function ReservationForm({ guestId, roomTypeData, setIndex }) {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const roomTypeList = roomTypeData.map(room => (
+    <option key={room._id} value={room._id}>
+      {room.description}
+    </option>
+  ));
+
+  async function handleReservationSubmit(e) {
+    e.preventDefault();
+
+    const formData = {
+      guest_id: guestId,
+      room_type_id: e.target.roomType.value,
+      check_in: e.target.checkIn.value,
+      check_out: e.target.checkOut.value,
+      number_of_guest: e.target.numberOfGuest.value,
+      total_price: e.target.totalPrice.value,
+      booking_source: e.target.bookingSource.value,
+      reservation_status: e.target.reservationStatus.value,
+      payment_status: e.target.paymentStatus.value,
+      special_request: e.target.specialRequest.value,
+    };
+
+    try {
+      setLoading(true);
+      const url = import.meta.env.VITE_URL_BASE + "reservations/new";
+      const options = {
+        mode: "cors",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      };
+
+      const { data, errors } = fetchDataHelper(url, options);
+
+      if (errors) {
+        console.error(errors);
+        setError(errors);
+        return;
+      }
+
+      if (data) {
+        console.log(data);
+        return;
+      }
+    } catch (err) {
+      console.error(err.message);
+      setError([{ msg: err.message || "Unexpected error Ocurred" }]);
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
-    <form className={styles.mainForm}>
+    <form className={styles.mainForm} onSubmit={handleReservationSubmit}>
       <fieldset>
         <legend>Room type</legend>
         <label>
           Select a room
-          <select name="roomType">
-            <option value="room1">Room 1</option>
-            <option value="room2">Room 2</option>
-            <option value="room3">Room 3</option>
-          </select>
+          <select name="roomType">{roomTypeList}</select>
         </label>
       </fieldset>
       <fieldset>
@@ -69,10 +125,26 @@ export default function ReservationForm({ guestId }) {
           <textarea name="specialRequest" rows={5} cols={45}></textarea>
         </label>
       </fieldset>
+      <menu className={styles.buttonContainer}>
+        <button
+          type="button"
+          className={styles.resetBtn}
+          disabled={loading}
+          onClick={() => setIndex(1)}
+        >
+          back
+        </button>
+        <button type="submit" className={styles.submitBtn} disabled={loading}>
+          {loading ? "Saving..." : "Submit"}
+        </button>
+      </menu>
+      {error && <ErrorComponent errors={error} />}
     </form>
   );
 }
 
 ReservationForm.propTypes = {
   guestId: PropTypes.string.isRequired,
+  roomTypeData: PropTypes.array.isRequired,
+  setIndex: PropTypes.func.isRequired,
 };

@@ -113,6 +113,7 @@ export default function GuestForm({
         if (data) {
           console.log(data);
           setIndex(2);
+          return;
         }
       } catch (err) {
         console.log(err.message);
