@@ -150,7 +150,7 @@ export const reservations = [
     guest_id: "G0004",
     room_type_id: "RT0003",
     booking_source: "booking.com",
-    check_in_date: "2024-10-05",
+    check_in_date: "2024-10-07",
     check_out_date: "2024-10-10",
     number_of_guest: 1,
     total_price: 24,
