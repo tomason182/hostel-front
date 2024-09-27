@@ -4,13 +4,7 @@ import fetchDataHelper from "../../utils/fetchDataHelper";
 import ErrorComponent from "../../components/error_page/ErrorComponent";
 import { useState } from "react";
 
-export default function GuestEmailSearch({
-  refProps,
-  setIndex,
-  setGuestData,
-  setEmail,
-  setGuestId,
-}) {
+export default function GuestEmailSearch({ refProps, setIndex, setGuestData }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -37,8 +31,10 @@ export default function GuestEmailSearch({
 
       if (data !== null) {
         setGuestData({
+          _id: data._id,
           firstName: data.first_name || "",
           lastName: data.last_name || "",
+          email: data.email || "",
           idNumber: data.id_number || "",
           phoneNumber: data.contact_info.phone_number || "",
           city: data.address.city || "",
@@ -46,11 +42,12 @@ export default function GuestEmailSearch({
           countryCode: data.address.country_code || "",
           postalCode: data.address.postal_code || "",
         });
-        setGuestId(data._id);
       } else {
         setGuestData({
+          _id: null,
           firstName: "",
           lastName: "",
+          email: email,
           idNumber: "",
           phoneNumber: "",
           city: "",
@@ -58,9 +55,7 @@ export default function GuestEmailSearch({
           countryCode: "",
           postalCode: "",
         });
-        setGuestId(null);
       }
-      setEmail(email);
       setIndex(1);
       return;
     } catch (err) {
@@ -98,6 +93,4 @@ GuestEmailSearch.propTypes = {
     .isRequired,
   setIndex: PropTypes.func.isRequired,
   setGuestData: PropTypes.func.isRequired,
-  setEmail: PropTypes.func.isRequired,
-  setGuestId: PropTypes.func.isRequired,
 };

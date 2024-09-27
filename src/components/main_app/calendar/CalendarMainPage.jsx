@@ -12,8 +12,6 @@ function CalendarMainPage() {
   const dialogRef = useRef(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [guestData, setGuestData] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [guestId, setGuestId] = useState(null);
   const [index, setIndex] = useState(0);
 
   console.log(guestData);
@@ -37,22 +35,18 @@ function CalendarMainPage() {
                 refProps={dialogRef}
                 setIndex={setIndex}
                 setGuestData={setGuestData}
-                setEmail={setEmail}
-                setGuestId={setGuestId}
               />
             )}
             {index === 1 && (
               <GuestForm
                 setIndex={setIndex}
                 guestData={guestData}
-                email={email}
-                guestId={guestId}
-                setGuestId={setGuestId}
+                setGuestData={setGuestData}
               />
             )}
             {index === 2 && roomTypeData && (
               <ReservationForm
-                guestId={guestId}
+                guestData={guestData}
                 roomTypeData={roomTypeData}
                 setIndex={setIndex}
                 propRef={dialogRef}

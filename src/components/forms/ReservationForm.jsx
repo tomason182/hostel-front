@@ -5,7 +5,7 @@ import { useState } from "react";
 import ErrorComponent from "../error_page/ErrorComponent";
 
 export default function ReservationForm({
-  guestId,
+  guestData,
   roomTypeData,
   setIndex,
   propRef,
@@ -23,7 +23,8 @@ export default function ReservationForm({
     e.preventDefault();
 
     const formData = {
-      guest_id: guestId,
+      guest_id: guestData._id,
+      guest_name: guestData.firstName + " " + guestData.lastName,
       room_type_id: e.target.roomType.value,
       check_in: e.target.checkIn.value,
       check_out: e.target.checkOut.value,
@@ -161,7 +162,7 @@ export default function ReservationForm({
 }
 
 ReservationForm.propTypes = {
-  guestId: PropTypes.string.isRequired,
+  guestData: PropTypes.object.isRequired,
   roomTypeData: PropTypes.array.isRequired,
   setIndex: PropTypes.func.isRequired,
   propRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),

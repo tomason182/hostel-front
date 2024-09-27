@@ -4,15 +4,12 @@ import fetchDataHelper from "../../utils/fetchDataHelper";
 import { useState } from "react";
 import ErrorComponent from "../error_page/ErrorComponent";
 
-export default function GuestForm({
-  guestData,
-  setIndex,
-  email,
-  guestId,
-  setGuestId,
-}) {
+export default function GuestForm({ guestData, setGuestData, setIndex }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const guestId = guestData._id;
+  const email = guestData.email;
 
   const [guestFormData, SetGuestFormData] = useState(guestData);
 
@@ -46,7 +43,7 @@ export default function GuestForm({
       }),
     };
 
-    if (guestId === null) {
+    if (guestData._id === null) {
       try {
         setLoading(true);
 
@@ -71,7 +68,13 @@ export default function GuestForm({
 
         if (data) {
           console.log(data);
-          setGuestId(data.msg);
+          console.log(data);
+          setGuestData({
+            ...guestData,
+            _id: data._id,
+            firstName: guestFormData.firstName,
+            lastName: guestFormData.lastName,
+          });
           setIndex(2);
         }
       } catch (err) {
@@ -248,7 +251,5 @@ export default function GuestForm({
 GuestForm.propTypes = {
   setIndex: PropTypes.func.isRequired,
   guestData: PropTypes.object.isRequired,
-  email: PropTypes.string.isRequired,
-  guestId: PropTypes.string,
-  setGuestId: PropTypes.func.isRequired,
+  setGuestData: PropTypes.object.isRequired,
 };
