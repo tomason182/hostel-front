@@ -1,10 +1,11 @@
 import { format, sub, add } from "date-fns";
 import { useState } from "react";
 import styles from "../../../styles/Calendar.module.css";
-import { roomTypes, reservations } from "../../../data_mocked";
+import { reservations } from "../../../data_mocked";
 import { Fragment } from "react";
+import PropTypes from "prop-types";
 
-export default function Calendar() {
+export default function Calendar({ roomTypes }) {
   const today = new Date();
   const [startDate, setStartDate] = useState(today);
 
@@ -170,3 +171,7 @@ export default function Calendar() {
     </div>
   );
 }
+
+Calendar.propTypes = {
+  roomTypes: PropTypes.array.isRequired,
+};

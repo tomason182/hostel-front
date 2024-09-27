@@ -65,7 +65,7 @@ function CalendarMainPage() {
         refProps={dialogRef}
         setIsDialogOpen={setIsDialogOpen}
       />
-      <Calendar />
+      {roomTypeData && <Calendar roomTypes={roomTypeData} />}
     </div>
   );
 }
