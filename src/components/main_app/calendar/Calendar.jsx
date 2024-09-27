@@ -1,13 +1,58 @@
 import { format, sub, add } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../../styles/Calendar.module.css";
-import { reservations } from "../../../data_mocked";
 import { Fragment } from "react";
 import PropTypes from "prop-types";
+import fetchDataHelper from "../../../utils/fetchDataHelper";
 
 export default function Calendar({ roomTypes }) {
   const today = new Date();
   const [startDate, setStartDate] = useState(today);
+  const [reservations, setReservations] = useState(null);
+  /* const [error, setError] = useState(null); */
+  const [loading, setLoading] = useState(true);
+
+  console.log(reservations);
+
+  useEffect(() => {
+    const fromDate = format(startDate, "yyyyMMdd");
+    const toDate = format(add(startDate, { days: 14 }), "yyyyMMdd");
+
+    const url =
+      import.meta.env.VITE_URL_BASE +
+      "reservations/find/" +
+      fromDate +
+      "-" +
+      toDate;
+    const options = {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    };
+
+    async function fetchReservationsForDateRange() {
+      try {
+        const { data, errors } = await fetchDataHelper(url, options);
+
+        if (errors) {
+          console.error(errors);
+        }
+        if (data) {
+          console.log(data);
+          setReservations(data);
+        }
+      } catch (err) {
+        console.error(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchReservationsForDateRange();
+  }, [startDate]);
 
   // Formatting year and month
   const year = format(startDate, "yyyy");
@@ -54,6 +99,8 @@ export default function Calendar({ roomTypes }) {
     );
   });
 
+  if (loading) return <p>Loading...</p>;
+
   // Reservation finding logic
 
   function parseDate(dateString) {
@@ -67,21 +114,19 @@ export default function Calendar({ roomTypes }) {
     const reservation = reservations.find(
       r =>
         r.assignedBeds.includes(bedId) &&
-        r.check_in_date <= currentDate &&
-        r.check_out_date > currentDate
+        format(r.check_in, "yyyy-MM-dd") <= currentDate &&
+        format(r.check_out, "yyyy-MM-dd") > currentDate
     );
 
     if (!reservation) return null;
 
+    const checkIn = format(reservation.check_in, "yyyy-MM-dd");
+    const checkOut = format(reservation.check_out, "yyyy-MM-dd");
+
     const daysDiff =
       type === "start"
-        ? Math.abs(
-            parseDate(reservation.check_out_date) - parseDate(currentDate)
-          )
-        : Math.abs(
-            parseDate(reservation.check_out_date) -
-              parseDate(reservation.check_in_date)
-          );
+        ? Math.abs(parseDate(checkOut) - parseDate(currentDate))
+        : Math.abs(parseDate(checkOut) - parseDate(checkIn));
 
     const nights = Math.ceil(daysDiff / (1000 * 60 * 60 * 24));
 

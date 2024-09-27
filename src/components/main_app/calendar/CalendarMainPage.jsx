@@ -16,6 +16,8 @@ function CalendarMainPage() {
   const [guestId, setGuestId] = useState(null);
   const [index, setIndex] = useState(0);
 
+  console.log(guestData);
+
   const { roomTypeData } = useContext(RoomTypeContext);
   /* console.log(roomTypeData); */
 
