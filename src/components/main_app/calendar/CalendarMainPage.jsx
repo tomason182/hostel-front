@@ -1,3 +1,4 @@
+import { format, sub, add } from "date-fns";
 import Calendar from "./Calendar";
 import CreateBtn from "../../buttons/BtnCreate";
 import styles from "../../../styles/CalendarMainPage.module.css";
@@ -5,7 +6,7 @@ import DialogHeader from "../../dialogs/DialogHeader";
 import GuestEmailSearch from "../../forms/GuestEmailSearch";
 import GuestForm from "../../forms/GuestForm";
 import ReservationForm from "../../forms/ReservationForm";
-import { useRef, useState, useContext } from "react";
+import { useRef, useState, useContext, useCallback, useEffect } from "react";
 import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider";
 
 function CalendarMainPage() {
@@ -13,7 +14,41 @@ function CalendarMainPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [guestData, setGuestData] = useState(null);
   const [index, setIndex] = useState(0);
+  const today = new Date();
+  const [startDate, setStartDate] = useState(today);
+  const [reservations, setReservations] = useState(null);
 
+  const fetchReservationData = useCallback(() => {
+    const fromDate = format(sub(startDate, { days: 3 }), "yyyyMMdd");
+    const toDate = format(add(startDate, { days: 11 }), "yyyyMMdd");
+
+    const url =
+      import.meta.env.VITE_URL_BASE +
+      "reservations/find/" +
+      fromDate +
+      "-" +
+      toDate;
+    const options = {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    };
+    fetch(url, options)
+      .then(response => response.json())
+      .then(data => setReservations(data))
+      .catch(err =>
+        console.error("Error fetching reservations data", err.message)
+      );
+  }, [startDate]);
+
+  useEffect(() => {
+    fetchReservationData();
+  }, [fetchReservationData]);
+
+  // Porque se renderiza 5 veces guestData al comienzo?
   console.log(guestData);
 
   const { roomTypeData } = useContext(RoomTypeContext);
@@ -51,6 +86,7 @@ function CalendarMainPage() {
                 setIndex={setIndex}
                 propRef={dialogRef}
                 setIsDialogOpen={setIsDialogOpen}
+                fetchReservationData={fetchReservationData}
               />
             )}
           </>
@@ -61,7 +97,14 @@ function CalendarMainPage() {
         refProps={dialogRef}
         setIsDialogOpen={setIsDialogOpen}
       />
-      {roomTypeData && <Calendar roomTypes={roomTypeData} />}
+      {roomTypeData && (
+        <Calendar
+          roomTypes={roomTypeData}
+          reservations={reservations}
+          startDate={startDate}
+          setStartDate={setStartDate}
+        />
+      )}
     </div>
   );
 }

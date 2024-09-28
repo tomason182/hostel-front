@@ -9,6 +9,7 @@ export default function ReservationForm({
   roomTypeData,
   setIndex,
   propRef,
+  fetchReservationData,
 }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -58,6 +59,7 @@ export default function ReservationForm({
 
       if (data) {
         console.log(data);
+        fetchReservationData();
         setIndex(0);
         propRef?.current.close();
 
@@ -165,4 +167,5 @@ ReservationForm.propTypes = {
   roomTypeData: PropTypes.array.isRequired,
   setIndex: PropTypes.func.isRequired,
   propRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  fetchReservationData: PropTypes.func.isRequired,
 };

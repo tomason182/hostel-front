@@ -1,57 +1,15 @@
 import { format, sub, add } from "date-fns";
-import { useEffect, useState } from "react";
 import styles from "../../../styles/Calendar.module.css";
 import { Fragment } from "react";
 import PropTypes from "prop-types";
-import fetchDataHelper from "../../../utils/fetchDataHelper";
 
-export default function Calendar({ roomTypes }) {
+export default function Calendar({
+  roomTypes,
+  reservations,
+  startDate,
+  setStartDate,
+}) {
   const today = new Date();
-  const [startDate, setStartDate] = useState(today);
-  const [reservations, setReservations] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fromDate = format(sub(startDate, { days: 3 }), "yyyyMMdd");
-    const toDate = format(add(startDate, { days: 11 }), "yyyyMMdd");
-
-    const url =
-      import.meta.env.VITE_URL_BASE +
-      "reservations/find/" +
-      fromDate +
-      "-" +
-      toDate;
-    const options = {
-      mode: "cors",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    };
-
-    async function fetchReservationsForDateRange() {
-      try {
-        const { data, errors } = await fetchDataHelper(url, options);
-
-        if (errors) {
-          console.error(errors);
-          setError(errors);
-        }
-        if (data) {
-          setReservations(data);
-        }
-      } catch (err) {
-        console.error(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchReservationsForDateRange();
-  }, [startDate]);
-
   // Formatting year and month
   const year = format(startDate, "yyyy");
   const MMM = format(startDate, "MMM");
@@ -97,9 +55,7 @@ export default function Calendar({ roomTypes }) {
     );
   });
 
-  if (loading) return <p>Loading...</p>;
-
-  if (error) return <p>An error occurred...Try again</p>;
+  if (!reservations || !roomTypes) return <p>Loading...</p>;
 
   // Reservation finding logic
 
@@ -225,4 +181,7 @@ export default function Calendar({ roomTypes }) {
 
 Calendar.propTypes = {
   roomTypes: PropTypes.array.isRequired,
+  reservations: PropTypes.array.isRequired,
+  startDate: PropTypes.object.isRequired,
+  setStartDate: PropTypes.func.isRequired,
 };
