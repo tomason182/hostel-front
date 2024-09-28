@@ -12,11 +12,9 @@ export default function Calendar({ roomTypes }) {
   /* const [error, setError] = useState(null); */
   const [loading, setLoading] = useState(true);
 
-  console.log(reservations);
-
   useEffect(() => {
-    const fromDate = format(startDate, "yyyyMMdd");
-    const toDate = format(add(startDate, { days: 14 }), "yyyyMMdd");
+    const fromDate = format(sub(startDate, { days: 3 }), "yyyyMMdd");
+    const toDate = format(add(startDate, { days: 11 }), "yyyyMMdd");
 
     const url =
       import.meta.env.VITE_URL_BASE +
@@ -130,7 +128,7 @@ export default function Calendar({ roomTypes }) {
 
     const nights = Math.ceil(daysDiff / (1000 * 60 * 60 * 24));
 
-    return { guestName: reservation.guest_name, nights };
+    return { guestId: reservation.guest_id, nights };
   };
 
   // rendering list of rooms and their beds with reservations
@@ -175,7 +173,7 @@ export default function Calendar({ roomTypes }) {
 
                     return (
                       <td key={index} colSpan={colSpan}>
-                        {reservation.guestName}
+                        {reservation.guestId}
                       </td>
                     );
                   }
