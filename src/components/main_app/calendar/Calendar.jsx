@@ -9,7 +9,7 @@ export default function Calendar({ roomTypes }) {
   const today = new Date();
   const [startDate, setStartDate] = useState(today);
   const [reservations, setReservations] = useState(null);
-  /* const [error, setError] = useState(null); */
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,9 +37,9 @@ export default function Calendar({ roomTypes }) {
 
         if (errors) {
           console.error(errors);
+          setError(errors);
         }
         if (data) {
-          console.log(data);
           setReservations(data);
         }
       } catch (err) {
@@ -98,6 +98,8 @@ export default function Calendar({ roomTypes }) {
   });
 
   if (loading) return <p>Loading...</p>;
+
+  if (error) return <p>An error occurred...Try again</p>;
 
   // Reservation finding logic
 
