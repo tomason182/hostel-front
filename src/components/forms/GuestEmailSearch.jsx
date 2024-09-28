@@ -34,7 +34,7 @@ export default function GuestEmailSearch({ refProps, setIndex, setGuestData }) {
           _id: data._id,
           firstName: data.first_name || "",
           lastName: data.last_name || "",
-          email: data.email || "",
+          email: data.contact_info.email || "",
           idNumber: data.id_number || "",
           phoneNumber: data.contact_info.phone_number || "",
           city: data.address.city || "",
