@@ -24,7 +24,6 @@ export default function ReservationForm({
 
     const formData = {
       guest_id: guestData._id,
-      guest_name: guestData.firstName + " " + guestData.lastName,
       room_type_id: e.target.roomType.value,
       check_in: e.target.checkIn.value,
       check_out: e.target.checkOut.value,
