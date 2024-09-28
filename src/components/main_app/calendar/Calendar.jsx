@@ -136,14 +136,20 @@ export default function Calendar({ roomTypes }) {
   // rendering list of rooms and their beds with reservations
 
   const listOfRooms = roomTypes.map(room => (
-    <Fragment key={room._id}>
+    <Fragment key={`${room._id}-${room.property_id}`}>
       <tr className={styles.roomRow}>
-        <th colSpan={17}>{room.description}</th>
+        <th colSpan={17} key={room._id}>
+          {room.description}
+        </th>
       </tr>
       {room.products.map(product => (
-        <Fragment key={product.room_id}>
+        <Fragment key={`${product.beds}-${room._id}`}>
           <tr className={styles.roomRow}>
-            <th colSpan={2} rowSpan={product.beds.length + 1}>
+            <th
+              key={product.room_id}
+              colSpan={2}
+              rowSpan={product.beds.length + 1}
+            >
               {product.room_name}
             </th>
           </tr>
