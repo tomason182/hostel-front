@@ -111,7 +111,7 @@ export default function Calendar({ roomTypes }) {
 
     const reservation = reservations.find(
       r =>
-        r.assignedBeds.includes(bedId) &&
+        r.assigned_beds.includes(bedId) &&
         format(r.check_in, "yyyy-MM-dd") <= currentDate &&
         format(r.check_out, "yyyy-MM-dd") > currentDate
     );
@@ -128,7 +128,7 @@ export default function Calendar({ roomTypes }) {
 
     const nights = Math.ceil(daysDiff / (1000 * 60 * 60 * 24));
 
-    return { guestId: reservation.guest_id, nights };
+    return { guestName: reservation.guest_info.full_name, nights };
   };
 
   // rendering list of rooms and their beds with reservations
@@ -173,7 +173,7 @@ export default function Calendar({ roomTypes }) {
 
                     return (
                       <td key={index} colSpan={colSpan}>
-                        {reservation.guestId}
+                        {reservation.guestName}
                       </td>
                     );
                   }
