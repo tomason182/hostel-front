@@ -11,17 +11,7 @@ export default function ReservationsDataProvider({ children }) {
   const [fullName, setFullName] = useState(null);
 
   useEffect(() => {
-    function findGuest(text, data) {
-      const names = text.toLowerCase().split(" ");
-      return data.filter(d => {
-        const fullName = d.guest_info.full_name;
-        const splitFullName = fullName.toLowerCase().split(" ");
-
-        return names.every(name => splitFullName.includes(name));
-      });
-    }
-
-    const fetchReservationData = (from, to, name) => {
+    const fetchReservationData = (from, to, fullName) => {
       const formattedFormDate = format(from, "yyyyMMdd");
       const formattedToDate = format(to, "yyyyMMdd");
 
@@ -30,7 +20,9 @@ export default function ReservationsDataProvider({ children }) {
         "reservations/find/" +
         formattedFormDate +
         "-" +
-        formattedToDate;
+        formattedToDate +
+        "-" +
+        fullName;
 
       const options = {
         mode: "cors",
@@ -44,12 +36,7 @@ export default function ReservationsDataProvider({ children }) {
       fetch(url, options)
         .then(response => response.json())
         .then(data => {
-          if (name) {
-            const result = findGuest(name, data);
-            setReservationsData(result);
-          } else {
-            setReservationsData(data);
-          }
+          setReservationsData(data);
         })
         .catch(err =>
           console.error("Error fetching reservations data", err.message)

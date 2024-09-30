@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import styles from "../../../styles/ReservationDetails.module.css";
 import { useContext } from "react";
+import { format } from "date-fns";
 import { ReservationContext } from "../../../data_providers/ReservationsDataProvider";
 
 export default function ReservationDetails() {
@@ -11,6 +12,11 @@ export default function ReservationDetails() {
   const reservationData = reservationsData.filter(
     reservation => reservation._id === id
   );
+
+  console.log(reservationData);
+
+  const arrivalDate = format(reservationData[0].check_in, "yyyy-MM-dd");
+  const departureDate = format(reservationData[0].check_out, "yyyy-MM-dd");
 
   return (
     <div className={styles.mainContainer}>
@@ -49,7 +55,7 @@ export default function ReservationDetails() {
               >
                 <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3" />
               </svg>
-              {reservationData[0].check_in}
+              {arrivalDate}
             </dd>
             <dt>Departure:</dt>
             <dd>
@@ -66,7 +72,7 @@ export default function ReservationDetails() {
               >
                 <path d="M10 3H6a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4M16 17l5-5-5-5M19.8 12H9" />
               </svg>
-              {reservationData[0].check_out}
+              {departureDate}
             </dd>
           </dl>
         </div>

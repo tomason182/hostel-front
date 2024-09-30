@@ -14,7 +14,7 @@ function Reservations() {
 
     setFromDate(e.target.fromDate.value);
     setToDate(e.target.toDate.value);
-    setFullName(e.target.fullName?.value ? e.target.fullName.value : null);
+    setFullName(e.target.search?.value ? e.target.search.value : null);
   };
 
   const listItems =
