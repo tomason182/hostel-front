@@ -21,13 +21,16 @@ function CalendarMainPage() {
   const fetchReservationData = useCallback(() => {
     const fromDate = format(sub(startDate, { days: 3 }), "yyyyMMdd");
     const toDate = format(add(startDate, { days: 11 }), "yyyyMMdd");
+    const fullName = "all";
 
     const url =
       import.meta.env.VITE_URL_BASE +
       "reservations/find/" +
       fromDate +
       "-" +
-      toDate;
+      toDate +
+      "-" +
+      fullName;
     const options = {
       mode: "cors",
       method: "GET",

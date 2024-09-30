@@ -9,12 +9,14 @@ function Reservations() {
   const { reservationsData, setFromDate, setToDate, setFullName } =
     useContext(ReservationContext);
 
+  console.log(reservationsData);
+
   const fetchReservationData = e => {
     e.preventDefault();
 
     setFromDate(e.target.fromDate.value);
     setToDate(e.target.toDate.value);
-    setFullName(e.target.search?.value ? e.target.search.value : null);
+    setFullName(e.target.search?.value ? e.target.search.value : "all");
   };
 
   const listItems =

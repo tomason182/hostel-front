@@ -80,7 +80,7 @@ export default function ReservationDetails() {
           <p>Reservation Details</p>
           <dl>
             <dt>Room Type</dt>
-            <dd>{reservationData[0].room_type_id}</dd>
+            <dd>{reservationData[0].room_type_info.description}</dd>
             <dt>Booking Source</dt>
             <dd>{reservationData[0].booking_source}</dd>
             <dt>Number of guests</dt>
