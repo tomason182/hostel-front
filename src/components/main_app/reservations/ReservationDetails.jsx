@@ -1,11 +1,14 @@
 import { useParams, Link } from "react-router-dom";
 import styles from "../../../styles/ReservationDetails.module.css";
-import { reservations } from "../../../data_mocked";
+import { useContext } from "react";
+import { ReservationContext } from "../../../data_providers/ReservationsDataProvider";
 
 export default function ReservationDetails() {
   const { id } = useParams();
 
-  const reservationData = reservations.filter(
+  const { reservationsData } = useContext(ReservationContext);
+
+  const reservationData = reservationsData.filter(
     reservation => reservation._id === id
   );
 
@@ -29,7 +32,7 @@ export default function ReservationDetails() {
       </Link>
       <div className={styles.reservationDetails}>
         <div className={styles.one}>
-          <h3>{reservationData[0].guest_id}</h3>
+          <h3>{reservationData[0].guest_info.full_name}</h3>
           <dl>
             <dt>Arrival:</dt>
             <dd>
@@ -46,7 +49,7 @@ export default function ReservationDetails() {
               >
                 <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3" />
               </svg>
-              {reservationData[0].check_in_date}
+              {reservationData[0].check_in}
             </dd>
             <dt>Departure:</dt>
             <dd>
@@ -63,7 +66,7 @@ export default function ReservationDetails() {
               >
                 <path d="M10 3H6a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4M16 17l5-5-5-5M19.8 12H9" />
               </svg>
-              {reservationData[0].check_out_date}
+              {reservationData[0].check_out}
             </dd>
           </dl>
         </div>

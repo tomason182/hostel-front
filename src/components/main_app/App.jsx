@@ -5,6 +5,7 @@ import MainMenuResponsive from "../menus/MainMenuResponsive";
 import PropertyDetailsProvider from "../../data_providers/PropertyDetailsProvider";
 import RoomTypeDataProvider from "../../data_providers/RoomTypesDataProvider";
 import UsersDataProvider from "../../data_providers/UsersDataProvider";
+import ReservationsDataProvider from "../../data_providers/ReservationsDataProvider";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -34,7 +35,9 @@ function App() {
       <PropertyDetailsProvider>
         <RoomTypeDataProvider>
           <UsersDataProvider>
-            <Outlet />
+            <ReservationsDataProvider>
+              <Outlet />
+            </ReservationsDataProvider>
           </UsersDataProvider>
         </RoomTypeDataProvider>
       </PropertyDetailsProvider>

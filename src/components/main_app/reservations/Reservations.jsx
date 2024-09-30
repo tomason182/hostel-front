@@ -1,69 +1,25 @@
 import styles from "../../../styles/Reservations.module.css";
 import { Link } from "react-router-dom";
 import ContentTitle from "../../headers/ContentTitle";
-import { useState } from "react";
+import { useContext } from "react";
 import { format } from "date-fns";
+import { ReservationContext } from "../../../data_providers/ReservationsDataProvider";
 
 function Reservations() {
-  const [reservations, setReservations] = useState(null);
+  const { reservationsData, setFromDate, setToDate, setFullName } =
+    useContext(ReservationContext);
 
-  function findGuest(text, data) {
-    const names = text.toLowerCase().split(" ");
-    return data.filter(d => {
-      const fullName = d.guest_info.full_name;
-      const splitFullName = fullName.toLowerCase().split(" ");
-
-      return names.every(name => splitFullName.includes(name));
-    });
-  }
-
-  console.log(reservations);
-  async function fetchReservationData(e) {
+  const fetchReservationData = e => {
     e.preventDefault();
 
-    const fromDate = e.target.fromDate.value;
-    const toDate = e.target.untilDate.value;
-    const fullName = e.target.search.value;
-
-    console.log(fullName);
-
-    const formattedFormDate = format(fromDate, "yyyyMMdd");
-    const formattedToDate = format(toDate, "yyyyMMdd");
-
-    const url =
-      import.meta.env.VITE_URL_BASE +
-      "reservations/find/" +
-      formattedFormDate +
-      "-" +
-      formattedToDate;
-
-    const options = {
-      mode: "cors",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    };
-
-    fetch(url, options)
-      .then(response => response.json())
-      .then(data => {
-        if (fullName) {
-          const result = findGuest(fullName, data);
-          setReservations(result);
-        } else {
-          setReservations(data);
-        }
-      })
-      .catch(err =>
-        console.error("Error fetching reservations data", err.message)
-      );
-  }
+    setFromDate(e.target.fromDate.value);
+    setToDate(e.target.toDate.value);
+    setFullName(e.target.fullName?.value ? e.target.fullName.value : null);
+  };
 
   const listItems =
-    reservations &&
-    reservations.map(reservation => (
+    reservationsData &&
+    reservationsData.map(reservation => (
       <li key={reservation._id}>
         <Link to={reservation._id}>
           {reservation._id.substring(18).toUpperCase()}
@@ -85,8 +41,8 @@ function Reservations() {
       <form className={styles.form} onSubmit={fetchReservationData}>
         <label htmlFor="from">From</label>
         <input type="date" id="from" name="fromDate" />
-        <label htmlFor="until">Until</label>
-        <input type="date" id="until" name="untilDate" />
+        <label htmlFor="to">Until</label>
+        <input type="date" id="to" name="toDate" />
         <label htmlFor="search">Search</label>
         <input type="text" id="search" name="search" />
         <button type="submit">Search</button>
