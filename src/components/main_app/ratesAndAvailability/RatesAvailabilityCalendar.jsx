@@ -6,26 +6,22 @@ import { useState } from "react";
 export default function RatesAvailabilityCalendar() {
   const today = new Date();
   const [startDate, setStartDate] = useState(today);
-  const [handleDate, setHandleDate] = useState(today.setDate(1));
-
-  const monthToText = format(handleDate, "MMMM yyyy");
 
   const handleMonthSelectionForwards = () => {
-    const date = add(handleDate, { months: 1 });
-    setHandleDate(date);
+    const date = add(startDate, { day: 1 });
+    setStartDate(date);
   };
 
   const handleMonthSelectionBackwards = () => {
-    const date = sub(handleDate, { months: 1 });
-    setHandleDate(date);
+    const date = sub(startDate, { day: 1 });
+    setStartDate(date);
   };
 
-  const firstDayOnGrid = sub(startDate, { days: 1 });
-  const monthArray = Array.from({ length: 31 }, (_, i) =>
+  const firstDayOnGrid = startDate;
+  const monthArray = Array.from({ length: 10 }, (_, i) =>
     add(firstDayOnGrid, { days: i })
   );
 
-  console.log(roomTypes);
   // Find rates and availability function
   function handleRatesAndAvailability(date, room) {
     const result = room.rates_and_availability.find(
@@ -93,7 +89,6 @@ export default function RatesAvailabilityCalendar() {
     <div>
       <div className="monthSelection">
         <button onClick={handleMonthSelectionBackwards}>back</button>
-        {monthToText}
         <button onClick={handleMonthSelectionForwards}>forward</button>
       </div>
       <div>{dayContainer}</div>
