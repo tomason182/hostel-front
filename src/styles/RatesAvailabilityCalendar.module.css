@@ -1,43 +1,33 @@
-.tableContainer {
-  padding: 2rem;
-}
-
-.ratesAndAvailability {
-  border: 1px solid var(--border-color);
-  table-layout: fixed;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.ratesAndAvailability th {
-  width: 12%;
-  text-align: left;
-}
-
-.ratesAndAvailability th,
-.ratesAndAvailability td {
-  vertical-align: middle;
-  font-size: x-small;
-  padding: 0.3rem;
-}
-
-.ratesAndAvailability td {
-  text-align: center;
-}
-
-#description {
-  font-family: var(--font-bold);
-  background-color: #ddd;
-  text-align: left;
+.dayContainer {
   padding: 1rem;
 }
 
-.dates {
-  font-family: var(--font-bold);
-  color: var(--text-color-light-2);
+.roomsContainer {
+  min-height: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 1rem;
 }
 
-#mainDate {
-  font-family: var(--font-bold);
-  font-size: xx-small;
+#isToday h3 {
+  border: 1px solid green;
+}
+
+.roomTypeContainer {
+  border: 1px solid #ccc;
+  min-width: 230px;
+  padding: 1rem;
+}
+
+.roomsContainer dd,
+.roomsContainer dt {
+  margin: 0;
+}
+
+.dlContainer {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #333;
+  padding: 0.5rem;
 }

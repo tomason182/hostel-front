@@ -38,19 +38,24 @@ export const roomTypes = [
     currency: "USD",
     products: [
       {
-        room_id: "RM001",
         room_name: "Room 01",
         beds: ["B0001", "B0002", "B0003", "B0004", "B0005", "B0006"],
       },
       {
-        room_id: "RM002",
         room_name: "Room 02",
         beds: ["B0007", "B0008", "B0009", "B0010", "B0011", "B0012"],
       },
       {
-        room_id: "RM003",
         room_name: "Room 03",
         beds: ["B0013", "B0014", "B0015", "B0016", "B0017", "B0018"],
+      },
+    ],
+    rates_and_availability: [
+      {
+        start_date: "2024-10-03",
+        end_date: "2024-10-10",
+        custom_rate: 9,
+        custom_availability: 12,
       },
     ],
   },
@@ -74,6 +79,14 @@ export const roomTypes = [
         room_id: "RM005",
         room_name: "Room 02",
         beds: ["B0023", "B0024", "B0025", "B0026"],
+      },
+    ],
+    rates_and_availability: [
+      {
+        start_date: "2024-10-05",
+        end_date: "2024-10-08",
+        custom_rate: 12,
+        custom_availability: 6,
       },
     ],
   },
@@ -102,6 +115,14 @@ export const roomTypes = [
         room_id: "RM008",
         room_name: "Room 03",
         beds: ["B0035", "B0036", "B0037", "B0038"],
+      },
+    ],
+    rates_and_availability: [
+      {
+        start_date: "2024-10-29",
+        end_date: "2024-11-05",
+        custom_rate: 9,
+        custom_availability: 12,
       },
     ],
   },
