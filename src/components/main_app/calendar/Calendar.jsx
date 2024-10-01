@@ -39,7 +39,7 @@ export default function Calendar({
   // Render headers (days of week)
 
   const daysOfWeek = weeksArray.map(day => {
-    const isToday = format(today, "dd") === format(day, "dd");
+    const isToday = format(today, "yyyyMMdd") === format(day, "yyyyMMdd");
     return (
       <th
         scope="col"
