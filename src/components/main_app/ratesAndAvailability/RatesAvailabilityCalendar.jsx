@@ -1,12 +1,17 @@
 import { format, add, sub } from "date-fns";
 import styles from "../../../styles/RatesAvailabilityCalendar.module.css";
 import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
+import RatesAndAvailabilityForm from "../../forms/RatesAndAvailabilityForm";
+import DialogHeader from "../../dialogs/DialogHeader";
 
 export default function RatesAvailabilityCalendar() {
   const today = new Date();
   const [startDate, setStartDate] = useState(today);
   const [reservationsData, setReservationsData] = useState([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const dialogRef = useRef(null);
 
   /* console.log(reservationsData); */
 
@@ -161,8 +166,31 @@ export default function RatesAvailabilityCalendar() {
 
   return (
     <div className={styles.mainContainer}>
+      {roomTypeData && (
+        <dialog ref={dialogRef} className="dialog">
+          <DialogHeader
+            title={"Rates and Availability"}
+            refProps={dialogRef}
+            setIsDialogOpen={setIsDialogOpen}
+          />
+          {isDialogOpen && (
+            <RatesAndAvailabilityForm
+              roomTypeData={roomTypeData}
+              propRef={dialogRef}
+            />
+          )}
+        </dialog>
+      )}
+
       <div className={styles.editContainer}>
-        <button>Bulk Edit</button>
+        <button
+          onClick={() => {
+            setIsDialogOpen(true);
+            dialogRef?.current.showModal();
+          }}
+        >
+          Bulk Edit
+        </button>
       </div>
       <div className={styles.dateSelectionContainer}>
         <button
