@@ -44,12 +44,12 @@ export default function RatesAvailabilityCalendar() {
     fetchBookingData(fromDate, toDate);
   }, [startDate]);
 
-  const handleMonthSelectionForwards = () => {
+  const handleDateSelectionForwards = () => {
     const date = add(startDate, { days: 7 });
     setStartDate(date);
   };
 
-  const handleMonthSelectionBackwards = () => {
+  const handleDateSelectionBackwards = () => {
     const date = sub(startDate, { days: 7 });
     setStartDate(date);
   };
@@ -160,10 +160,18 @@ export default function RatesAvailabilityCalendar() {
   });
 
   return (
-    <div>
-      <div className="monthSelection">
-        <button onClick={handleMonthSelectionBackwards}>back</button>
-        <button onClick={handleMonthSelectionForwards}>forward</button>
+    <div className={styles.mainContainer}>
+      <div className={styles.editContainer}>
+        <button>Bulk Edit</button>
+      </div>
+      <div className={styles.dateSelectionContainer}>
+        <button
+          onClick={handleDateSelectionBackwards}
+          disabled={format(today, "yyyyMMdd") === format(startDate, "yyyyMMdd")}
+        >
+          back
+        </button>
+        <button onClick={handleDateSelectionForwards}>forward</button>
       </div>
       <div>{dayContainer}</div>
     </div>

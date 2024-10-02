@@ -1,5 +1,26 @@
-.dayContainer {
+.mainContainer {
   padding: 1rem;
+}
+
+.editContainer {
+  display: flex;
+  justify-content: end;
+  padding-bottom: 1rem;
+}
+
+.editContainer > button {
+  padding: 0.5rem 1rem;
+}
+
+.dayContainer {
+  padding-top: 1rem;
+}
+
+.dateSelectionContainer {
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .roomsContainer {
