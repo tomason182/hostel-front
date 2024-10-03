@@ -23,6 +23,8 @@ export default function ReservationInfo({ setToggleDisplay, setGuestId }) {
   const arrivalDate = format(reservationData.check_in, "yyyy-MM-dd");
   const departureDate = format(reservationData.check_out, "yyyy-MM-dd");
 
+  if (!reservationData) return <div>Loading...</div>;
+
   return (
     <div className={styles.reservationDetails}>
       <div className={styles.one}>
