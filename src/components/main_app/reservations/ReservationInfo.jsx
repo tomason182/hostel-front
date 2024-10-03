@@ -1,25 +1,8 @@
 import styles from "../../../styles/ReservationInfo.module.css";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
-import { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { ReservationContext } from "../../../data_providers/ReservationsDataProvider";
 
-export default function ReservationInfo({ setToggleDisplay, setGuestId }) {
-  const { id } = useParams();
-  const { reservationsData } = useContext(ReservationContext);
-
-  const reservationData = reservationsData.find(
-    reservation => reservation._id === id
-  );
-
-  useEffect(() => {
-    if (reservationData) {
-      const guestId = reservationData.guest_id;
-      setGuestId(guestId);
-    }
-  }, [reservationData, setGuestId]);
-
+export default function ReservationInfo({ setToggleDisplay, reservationData }) {
   const arrivalDate = format(reservationData.check_in, "yyyy-MM-dd");
   const departureDate = format(reservationData.check_out, "yyyy-MM-dd");
 
@@ -108,6 +91,6 @@ export default function ReservationInfo({ setToggleDisplay, setGuestId }) {
 }
 
 ReservationInfo.propTypes = {
-  setGuestId: PropTypes.func.isRequired,
   setToggleDisplay: PropTypes.func.isRequired,
+  reservationData: PropTypes.array.isRequired,
 };

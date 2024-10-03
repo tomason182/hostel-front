@@ -3,7 +3,7 @@ import GuestFormUpdate from "../../forms/GuestFormUpdate";
 import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
-export default function GuestControlPanel({ guestData }) {
+export default function GuestControlPanel({ guestData, setToggleDisplay }) {
   const dialogRef = useRef();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   return (
@@ -27,7 +27,9 @@ export default function GuestControlPanel({ guestData }) {
         >
           Update Guest Information
         </button>
-        <button className={styles.btnLarge}>Go back to reservations</button>
+        <button className={styles.btnLarge} onClick={() => setToggleDisplay(1)}>
+          Go back to reservations
+        </button>
       </div>
     </>
   );
@@ -35,4 +37,5 @@ export default function GuestControlPanel({ guestData }) {
 
 GuestControlPanel.propTypes = {
   guestData: PropTypes.object.isRequired,
+  setToggleDisplay: PropTypes.func.isRequired,
 };

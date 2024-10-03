@@ -9,7 +9,7 @@ function Reservations() {
   const { reservationsData, setFromDate, setToDate, setFullName } =
     useContext(ReservationContext);
 
-  console.log(reservationsData);
+  /*   console.log(reservationsData); */
 
   const fetchReservationData = e => {
     e.preventDefault();

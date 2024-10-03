@@ -6,10 +6,11 @@ import Home from "../components/main_app/home/Home";
 import CalendarMainPage from "../components/main_app/calendar/CalendarMainPage";
 import RateAndAvailability from "../components/main_app/ratesAndAvailability/RatesAndAvailability";
 import Reservations from "../components/main_app/reservations/Reservations";
+import ReservationDetails from "../components/main_app/reservations/ReservationDetails";
 import GeneralInfo from "../components/main_app/property/GeneralInfo";
 import RoomTypes from "../components/main_app/property/RoomTypes";
 import LoginPage from "../components/accounts/LoginPage";
-import ReservationDetails from "../components/main_app/reservations/ReservationDetails";
+
 import ProtectedRoutes from "../hooks/ProtectedRoutes";
 import isAuthenticated from "../hooks/isAuthenticated.js";
 

@@ -77,6 +77,8 @@ export default function GuestFormUpdate({
 
       if (data) {
         console.log(data);
+        setIsDialogOpen(false);
+        propRef?.current.close();
       }
       if (errors) {
         console.error(errors);
