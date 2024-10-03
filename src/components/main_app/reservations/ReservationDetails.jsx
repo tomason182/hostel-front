@@ -13,6 +13,7 @@ export default function ReservationDetails() {
   const [toggleDisplay, setToggleDisplay] = useState(1);
   const [guestData, setGuestData] = useState(null);
   const [guestId, setGuestId] = useState(null);
+  const [reservationId, setReservationId] = useState(null);
 
   useEffect(() => {
     if (guestId === null) {
@@ -48,9 +49,11 @@ export default function ReservationDetails() {
   useEffect(() => {
     if (reservationData) {
       const guestId = reservationData.guest_id;
+      const reservationId = reservationData._id;
       setGuestId(guestId);
+      setReservationId(reservationId);
     }
-  }, [reservationData, setGuestId]);
+  }, [reservationData, setGuestId, setReservationId]);
 
   if (!reservationsData) {
     return <div>Should redirect to reservation</div>;
@@ -86,7 +89,7 @@ export default function ReservationDetails() {
         </div>
         <div className={styles.controlPanelContainer}>
           {toggleDisplay === 1 ? (
-            <ReservationControlPanel />
+            <ReservationControlPanel reservationId={reservationId} />
           ) : (
             <GuestControlPanel
               guestData={guestData}
