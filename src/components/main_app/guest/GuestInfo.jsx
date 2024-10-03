@@ -1,32 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "../../../styles/GuestInfo.module.css";
-import { useEffect, useState } from "react";
 
-export default function GuestInfo({ guestId }) {
-  const [guestData, setGuestData] = useState(null);
-  console.log(guestData);
-
-  useEffect(() => {
-    function fetchGuestData(id) {
-      const url = import.meta.env.VITE_URL_BASE + "guests/" + id;
-      const options = {
-        mode: "cors",
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      };
-
-      fetch(url, options)
-        .then(response => response.json())
-        .then(data => setGuestData(data.msg))
-        .catch(err => console.error(err));
-    }
-
-    fetchGuestData(guestId);
-  }, [guestId]);
-
+export default function GuestInfo({ guestData }) {
   if (!guestData) return <div>Loading...</div>;
 
   return (
@@ -83,5 +58,5 @@ export default function GuestInfo({ guestId }) {
 }
 
 GuestInfo.propTypes = {
-  guestId: PropTypes.string.isRequired,
+  guestData: PropTypes.object.isRequired,
 };

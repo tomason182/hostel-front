@@ -3,13 +3,43 @@ import styles from "../../../styles/ReservationDetails.module.css";
 import ReservationInfo from "./ReservationInfo";
 import ReservationControlPanel from "./ReservationControlPanel";
 import GuestInfo from "../guest/GuestInfo";
-import { useState } from "react";
+import GuestControlPanel from "../guest/GuestControlPanel";
+import { useState, useEffect } from "react";
 export default function ReservationDetails() {
   const [toggleDisplay, setToggleDisplay] = useState(1);
   const [guestId, setGuestId] = useState(null);
-  console.log(guestId);
 
   /* console.log(reservationsData); */
+
+  const [guestData, setGuestData] = useState(null);
+  /* console.log(guestData); */
+
+  useEffect(() => {
+    if (guestId === null) {
+      return;
+    }
+
+    function fetchGuestData(id) {
+      const url = import.meta.env.VITE_URL_BASE + "guests/" + id;
+      const options = {
+        mode: "cors",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      };
+
+      fetch(url, options)
+        .then(response => response.json())
+        .then(data => setGuestData(data.msg))
+        .catch(err => console.error(err));
+    }
+
+    fetchGuestData(guestId);
+  }, [guestId]);
+
+  if (!guestData) return <div>Error. Go back</div>;
 
   return (
     <>
@@ -37,15 +67,13 @@ export default function ReservationDetails() {
               setGuestId={setGuestId}
             />
           )}
-          {toggleDisplay === 2 && (
-            <GuestInfo setToggleDisplay={setToggleDisplay} guestId={guestId} />
-          )}
+          {toggleDisplay === 2 && <GuestInfo guestData={guestData} />}
         </div>
         <div className={styles.controlPanelContainer}>
           {toggleDisplay === 1 ? (
             <ReservationControlPanel />
           ) : (
-            <div>Control panenl</div>
+            <GuestControlPanel guestData={guestData} />
           )}
         </div>
       </div>

@@ -13,9 +13,9 @@ export default function DialogHeader({
       <button
         type="button"
         onClick={() => {
-          setIsDialogOpen(false);
           setIndex && setIndex(0);
-          refProps.current?.close();
+          setIsDialogOpen(false);
+          refProps?.current.close();
         }}
       >
         <svg
