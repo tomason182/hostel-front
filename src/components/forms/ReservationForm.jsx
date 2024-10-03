@@ -124,7 +124,7 @@ export default function ReservationForm({
           Reservation status
           <select name="reservationStatus">
             <option value="confirmed">Confirmed</option>
-            <option value="cancelled">cancelled</option>
+            <option value="canceled">canceled</option>
             <option value="provisional">Provisional</option>
             <option value="no_show">No show</option>
           </select>
@@ -133,7 +133,7 @@ export default function ReservationForm({
           Payment status
           <select name="paymentStatus">
             <option value="pending">Pending</option>
-            <option value="canceled">Cancel</option>
+            <option value="canceled">Canceled</option>
             <option value="refunded">Refunded</option>
             <option value="paid">Paid</option>
             <option value="partial">Partial</option>
