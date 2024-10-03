@@ -13,15 +13,15 @@ export default function GuestFormUpdate({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [guestFormData, SetGuestFormData] = useState({
-    firstName: guestData?.first_name,
-    lastName: guestData?.last_name,
-    idNumber: guestData?.id_number,
-    email: guestData.contact_info?.email,
-    phoneNumber: guestData.contact_info?.phone_number,
-    city: guestData.address?.city,
-    street: guestData.address?.street,
-    countryCode: guestData.address?.country_code,
-    postalCode: guestData.address?.postal_code,
+    firstName: guestData?.first_name || "",
+    lastName: guestData?.last_name || "",
+    idNumber: guestData?.id_number || "",
+    email: guestData.contact_info?.email || "",
+    phoneNumber: guestData.contact_info?.phone_number || "",
+    city: guestData.address?.city || "",
+    street: guestData.address?.street || "",
+    countryCode: guestData.address?.country_code || "",
+    postalCode: guestData.address?.postal_code || "",
   });
 
   const handleInputChange = e => {

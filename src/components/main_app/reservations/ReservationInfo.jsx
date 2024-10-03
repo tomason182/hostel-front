@@ -92,5 +92,5 @@ export default function ReservationInfo({ setToggleDisplay, reservationData }) {
 
 ReservationInfo.propTypes = {
   setToggleDisplay: PropTypes.func.isRequired,
-  reservationData: PropTypes.array.isRequired,
+  reservationData: PropTypes.object.isRequired,
 };
