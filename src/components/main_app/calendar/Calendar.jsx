@@ -74,7 +74,12 @@ export default function Calendar({
         format(r.check_out, "yyyy-MM-dd") > currentDate
     );
 
-    if (!reservation) return null;
+    if (
+      !reservation ||
+      (reservation.reservation_status !== "confirmed" &&
+        reservation.reservation_status !== "provisional")
+    )
+      return null;
 
     const checkIn = format(reservation.check_in, "yyyy-MM-dd");
     const checkOut = format(reservation.check_out, "yyyy-MM-dd");
