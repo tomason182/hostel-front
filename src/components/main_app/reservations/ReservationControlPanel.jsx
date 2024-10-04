@@ -1,7 +1,11 @@
 import styles from "../../../styles/ReservationControlPanel.module.css";
 import PropTypes from "prop-types";
+import { useRef } from "react";
 
 export default function ReservationControlPanel({ reservationId }) {
+  const cancelDialogRef = useRef(null);
+  const noShowDialogRef = useRef(null);
+
   function handlePaymentStatusUpdate(paymentStatus) {
     const url =
       import.meta.env.VITE_URL_BASE +
@@ -26,7 +30,6 @@ export default function ReservationControlPanel({ reservationId }) {
     const url =
       import.meta.env.VITE_URL_BASE + "reservations/status/" + reservationId;
 
-    console.log(url);
     const options = {
       mode: "cors",
       method: "PUT",
@@ -42,6 +45,7 @@ export default function ReservationControlPanel({ reservationId }) {
       .then(data => console.log(data))
       .catch(err => console.error(err));
   }
+
   return (
     <div className={styles.controlPanel}>
       <p>Update this reservation</p>
@@ -52,16 +56,35 @@ export default function ReservationControlPanel({ reservationId }) {
       <button className={styles.btnLarge}>Not a button</button>
       <button
         className={styles.btnCancel}
-        onClick={() => handleReservationStatusUpdate("canceled")}
+        onClick={() => cancelDialogRef?.current.showModal()}
       >
         Cancel reservation
       </button>
+      <dialog ref={cancelDialogRef}>
+        <p>Cancel this reservation?</p>
+        <button onClick={() => cancelDialogRef?.current.close()}>No</button>
+        <button
+          onClick={() => {
+            handleReservationStatusUpdate("canceled");
+            cancelDialogRef?.current.close();
+          }}
+        >
+          Yes
+        </button>
+      </dialog>
       <button
         className={styles.btnCancel}
-        onClick={() => handleReservationStatusUpdate("no_show")}
+        onClick={() => noShowDialogRef?.current.showModal()}
       >
         Mark as no-show
       </button>
+      <dialog ref={noShowDialogRef}>
+        <p>Mark reservation as no-show?</p>
+        <button onClick={() => noShowDialogRef?.current.close()}>No</button>
+        <button onClick={() => handleReservationStatusUpdate("no_show")}>
+          Yes
+        </button>
+      </dialog>
       <button
         className={styles.btnPaid}
         onClick={() => handlePaymentStatusUpdate("paid")}
