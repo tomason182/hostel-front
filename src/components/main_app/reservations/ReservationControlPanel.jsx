@@ -81,7 +81,12 @@ export default function ReservationControlPanel({ reservationId }) {
       <dialog ref={noShowDialogRef}>
         <p>Mark reservation as no-show?</p>
         <button onClick={() => noShowDialogRef?.current.close()}>No</button>
-        <button onClick={() => handleReservationStatusUpdate("no_show")}>
+        <button
+          onClick={() => {
+            handleReservationStatusUpdate("no_show");
+            noShowDialogRef?.current.close();
+          }}
+        >
           Yes
         </button>
       </dialog>
