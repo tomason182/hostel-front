@@ -16,16 +16,51 @@ export default function RatesAndAvailabilityForm({ roomTypeData, propRef }) {
 
   async function handleReservationSubmit(e) {
     e.preventDefault();
+    setLoading(true);
+
+    const roomTypeId = e.target.roomType.value;
 
     const formData = {
-      room_type_id: e.target.roomType.value,
       start_date: e.target.from.value,
       end_date: e.target.to.value,
       custom_rate: e.target.customRate.value,
-      custom_availability: e.target.customAvailability.value,
+      ...(e.target.customAvailability.value && {
+        custom_availability: e.target.customAvailability.value,
+      }),
     };
 
-    console.log(formData);
+    const url =
+      import.meta.env.VITE_URL_BASE +
+      "rates-and-availability/create/" +
+      roomTypeId;
+    const options = {
+      mode: "cors",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(formData),
+    };
+
+    try {
+      const { data, errors } = await fetchDataHelper(url, options);
+
+      if (data) {
+        console.log(data);
+        return;
+      }
+
+      if (errors) {
+        console.error(errors);
+        setError(errors);
+      }
+    } catch (err) {
+      console.error(err);
+      setError([{ msg: err.message || "Unexpected error occurred" }]);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -51,7 +86,13 @@ export default function RatesAndAvailabilityForm({ roomTypeData, propRef }) {
       </fieldset>
       <label>
         Rate
-        <input type="number" name="customRate" required aria-required />
+        <input
+          type="number"
+          step={0.01}
+          name="customRate"
+          required
+          aria-required
+        />
       </label>
       <label>
         Availability (Optional)
