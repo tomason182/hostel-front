@@ -13,12 +13,12 @@ export default function RatesAvailabilityCalendar() {
 
   const dialogRef = useRef(null);
 
-  /* console.log(reservationsData); */
-
-  const { roomTypeData } = useContext(RoomTypeContext);
+  const { roomTypeData, refreshRoomTypeData } = useContext(RoomTypeContext);
 
   useEffect(() => {
-    function fetchBookingData(from, to) {
+    function fetchBookingData(date) {
+      const from = date;
+      const to = add(from, { days: 7 });
       const fromFormatted = format(from, "yyyyMMdd");
       const toFormatted = format(to, "yyyyMMdd");
       const url =
@@ -44,9 +44,7 @@ export default function RatesAvailabilityCalendar() {
         );
     }
 
-    const fromDate = startDate;
-    const toDate = add(startDate, { days: 7 });
-    fetchBookingData(fromDate, toDate);
+    fetchBookingData(startDate);
   }, [startDate]);
 
   const handleDateSelectionForwards = () => {
@@ -59,9 +57,8 @@ export default function RatesAvailabilityCalendar() {
     setStartDate(date);
   };
 
-  const firstDayOnGrid = startDate;
   const monthArray = Array.from({ length: 7 }, (_, i) =>
-    add(firstDayOnGrid, { days: i })
+    add(startDate, { days: i })
   );
 
   // Find rates and availability function
@@ -120,9 +117,7 @@ export default function RatesAvailabilityCalendar() {
                 day,
                 room
               );
-              const occupancy = ratesAndAvailability
-                ? ratesAndAvailability.custom_availability
-                : room.max_occupancy * room.inventory;
+              const occupancy = room.max_occupancy * room.inventory;
               const rate = ratesAndAvailability
                 ? ratesAndAvailability.custom_rate
                 : room.base_rate;
@@ -130,6 +125,10 @@ export default function RatesAvailabilityCalendar() {
                 reservationsData.length !== 0
                   ? handleBookingsCount(day, room, reservationsData)
                   : 0;
+              const roomsToClosed = ratesAndAvailability
+                ? occupancy - ratesAndAvailability.custom_availability
+                : bookings;
+              const availability = occupancy - roomsToClosed;
 
               return (
                 <div key={room._id} className={styles.roomTypeContainer}>
@@ -141,7 +140,7 @@ export default function RatesAvailabilityCalendar() {
                     </div>
                     <div className={styles.dlContainer}>
                       <dt>availability</dt>
-                      <dd>{occupancy - bookings}</dd>
+                      <dd>{availability}</dd>
                     </div>
                     <div className={styles.dlContainer}>
                       <dt>Bookings</dt>
@@ -177,6 +176,7 @@ export default function RatesAvailabilityCalendar() {
             <RatesAndAvailabilityForm
               roomTypeData={roomTypeData}
               propRef={dialogRef}
+              refreshRoomTypeData={refreshRoomTypeData}
             />
           )}
         </dialog>

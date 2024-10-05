@@ -4,7 +4,11 @@ import fetchDataHelper from "../../utils/fetchDataHelper";
 import { useState } from "react";
 import ErrorComponent from "../error_page/ErrorComponent";
 
-export default function RatesAndAvailabilityForm({ roomTypeData, propRef }) {
+export default function RatesAndAvailabilityForm({
+  roomTypeData,
+  propRef,
+  refreshRoomTypeData,
+}) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -47,7 +51,9 @@ export default function RatesAndAvailabilityForm({ roomTypeData, propRef }) {
       const { data, errors } = await fetchDataHelper(url, options);
 
       if (data) {
-        console.log(data);
+        console.log("Ok...refresh now!");
+        refreshRoomTypeData();
+
         propRef?.current.close();
 
         return;
@@ -56,6 +62,7 @@ export default function RatesAndAvailabilityForm({ roomTypeData, propRef }) {
       if (errors) {
         console.error(errors);
         setError(errors);
+        return;
       }
     } catch (err) {
       console.error(err);
@@ -120,4 +127,5 @@ export default function RatesAndAvailabilityForm({ roomTypeData, propRef }) {
 RatesAndAvailabilityForm.propTypes = {
   roomTypeData: PropTypes.array.isRequired,
   propRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  refreshRoomTypeData: PropTypes.func.isRequired,
 };
