@@ -48,6 +48,8 @@ export default function RatesAndAvailabilityForm({ roomTypeData, propRef }) {
 
       if (data) {
         console.log(data);
+        propRef?.current.close();
+
         return;
       }
 
