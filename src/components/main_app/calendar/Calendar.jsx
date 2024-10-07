@@ -12,7 +12,7 @@ export default function Calendar({
   const today = new Date();
   // Formatting year and month
   const year = format(startDate, "yyyy");
-  const MMM = format(startDate, "MMM");
+  const MMM = format(startDate, "MMMM");
 
   const handleNextBtn = () => setStartDate(add(startDate, { days: 7 }));
 
@@ -162,9 +162,11 @@ export default function Calendar({
       <table id={styles.calendarTable}>
         <thead>
           <tr>
-            <th colSpan={15} style={{ textAlign: "left" }}>
-              {MMM}&nbsp;
-              {year}
+            <th colSpan={15}>
+              <h3 className={styles.monthDisplay}>
+                {MMM}&nbsp;
+                {year}
+              </h3>
             </th>
             <th>
               <button onClick={handlePrevBtn}>Prev</button>
