@@ -100,7 +100,7 @@ export default function Calendar({
     <Fragment key={`${room._id}-${room.property_id}`}>
       <tr className={styles.roomRow}>
         <th colSpan={17} key={room._id}>
-          {room.description}
+          <p className={styles.roomDescription}>{room.description}</p>
         </th>
       </tr>
       {room.products.map(product => (
@@ -111,7 +111,7 @@ export default function Calendar({
               colSpan={2}
               rowSpan={product.beds.length + 1}
             >
-              {product.room_name}
+              <p className={styles.roomName}>{product.room_name}</p>
             </th>
           </tr>
           {product.beds.map((bed, i) => {
