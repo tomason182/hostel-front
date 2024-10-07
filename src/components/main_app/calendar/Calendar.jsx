@@ -117,7 +117,7 @@ export default function Calendar({
           {product.beds.map((bed, i) => {
             let skipDays = 0;
             return (
-              <tr key={bed}>
+              <tr key={bed} className={styles.rows}>
                 <th className={styles.beds}>{i + 1}</th>
                 {weeksArray.map((day, index) => {
                   if (skipDays > 0) {
@@ -141,7 +141,11 @@ export default function Calendar({
                         : reservation.nights;
 
                     return (
-                      <td key={index} colSpan={colSpan}>
+                      <td
+                        key={index}
+                        colSpan={colSpan}
+                        className={styles.guestName}
+                      >
                         {reservation.guestName}
                       </td>
                     );

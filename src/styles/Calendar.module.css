@@ -11,6 +11,9 @@
 
 #calendarTable td {
   border: 1px solid var(--border-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .monthDisplay {
@@ -40,6 +43,10 @@
 .roomDescription {
   font-size: small;
   color: var(--text-color);
+}
+
+.rows {
+  height: 2.2rem;
 }
 
 .roomName {
@@ -74,4 +81,12 @@
 
 #today {
   background-color: var(--secondary-color);
+}
+
+.guestName {
+  font-family: var(--font-primary);
+  background-color: #6a994e;
+  color: #fff;
+  padding-left: 0.75rem;
+  font-size: var(--font-size-small);
 }
