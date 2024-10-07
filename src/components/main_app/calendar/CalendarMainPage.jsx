@@ -1,11 +1,11 @@
 import { format, sub, add } from "date-fns";
 import Calendar from "./Calendar";
-import CreateBtn from "../../buttons/BtnCreate";
 import styles from "../../../styles/CalendarMainPage.module.css";
 import DialogHeader from "../../dialogs/DialogHeader";
 import GuestEmailSearch from "../../forms/GuestEmailSearch";
 import GuestForm from "../../forms/GuestForm";
 import ReservationForm from "../../forms/ReservationForm";
+import CalendarFooter from "./CalendarFooter";
 import { useRef, useState, useContext, useCallback, useEffect } from "react";
 import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider";
 
@@ -95,11 +95,6 @@ function CalendarMainPage() {
           </>
         )}
       </dialog>
-      <CreateBtn
-        title={"New reservation"}
-        refProps={dialogRef}
-        setIsDialogOpen={setIsDialogOpen}
-      />
       {roomTypeData && reservations && (
         <Calendar
           roomTypes={roomTypeData}
@@ -108,6 +103,7 @@ function CalendarMainPage() {
           setStartDate={setStartDate}
         />
       )}
+      <CalendarFooter dialogRef={dialogRef} setIsDialogOpen={setIsDialogOpen} />
     </div>
   );
 }

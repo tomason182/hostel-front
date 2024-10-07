@@ -1,9 +1,12 @@
 .btn {
   width: 13rem;
-  align-self: flex-end;
+  /* align-self: flex-end; */
   padding: 1rem 1rem;
   background-color: var(--primary-color);
   border-radius: var(--border-radius-small);
+  /*   position: fixed;
+  bottom: 2rem;
+  right: 2rem; */
 }
 
 .btn:hover {
