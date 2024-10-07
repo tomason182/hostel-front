@@ -69,14 +69,13 @@ export default function RatesAvailabilityCalendar() {
     return result;
   }
 
-  // Find amount of bookings for certain date
-  function handleBookingsCount(date, room, reservations) {
+  function ListOfBookingsForCurrentDate(date, room, reservations) {
     const formattedDate = parseInt(format(date, "yyyyMMdd"));
     const roomReservations = reservations.filter(
       reservation => reservation.room_type_id === room._id
     );
 
-    const reservationCount = roomReservations.filter(rr => {
+    const reservationList = roomReservations.filter(rr => {
       const formattedCheckIn = parseInt(
         format(new Date(rr.check_in), "yyyyMMdd")
       );
@@ -89,12 +88,22 @@ export default function RatesAvailabilityCalendar() {
       );
     });
 
-    const bookingsCount =
-      reservationCount.length === 0
-        ? 0
-        : reservationCount
-            .map(r => r.number_of_guest)
-            .reduce((acc, currentValue) => acc + currentValue);
+    return reservationList;
+  }
+
+  // Handle availability when custom availability is set up
+  function handleCustomAvailability(reservations, ratesAndAvailabilityObj) {
+    const bookingsCount = reservations.map(
+      r => r.created_At > ratesAndAvailabilityObj.created_At
+    );
+    return bookingsCount;
+  }
+
+  // Find amount of bookings for certain date
+  function handleBookingsCount(reservations) {
+    const bookingsCount = reservations
+      .map(r => r.number_of_guest)
+      .reduce((acc, currentValue) => acc + currentValue);
 
     return bookingsCount;
   }
@@ -121,14 +130,23 @@ export default function RatesAvailabilityCalendar() {
               const rate = ratesAndAvailability
                 ? ratesAndAvailability.custom_rate
                 : room.base_rate;
-              const bookings =
+              const listOfReservations =
                 reservationsData.length !== 0
-                  ? handleBookingsCount(day, room, reservationsData)
+                  ? ListOfBookingsForCurrentDate(day, room, reservationsData)
                   : 0;
-              const roomsToClosed = ratesAndAvailability
-                ? occupancy - ratesAndAvailability.custom_availability
-                : bookings;
-              const availability = occupancy - roomsToClosed;
+
+              const bookingsCount =
+                listOfReservations.length !== 0
+                  ? handleBookingsCount(listOfReservations)
+                  : 0;
+              const availability =
+                ratesAndAvailability &&
+                ratesAndAvailability.custom_availability !== occupancy
+                  ? handleCustomAvailability(
+                      listOfReservations,
+                      ratesAndAvailability
+                    )
+                  : occupancy - bookingsCount;
 
               return (
                 <div key={room._id} className={styles.roomTypeContainer}>
@@ -144,7 +162,7 @@ export default function RatesAvailabilityCalendar() {
                     </div>
                     <div className={styles.dlContainer}>
                       <dt>Bookings</dt>
-                      <dd>{bookings}</dd>
+                      <dd>{bookingsCount}</dd>
                     </div>
                     <div className={styles.dlContainer}>
                       <dt>Rates</dt>
@@ -152,7 +170,7 @@ export default function RatesAvailabilityCalendar() {
                     </div>
                     <div className={styles.dlContainer}>
                       <dt>Status</dt>
-                      <dd>Open</dd>
+                      <dd>{availability === 0 ? "Close" : "Open"}</dd>
                     </div>
                   </dl>
                 </div>
