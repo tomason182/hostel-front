@@ -75,14 +75,14 @@ function CalendarMainPage() {
                 setGuestData={setGuestData}
               />
             )}
-            {index === 1 && (
+            {index === 1 && guestData && (
               <GuestForm
                 setIndex={setIndex}
                 guestData={guestData}
                 setGuestData={setGuestData}
               />
             )}
-            {index === 2 && roomTypeData && (
+            {index === 2 && roomTypeData && guestData && (
               <ReservationForm
                 guestData={guestData}
                 roomTypeData={roomTypeData}
@@ -100,7 +100,7 @@ function CalendarMainPage() {
         refProps={dialogRef}
         setIsDialogOpen={setIsDialogOpen}
       />
-      {roomTypeData && (
+      {roomTypeData && reservations && (
         <Calendar
           roomTypes={roomTypeData}
           reservations={reservations}
