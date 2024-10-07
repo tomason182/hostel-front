@@ -93,9 +93,13 @@ export default function RatesAvailabilityCalendar() {
 
   // Handle availability when custom availability is set up
   function handleCustomAvailability(reservations, ratesAndAvailabilityObj) {
-    const bookingsCount = reservations.map(
-      r => r.created_At > ratesAndAvailabilityObj.created_At
-    );
+    let bookingsCount = 0;
+    if (reservations && reservations.length !== undefined) {
+      bookingsCount = reservations.map(
+        r => r.created_At > ratesAndAvailabilityObj.created_At
+      );
+    }
+
     return bookingsCount;
   }
 
@@ -136,7 +140,8 @@ export default function RatesAvailabilityCalendar() {
                   : 0;
 
               const bookingsCount =
-                listOfReservations.length !== 0
+                listOfReservations.length !== 0 &&
+                listOfReservations.length !== undefined
                   ? handleBookingsCount(listOfReservations)
                   : 0;
               const availability =
