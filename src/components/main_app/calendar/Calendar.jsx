@@ -169,10 +169,37 @@ export default function Calendar({
               </h3>
             </th>
             <th>
-              <button onClick={handlePrevBtn}>Prev</button>
+              <button onClick={handlePrevBtn} className={styles.arrowBtn}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="38"
+                  height="38"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#000000"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
             </th>
             <th>
-              <button onClick={handleNextBtn}>Next</button>
+              <button onClick={handleNextBtn} className={styles.arrowBtn}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="38"
+                  height="38"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
             </th>
           </tr>
           <tr>
