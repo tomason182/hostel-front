@@ -3,5 +3,10 @@
   align-self: flex-end;
   padding: 1rem 1rem;
   background-color: var(--primary-color);
-  border-radius: var(--border-radius-large);
+  border-radius: var(--border-radius-small);
+}
+
+.btn:hover {
+  background-color: var(--primary-color);
+  opacity: 0.9;
 }
