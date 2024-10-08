@@ -9,7 +9,7 @@
 
 .form label {
   font-size: var(--font-size-small);
-  color: var(--text-color-light);
+  color: var(--text-color-light-2);
 }
 
 .form > input {

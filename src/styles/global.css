@@ -57,8 +57,15 @@ textarea {
 
 input {
   border: 1px solid black;
-  background: none;
+  background: inherit;
   color: black;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  -webkit-appearance: auto;
+  appearance: auto;
+  display: block;
+  background-color: black;
 }
 
 input:focus {
