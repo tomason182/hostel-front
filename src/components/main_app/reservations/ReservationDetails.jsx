@@ -14,13 +14,15 @@ export default function ReservationDetails() {
   const [guestId, setGuestId] = useState(null);
   const [reservationId, setReservationId] = useState(null);
 
+  console.log(guestData);
+
   useEffect(() => {
     if (guestId === null) {
       return;
     }
 
     function fetchGuestData(id) {
-      const url = import.meta.env.VITE_URL_BASE + "guests/" + id;
+      const url = import.meta.env.VITE_URL_BASE + "guests/find-by-id/" + id;
       const options = {
         mode: "cors",
         method: "GET",
