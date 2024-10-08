@@ -200,6 +200,7 @@ export default function RatesAvailabilityCalendar() {
               roomTypeData={roomTypeData}
               propRef={dialogRef}
               refreshRoomTypeData={refreshRoomTypeData}
+              setIsDialogOpen={setIsDialogOpen}
             />
           )}
         </dialog>
@@ -220,9 +221,33 @@ export default function RatesAvailabilityCalendar() {
           onClick={handleDateSelectionBackwards}
           disabled={format(today, "yyyyMMdd") === format(startDate, "yyyyMMdd")}
         >
-          back
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="38"
+            height="38"
+            viewBox="0 0 24 24"
+            fill="none"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
         </button>
-        <button onClick={handleDateSelectionForwards}>forward</button>
+        <button onClick={handleDateSelectionForwards}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="38"
+            height="38"
+            viewBox="0 0 24 24"
+            fill="none"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
       </div>
       <div>{dayContainer}</div>
     </div>

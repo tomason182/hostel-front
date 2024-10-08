@@ -205,7 +205,6 @@ export default function Calendar({
                   height="38"
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke="#000000"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"

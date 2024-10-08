@@ -7,9 +7,15 @@
   justify-content: end;
   padding-bottom: 1rem;
 }
-
+/* Bulk edit button */
 .editContainer > button {
   padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+}
+
+.editContainer > button:hover {
+  background-color: var(--primary-color);
+  opacity: 0.9;
 }
 
 .dayContainer {
@@ -17,10 +23,27 @@
 }
 
 .dateSelectionContainer {
-  border: 1px solid black;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: center;
   gap: 2rem;
+}
+
+.dateSelectionContainer button {
+  background: none;
+}
+
+.dateSelectionContainer button:hover {
+  background: none;
+}
+
+.dateSelectionContainer > button > svg {
+  stroke: #333;
+}
+
+.dateSelectionContainer > button > svg:hover {
+  stroke: #ccc;
 }
 
 .roomsContainer {
@@ -52,4 +75,7 @@
   justify-content: space-between;
   border-bottom: 1px solid #333;
   padding: 0.5rem;
+}
+
+.bulkEditBtn {
 }

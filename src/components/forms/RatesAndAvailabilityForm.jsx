@@ -1,16 +1,30 @@
 import styles from "../../styles/formDefaultStyle.module.css";
 import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ErrorComponent from "../error_page/ErrorComponent";
 
 export default function RatesAndAvailabilityForm({
   roomTypeData,
   propRef,
   refreshRoomTypeData,
+  setIsDialogOpen,
 }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    function handleEscKey(e) {
+      if (e.keyCode === 27) {
+        e.preventDefault();
+        propRef?.current.close();
+        setIsDialogOpen(false);
+      }
+    }
+    window.addEventListener("keydown", handleEscKey);
+
+    return () => window.removeEventListener("keydown", handleEscKey);
+  }, [setIsDialogOpen, propRef]);
 
   const roomTypeList = roomTypeData.map(room => (
     <option key={room._id} value={room._id}>
@@ -51,7 +65,6 @@ export default function RatesAndAvailabilityForm({
       const { data, errors } = await fetchDataHelper(url, options);
 
       if (data) {
-        console.log("Ok...refresh now!");
         refreshRoomTypeData();
 
         propRef?.current.close();
@@ -110,12 +123,13 @@ export default function RatesAndAvailabilityForm({
       <menu className={styles.buttonContainer}>
         <button
           type="reset"
+          className={styles.resetBtn}
           disabled={loading}
           onClick={() => propRef?.current.close()}
         >
           Cancel
         </button>
-        <button type="submit" disabled={loading}>
+        <button className={styles.submitBtn} type="submit" disabled={loading}>
           {loading ? "Saving..." : "Submit"}
         </button>
       </menu>
@@ -128,4 +142,5 @@ RatesAndAvailabilityForm.propTypes = {
   roomTypeData: PropTypes.array.isRequired,
   propRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   refreshRoomTypeData: PropTypes.func.isRequired,
+  setIsDialogOpen: PropTypes.func.isRequired,
 };
