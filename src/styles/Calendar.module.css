@@ -85,8 +85,23 @@
 
 .guestName {
   font-family: var(--font-primary);
-  background-color: #6a994e;
   color: #fff;
   padding-left: 0.75rem;
   font-size: var(--font-size-small);
+}
+
+.confirmed {
+  background-color: #6a994e;
+}
+
+.checkedOut {
+  background-color: #343a40;
+}
+
+.inHouse {
+  background-color: #e36414;
+}
+
+.provisional {
+  background-color: #3a86ff;
 }

@@ -64,6 +64,23 @@ export default function Calendar({
     return new Date(year, month - 1, day);
   }
 
+  function handleReservationClassName(reservation) {
+    const expr = parseInt(format(today, "yyyyMMdd"));
+    const checkIn = parseInt(format(reservation.checkIn, "yyyyMMdd"));
+    const checkOut = parseInt(format(reservation.checkOut, "yyyyMMdd"));
+    let statusClassName = "confirmed";
+
+    if (checkOut < expr) {
+      statusClassName = "checkedOut";
+    } else if (checkIn <= expr && checkOut > expr) {
+      statusClassName = "inHouse";
+    } else {
+      statusClassName = reservation.status;
+    }
+
+    return statusClassName;
+  }
+
   const getReservationDetails = (day, bedId, type = "find") => {
     const currentDate = format(day, "yyyy-MM-dd");
 
@@ -91,7 +108,13 @@ export default function Calendar({
 
     const nights = Math.ceil(daysDiff / (1000 * 60 * 60 * 24));
 
-    return { guestName: reservation.guest_info.full_name, nights };
+    return {
+      guestName: reservation.guest_info.full_name,
+      checkIn: reservation.check_in,
+      checkOut: reservation.check_out,
+      status: reservation.reservation_status,
+      nights,
+    };
   };
 
   // rendering list of rooms and their beds with reservations
@@ -139,12 +162,14 @@ export default function Calendar({
                       index + reservation.nights > weeksArray.length
                         ? weeksArray.length - index
                         : reservation.nights;
+                    const statusClassName =
+                      handleReservationClassName(reservation);
 
                     return (
                       <td
                         key={index}
                         colSpan={colSpan}
-                        className={styles.guestName}
+                        className={`${styles.guestName} ${styles[statusClassName]}`}
                       >
                         {reservation.guestName}
                       </td>
