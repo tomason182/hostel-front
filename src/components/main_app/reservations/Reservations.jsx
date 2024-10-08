@@ -41,12 +41,18 @@ function Reservations() {
     <div className="main-content">
       <ContentTitle title={"Reservations"} />
       <form className={styles.form} onSubmit={fetchReservationData}>
-        <label htmlFor="from">From</label>
-        <input type="date" id="from" name="fromDate" />
-        <label htmlFor="to">Until</label>
-        <input type="date" id="to" name="toDate" />
-        <label htmlFor="search">Search</label>
-        <input type="text" id="search" name="search" />
+        <label>
+          From
+          <input type="date" name="fromDate" />
+        </label>
+        <label>
+          Until
+          <input type="date" name="toDate" />
+        </label>
+        <label>
+          Search
+          <input type="text" name="search" />
+        </label>
         <button type="submit">Search</button>
       </form>
 
