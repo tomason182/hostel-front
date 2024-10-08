@@ -13,7 +13,10 @@ export default function GuestEmailSearch({ refProps, setIndex, setGuestData }) {
     try {
       setLoading(true);
       const email = e.target.email.value;
-      const url = import.meta.env.VITE_URL_BASE + "guests/find?q=" + email;
+      const url =
+        import.meta.env.VITE_URL_BASE +
+        "guests/find?q=" +
+        encodeURIComponent(email);
       const options = {
         mode: "cors",
         method: "GET",
@@ -22,6 +25,7 @@ export default function GuestEmailSearch({ refProps, setIndex, setGuestData }) {
         },
         credentials: "include",
       };
+
       const { data, errors } = await fetchDataHelper(url, options);
 
       if (errors) {
@@ -75,7 +79,10 @@ export default function GuestEmailSearch({ refProps, setIndex, setGuestData }) {
         <button
           type="reset"
           className={styles.resetBtn}
-          onClick={() => refProps?.current.close()}
+          onClick={() => {
+            setError(null);
+            refProps?.current.close();
+          }}
         >
           Cancel
         </button>
