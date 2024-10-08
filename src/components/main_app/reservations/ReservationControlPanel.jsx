@@ -1,6 +1,7 @@
 import styles from "../../../styles/ReservationControlPanel.module.css";
 import PropTypes from "prop-types";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 export default function ReservationControlPanel({ reservationId }) {
   const cancelDialogRef = useRef(null);
@@ -91,11 +92,28 @@ export default function ReservationControlPanel({ reservationId }) {
         </button>
       </dialog>
       <button
-        className={styles.btnPaid}
+        className={`${styles.btnPaid} ${styles.btnLarge}`}
         onClick={() => handlePaymentStatusUpdate("paid")}
       >
         Mark as Paid
       </button>
+      <Link className={styles.goBackLink} to="/app/reservations">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#000000"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polygon points="19 20 9 12 19 4 19 20"></polygon>
+          <line x1="5" y1="19" x2="5" y2="5"></line>
+        </svg>
+        Back
+      </Link>
     </div>
   );
 }
