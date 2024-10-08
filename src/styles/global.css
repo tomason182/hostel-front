@@ -82,8 +82,8 @@ dialog {
   max-height: none;
 }
 .dialog {
-  border-right: 5px solid red;
-  border-top-left-radius: 2rem;
+  border-right: 5px solid var(--secondary-color);
+  border-top-left-radius: 1rem;
   color: var(--text-color);
   position: fixed;
   margin: 0 0 0 auto;
