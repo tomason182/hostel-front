@@ -61,17 +61,24 @@ export default function ReservationControlPanel({ reservationId }) {
       >
         Cancel reservation
       </button>
-      <dialog ref={cancelDialogRef}>
+      <dialog className={styles.confirmationDialog} ref={cancelDialogRef}>
         <p>Cancel this reservation?</p>
-        <button onClick={() => cancelDialogRef?.current.close()}>No</button>
-        <button
-          onClick={() => {
-            handleReservationStatusUpdate("canceled");
-            cancelDialogRef?.current.close();
-          }}
-        >
-          Yes
-        </button>
+        <span>
+          Cancelled reservations are not logger be display on the Calendar, but
+          you can still find them on the reservations tab{" "}
+        </span>
+        <div className={styles.btnContainer}>
+          <button onClick={() => cancelDialogRef?.current.close()}>No</button>
+          <button
+            className={styles.confirmBtn}
+            onClick={() => {
+              handleReservationStatusUpdate("canceled");
+              cancelDialogRef?.current.close();
+            }}
+          >
+            Yes
+          </button>
+        </div>
       </dialog>
       <button
         className={styles.btnCancel}
@@ -79,17 +86,24 @@ export default function ReservationControlPanel({ reservationId }) {
       >
         Mark as no-show
       </button>
-      <dialog ref={noShowDialogRef}>
+      <dialog ref={noShowDialogRef} className={styles.confirmationDialog}>
         <p>Mark reservation as no-show?</p>
-        <button onClick={() => noShowDialogRef?.current.close()}>No</button>
-        <button
-          onClick={() => {
-            handleReservationStatusUpdate("no_show");
-            noShowDialogRef?.current.close();
-          }}
-        >
-          Yes
-        </button>
+        <span>
+          Marking reservation as now-show will no longer display the reservation
+          in the calendar, but you can still find it on the reservation tab
+        </span>
+        <div className={styles.btnContainer}>
+          <button onClick={() => noShowDialogRef?.current.close()}>No</button>
+          <button
+            className={styles.confirmBtn}
+            onClick={() => {
+              handleReservationStatusUpdate("no_show");
+              noShowDialogRef?.current.close();
+            }}
+          >
+            Yes
+          </button>
+        </div>
       </dialog>
       <button
         className={`${styles.btnPaid} ${styles.btnLarge}`}
