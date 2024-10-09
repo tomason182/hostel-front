@@ -29,3 +29,24 @@
   font-size: 0.65rem;
   color: var(--muted-color);
 }
+
+.btnMenu {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.btnMenu button {
+  background: none;
+}
+
+.btnMenu button:hover {
+  background: none;
+}
+
+.btnMenu button svg:hover {
+  stroke: #000;
+}
+
+.btnMenu button svg {
+  stroke: var(--muted-color);
+}
