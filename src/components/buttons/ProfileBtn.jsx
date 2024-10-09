@@ -1,11 +1,13 @@
 import styles from "../../styles/ProfileBtn.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function ProfileBtn() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogOut, setIsLogOut] = useState(false);
   const [error, setError] = useState(false);
+
+  const menuRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -20,6 +22,32 @@ function ProfileBtn() {
       alert("An Error Occurred while logging out. Please try again");
     }
   });
+
+  useEffect(() => {
+    function handleEscKey(e) {
+      if (e.keyCode === 27) {
+        e.preventDefault();
+        setIsMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("keydown", handleEscKey);
+
+    return () => document.removeEventListener("keydown", handleEscKey);
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (isMenuOpen && !menuRef.current?.contains(e.target)) {
+        e.preventDefault();
+        setIsMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMenuOpen]);
 
   function handleLogOutClick() {
     const url = import.meta.env.VITE_URL_BASE + "users/logout";
@@ -71,7 +99,10 @@ function ProfileBtn() {
           <circle cx={12} cy={7} r={4}></circle>
         </svg>
       </button>
-      <div className={`${styles.profileMenu} ${isMenuOpen && styles.open}`}>
+      <div
+        ref={menuRef}
+        className={`${styles.profileMenu} ${isMenuOpen && styles.open}`}
+      >
         <Link to="#">
           <svg
             xmlns="http://www.w3.org/2000/svg"
