@@ -1,13 +1,22 @@
 import styles from "../../styles/Profile.module.css";
 import ProfileEditForm from "../forms/ProfileEditForm";
+import PasswordEditForm from "../forms/PasswordEditForm";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Profile() {
+  const [toggle, setToggle] = useState(0);
+
   return (
     <div className={styles.mainContainer}>
       <aside className={styles.sideBar}>
         <nav>
-          <Link>
+          <Link
+            to="#"
+            role="button"
+            onClick={() => setToggle(0)}
+            className={toggle === 0 && styles.active}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -24,7 +33,12 @@ export default function Profile() {
             </svg>
             <p>Profile</p>
           </Link>
-          <Link>
+          <Link
+            to="#"
+            role="button"
+            onClick={() => setToggle(1)}
+            className={toggle === 1 && styles.active}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -43,7 +57,7 @@ export default function Profile() {
         </nav>
       </aside>
       <div className={styles.content}>
-        <ProfileEditForm />
+        {toggle === 0 ? <ProfileEditForm /> : <PasswordEditForm />}
       </div>
     </div>
   );

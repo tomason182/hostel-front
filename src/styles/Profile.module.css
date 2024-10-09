@@ -14,8 +14,9 @@
 .sideBar nav {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
-  padding: 1rem 0 0 2rem;
+  padding: 1rem 0;
 }
 
 .sideBar nav a {
@@ -24,8 +25,19 @@
   align-items: center;
   gap: 0.75rem;
   font-size: var(--font-size-small);
+  width: 95%;
+  padding: 0.5rem 1rem;
 }
 
+.sideBar nav a.active {
+  background-color: #ccc;
+  border-radius: var(--border-radius);
+  color: #fff;
+}
+
+.sideBar nav a.active svg {
+  stroke: #fff;
+}
 .sideBar nav a svg {
   stroke: var(--text-color);
 }
@@ -40,4 +52,14 @@
 .content h3 {
   font-family: var(--font-primary);
   font-size: var(--font-size-large);
+}
+
+@media (max-width: 750px) {
+  .sideBar {
+    min-width: 80lvw;
+  }
+
+  .content {
+    min-width: 80lvw;
+  }
 }
