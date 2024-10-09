@@ -23,9 +23,9 @@
 }
 
 .profileMenu {
-  border: 1px solid black;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
-  background-color: #555;
+  background-color: var(--background-color);
   display: flex;
   flex-direction: column;
   padding: 0.75rem 0;
@@ -38,7 +38,7 @@
   visibility: hidden;
   overflow: hidden;
   transition: 0.5s transform ease-in-out, 0.5s opacity ease-in-out;
-  width: 7rem;
+  width: 10rem;
 }
 
 .profileMenu.open {
@@ -50,12 +50,20 @@
 }
 
 .profileMenu a {
-  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-color-light-2);
   font-size: var(--font-size-small);
   width: 100%;
   padding: 0.25rem 0.75rem;
 }
 
+.profileMenu a svg {
+  stroke: var(--text-color-light-2);
+}
+
 .profileMenu a:hover {
-  background-color: #333;
+  color: var(--text-color);
+  background-color: var(--second-background);
 }
