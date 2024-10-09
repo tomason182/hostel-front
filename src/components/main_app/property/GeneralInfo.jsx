@@ -33,6 +33,7 @@ function GeneralInfo() {
 
       setTimeout(() => {
         successDialogRef.current?.close();
+        setSuccessfulMsg(null);
       }, 2500);
     }
   }, [successFulMsg]);
@@ -41,7 +42,7 @@ function GeneralInfo() {
     <div className="main-content">
       <ContentTitle title={"General info"} />
       <div className={styles.mainContainer}>
-        <dialog ref={successDialogRef}>
+        <dialog ref={successDialogRef} className="successfulDialog">
           <p>{successFulMsg}</p>
         </dialog>
         <dialog ref={propertyDialogRef} className="dialog">
@@ -57,6 +58,7 @@ function GeneralInfo() {
                 propertyData={propertyData}
                 refreshPropertyData={refreshPropertyData}
                 setIsDialogOpen={setIsDialogOpen}
+                setSuccessfulMsg={setSuccessfulMsg}
               />
             </>
           )}

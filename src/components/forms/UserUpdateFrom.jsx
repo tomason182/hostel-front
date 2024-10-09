@@ -28,6 +28,19 @@ export default function UserUpdateForm({
     }
   }, [userValues]);
 
+  useEffect(() => {
+    function handleUpdateUserFormCloseOnEsc(e) {
+      if (e.key === "Escape") {
+        setIsDialogOpen(false);
+      }
+    }
+    document.addEventListener("keydown", handleUpdateUserFormCloseOnEsc);
+
+    return () => {
+      document.removeEventListener("keydown", handleUpdateUserFormCloseOnEsc);
+    };
+  }, [setIsDialogOpen]);
+
   async function handleSubmit(e) {
     e.preventDefault();
 
