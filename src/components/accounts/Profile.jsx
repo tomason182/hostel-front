@@ -15,7 +15,7 @@ export default function Profile() {
             to="#"
             role="button"
             onClick={() => setToggle(0)}
-            className={toggle === 0 && styles.active}
+            className={toggle === 0 ? styles.active : undefined}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ export default function Profile() {
             to="#"
             role="button"
             onClick={() => setToggle(1)}
-            className={toggle === 1 && styles.active}
+            className={toggle === 1 ? styles.active : undefined}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
