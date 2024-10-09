@@ -200,7 +200,6 @@ export default function RatesAvailabilityCalendar() {
               roomTypeData={roomTypeData}
               propRef={dialogRef}
               refreshRoomTypeData={refreshRoomTypeData}
-              setIsDialogOpen={setIsDialogOpen}
             />
           )}
         </dialog>

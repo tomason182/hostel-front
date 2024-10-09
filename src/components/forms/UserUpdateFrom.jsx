@@ -28,19 +28,6 @@ export default function UserUpdateForm({
     }
   }, [userValues]);
 
-  useEffect(() => {
-    function handleEscKey(e) {
-      if (e.keyCode === 27) {
-        e.preventDefault();
-        setIsDialogOpen(false);
-        refProps.current?.close();
-      }
-    }
-    window.addEventListener("keydown", handleEscKey);
-
-    return () => window.removeEventListener("keydown", handleEscKey);
-  }, [refProps, setIsDialogOpen]);
-
   async function handleSubmit(e) {
     e.preventDefault();
 

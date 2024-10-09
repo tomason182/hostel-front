@@ -2,7 +2,7 @@ import styles from "../../styles/formDefaultStyle.module.css";
 import ErrorComponent from "../error_page/ErrorComponent";
 import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function PropertyDetails({
   refProps,
@@ -29,19 +29,6 @@ function PropertyDetails({
       [name]: value,
     });
   }
-
-  useEffect(() => {
-    function handleEscKey(e) {
-      if (e.keyCode === 27) {
-        e.preventDefault();
-        setIsDialogOpen(false);
-        refProps.current?.close();
-      }
-    }
-    window.addEventListener("keydown", handleEscKey);
-
-    return () => window.removeEventListener("keydown", handleEscKey);
-  }, [refProps, setIsDialogOpen]);
 
   async function handleSubmit(e) {
     e.preventDefault();

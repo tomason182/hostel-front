@@ -61,6 +61,7 @@ function GeneralInfo() {
             </>
           )}
         </dialog>
+
         <dialog ref={userDialog} className="dialog">
           {isDialogOpen && (
             <>

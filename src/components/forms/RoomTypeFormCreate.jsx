@@ -1,7 +1,7 @@
 import stylesForm from "../../styles/formDefaultStyle.module.css";
 import styles from "../..//styles/RoomTypeForm.module.css";
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import ErrorComponent from "../error_page/ErrorComponent";
 
@@ -72,19 +72,6 @@ export default function RoomTypesFormCreate({
       setLoading(false);
     }
   }
-
-  useEffect(() => {
-    function handleEscKey(e) {
-      if (e.keyCode === 27) {
-        e.preventDefault();
-        setIsDialogOpen(false);
-        refProps.current?.close();
-      }
-    }
-    window.addEventListener("keydown", handleEscKey);
-
-    return () => window.removeEventListener("keydown", handleEscKey);
-  }, [refProps, setIsDialogOpen]);
 
   return (
     <form

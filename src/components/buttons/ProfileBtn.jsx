@@ -24,19 +24,6 @@ function ProfileBtn() {
   });
 
   useEffect(() => {
-    function handleEscKey(e) {
-      if (e.keyCode === 27) {
-        e.preventDefault();
-        setIsMenuOpen(false);
-      }
-    }
-
-    document.addEventListener("keydown", handleEscKey);
-
-    return () => document.removeEventListener("keydown", handleEscKey);
-  }, []);
-
-  useEffect(() => {
     function handleClickOutside(e) {
       if (isMenuOpen && !menuRef.current?.contains(e.target)) {
         e.preventDefault();
