@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 function HeaderMain({ user }) {
   return (
     <header className={styles.header}>
-      <h1>Page Logo</h1>
+      <h1>Booquing.com</h1>
       <MainSearch />
       <div className={styles.info}>
         <div className={styles.hostelInfo}>

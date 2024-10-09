@@ -6,7 +6,7 @@
   font-size: var(--font-size-small);
   font-family: var(--font-primary);
   /* background-color: var(--background-color); */
-  background-color: #f9fafb;
+  background-color: var(--second-background);
   border-bottom: 1px solid var(--border-color);
 }
 
