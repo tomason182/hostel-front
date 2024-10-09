@@ -6,11 +6,15 @@ export default function GuestInfo({ guestData }) {
 
   return (
     <div className={styles.mainContainer}>
-      <h3>Guest information</h3>
       <div className={styles.guestContent}>
         <div className={styles.guestInfoContainer}>
-          <h4>{guestData.first_name + " " + guestData.last_name}</h4>
-          <p>ID number: {guestData.id_number ? guestData.id_number : "N/A"}</p>
+          <p>Guest Information</p>
+          <dl>
+            <dt>Name</dt>
+            <dd>{guestData.first_name + " " + guestData.last_name}</dd>
+            <dt>Passport number or Id</dt>
+            <dd>{guestData.id_number ? guestData.id_number : "N/A"}</dd>
+          </dl>
         </div>
         <div className={styles.contactInfoContainer}>
           <p>Contact info</p>

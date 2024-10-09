@@ -18,21 +18,19 @@
   padding: 0.5rem;
 }
 
-.guestInfoContainer p {
-  margin-top: 0.75rem;
-}
-
 .guestInfoContainer h4 {
   font-size: large;
   font-weight: bolder;
 }
 
+.guestInfoContainer dt,
 .contactInfoContainer dt,
 .addressContainer dt {
   font-family: var(--font-bold);
   font-size: var(--font-size-small);
 }
 
+.guestInfoContainer dd,
 .contactInfoContainer dd,
 .addressContainer dd {
   text-align: right;
