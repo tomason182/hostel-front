@@ -70,7 +70,7 @@ export default function Calendar({
     const checkOut = parseInt(format(reservation.checkOut, "yyyyMMdd"));
     let statusClassName = "confirmed";
 
-    if (checkOut < expr) {
+    if (checkOut <= expr) {
       statusClassName = "checkedOut";
     } else if (checkIn <= expr && checkOut > expr) {
       statusClassName = "inHouse";
