@@ -2,7 +2,7 @@ import styles from "../../styles/formDefaultStyle.module.css";
 import ErrorComponent from "../error_page/ErrorComponent";
 import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function PropertyDetails({
   refProps,
@@ -21,6 +21,20 @@ function PropertyDetails({
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    function handlePropertyFormCloseOnEsc(e) {
+      if (e.key === "Escape") {
+        setIsDialogOpen(false);
+      }
+    }
+
+    document.addEventListener("keydown", handlePropertyFormCloseOnEsc);
+
+    return () => {
+      document.removeEventListener("keydown", handlePropertyFormCloseOnEsc);
+    };
+  }, [setIsDialogOpen]);
 
   function handleInputChange(e) {
     const { name, value } = e.target;

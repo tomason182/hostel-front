@@ -15,9 +15,9 @@ import { UsersContext } from "../../../data_providers/UsersDataProvider";
 import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider";
 
 function GeneralInfo() {
-  const propertyDialog = useRef(null);
-  const userDialog = useRef(null);
-  const userUpdateDialog = useRef(null);
+  const propertyDialogRef = useRef(null);
+  const userDialogRef = useRef(null);
+  const userUpdateDialogRef = useRef(null);
   const successDialogRef = useRef(null);
   const [successFulMsg, setSuccessfulMsg] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -44,16 +44,16 @@ function GeneralInfo() {
         <dialog ref={successDialogRef}>
           <p>{successFulMsg}</p>
         </dialog>
-        <dialog ref={propertyDialog} className="dialog">
+        <dialog ref={propertyDialogRef} className="dialog">
           {isDialogOpen && (
             <>
               <DialogHeader
                 title={"Property details"}
-                refProps={propertyDialog}
+                refProps={propertyDialogRef}
                 setIsDialogOpen={setIsDialogOpen}
               />
               <PropertyDetails
-                refProps={propertyDialog}
+                refProps={propertyDialogRef}
                 propertyData={propertyData}
                 refreshPropertyData={refreshPropertyData}
                 setIsDialogOpen={setIsDialogOpen}
@@ -62,16 +62,16 @@ function GeneralInfo() {
           )}
         </dialog>
 
-        <dialog ref={userDialog} className="dialog">
+        <dialog ref={userDialogRef} className="dialog">
           {isDialogOpen && (
             <>
               <DialogHeader
                 title={"Create new user"}
-                refProps={userDialog}
+                refProps={userDialogRef}
                 setIsDialogOpen={setIsDialogOpen}
               />
               <UserForm
-                refProps={userDialog}
+                refProps={userDialogRef}
                 setSuccessfulMsg={setSuccessfulMsg}
                 refreshUsersData={refreshUsersData}
                 setIsDialogOpen={setIsDialogOpen}
@@ -79,16 +79,16 @@ function GeneralInfo() {
             </>
           )}
         </dialog>
-        <dialog ref={userUpdateDialog} className="dialog">
+        <dialog ref={userUpdateDialogRef} className="dialog">
           {isDialogOpen && userValues && (
             <>
               <DialogHeader
                 title={"Update user"}
-                refProps={userUpdateDialog}
+                refProps={userUpdateDialogRef}
                 setIsDialogOpen={setIsDialogOpen}
               />
               <UserUpdateForm
-                refProps={userUpdateDialog}
+                refProps={userUpdateDialogRef}
                 userValues={userValues}
                 setSuccessfulMsg={setSuccessfulMsg}
                 refreshUsersData={refreshUsersData}
@@ -109,7 +109,7 @@ function GeneralInfo() {
             className={styles.editBtn}
             onClick={() => {
               setIsDialogOpen(true);
-              propertyDialog.current?.showModal();
+              propertyDialogRef.current?.showModal();
             }}
           >
             Edit
@@ -133,7 +133,7 @@ function GeneralInfo() {
             <p>Loading...</p>
           ) : (
             <UsersSub
-              refProps={userUpdateDialog}
+              refProps={userUpdateDialogRef}
               usersData={usersData}
               setUserValues={setUsersValue}
               setIsDialogOpen={setIsDialogOpen}
@@ -144,7 +144,7 @@ function GeneralInfo() {
             className={styles.editBtn}
             onClick={() => {
               setIsDialogOpen(true);
-              userDialog.current?.showModal();
+              userDialogRef.current?.showModal();
             }}
           >
             Add user
