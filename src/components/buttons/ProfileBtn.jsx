@@ -103,7 +103,7 @@ function ProfileBtn() {
         ref={menuRef}
         className={`${styles.profileMenu} ${isMenuOpen && styles.open}`}
       >
-        <Link to="#">
+        <Link to="users/profile/edit" onClick={() => setIsMenuOpen(false)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="18"

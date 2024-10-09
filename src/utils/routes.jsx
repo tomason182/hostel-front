@@ -10,6 +10,7 @@ import ReservationDetails from "../components/main_app/reservations/ReservationD
 import GeneralInfo from "../components/main_app/property/GeneralInfo";
 import RoomTypes from "../components/main_app/property/RoomTypes";
 import LoginPage from "../components/accounts/LoginPage";
+import Profile from "../components/accounts/Profile.jsx";
 
 import ProtectedRoutes from "../hooks/ProtectedRoutes";
 import isAuthenticated from "../hooks/isAuthenticated.js";
@@ -62,6 +63,10 @@ const routes = [
           {
             path: "property/room-types",
             element: <RoomTypes />,
+          },
+          {
+            path: "users/profile/edit",
+            element: <Profile />,
           },
         ],
       },
