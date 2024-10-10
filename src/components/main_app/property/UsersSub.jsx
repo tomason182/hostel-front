@@ -3,19 +3,18 @@ import styles from "../../../styles/RoomTypesSub.module.css";
 import PropTypes from "prop-types";
 import ConfirmationDialog from "../../dialogs/ConfirmationDialog";
 import fetchDataHelper from "../../../utils/fetchDataHelper";
-import ErrorComponent from "../../error_page/ErrorComponent";
 
 export default function UsersSub({
   refProps,
   usersData,
   setUserValues,
   setIsDialogOpen,
-  setSuccessfulMsg,
+  setMessage,
+  setStatus,
   refreshUsersData,
 }) {
   const deleteUserRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [userId, setUserId] = useState(null);
 
   async function handleUserDelete() {
@@ -37,17 +36,22 @@ export default function UsersSub({
 
       if (data) {
         console.log("User deleted successfully", data);
-        setSuccessfulMsg("User deleted successfully");
+        setMessage("User deleted successfully");
+        setStatus("ok");
         refreshUsersData();
         return;
       }
 
       if (errors) {
-        setError(errors);
+        setMessage("Unable to delete user");
+        setStatus("notOk");
+        console.error(errors);
         return;
       }
     } catch (err) {
-      setError([{ msg: err.message || "Unexpected error occurred" }]);
+      setMessage("Unable to delete user");
+      setStatus("notOk");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -138,7 +142,6 @@ export default function UsersSub({
         handleActionFunction={handleUserDelete}
       />
       <ul className={styles.roomTypesList}>{users}</ul>
-      {error && <ErrorComponent errors={error} />}
     </>
   );
 }
@@ -148,6 +151,7 @@ UsersSub.propTypes = {
   setUserValues: PropTypes.func.isRequired,
   usersData: PropTypes.array.isRequired,
   setIsDialogOpen: PropTypes.func.isRequired,
-  setSuccessfulMsg: PropTypes.func,
+  setMessage: PropTypes.func.isRequired,
+  setStatus: PropTypes.func.isRequired,
   refreshUsersData: PropTypes.func,
 };

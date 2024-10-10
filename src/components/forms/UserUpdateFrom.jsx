@@ -8,7 +8,8 @@ export default function UserUpdateForm({
   refProps,
   userValues,
   refreshUsersData,
-  setSuccessfulMsg,
+  setMessage,
+  setStatus,
   setIsDialogOpen,
 }) {
   const [firstName, setFirstName] = useState("");
@@ -56,7 +57,8 @@ export default function UserUpdateForm({
 
       if (data) {
         console.log("user updated successfully", data);
-        setSuccessfulMsg("User Updated successfully");
+        setMessage("User Updated successfully");
+        setStatus("ok");
         setIsDialogOpen(false);
         refreshUsersData();
         refProps.current?.close();
@@ -166,6 +168,7 @@ UserUpdateForm.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   userValues: PropTypes.object.isRequired,
   refreshUsersData: PropTypes.func.isRequired,
-  setSuccessfulMsg: PropTypes.func.isRequired,
+  setMessage: PropTypes.func.isRequired,
+  setStatus: PropTypes.func.isRequired,
   setIsDialogOpen: PropTypes.func.isRequired,
 };

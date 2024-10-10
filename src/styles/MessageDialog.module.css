@@ -1,0 +1,27 @@
+.messageDialog {
+  background-color: #333;
+  position: fixed;
+  margin-right: 0;
+  margin-top: 10lvh;
+  min-width: 13rem;
+  min-height: 4rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 5px solid green;
+  animation: fade-in 0.8s forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX((0));
+  }
+}
+
+.messageDialog p {
+  color: var(--text-color);
+}

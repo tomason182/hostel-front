@@ -6,7 +6,8 @@ import ErrorComponent from "../error_page/ErrorComponent";
 
 export default function UserForm({
   refProps,
-  setSuccessfulMsg,
+  setMessage,
+  setStatus,
   refreshUsersData,
   setIsDialogOpen,
 }) {
@@ -49,7 +50,8 @@ export default function UserForm({
       if (data) {
         console.log(data);
         // handle successful data.
-        setSuccessfulMsg("User added successfully");
+        setMessage("User added successfully");
+        setStatus("ok");
         setIsDialogOpen(false);
         refreshUsersData();
         refProps.current?.close();
@@ -136,7 +138,8 @@ export default function UserForm({
 
 UserForm.propTypes = {
   refProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  setSuccessfulMsg: PropTypes.func.isRequired,
+  setMessage: PropTypes.func.isRequired,
+  setStatus: PropTypes.func.isRequired,
   refreshUsersData: PropTypes.func.isRequired,
   setIsDialogOpen: PropTypes.func.isRequired,
 };

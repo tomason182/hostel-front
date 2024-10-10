@@ -13,30 +13,21 @@ import UserUpdateForm from "../../forms/UserUpdateFrom";
 import { PropertyContext } from "../../../data_providers/PropertyDetailsProvider";
 import { UsersContext } from "../../../data_providers/UsersDataProvider";
 import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider";
+import MessageDialog from "../../dialogs/MessageDialog";
 
 function GeneralInfo() {
   const propertyDialogRef = useRef(null);
   const userDialogRef = useRef(null);
   const userUpdateDialogRef = useRef(null);
-  const successDialogRef = useRef(null);
-  const [successFulMsg, setSuccessfulMsg] = useState(null);
+  const messageDialogRef = useRef(null);
+  const [message, setMessage] = useState(null);
+  const [status, setStatus] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [userValues, setUsersValue] = useState(null);
 
   const { propertyData, refreshPropertyData } = useContext(PropertyContext);
   const { usersData, refreshUsersData } = useContext(UsersContext);
   const { roomTypeData } = useContext(RoomTypeContext);
-
-  useEffect(() => {
-    if (successFulMsg) {
-      successDialogRef.current?.showModal();
-
-      setTimeout(() => {
-        successDialogRef.current?.close();
-        setSuccessfulMsg(null);
-      }, 2500);
-    }
-  }, [successFulMsg]);
 
   useEffect(() => {
     function handleGeneralInfoDialogCloseOnEsc(e) {
@@ -58,9 +49,11 @@ function GeneralInfo() {
     <div className="main-content">
       <ContentTitle title={"General info"} />
       <div className={styles.mainContainer}>
-        <dialog ref={successDialogRef} className="successfulDialog">
-          <p>{successFulMsg}</p>
-        </dialog>
+        <MessageDialog
+          message={message}
+          status={status}
+          refProps={messageDialogRef}
+        />
         <dialog ref={propertyDialogRef} className="dialog">
           {isDialogOpen && (
             <>
@@ -74,7 +67,8 @@ function GeneralInfo() {
                 propertyData={propertyData}
                 refreshPropertyData={refreshPropertyData}
                 setIsDialogOpen={setIsDialogOpen}
-                setSuccessfulMsg={setSuccessfulMsg}
+                setMessage={setMessage}
+                setStatus={setStatus}
               />
             </>
           )}
@@ -90,7 +84,8 @@ function GeneralInfo() {
               />
               <UserForm
                 refProps={userDialogRef}
-                setSuccessfulMsg={setSuccessfulMsg}
+                setMessage={setMessage}
+                setStatus={setStatus}
                 refreshUsersData={refreshUsersData}
                 setIsDialogOpen={setIsDialogOpen}
               />
@@ -108,7 +103,8 @@ function GeneralInfo() {
               <UserUpdateForm
                 refProps={userUpdateDialogRef}
                 userValues={userValues}
-                setSuccessfulMsg={setSuccessfulMsg}
+                setMessage={setMessage}
+                setStatus={setStatus}
                 refreshUsersData={refreshUsersData}
                 setIsDialogOpen={setIsDialogOpen}
               />
@@ -155,7 +151,8 @@ function GeneralInfo() {
               usersData={usersData}
               setUserValues={setUsersValue}
               setIsDialogOpen={setIsDialogOpen}
-              setSuccessfulMsg={setSuccessfulMsg}
+              setMessage={setMessage}
+              setStatus={setStatus}
               refreshUsersData={refreshUsersData}
             />
           )}

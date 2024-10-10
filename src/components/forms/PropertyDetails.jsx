@@ -9,7 +9,8 @@ function PropertyDetails({
   propertyData,
   refreshPropertyData,
   setIsDialogOpen,
-  setSuccessfulMsg,
+  setMessage,
+  setStatus,
 }) {
   const [data, setData] = useState({
     propertyName: propertyData?.propertyName || "",
@@ -67,7 +68,8 @@ function PropertyDetails({
       if (data) {
         setIsDialogOpen(false);
         refreshPropertyData();
-        setSuccessfulMsg("Property updated successfully");
+        setMessage("Property updated successfully");
+        setStatus("ok");
         refProps.current?.close();
       }
 
@@ -182,7 +184,8 @@ PropertyDetails.propTypes = {
   propertyData: PropTypes.object.isRequired,
   refreshPropertyData: PropTypes.func.isRequired,
   setIsDialogOpen: PropTypes.func.isRequired,
-  setSuccessfulMsg: PropTypes.func.isRequired,
+  setMessage: PropTypes.func.isRequired,
+  setStatus: PropTypes.func.isRequired,
 };
 
 export default PropertyDetails;
