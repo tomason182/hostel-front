@@ -26,7 +26,7 @@ function CalendarMainPage() {
         return;
       }
     }
-    if (setIsDialogOpen) {
+    if (isDialogOpen) {
       document.addEventListener("keydown", handleCalendarDialogCloseOnEscKey);
     } else {
       document.removeEventListener(
@@ -40,7 +40,7 @@ function CalendarMainPage() {
         "keydown",
         handleCalendarDialogCloseOnEscKey
       );
-  }, [setIsDialogOpen]);
+  }, [isDialogOpen]);
 
   const fetchReservationData = useCallback(() => {
     const fromDate = format(sub(startDate, { days: 3 }), "yyyyMMdd");
