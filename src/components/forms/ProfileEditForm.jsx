@@ -1,5 +1,6 @@
 import styles from "../../styles/ProfileEditForm.module.css";
 import { UserProfileContext } from "../../data_providers/UserProfileProvider";
+import fetchDataHelper from "../../utils/fetchDataHelper";
 import { useContext, useEffect, useState } from "react";
 
 export default function ProfileEditForm() {
@@ -41,10 +42,46 @@ export default function ProfileEditForm() {
     });
   }
 
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+
+    const formBody = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      role: formData.role,
+    };
+
+    const url = import.meta.env.VITE_URL_BASE + "users/profile";
+    const options = {
+      mode: "cors",
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(formBody),
+    };
+
+    try {
+      const { data, errors } = await fetchDataHelper(url, options);
+
+      if (data) {
+        console.log(data);
+        refreshUserProfile();
+      }
+
+      if (errors) {
+        console.log(errors);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <>
       <h3>Profile</h3>
-      <form className={styles.userEditForm}>
+      <form className={styles.userEditForm} onSubmit={handleFormSubmit}>
         <label>
           First Name
           <input
