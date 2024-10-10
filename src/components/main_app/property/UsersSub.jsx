@@ -99,6 +99,7 @@ export default function UsersSub({
             </svg>
           </button>
           <button
+            disabled={loading}
             onClick={() => {
               setUserId(user._id);
               deleteUserRef?.current.showModal();
