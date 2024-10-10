@@ -1,13 +1,59 @@
+import { useRef, useState } from "react";
 import styles from "../../../styles/RoomTypesSub.module.css";
 import PropTypes from "prop-types";
+import ConfirmationDialog from "../../dialogs/ConfirmationDialog";
+import fetchDataHelper from "../../../utils/fetchDataHelper";
+import ErrorComponent from "../../error_page/ErrorComponent";
 
 export default function UsersSub({
   refProps,
   usersData,
   setUserValues,
   setIsDialogOpen,
+  setSuccessfulMsg,
+  refreshUsersData,
 }) {
-  if (!usersData) return <div>Loading...</div>;
+  const deleteUserRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [userId, setUserId] = useState(null);
+
+  async function handleUserDelete() {
+    setLoading(true);
+    try {
+      const url =
+        import.meta.env.VITE_URL_BASE + "users/profile/delete/" + userId;
+
+      const options = {
+        mode: "cors",
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      };
+
+      const { data, errors } = await fetchDataHelper(url, options);
+
+      if (data) {
+        console.log("User deleted successfully", data);
+        setSuccessfulMsg("User deleted successfully");
+        refreshUsersData();
+        return;
+      }
+
+      if (errors) {
+        setError(errors);
+        return;
+      }
+    } catch (err) {
+      setError([{ msg: err.message || "Unexpected error occurred" }]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (!usersData || loading === true) return <div>Loading...</div>;
 
   const users =
     usersData &&
@@ -52,7 +98,12 @@ export default function UsersSub({
               <line x1="3" y1="22" x2="21" y2="22"></line>
             </svg>
           </button>
-          <button>
+          <button
+            onClick={() => {
+              setUserId(user._id);
+              deleteUserRef?.current.showModal();
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -73,7 +124,22 @@ export default function UsersSub({
       </li>
     ));
 
-  return <ul className={styles.roomTypesList}>{users}</ul>;
+  const title = "Delete this user?";
+  const description =
+    "User will not longer be able to log in into this account";
+
+  return (
+    <>
+      <ConfirmationDialog
+        title={title}
+        description={description}
+        refProps={deleteUserRef}
+        handleActionFunction={handleUserDelete}
+      />
+      <ul className={styles.roomTypesList}>{users}</ul>
+      {error && <ErrorComponent errors={error} />}
+    </>
+  );
 }
 
 UsersSub.propTypes = {
@@ -81,4 +147,6 @@ UsersSub.propTypes = {
   setUserValues: PropTypes.func.isRequired,
   usersData: PropTypes.array.isRequired,
   setIsDialogOpen: PropTypes.func.isRequired,
+  setSuccessfulMsg: PropTypes.func,
+  refreshUsersData: PropTypes.func,
 };

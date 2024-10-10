@@ -75,43 +75,6 @@ export default function UserUpdateForm({
     }
   }
 
-  async function handleUserDelete() {
-    setLoading(true);
-    try {
-      const url =
-        import.meta.env.VITE_URL_BASE + "users/profile/delete/" + userId;
-
-      const options = {
-        mode: "cors",
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      };
-
-      const { data, errors } = await fetchDataHelper(url, options);
-
-      if (data) {
-        console.log("User deleted successfully", data);
-        setSuccessfulMsg("User deleted successfully");
-        refreshUsersData();
-        setIsDialogOpen(false);
-        refProps.current?.close();
-        return;
-      }
-
-      if (errors) {
-        setError(errors);
-        return;
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   if (loading) return <div>Loading...</div>;
 
   return (
@@ -180,8 +143,15 @@ export default function UserUpdateForm({
         </div>
       </fieldset>
       <menu className={styles.buttonContainer}>
-        <button type="button" disabled={loading} onClick={handleUserDelete}>
-          Delete user
+        <button
+          type="button"
+          disabled={loading}
+          onClick={() => {
+            refProps.current?.close();
+            setIsDialogOpen(false);
+          }}
+        >
+          Cancel
         </button>
         <button type="submit" disabled={loading}>
           Update user

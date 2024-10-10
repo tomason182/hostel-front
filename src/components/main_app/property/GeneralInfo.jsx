@@ -155,6 +155,8 @@ function GeneralInfo() {
               usersData={usersData}
               setUserValues={setUsersValue}
               setIsDialogOpen={setIsDialogOpen}
+              setSuccessfulMsg={setSuccessfulMsg}
+              refreshUsersData={refreshUsersData}
             />
           )}
 
