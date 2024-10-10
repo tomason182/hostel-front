@@ -251,5 +251,5 @@ export default function GuestForm({ guestData, setGuestData, setIndex }) {
 GuestForm.propTypes = {
   setIndex: PropTypes.func.isRequired,
   guestData: PropTypes.object.isRequired,
-  setGuestData: PropTypes.object.isRequired,
+  setGuestData: PropTypes.func.isRequired,
 };

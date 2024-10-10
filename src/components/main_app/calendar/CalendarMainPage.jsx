@@ -18,6 +18,30 @@ function CalendarMainPage() {
   const [startDate, setStartDate] = useState(today);
   const [reservations, setReservations] = useState(null);
 
+  useEffect(() => {
+    function handleCalendarDialogCloseOnEscKey(e) {
+      if (e.key === "Escape") {
+        setIsDialogOpen(false);
+        setIndex(0);
+        return;
+      }
+    }
+    if (setIsDialogOpen) {
+      document.addEventListener("keydown", handleCalendarDialogCloseOnEscKey);
+    } else {
+      document.removeEventListener(
+        "keydown",
+        handleCalendarDialogCloseOnEscKey
+      );
+    }
+
+    return () =>
+      document.removeEventListener(
+        "keydown",
+        handleCalendarDialogCloseOnEscKey
+      );
+  }, [setIsDialogOpen]);
+
   const fetchReservationData = useCallback(() => {
     const fromDate = format(sub(startDate, { days: 3 }), "yyyyMMdd");
     const toDate = format(add(startDate, { days: 11 }), "yyyyMMdd");
@@ -52,7 +76,7 @@ function CalendarMainPage() {
   }, [fetchReservationData]);
 
   // Porque se renderiza 5 veces guestData al comienzo?
-  console.log(guestData);
+  /* console.log(guestData); */
 
   const { roomTypeData } = useContext(RoomTypeContext);
   /* console.log(roomTypeData); */
