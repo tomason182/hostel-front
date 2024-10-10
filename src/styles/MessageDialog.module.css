@@ -3,14 +3,23 @@
   position: fixed;
   margin-right: 0;
   margin-top: 10lvh;
-  min-width: 13rem;
+  max-width: 18rem;
   min-height: 4rem;
   background-color: #fff;
-  border: 1px solid #ccc;
+
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  border-right: 5px solid green;
   animation: fade-in 0.8s forwards;
+}
+
+.messageDialog.success {
+  border: 1px solid green;
+  border-right: 5px solid green;
+}
+
+.messageDialog.error {
+  border: 1px solid red;
+  border-right: 5px solid red;
 }
 
 @keyframes fade-in {
