@@ -68,6 +68,7 @@ export default function ProfileEditForm() {
           <input
             type="email"
             name="email"
+            disabled
             value={formData.email}
             onChange={handleFormChange}
           />
