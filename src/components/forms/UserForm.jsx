@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "../../styles/formDefaultStyle.module.css";
 import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
@@ -12,19 +12,6 @@ export default function UserForm({
 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    function handleUserFormCloseOnEsc(e) {
-      if (e.key === "Escape") {
-        setIsDialogOpen(false);
-      }
-    }
-
-    document.addEventListener("keydown", handleUserFormCloseOnEsc);
-    return () => {
-      document.removeEventListener("keydown", handleUserFormCloseOnEsc);
-    };
-  }, [setIsDialogOpen]);
 
   async function handleSubmit(e) {
     e.preventDefault();

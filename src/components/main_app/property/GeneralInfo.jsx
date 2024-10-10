@@ -38,6 +38,22 @@ function GeneralInfo() {
     }
   }, [successFulMsg]);
 
+  useEffect(() => {
+    function handleGeneralInfoDialogCloseOnEsc(e) {
+      if (e.key === "Escape") {
+        setIsDialogOpen(false);
+      }
+    }
+    if (isDialogOpen) {
+      document.addEventListener("keydown", handleGeneralInfoDialogCloseOnEsc);
+    } else {
+      document.removeEventListener(
+        "keydown",
+        handleGeneralInfoDialogCloseOnEsc
+      );
+    }
+  }, [isDialogOpen]);
+
   return (
     <div className="main-content">
       <ContentTitle title={"General info"} />
