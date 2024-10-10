@@ -1,9 +1,14 @@
 import styles from "../../styles/ProfileEditForm.module.css";
 import { UserProfileContext } from "../../data_providers/UserProfileProvider";
 import fetchDataHelper from "../../utils/fetchDataHelper";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import MessageDialog from "../dialogs/MessageDialog";
 
 export default function ProfileEditForm() {
+  const [message, setMessage] = useState(null);
+  const [status, setStatus] = useState(null);
+  const messageDialogRef = useRef(null);
+
   const { userProfile, refreshUserProfile } = useContext(UserProfileContext);
 
   const [formData, setFormData] = useState({
@@ -66,20 +71,34 @@ export default function ProfileEditForm() {
       const { data, errors } = await fetchDataHelper(url, options);
 
       if (data) {
-        console.log(data);
+        setMessage("User updated successfully");
+        setStatus("ok");
         refreshUserProfile();
+        return;
       }
 
       if (errors) {
         console.log(errors);
+        setMessage("Unable to update user profile. Please Try again...");
+        setStatus("notOk");
+        return;
       }
     } catch (err) {
       console.error(err);
+      setMessage("Unable to update user profile. Please Try again...");
+      setStatus("notOk");
     }
   }
 
   return (
     <>
+      <MessageDialog
+        message={message}
+        status={status}
+        refProps={messageDialogRef}
+        setMessage={setMessage}
+        setStatus={setStatus}
+      />
       <h3>Profile</h3>
       <form className={styles.userEditForm} onSubmit={handleFormSubmit}>
         <label>
