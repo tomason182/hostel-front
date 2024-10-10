@@ -47,6 +47,10 @@
   stroke: #000;
 }
 
+.btnMenu button:last-child svg:hover {
+  stroke: red;
+}
+
 .btnMenu button svg {
   stroke: var(--muted-color);
 }
