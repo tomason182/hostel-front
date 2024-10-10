@@ -16,6 +16,23 @@ export default function RatesAvailabilityCalendar() {
   const { roomTypeData, refreshRoomTypeData } = useContext(RoomTypeContext);
 
   useEffect(() => {
+    function handleBulkEditDialogCloseOnEsc(e) {
+      if (e.key === "Escape") {
+        setIsDialogOpen(false);
+      }
+    }
+
+    if (isDialogOpen) {
+      document.addEventListener("keydown", handleBulkEditDialogCloseOnEsc);
+    } else {
+      document.removeEventListener("keydown", handleBulkEditDialogCloseOnEsc);
+    }
+
+    return () =>
+      document.removeEventListener("keydown", handleBulkEditDialogCloseOnEsc);
+  }, [isDialogOpen]);
+
+  useEffect(() => {
     function fetchBookingData(date) {
       const from = date;
       const to = add(from, { days: 7 });
