@@ -73,7 +73,7 @@ export default function Profile() {
         {toggle === 0 ? (
           <ProfileEditForm setMessage={setMessage} setStatus={setStatus} />
         ) : (
-          <PasswordEditForm />
+          <PasswordEditForm setMessage={setMessage} setStatus={setStatus} />
         )}
       </div>
     </div>
