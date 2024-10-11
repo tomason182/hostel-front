@@ -34,3 +34,8 @@
   background-color: var(--primary-color);
   opacity: 0.8;
 }
+
+.userEditForm span {
+  font-size: 0.5rem;
+  color: var(--info-color);
+}

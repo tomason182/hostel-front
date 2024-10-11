@@ -38,12 +38,9 @@ export default function PasswordEditForm({ setMessage, setStatus }) {
 
       if (errors) {
         console.error(errors);
-        if (errors.length === 1) {
-          setMessage(errors[0].msg);
-        } else {
-          setMessage("Unable to update password. Please try again");
-        }
-
+        setMessage(
+          errors[0]?.msg || "Unable to update password. Please try again"
+        );
         setStatus("notOk");
       }
     } catch (err) {
@@ -70,6 +67,10 @@ export default function PasswordEditForm({ setMessage, setStatus }) {
           <input type="password" name="confirmPassword" />
         </label>
         <button type="submit">Save</button>
+        <span>
+          Password should Password should contain at least 14 characters, 4
+          lowercase, 2 uppercase, 2 numbers and 2 symbols
+        </span>
       </form>
     </>
   );
