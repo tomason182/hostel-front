@@ -2,13 +2,26 @@ import styles from "../../styles/Profile.module.css";
 import ProfileEditForm from "../forms/ProfileEditForm";
 import PasswordEditForm from "../forms/PasswordEditForm";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import MessageDialog from "../dialogs/MessageDialog";
 
 export default function Profile() {
   const [toggle, setToggle] = useState(0);
+  const [message, setMessage] = useState(null);
+  const [status, setStatus] = useState(null);
+  const messageDialogRef = useRef(null);
 
   return (
     <div className={styles.mainContainer}>
+      {message && status && (
+        <MessageDialog
+          message={message}
+          status={status}
+          refProps={messageDialogRef}
+          setMessage={setMessage}
+          setStatus={setStatus}
+        />
+      )}
       <aside className={styles.sideBar}>
         <nav>
           <Link
@@ -57,7 +70,11 @@ export default function Profile() {
         </nav>
       </aside>
       <div className={styles.content}>
-        {toggle === 0 ? <ProfileEditForm /> : <PasswordEditForm />}
+        {toggle === 0 ? (
+          <ProfileEditForm setMessage={setMessage} setStatus={setStatus} />
+        ) : (
+          <PasswordEditForm />
+        )}
       </div>
     </div>
   );

@@ -1,14 +1,10 @@
 import styles from "../../styles/ProfileEditForm.module.css";
+import PropTypes from "prop-types";
 import { UserProfileContext } from "../../data_providers/UserProfileProvider";
 import fetchDataHelper from "../../utils/fetchDataHelper";
-import { useContext, useEffect, useRef, useState } from "react";
-import MessageDialog from "../dialogs/MessageDialog";
+import { useContext, useEffect, useState } from "react";
 
-export default function ProfileEditForm() {
-  const [message, setMessage] = useState(null);
-  const [status, setStatus] = useState(null);
-  const messageDialogRef = useRef(null);
-
+export default function ProfileEditForm({ setMessage, setStatus }) {
   const { userProfile, refreshUserProfile } = useContext(UserProfileContext);
 
   const [formData, setFormData] = useState({
@@ -92,13 +88,6 @@ export default function ProfileEditForm() {
 
   return (
     <>
-      <MessageDialog
-        message={message}
-        status={status}
-        refProps={messageDialogRef}
-        setMessage={setMessage}
-        setStatus={setStatus}
-      />
       <h3>Profile</h3>
       <form className={styles.userEditForm} onSubmit={handleFormSubmit}>
         <label>
@@ -144,3 +133,8 @@ export default function ProfileEditForm() {
     </>
   );
 }
+
+ProfileEditForm.propTypes = {
+  setMessage: PropTypes.func.isRequired,
+  setStatus: PropTypes.func.isRequired,
+};

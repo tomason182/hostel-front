@@ -19,7 +19,7 @@ export default function MessageDialog({
         setStatus(null);
       }, 2300);
     }
-  });
+  }, [message, refProps, setMessage, setStatus]);
   return (
     <dialog
       ref={refProps}
