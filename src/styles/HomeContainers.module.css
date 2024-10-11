@@ -1,0 +1,35 @@
+.content {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  min-height: 10rem;
+  padding: 0.5rem;
+}
+
+.content h3 {
+  font-size: var(--font-size-small);
+  font-family: var(--font-bold);
+}
+
+.content ul {
+  font-size: var(--font-size-xs);
+  padding: 0.5rem 2rem;
+}
+
+.content .infoContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.infoContainer span {
+  color: var(--text-color-light-2);
+  font-size: x-small;
+}
+
+.content .guests {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  padding: 0.2rem 0.5rem;
+  font-size: xx-small;
+}
