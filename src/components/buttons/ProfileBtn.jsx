@@ -1,27 +1,17 @@
 import styles from "../../styles/ProfileBtn.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import MessageDialog from "../dialogs/MessageDialog";
 
 function ProfileBtn() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLogOut, setIsLogOut] = useState(false);
-  const [error, setError] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [status, setStatus] = useState(null);
+  const dialogRef = useRef(null);
 
   const menuRef = useRef(null);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isLogOut) {
-      navigate("/");
-    }
-  }, [isLogOut, navigate]);
-
-  useEffect(() => {
-    if (error) {
-      alert("An Error Occurred while logging out. Please try again");
-    }
-  });
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -49,22 +39,30 @@ function ProfileBtn() {
 
     fetch(url, options)
       .then(response => {
-        setError(false);
-        if (response.status >= 400)
-          throw new Error(
-            "An unexpected error occurred logging out. Try again"
-          );
+        if (response.status >= 400) {
+          throw new Error("Unable to log out. Try again");
+        }
 
-        setIsLogOut(true);
+        navigate("/");
       })
       .catch(error => {
         console.error(error);
-        setError(true);
+        setMessage("Unable to logOut");
+        setStatus("notOk");
       });
   }
 
   return (
     <div className={styles.menuBar}>
+      {message && (
+        <MessageDialog
+          message={message}
+          status={status}
+          refProps={dialogRef}
+          setMessage={setMessage}
+          setStatus={setStatus}
+        />
+      )}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className={styles.btn}
