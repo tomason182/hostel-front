@@ -1,6 +1,7 @@
 import styles from "../../styles/Profile.module.css";
 import ProfileEditForm from "../forms/ProfileEditForm";
 import PasswordEditForm from "../forms/PasswordEditForm";
+import DeleteAccountForm from "../forms/DeleteAccountForm";
 import { Link } from "react-router-dom";
 import { useState, useRef } from "react";
 import MessageDialog from "../dialogs/MessageDialog";
@@ -13,7 +14,7 @@ export default function Profile() {
 
   return (
     <div className={styles.mainContainer}>
-      {message && status && (
+      {message && (
         <MessageDialog
           message={message}
           status={status}
@@ -69,13 +70,20 @@ export default function Profile() {
           </Link>
         </nav>
       </aside>
-      <div className={styles.content}>
-        {toggle === 0 ? (
-          <ProfileEditForm setMessage={setMessage} setStatus={setStatus} />
-        ) : (
+      {toggle === 0 ? (
+        <div className={styles.mainContent}>
+          <div className={styles.content}>
+            <ProfileEditForm setMessage={setMessage} setStatus={setStatus} />
+          </div>
+          <div className={styles.content}>
+            <DeleteAccountForm />
+          </div>
+        </div>
+      ) : (
+        <div className={styles.content}>
           <PasswordEditForm setMessage={setMessage} setStatus={setStatus} />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
