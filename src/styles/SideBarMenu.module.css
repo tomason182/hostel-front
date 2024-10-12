@@ -29,6 +29,14 @@
   align-self: flex-end;
 }
 
+.sidebarNav button:hover {
+  background: none;
+}
+
+.sidebarNav button svg:hover {
+  stroke: #ccc;
+}
+
 .sidebarNav a {
   display: flex;
   gap: 0.75rem;

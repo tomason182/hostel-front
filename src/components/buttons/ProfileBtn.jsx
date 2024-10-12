@@ -36,7 +36,7 @@ function ProfileBtn() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMenuOpen]);
 
-  function handleLogOutClick() {
+  function handleLogOut() {
     const url = import.meta.env.VITE_URL_BASE + "users/logout";
     const options = {
       mode: "cors",
@@ -106,7 +106,7 @@ function ProfileBtn() {
           </svg>
           Profile
         </Link>
-        <Link onClick={handleLogOutClick}>
+        <Link onClick={handleLogOut}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="18"

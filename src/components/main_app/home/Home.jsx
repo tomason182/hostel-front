@@ -8,8 +8,6 @@ function Home() {
   const [loadingReservations, setLoadingReservations] = useState(false);
   const [reservationsError, setReservationsError] = useState(null);
 
-  console.log(reservations);
-
   useEffect(() => {
     function fetchTodaysReservations(from, to, fullName) {
       setLoadingReservations(true);

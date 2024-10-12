@@ -1,9 +1,55 @@
 import { Link } from "react-router-dom";
 import styles from "../../styles/SideBarMenu.module.css";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import MessageDialog from "../dialogs/MessageDialog";
+
 export default function SideBarMenu({ setIsClicked }) {
+  const [message, setMessage] = useState(null);
+  const [status, setStatus] = useState(null);
+  const dialogRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  function handleLogOut() {
+    const url = import.meta.env.VITE_URL_BASE + "users/logout";
+    const options = {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    };
+
+    fetch(url, options)
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error(
+            "An unexpected error occurred logging out. Try again"
+          );
+        }
+        navigate("/");
+      })
+      .catch(error => {
+        console.error(error);
+        setMessage("Unable to log out. Please try again");
+        setStatus("notOk");
+      });
+  }
+
   return (
     <>
+      {message && (
+        <MessageDialog
+          message={message}
+          status={status}
+          refProps={dialogRef}
+          setMessage={setMessage}
+          setStatus={setStatus}
+        />
+      )}
       <div className={styles.blurContent}></div>
       <nav className={styles.sidebarNav}>
         <button type="button" onClick={() => setIsClicked(false)}>
@@ -19,7 +65,11 @@ export default function SideBarMenu({ setIsClicked }) {
             <path d="M7 7 L23 23 M7 23 L23 7"></path>
           </svg>
         </button>
-        <Link to="#">
+        <h3>The Hostel project</h3>
+        <Link
+          to="/app/property/general-info"
+          onClick={() => setIsClicked(false)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -87,7 +137,10 @@ export default function SideBarMenu({ setIsClicked }) {
           </svg>
           Property
         </Link>
-        <Link to="#">
+        <Link
+          to="/app/rates-and-availability"
+          onClick={() => setIsClicked(false)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="22"
@@ -106,8 +159,7 @@ export default function SideBarMenu({ setIsClicked }) {
           </svg>
           Rates & availability
         </Link>
-        <Link to="#">
-          {" "}
+        <Link to="/app/users/profile/edit" onClick={() => setIsClicked(false)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="22"
@@ -124,7 +176,7 @@ export default function SideBarMenu({ setIsClicked }) {
           </svg>
           Account
         </Link>
-        <Link to="#">
+        <Link to="#" onClick={handleLogOut}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="22"
