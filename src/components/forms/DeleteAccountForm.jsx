@@ -1,14 +1,35 @@
+import { useRef } from "react";
 import styles from "../../styles/DeleteAccountForm.module.css";
+import ConfirmationDialog from "../dialogs/ConfirmationDialog";
 
 export default function DeleteAccountForm() {
+  const confirmDialog = useRef(null);
+
+  const title = "Delete your account";
+  const description =
+    "Permanently remove your account and all associated data.";
+
+  function handleSubmit() {
+    alert("Account deleted");
+  }
+
   return (
     <>
+      <ConfirmationDialog
+        title={title}
+        description={description}
+        refProps={confirmDialog}
+        handleActionFunction={handleSubmit}
+      />
       <h3>Delete Your Account</h3>
       <p className={styles.pNormal}>
         Permanently remove your account and all associated data. These actions
         can not be undone
       </p>
-      <button className={styles.btnDelete}>
+      <button
+        className={styles.btnDelete}
+        onClick={() => confirmDialog?.current.showModal()}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
