@@ -83,7 +83,7 @@ export default function ChangeReservationsDetailsForm({
         return;
       }
     } catch (err) {
-      console.error(err);
+      setError({ msg: err.message || "Unexpected error ocurred" });
     }
   }
 
@@ -94,15 +94,27 @@ export default function ChangeReservationsDetailsForm({
         <select name="reservationStatus" onChange={handleFormChange}>
           <option
             value="confirmed"
-            defaultChecked={formData.reservationStatus === "confirmed"}
+            selected={formData.reservationStatus === "confirmed"}
           >
             Confirmed
           </option>
           <option
             value="provisional"
-            defaultChecked={formData.reservationStatus === "provisional"}
+            selected={formData.reservationStatus === "provisional"}
           >
             Provisional
+          </option>
+          <option
+            value="canceled"
+            selected={formData.reservationStatus === "canceled"}
+          >
+            Canceled
+          </option>
+          <option
+            value="no_show"
+            selected={formData.reservationStatus === "no_show"}
+          >
+            No-show
           </option>
         </select>
       </label>
@@ -111,31 +123,28 @@ export default function ChangeReservationsDetailsForm({
         <select name="paymentStatus" onChange={handleFormChange}>
           <option
             value="pending"
-            defaultChecked={formData.paymentStatus === "pending"}
+            selected={formData.paymentStatus === "pending"}
           >
             Pending
           </option>
           <option
             value="canceled"
-            defaultChecked={formData.paymentStatus === "canceled"}
+            selected={formData.paymentStatus === "canceled"}
           >
             Canceled
           </option>
           <option
             value="refunded"
-            defaultChecked={formData.paymentStatus === "refunded"}
+            selected={formData.paymentStatus === "refunded"}
           >
             Refunded
           </option>
-          <option
-            value="paid"
-            defaultChecked={formData.paymentStatus === "paid"}
-          >
+          <option value="paid" selected={formData.paymentStatus === "paid"}>
             Paid
           </option>
           <option
             value="partial"
-            defaultChecked={formData.paymentStatus === "partial"}
+            selected={formData.paymentStatus === "partial"}
           >
             Partial
           </option>
@@ -171,17 +180,17 @@ export default function ChangeReservationsDetailsForm({
         <select name="source" onChange={handleFormChange}>
           <option
             value="booking.com"
-            defaultChecked={formData.source === "booking.com"}
+            selected={formData.source === "booking.com"}
           >
             Booking.com
           </option>
           <option
             value="hostelWorld.com"
-            defaultChecked={formData.source === "hostelWorld.com"}
+            selected={formData.source === "hostelWorld.com"}
           >
             HostelWorld.com
           </option>
-          <option value="direct" defaultChecked={formData.source === "direct"}>
+          <option value="direct" selected={formData.source === "direct"}>
             Direct reservation
           </option>
         </select>
