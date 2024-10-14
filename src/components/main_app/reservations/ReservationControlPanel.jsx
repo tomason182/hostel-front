@@ -124,6 +124,8 @@ export default function ReservationControlPanel({
             className={styles.confirmBtn}
             onClick={() => {
               handleReservationStatusUpdate("canceled");
+              setMessage("Reservation canceled");
+              setStatus("ok");
               cancelDialogRef?.current.close();
             }}
           >
@@ -149,6 +151,8 @@ export default function ReservationControlPanel({
             className={styles.confirmBtn}
             onClick={() => {
               handleReservationStatusUpdate("no_show");
+              setMessage("Reservation marked as no-show");
+              setStatus("ok");
               noShowDialogRef?.current.close();
             }}
           >
