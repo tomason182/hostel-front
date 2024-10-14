@@ -32,7 +32,14 @@ export default function ChangeReservationsDetailsForm({
       source: data.booking_source,
       specialRequest: data.special_request,
     });
-  }, []);
+  }, [
+    data.reservation_status,
+    data.payment_status,
+    data.total_price,
+    data.currency,
+    data.booking_source,
+    data.special_request,
+  ]);
 
   function handleFormChange(e) {
     const { name, value } = e.target;
