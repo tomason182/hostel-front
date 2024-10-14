@@ -14,8 +14,6 @@ export default function ReservationDetails() {
   const [guestId, setGuestId] = useState(null);
   const [reservationId, setReservationId] = useState(null);
 
-  console.log(guestData);
-
   useEffect(() => {
     if (guestId === null) {
       return;
@@ -74,7 +72,10 @@ export default function ReservationDetails() {
         </div>
         <div className={styles.controlPanelContainer}>
           {toggleDisplay === 1 ? (
-            <ReservationControlPanel reservationId={reservationId} />
+            <ReservationControlPanel
+              reservationId={reservationId}
+              reservationData={reservationData}
+            />
           ) : (
             <GuestControlPanel
               guestData={guestData}

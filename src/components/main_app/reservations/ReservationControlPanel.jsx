@@ -1,11 +1,23 @@
 import styles from "../../../styles/ReservationControlPanel.module.css";
 import PropTypes from "prop-types";
-import { useRef } from "react";
+import ChangeReservationsDetailsForm from "../../forms/ChangeReservationDetailsForm";
+import DialogHeader from "../../dialogs/DialogHeader";
+import MessageDialog from "../../dialogs/MessageDialog";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function ReservationControlPanel({ reservationId }) {
+export default function ReservationControlPanel({
+  reservationId,
+  reservationData,
+}) {
   const cancelDialogRef = useRef(null);
   const noShowDialogRef = useRef(null);
+  const changeDetailsRef = useRef(null);
+  const messageDialog = useRef(null);
+  const [isReservationDetailsOpen, setIsReservationDetailsOpen] =
+    useState(false);
+  const [message, setMessage] = useState(null);
+  const [status, setStatus] = useState(null);
 
   function handlePaymentStatusUpdate(paymentStatus) {
     const url =
@@ -49,12 +61,51 @@ export default function ReservationControlPanel({ reservationId }) {
 
   return (
     <div className={styles.controlPanel}>
+      {message && (
+        <MessageDialog
+          message={message}
+          status={status}
+          refProps={messageDialog}
+          setMessage={setMessage}
+          setStatus={setStatus}
+        />
+      )}
+      <dialog ref={changeDetailsRef} className="dialog">
+        {isReservationDetailsOpen && (
+          <>
+            <DialogHeader
+              title={"Reservation Details"}
+              refProps={changeDetailsRef}
+              setIsDialogOpen={setIsReservationDetailsOpen}
+            />
+            <ChangeReservationsDetailsForm
+              id={reservationId}
+              data={reservationData}
+              refProps={changeDetailsRef}
+              setIsDialogOpen={setIsReservationDetailsOpen}
+              setMessage={setMessage}
+              setStatus={setStatus}
+            />
+          </>
+        )}
+      </dialog>
+
       <p>Update this reservation</p>
       <button className={styles.btnLarge}>
         Change reservation dates & price
       </button>
-      <button className={styles.btnLarge}>Change reservation details</button>
-      <button className={styles.btnLarge}>Not a button</button>
+      <button
+        className={styles.btnLarge}
+        onClick={() => {
+          setIsReservationDetailsOpen(true);
+          changeDetailsRef?.current.showModal();
+        }}
+      >
+        Change reservation details
+      </button>
+      <button className={`${styles.btnLarge} ${styles.disable}`}>
+        Not a button
+      </button>
       <button
         className={styles.btnCancel}
         onClick={() => cancelDialogRef?.current.showModal()}
@@ -134,4 +185,5 @@ export default function ReservationControlPanel({ reservationId }) {
 
 ReservationControlPanel.propTypes = {
   reservationId: PropTypes.string.isRequired,
+  reservationData: PropTypes.object.isRequired,
 };
