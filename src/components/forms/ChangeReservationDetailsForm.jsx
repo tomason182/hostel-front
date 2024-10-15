@@ -11,6 +11,7 @@ export default function ChangeReservationsDetailsForm({
   setIsDialogOpen,
   setMessage,
   setStatus,
+  refreshData,
 }) {
   const [formData, setFormData] = useState({
     reservationStatus: "",
@@ -81,6 +82,7 @@ export default function ChangeReservationsDetailsForm({
         setMessage("Reservation updated successfully");
         setStatus("ok");
         setIsDialogOpen(false);
+        refreshData();
         refProps?.current.close();
         return;
       }
@@ -239,4 +241,5 @@ ChangeReservationsDetailsForm.propTypes = {
   setIsDialogOpen: PropTypes.func.isRequired,
   setMessage: PropTypes.func.isRequired,
   setStatus: PropTypes.func.isRequired,
+  refreshData: PropTypes.func.isRequired,
 };

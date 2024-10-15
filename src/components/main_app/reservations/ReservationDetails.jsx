@@ -14,8 +14,6 @@ export default function ReservationDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  console.log(reservationData);
-
   const fetchReservationData = useCallback(async () => {
     try {
       const urlReservations =

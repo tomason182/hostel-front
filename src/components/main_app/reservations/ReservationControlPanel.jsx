@@ -38,11 +38,15 @@ export default function ReservationControlPanel({
     fetch(url, options)
       .then(response => response.json())
       .then(data => {
-        setMessage("Paid status updated");
+        setMessage("Payment status updated");
         setStatus("ok");
         console.log(data);
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        setMessage("Could not update payment status");
+        setStatus("notOk");
+        console.error(err);
+      })
       .finally(() => refreshData());
   }
   function handleReservationStatusUpdate(status) {
@@ -62,9 +66,15 @@ export default function ReservationControlPanel({
     fetch(url, options)
       .then(response => response.json())
       .then(data => {
+        setMessage("Reservation status updated");
+        setStatus("ok");
         console.log(data);
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        setMessage("Unable to update reservation status");
+        setStatus("notOk");
+        console.error(err);
+      })
       .finally(() => refreshData());
   }
 
@@ -94,6 +104,7 @@ export default function ReservationControlPanel({
               setIsDialogOpen={setIsReservationDetailsOpen}
               setMessage={setMessage}
               setStatus={setStatus}
+              refreshData={refreshData}
             />
           </>
         )}
@@ -133,8 +144,6 @@ export default function ReservationControlPanel({
             className={styles.confirmBtn}
             onClick={() => {
               handleReservationStatusUpdate("canceled");
-              setMessage("Reservation canceled");
-              setStatus("ok");
               cancelDialogRef?.current.close();
             }}
           >
@@ -160,8 +169,6 @@ export default function ReservationControlPanel({
             className={styles.confirmBtn}
             onClick={() => {
               handleReservationStatusUpdate("no_show");
-              setMessage("Reservation marked as no-show");
-              setStatus("ok");
               noShowDialogRef?.current.close();
             }}
           >
