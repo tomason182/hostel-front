@@ -100,7 +100,14 @@ export default function ChangeReservationsDetailsForm({
     <form className={styles.mainForm} onSubmit={handleSubmit}>
       <label>
         Reservation Status
-        <select name="reservationStatus" onChange={handleFormChange}>
+        <select
+          name="reservationStatus"
+          onChange={handleFormChange}
+          disabled={
+            formData.reservationStatus === "canceled" ||
+            formData.reservationStatus === "no_show"
+          }
+        >
           <option
             value="confirmed"
             selected={formData.reservationStatus === "confirmed"}
