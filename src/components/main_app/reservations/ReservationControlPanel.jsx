@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 export default function ReservationControlPanel({
   reservationId,
   reservationData,
+  refreshData,
 }) {
   const cancelDialogRef = useRef(null);
   const noShowDialogRef = useRef(null);
@@ -56,7 +57,8 @@ export default function ReservationControlPanel({
     fetch(url, options)
       .then(response => response.json())
       .then(data => console.log(data))
-      .catch(err => console.error(err));
+      .catch(err => console.error(err))
+      .finally(refreshData());
   }
 
   return (
@@ -190,4 +192,5 @@ export default function ReservationControlPanel({
 ReservationControlPanel.propTypes = {
   reservationId: PropTypes.string.isRequired,
   reservationData: PropTypes.object.isRequired,
+  refreshData: PropTypes.func.isRequired,
 };

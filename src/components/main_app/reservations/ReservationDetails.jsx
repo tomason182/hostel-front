@@ -3,7 +3,7 @@ import ReservationInfo from "./ReservationInfo";
 import ReservationControlPanel from "./ReservationControlPanel";
 import GuestInfo from "../guest/GuestInfo";
 import GuestControlPanel from "../guest/GuestControlPanel";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 export default function ReservationDetails() {
@@ -16,55 +16,53 @@ export default function ReservationDetails() {
 
   console.log(reservationData);
 
-  useEffect(() => {
-    const fetchReservationData = async reservationId => {
-      try {
-        setLoading(true);
-        const urlReservations =
-          import.meta.env.VITE_URL_BASE +
-          "reservations/find-by-id/" +
-          reservationId;
-        const optionsReservations = {
-          mode: "cors",
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        };
+  const fetchReservationData = useCallback(async reservationId => {
+    try {
+      const urlReservations =
+        import.meta.env.VITE_URL_BASE +
+        "reservations/find-by-id/" +
+        reservationId;
+      const optionsReservations = {
+        mode: "cors",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      };
 
-        const reservationResponse = await fetch(
-          urlReservations,
-          optionsReservations
-        );
-        const reservationResult = await reservationResponse.json();
-        setReservationData(reservationResult);
-        console.log(reservationResult);
+      const reservationResponse = await fetch(
+        urlReservations,
+        optionsReservations
+      );
+      const reservationResult = await reservationResponse.json();
+      setReservationData(reservationResult);
 
-        const guestId = await reservationResult.guest_id;
-        const urlGuest =
-          import.meta.env.VITE_URL_BASE + "guests/find-by-id/" + guestId;
-        const optionsGuest = {
-          mode: "cors",
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        };
+      const guestId = await reservationResult.guest_id;
+      const urlGuest =
+        import.meta.env.VITE_URL_BASE + "guests/find-by-id/" + guestId;
+      const optionsGuest = {
+        mode: "cors",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      };
 
-        const guestResponse = await fetch(urlGuest, optionsGuest);
-        const guestResult = await guestResponse.json();
-        setGuestData(guestResult.msg);
-      } catch (err) {
-        setError([{ msg: err.message || "Unexpected error ocurred" }]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchReservationData(id);
+      const guestResponse = await fetch(urlGuest, optionsGuest);
+      const guestResult = await guestResponse.json();
+      setGuestData(guestResult.msg);
+    } catch (err) {
+      setError([{ msg: err.message || "Unexpected error ocurred" }]);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchReservationData(id);
+  }, [fetchReservationData, id]);
 
   if (error) return <div>Error fetching reservation data</div>;
 
