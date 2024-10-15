@@ -1,6 +1,7 @@
 import styles from "../../../styles/ReservationControlPanel.module.css";
 import PropTypes from "prop-types";
 import ChangeReservationsDetailsForm from "../../forms/ChangeReservationDetailsForm";
+import ChangeReservationDatesAndGuestsForm from "../../forms/ChangeReservationDatesAndGuestsForm";
 import DialogHeader from "../../dialogs/DialogHeader";
 import MessageDialog from "../../dialogs/MessageDialog";
 import { useRef, useState } from "react";
@@ -19,6 +20,7 @@ export default function ReservationControlPanel({
     useState(false);
   const [message, setMessage] = useState(null);
   const [status, setStatus] = useState(null);
+  const [toggle, setToggle] = useState(0);
 
   function handlePaymentStatusUpdate(paymentStatus) {
     const url =
@@ -49,6 +51,7 @@ export default function ReservationControlPanel({
       })
       .finally(() => refreshData());
   }
+
   function handleReservationStatusUpdate(status) {
     const url =
       import.meta.env.VITE_URL_BASE + "reservations/status/" + reservationId;
@@ -97,26 +100,46 @@ export default function ReservationControlPanel({
               refProps={changeDetailsRef}
               setIsDialogOpen={setIsReservationDetailsOpen}
             />
-            <ChangeReservationsDetailsForm
-              id={reservationId}
-              data={reservationData}
-              refProps={changeDetailsRef}
-              setIsDialogOpen={setIsReservationDetailsOpen}
-              setMessage={setMessage}
-              setStatus={setStatus}
-              refreshData={refreshData}
-            />
+            {toggle === 0 ? (
+              <ChangeReservationsDetailsForm
+                id={reservationId}
+                data={reservationData}
+                refProps={changeDetailsRef}
+                setIsDialogOpen={setIsReservationDetailsOpen}
+                setMessage={setMessage}
+                setStatus={setStatus}
+                refreshData={refreshData}
+              />
+            ) : (
+              <ChangeReservationDatesAndGuestsForm
+                id={reservationId}
+                data={reservationData}
+                refProps={changeDetailsRef}
+                setIsDialogOpen={setIsReservationDetailsOpen}
+                setMessage={setMessage}
+                setStatus={setStatus}
+                refreshData={refreshData}
+              />
+            )}
           </>
         )}
       </dialog>
 
       <p>Update this reservation</p>
-      <button className={styles.btnLarge}>
-        Change reservation dates & price
+      <button
+        className={styles.btnLarge}
+        onClick={() => {
+          setToggle(1);
+          setIsReservationDetailsOpen(true);
+          changeDetailsRef?.current.showModal();
+        }}
+      >
+        Change dates & number of guests
       </button>
       <button
         className={styles.btnLarge}
         onClick={() => {
+          setToggle(0);
           setIsReservationDetailsOpen(true);
           changeDetailsRef?.current.showModal();
         }}
@@ -136,7 +159,7 @@ export default function ReservationControlPanel({
         <p>Cancel this reservation?</p>
         <span>
           Cancelled reservations are not logger be display on the Calendar, but
-          you can still find them on the reservations tab{" "}
+          you can still find them on the reservations tab
         </span>
         <div className={styles.btnContainer}>
           <button onClick={() => cancelDialogRef?.current.close()}>No</button>
