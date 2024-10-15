@@ -37,8 +37,13 @@ export default function ReservationControlPanel({
 
     fetch(url, options)
       .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(err => console.error(err));
+      .then(data => {
+        setMessage("Paid status updated");
+        setStatus("ok");
+        console.log(data);
+      })
+      .catch(err => console.error(err))
+      .finally(() => refreshData());
   }
   function handleReservationStatusUpdate(status) {
     const url =
@@ -56,9 +61,11 @@ export default function ReservationControlPanel({
 
     fetch(url, options)
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data);
+      })
       .catch(err => console.error(err))
-      .finally(refreshData());
+      .finally(() => refreshData());
   }
 
   return (
@@ -164,7 +171,9 @@ export default function ReservationControlPanel({
       </dialog>
       <button
         className={`${styles.btnPaid} ${styles.btnLarge}`}
-        onClick={() => handlePaymentStatusUpdate("paid")}
+        onClick={() => {
+          handlePaymentStatusUpdate("paid");
+        }}
       >
         Mark as Paid
       </button>

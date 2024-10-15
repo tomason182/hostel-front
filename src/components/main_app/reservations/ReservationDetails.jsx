@@ -16,12 +16,10 @@ export default function ReservationDetails() {
 
   console.log(reservationData);
 
-  const fetchReservationData = useCallback(async reservationId => {
+  const fetchReservationData = useCallback(async () => {
     try {
       const urlReservations =
-        import.meta.env.VITE_URL_BASE +
-        "reservations/find-by-id/" +
-        reservationId;
+        import.meta.env.VITE_URL_BASE + "reservations/find-by-id/" + id;
       const optionsReservations = {
         mode: "cors",
         method: "GET",
@@ -58,11 +56,11 @@ export default function ReservationDetails() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [id]);
 
   useEffect(() => {
-    fetchReservationData(id);
-  }, [fetchReservationData, id]);
+    fetchReservationData();
+  }, [fetchReservationData]);
 
   if (error) return <div>Error fetching reservation data</div>;
 
@@ -86,6 +84,7 @@ export default function ReservationDetails() {
             <ReservationControlPanel
               reservationId={id}
               reservationData={reservationData}
+              refreshData={fetchReservationData}
             />
           ) : (
             <GuestControlPanel

@@ -7,6 +7,8 @@ export default function ReservationInfo({
   reservationData,
   guestData,
 }) {
+  if (!reservationData || !guestData) return <div>Loading...</div>;
+
   const arrivalDate = format(reservationData.check_in, "yyyy-MM-dd");
   const departureDate = format(reservationData.check_out, "yyyy-MM-dd");
   const fullName = guestData.first_name + " " + guestData.last_name;
