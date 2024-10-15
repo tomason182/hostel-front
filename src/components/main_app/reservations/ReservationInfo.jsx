@@ -2,17 +2,20 @@ import styles from "../../../styles/ReservationInfo.module.css";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 
-export default function ReservationInfo({ setToggleDisplay, reservationData }) {
+export default function ReservationInfo({
+  setToggleDisplay,
+  reservationData,
+  guestData,
+}) {
   const arrivalDate = format(reservationData.check_in, "yyyy-MM-dd");
   const departureDate = format(reservationData.check_out, "yyyy-MM-dd");
-
-  if (!reservationData) return <div>Loading...</div>;
+  const fullName = guestData.first_name + " " + guestData.last_name;
 
   return (
     <div className={styles.reservationDetails}>
       <div className={styles.one}>
         <div className={styles.guestInfo}>
-          <h3>{reservationData.guest_info.full_name}</h3>
+          <h3>{fullName}</h3>
           <button onClick={() => setToggleDisplay(2)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +74,7 @@ export default function ReservationInfo({ setToggleDisplay, reservationData }) {
         <p>Reservation Details</p>
         <dl>
           <dt>Room Type</dt>
-          <dd>{reservationData.room_type_info.description}</dd>
+          <dd>{reservationData.room_type_id}</dd>
           <dt>Booking Source</dt>
           <dd>{reservationData.booking_source}</dd>
           <dt>Number of guests</dt>
@@ -93,4 +96,5 @@ export default function ReservationInfo({ setToggleDisplay, reservationData }) {
 ReservationInfo.propTypes = {
   setToggleDisplay: PropTypes.func.isRequired,
   reservationData: PropTypes.object.isRequired,
+  guestData: PropTypes.object.isRequired,
 };

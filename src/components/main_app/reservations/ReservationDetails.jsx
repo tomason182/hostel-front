@@ -3,60 +3,72 @@ import ReservationInfo from "./ReservationInfo";
 import ReservationControlPanel from "./ReservationControlPanel";
 import GuestInfo from "../guest/GuestInfo";
 import GuestControlPanel from "../guest/GuestControlPanel";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ReservationContext } from "../../../data_providers/ReservationsDataProvider";
 
 export default function ReservationDetails() {
   const { id } = useParams();
   const [toggleDisplay, setToggleDisplay] = useState(1);
   const [guestData, setGuestData] = useState(null);
-  const [guestId, setGuestId] = useState(null);
-  const [reservationId, setReservationId] = useState(null);
+  const [reservationData, setReservationData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  console.log(reservationData);
 
   useEffect(() => {
-    if (guestId === null) {
-      return;
-    }
+    const fetchReservationData = async reservationId => {
+      try {
+        setLoading(true);
+        const urlReservations =
+          import.meta.env.VITE_URL_BASE +
+          "reservations/find-by-id/" +
+          reservationId;
+        const optionsReservations = {
+          mode: "cors",
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        };
 
-    function fetchGuestData(id) {
-      const url = import.meta.env.VITE_URL_BASE + "guests/find-by-id/" + id;
-      const options = {
-        mode: "cors",
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      };
+        const reservationResponse = await fetch(
+          urlReservations,
+          optionsReservations
+        );
+        const reservationResult = await reservationResponse.json();
+        setReservationData(reservationResult);
+        console.log(reservationResult);
 
-      fetch(url, options)
-        .then(response => response.json())
-        .then(data => setGuestData(data.msg))
-        .catch(err => console.error(err));
-    }
+        const guestId = await reservationResult.guest_id;
+        const urlGuest =
+          import.meta.env.VITE_URL_BASE + "guests/find-by-id/" + guestId;
+        const optionsGuest = {
+          mode: "cors",
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        };
 
-    fetchGuestData(guestId);
-  }, [guestId]);
+        const guestResponse = await fetch(urlGuest, optionsGuest);
+        const guestResult = await guestResponse.json();
+        setGuestData(guestResult.msg);
+      } catch (err) {
+        setError([{ msg: err.message || "Unexpected error ocurred" }]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const { reservationsData } = useContext(ReservationContext);
+    fetchReservationData(id);
+  }, []);
 
-  const reservationData =
-    reservationsData &&
-    reservationsData.find(reservation => reservation._id === id);
+  if (error) return <div>Error fetching reservation data</div>;
 
-  useEffect(() => {
-    if (reservationData) {
-      const guestId = reservationData.guest_id;
-      const reservationId = reservationData._id;
-      setGuestId(guestId);
-      setReservationId(reservationId);
-    }
-  }, [reservationData, setGuestId, setReservationId]);
-
-  if (!reservationsData) {
-    return <div>Should redirect to reservation</div>;
-  }
+  if (loading) return <div>Loading...</div>;
 
   return (
     <>
@@ -66,6 +78,7 @@ export default function ReservationDetails() {
             <ReservationInfo
               setToggleDisplay={setToggleDisplay}
               reservationData={reservationData}
+              guestData={guestData}
             />
           )}
           {toggleDisplay === 2 && <GuestInfo guestData={guestData} />}
@@ -73,7 +86,7 @@ export default function ReservationDetails() {
         <div className={styles.controlPanelContainer}>
           {toggleDisplay === 1 ? (
             <ReservationControlPanel
-              reservationId={reservationId}
+              reservationId={id}
               reservationData={reservationData}
             />
           ) : (

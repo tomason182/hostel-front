@@ -1,27 +1,53 @@
 import styles from "../../../styles/Reservations.module.css";
 import { Link } from "react-router-dom";
 import ContentTitle from "../../headers/ContentTitle";
-import { useContext } from "react";
+import { useState } from "react";
 import { format } from "date-fns";
-import { ReservationContext } from "../../../data_providers/ReservationsDataProvider";
 
 function Reservations() {
-  const { reservationsData, setFromDate, setToDate, setFullName } =
-    useContext(ReservationContext);
-
-  /*   console.log(reservationsData); */
+  const [reservationsList, setReservationsList] = useState(null);
 
   const fetchReservationData = e => {
     e.preventDefault();
 
-    setFromDate(e.target.fromDate.value);
-    setToDate(e.target.toDate.value);
-    setFullName(e.target.search?.value ? e.target.search.value : "all");
+    const fromDate = e.target.fromDate.value;
+    const toDate = e.target.toDate.value;
+    const fullName = e.target.search?.value ? e.target.search.value : "all";
+
+    const formattedFormDate = format(fromDate, "yyyyMMdd");
+    const formattedToDate = format(toDate, "yyyyMMdd");
+
+    const url =
+      import.meta.env.VITE_URL_BASE +
+      "reservations/find/" +
+      formattedFormDate +
+      "-" +
+      formattedToDate +
+      "-" +
+      fullName;
+
+    const options = {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    };
+
+    fetch(url, options)
+      .then(response => response.json())
+      .then(data => {
+        setReservationsList(data);
+      })
+      .catch(err =>
+        console.error("Error fetching reservations data", err.message)
+      );
   };
 
   const listItems =
-    reservationsData &&
-    reservationsData.map(reservation => (
+    reservationsList &&
+    reservationsList.map(reservation => (
       <li key={reservation._id}>
         <Link to={reservation._id}>
           {reservation._id.substring(18).toUpperCase()}
