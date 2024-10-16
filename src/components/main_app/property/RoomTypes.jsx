@@ -53,6 +53,7 @@ function RoomTypes() {
       setDeleteError({ msg: err.message || "Unexpected error occurred" });
     } finally {
       setDeleteLoading(false);
+      refreshRoomTypeData();
     }
   }
 
