@@ -15,8 +15,6 @@ export default function RatesAvailabilityCalendar() {
 
   const { roomTypeData, refreshRoomTypeData } = useContext(RoomTypeContext);
 
-  console.log(roomTypeData);
-
   useEffect(() => {
     function handleBulkEditDialogCloseOnEsc(e) {
       if (e.key === "Escape") {
@@ -112,14 +110,17 @@ export default function RatesAvailabilityCalendar() {
 
   // Handle availability when custom availability is set up
   function handleCustomAvailability(reservations, ratesAndAvailabilityObj) {
-    let bookingsCount = 0;
+    let bookingsCount = [];
+    console.log(reservations);
     if (reservations && reservations.length !== undefined) {
-      bookingsCount = reservations.map(
-        r => r.created_At > ratesAndAvailabilityObj.created_At
+      bookingsCount = reservations.filter(
+        r =>
+          new Date(r.updated_At).getTime() >
+          new Date(ratesAndAvailabilityObj.created_At).getTime()
       );
     }
 
-    return bookingsCount;
+    return ratesAndAvailabilityObj.custom_availability - bookingsCount.length;
   }
 
   // Find amount of bookings for certain date
@@ -154,6 +155,8 @@ export default function RatesAvailabilityCalendar() {
                 day,
                 room
               );
+
+              console.log(ratesAndAvailability);
               const occupancy =
                 room.type === "dorm"
                   ? room.max_occupancy * room.inventory
