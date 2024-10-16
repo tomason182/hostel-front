@@ -43,6 +43,11 @@ export default function ChangeReservationDatesAndGuests({
     setLoading(true);
 
     try {
+      const body = {
+        check_in: formData.checkIn,
+        check_out: formData.checkOut,
+        number_of_guest: formData.numberOfGuest,
+      };
       const url =
         import.meta.env.VITE_URL_BASE + "reservations/update-dates-guest/" + id;
       const options = {
@@ -52,7 +57,7 @@ export default function ChangeReservationDatesAndGuests({
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(body),
       };
 
       const { data, errors } = await fetchDataHelper(url, options);
@@ -72,7 +77,8 @@ export default function ChangeReservationDatesAndGuests({
       console.error(err);
       setError([{ msg: err.message || "Unexpected error ocurred" }]);
     } finally {
-      () => refreshData();
+      refreshData();
+      setLoading(false);
     }
   }
   return (
