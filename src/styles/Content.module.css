@@ -1,0 +1,23 @@
+.mainContent {
+  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100lvh;
+  text-align: center;
+}
+
+.mainTitle {
+  border: 1px solid orange;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mainTitle h1 {
+  font-size: 3.5rem;
+  font-family: var(--font-title-main);
+}
+
+.mainTitle span {
+  color: red;
+}

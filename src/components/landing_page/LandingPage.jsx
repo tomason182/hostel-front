@@ -1,10 +1,10 @@
 import Header from "./Header";
-
+import Content from "./Content";
 function LandingPage() {
   return (
     <>
       <Header />
-      <h1>Welcome to the landing page</h1>
+      <Content />
     </>
   );
 }

@@ -7,16 +7,23 @@
 
 @font-face {
   font-family: Inter-Bold;
-  src: url("../assets//fonts/inter/Inter_18pt-Bold.ttf") format("truetype");
+  src: url("../assets/fonts/inter/Inter_18pt-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: Inter-Italic;
-  src: url("../assets//fonts/inter/Inter_18pt-Italic.ttf") format("truetype");
+  src: url("../assets/fonts/inter/Inter_18pt-Italic.ttf") format("truetype");
   font-weight: lighter;
   font-style: italic;
+}
+
+@font-face {
+  font-family: Nerko-One;
+  src: url("../assets/fonts/nerkoOne/NerkoOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 :root {
@@ -51,6 +58,7 @@
   --active-color: #023e8a;
 
   /* Font Family */
+  --font-title-main: "Nerko-One";
   --font-primary: "Inter", sans-serif;
   --font-italic: "Inter-Italic", sans-serif;
   --font-bold: "Inter-Bold", sans-serif;
