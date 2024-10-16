@@ -6,11 +6,13 @@ import fetchDataHelper from "../../../utils/fetchDataHelper.js";
 import ErrorComponent from "../../error_page/ErrorComponent.jsx";
 import RoomTypeFormUpdate from "../../forms/RoomTypeFormUpdate.jsx";
 import RoomTypesFormCreate from "../../forms/RoomTypeFormCreate.jsx";
+import ConfirmationDialog from "../../dialogs/ConfirmationDialog.jsx";
 import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider.jsx";
 
 function RoomTypes() {
   const dialogRef = useRef(null);
   const editRef = useRef(null);
+  const confirmRef = useRef(null);
 
   const { roomTypeData, refreshRoomTypeData } = useContext(RoomTypeContext);
 
@@ -61,6 +63,13 @@ function RoomTypes() {
 
   return (
     <div className={`${styles.mainContainer} main-content`}>
+      <ConfirmationDialog
+        title="Delete Room Type?"
+        description="This action can not been undone. Make sure there are no reservations for this room type"
+        refProps={confirmRef}
+        handleActionFunction={() => handleRoomTypeDelete(selectedRoomType?._id)}
+      />
+
       <dialog ref={dialogRef} className="dialog">
         {isDialogOpen && (
           <>
@@ -125,7 +134,10 @@ function RoomTypes() {
                   type="button"
                   aria-label="delete room type"
                   disabled={deleteLoading}
-                  onClick={() => handleRoomTypeDelete(roomType._id)}
+                  onClick={() => {
+                    handleRoomSelection(roomType._id);
+                    confirmRef?.current.showModal();
+                  }}
                 >
                   Delete
                 </button>
