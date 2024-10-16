@@ -30,6 +30,7 @@ export default function ReservationForm({
       check_out: e.target.checkOut.value,
       number_of_guest: parseInt(e.target.numberOfGuest.value, 10),
       total_price: parseFloat(e.target.totalPrice.value),
+      currency: e.target.currency.value,
       booking_source: e.target.bookingSource.value,
       reservation_status: e.target.reservationStatus.value,
       payment_status: e.target.paymentStatus.value,
@@ -111,6 +112,10 @@ export default function ReservationForm({
             aria-required
             defaultValue={e => e.target.numberOfGuest * 2}
           />
+        </label>
+        <label>
+          Currency
+          <input type="text" name="currency" required aria-required />
         </label>
         <label>
           Booking source
