@@ -14,9 +14,9 @@ export default function Calendar({
   const year = format(startDate, "yyyy");
   const MMM = format(startDate, "MMMM");
 
-  const handleNextBtn = () => setStartDate(add(startDate, { days: 7 }));
+  const handleNextBtn = () => setStartDate(add(startDate, { days: 14 }));
 
-  const handlePrevBtn = () => setStartDate(sub(startDate, { days: 7 }));
+  const handlePrevBtn = () => setStartDate(sub(startDate, { days: 14 }));
 
   // Generate weeks array
 
