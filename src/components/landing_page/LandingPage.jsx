@@ -1,10 +1,10 @@
 import Header from "./Header";
-import Content from "./Content";
+import HomePage from "./HomePage";
 function LandingPage() {
   return (
     <>
       <Header />
-      <Content />
+      <HomePage />
     </>
   );
 }
