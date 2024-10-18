@@ -14,6 +14,7 @@ import Profile from "../components/accounts/Profile.jsx";
 
 import ProtectedRoutes from "../hooks/ProtectedRoutes";
 import isAuthenticated from "../hooks/isAuthenticated.js";
+import Terms from "../components/landing_page/Terms.jsx";
 
 const routes = [
   {
@@ -28,6 +29,10 @@ const routes = [
   {
     path: "/accounts/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/legal/terms-of-use",
+    element: <Terms />,
   },
   {
     element: <ProtectedRoutes isAuthenticated={isAuthenticated} />,

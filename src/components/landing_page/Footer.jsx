@@ -1,4 +1,5 @@
 import styles from "../../styles/Footer.module.css";
+import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <footer className={styles.footer}>
@@ -27,7 +28,9 @@ export default function Footer() {
         <div className={styles.container}>
           <h4>Legal</h4>
           <ul>
-            <li>Terms and Conditions</li>
+            <li>
+              <Link to="/legal/terms-of-use">Terms and Conditions</Link>
+            </li>
             <li>Privacy</li>
           </ul>
         </div>
