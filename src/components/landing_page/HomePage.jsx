@@ -25,7 +25,7 @@ export default function HomePage() {
         <div className={styles.descriptionTitle}>
           <h2>Simplifying Your Hostel&apos;s Daily Operations, Every Day.</h2>
           <p>
-            &ldquo;<span>The Hostel Project</span> is the app I wish I had when
+            &ldquo;<span>Simple Hostel</span> is the app I wish I had when
             managing my own hostel. With an intuitive, user-friendly design,
             we&apos;ve made it easier to simplify your hostel&apos;s daily
             management tasks—saving you time and reducing stress.&rdquo;
@@ -46,7 +46,7 @@ export default function HomePage() {
             <p>
               Managing a small hostel can be challenging, and most management
               systems are too complicated and costly for small operations.
-              <span>The Hostel Project</span> is designed specifically for small
+              <span>Simple Hostel</span> is designed specifically for small
               properties that need a simple, effective way to manage
               reservations, guests, and room availability.
             </p>
@@ -54,7 +54,7 @@ export default function HomePage() {
           <div className={styles.descriptionItem}>
             <h3>What Can You Expect?</h3>
             <p>
-              With <span>The Hostel Project</span>, you can easily organize your
+              With <span>Simple Hostel</span>, you can easily organize your
               reservations, manage rates and availability for each room, access
               guest contact information, and create up to 5 user accounts to
               streamline your team&apos;s workflow.

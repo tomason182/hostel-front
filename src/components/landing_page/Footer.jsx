@@ -2,7 +2,7 @@ import styles from "../../styles/Footer.module.css";
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      <h3>The Hostel Project</h3>
+      <h3>Simple Hostel</h3>
       <p>
         A simple, effective app designed to help small hostels manage
         reservations, rooms, and guests with ease.
@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
       </div>
       <div className={styles.subContent}>
-        <p>© 2024 The Hostel Project. All rights reserved.</p>
+        <p>© 2024 Simple Hostel. All rights reserved.</p>
       </div>
     </footer>
   );

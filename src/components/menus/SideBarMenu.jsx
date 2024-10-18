@@ -65,7 +65,7 @@ export default function SideBarMenu({ setIsClicked }) {
             <path d="M7 7 L23 23 M7 23 L23 7"></path>
           </svg>
         </button>
-        <h3>The Hostel project</h3>
+        <h3>Simple Hostel</h3>
         <Link
           to="/app/property/general-info"
           onClick={() => setIsClicked(false)}

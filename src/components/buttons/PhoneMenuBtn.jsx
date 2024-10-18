@@ -52,7 +52,7 @@ function PhoneMenuBtn() {
               <path d="M7 7 L23 23 M7 23 L23 7"></path>
             </svg>
           </button>
-          <h1>The Hostel Project</h1>
+          <h1>Simple Hostel</h1>
           <Link to="/">Home</Link>
           <Link>Services</Link>
           <Link>Pricing</Link>
