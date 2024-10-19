@@ -81,6 +81,89 @@ export default function Calendar({
     return statusClassName;
   }
 
+  // assigning beds
+
+  const getOverlappingReservations = (
+    currentReservation,
+    sortedReservationsList,
+    roomType
+  ) => {
+    const currentCheckIn = format(currentReservation.check_in, "yyyyMMdd");
+    const currentCheckOut = format(currentReservation.check_out, "yyyyMMdd");
+    // get all overlapping reservations
+    const result = sortedReservationsList.filter(
+      r =>
+        currentCheckIn < format(new Date(r.check_out), "yyyyMMdd") &&
+        currentCheckOut > format(new Date(r.check_in))
+    );
+
+    // If any reservation has a bed assigned, we get it
+    const reservationsWithBeds = result.filter(
+      r => r.assigned_beds.length !== 0
+    );
+
+    const totalBeds = roomType.products.flatMap(product => product.beds);
+
+    const availableBeds = totalBeds.filter(
+      bed =>
+        !reservationsWithBeds.assignedBeds.toString().includes(bed.toString())
+    );
+
+    return availableBeds;
+  };
+
+  const selectBedsForCurrentReservation = (
+    reservation,
+    availableBeds,
+    typeOfRoom
+  ) => {
+    let selectedBeds = [];
+
+    const numberOfGuest =
+      typeOfRoom === "private" ? 1 : reservation.number_of_guest;
+    for (let i = 0; i < numberOfGuest; i++) {
+      selectedBeds.push(availableBeds[i]);
+    }
+
+    return selectedBeds;
+  };
+
+  const bedAssignment = [];
+
+  const dynamicAssigningBeds = (reservationList, roomType) => {
+    const reservationsListSorted = reservationList.sort((a, b) => {
+      return new Date(a.check_in) - new Date(b.check_out);
+    });
+
+    for (const reservation in reservationsListSorted) {
+      if (reservation.assigned_beds.length !== 0) {
+        bedAssignment.push({
+          _id: reservation._id,
+          name: reservation.name,
+          beds: reservation.assigned_beds,
+        });
+      } else {
+        const availableBeds = getOverlappingReservations(
+          reservation,
+          reservationsListSorted,
+          roomType
+        );
+
+        const selectedBeds = selectBedsForCurrentReservation(
+          reservation,
+          availableBeds,
+          roomType.type
+        );
+
+        bedAssignment.push({
+          _id: reservation._id,
+          name: reservation.name,
+          beds: selectedBeds,
+        });
+      }
+    }
+  };
+
   const getReservationDetails = (day, bedId, type = "find") => {
     const currentDate = format(day, "yyyy-MM-dd");
 
