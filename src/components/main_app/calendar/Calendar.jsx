@@ -1,6 +1,6 @@
 import { format, sub, add } from "date-fns";
 import styles from "../../../styles/Calendar.module.css";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 export default function Calendar({
@@ -9,6 +9,132 @@ export default function Calendar({
   startDate,
   setStartDate,
 }) {
+  const [dynamicReservationList, setDynamicReservationsList] = useState([]);
+
+  useEffect(() => {
+    const dynamicAssigningBeds = (reservationList, roomType) => {
+      const reservationsTempList = [];
+
+      const reservationListByRoomType = reservationList.filter(
+        r => r.room_type_id === roomType._id
+      );
+
+      const reservationsListSorted = reservationListByRoomType.sort((a, b) => {
+        return new Date(a.check_in) - new Date(b.check_in);
+      });
+
+      for (const reservation of reservationsListSorted) {
+        if (reservation.assigned_beds.length !== 0) {
+          reservationsTempList.push({ ...reservation });
+        } else {
+          const assignedBedsTemporally = handleBedAssignationTemporally(
+            reservation,
+            reservationListByRoomType,
+            roomType,
+            reservationsTempList
+          );
+          reservationsTempList.push({
+            ...reservation,
+            assigned_beds: assignedBedsTemporally,
+          });
+        }
+      }
+      return reservationsTempList;
+    };
+
+    const handleBedAssignationTemporally = (
+      currentReservation,
+      reservationList,
+      roomType,
+      tempList
+    ) => {
+      const overlappingReservations = getOverlappingReservations(
+        currentReservation,
+        reservationList
+      );
+
+      const overlappingReservationsWithPreviousCheckIn =
+        overlappingReservations.filter(
+          r =>
+            format(r.check_in, "yyyyMMdd") <=
+            format(currentReservation.check_in, "yyyyMMdd")
+        );
+
+      const availableBeds = getAvailableBeds(
+        overlappingReservationsWithPreviousCheckIn,
+        roomType,
+        tempList
+      );
+
+      const numberOfGuest = currentReservation.number_of_guest;
+
+      const assignedBeds = setAssignedBedsToReservation(
+        availableBeds,
+        roomType,
+        numberOfGuest
+      );
+
+      return assignedBeds;
+    };
+
+    const getOverlappingReservations = (
+      currentReservation,
+      reservationList
+    ) => {
+      const currentCheckIn = format(currentReservation.check_in, "yyyyMMdd");
+      const currentCheckOut = format(currentReservation.check_out, "yyyyMMdd");
+      // get all overlapping reservations
+      const result = reservationList.filter(
+        r =>
+          format(r.check_out, "yyyyMMdd") > currentCheckIn &&
+          format(r.check_in, "yyyyMMdd") < currentCheckOut &&
+          r._id !== currentReservation._id
+      );
+
+      return result;
+    };
+
+    const getAvailableBeds = (overlappingReservations, roomType, tempList) => {
+      const overlappingReservationsWithOccupiedBeds = tempList.filter(r =>
+        overlappingReservations.some(overlap => overlap._id === r._id)
+      );
+
+      const occupiedBeds = overlappingReservationsWithOccupiedBeds.flatMap(
+        reservation => reservation.assigned_beds
+      );
+
+      const totalBeds = roomType.products.flatMap(product => product.beds);
+
+      const availableBeds = totalBeds.filter(
+        bed => !occupiedBeds.includes(bed)
+      );
+
+      return availableBeds;
+    };
+
+    const setAssignedBedsToReservation = (beds, roomType, numberOfGuest) => {
+      const assignedBeds = [];
+
+      if (roomType.type === "dorm") {
+        for (let i = 0; i < numberOfGuest; i++) {
+          assignedBeds.push(beds[i]);
+        }
+      } else {
+        assignedBeds.push(beds[0]);
+      }
+
+      return assignedBeds;
+    };
+
+    const tempList = [];
+    for (const roomType of roomTypes) {
+      const list = dynamicAssigningBeds(reservations, roomType);
+      tempList.push(...list);
+    }
+
+    setDynamicReservationsList(tempList);
+  }, [roomTypes, reservations]);
+
   const today = new Date();
   // Formatting year and month
   const year = format(startDate, "yyyy");
@@ -26,19 +152,19 @@ export default function Calendar({
   );
 
   // Helper to format day cells
-  const formatDayCell = (isToday) => ({
+  const formatDayCell = isToday => ({
     fontSize: isToday ? "1.25rem" : "0.75rem",
     color: isToday ? "white" : "#636363",
   });
 
-  const formatDayName = (isToday) => ({
+  const formatDayName = isToday => ({
     fontSize: "0.75rem",
     color: isToday ? "white" : "#7c7c7c",
   });
 
   // Render headers (days of week)
 
-  const daysOfWeek = weeksArray.map((day) => {
+  const daysOfWeek = weeksArray.map(day => {
     const isToday = format(today, "yyyyMMdd") === format(day, "yyyyMMdd");
     return (
       <th
@@ -55,7 +181,8 @@ export default function Calendar({
     );
   });
 
-  if (!reservations || !roomTypes) return <p>Loading...</p>;
+  if (!reservations || !roomTypes || !dynamicReservationList)
+    return <p>Loading...</p>;
 
   // Reservation finding logic
 
@@ -83,120 +210,11 @@ export default function Calendar({
 
   // assigning beds
 
-  const reservationsTempList = [];
-
-  const dynamicAssigningBeds = (reservationList, roomType) => {
-    // First step: order the reservations by check in date.
-    const reservationsListSorted = reservationList.sort((a, b) => {
-      return new Date(a.check_in) - new Date(b.check_out);
-    });
-
-    for (const reservation of reservationsListSorted) {
-      if (reservation.assigned_beds.length !== 0) {
-        reservationsTempList.push({
-          _id: reservation._id,
-          name: reservation.name,
-          beds: reservation.assigned_beds,
-        });
-      } else {
-        const assignedBedsTemporally = handleBedAssignationTemporally(
-          reservation,
-          reservationList,
-          roomType
-        );
-        reservationsTempList.push({
-          _id: reservation._id,
-          name: reservation.name,
-          beds: assignedBedsTemporally,
-        });
-      }
-    }
-  };
-
-  const handleBedAssignationTemporally = (
-    currentReservation,
-    reservationList,
-    roomType
-  ) => {
-    // Obtener las reservas que solapan con la actual
-    const overlappingReservations = getOverlappingReservations(
-      currentReservation,
-      reservationList
-    );
-
-    // Obtener el grupo que solo tienen un check-in anterior o igual.
-    const overlappingReservationsWithPreviousCheckIn =
-      overlappingReservations.filter(
-        (r) =>
-          format(r.check_in, "yyyyMMdd") <=
-          format(currentReservation.check_in, "yyyyMMdd")
-      );
-
-    // Obtener la camas libres.
-    const availableBeds = getAvailableBeds(
-      overlappingReservationsWithPreviousCheckIn,
-      roomType
-    );
-
-    const numberOfGuest = currentReservation.number_of_guest;
-
-    const assignedBeds = setAssignedBedsToReservation(
-      availableBeds,
-      roomType,
-      numberOfGuest
-    );
-  };
-
-  const getOverlappingReservations = (currentReservation, reservationList) => {
-    const currentCheckIn = format(currentReservation.check_in, "yyyyMMdd");
-    const currentCheckOut = format(currentReservation.check_out, "yyyyMMdd");
-    // get all overlapping reservations
-    const result = reservationList.filter(
-      (r) =>
-        format(r.check_out, "yyyyMMdd") > currentCheckIn &&
-        format(r.check_in, "yyyyMMdd") < currentCheckOut
-    );
-
-    return result;
-  };
-
-  const getAvailableBeds = (overlappingReservations, roomType) => {
-    const overlappingReservationsWithOccupiedBeds = reservationsTempList.filter(
-      (r) => overlappingReservations.some((overlap) => overlap._id === r._id)
-    );
-
-    const occupiedBeds = overlappingReservationsWithOccupiedBeds.flatMap(
-      (reservation) => reservation.beds
-    );
-
-    const totalBeds = roomType.products.flatMap((product) => product.beds);
-
-    const availableBeds = totalBeds.filter(
-      (bed) => !occupiedBeds.includes(bed)
-    );
-
-    return availableBeds;
-  };
-
-  const setAssignedBedsToReservation = (beds, roomType, numberOfGuest) => {
-    const assignedBeds = [];
-
-    if (roomType.type === "dorm") {
-      for (let i = 0; i < numberOfGuest; i++) {
-        assignedBeds.push(beds[i]);
-      }
-    } else {
-      assignedBeds.push(beds[0]);
-    }
-
-    return assignedBeds;
-  };
-
   const getReservationDetails = (day, bedId, type = "find") => {
     const currentDate = format(day, "yyyy-MM-dd");
 
-    const reservation = reservations.find(
-      (r) =>
+    const reservation = dynamicReservationList.find(
+      r =>
         r.assigned_beds.includes(bedId) &&
         format(r.check_in, "yyyy-MM-dd") <= currentDate &&
         format(r.check_out, "yyyy-MM-dd") > currentDate
@@ -230,14 +248,14 @@ export default function Calendar({
 
   // rendering list of rooms and their beds with reservations
 
-  const listOfRooms = roomTypes.map((room) => (
+  const listOfRooms = roomTypes.map(room => (
     <Fragment key={`${room._id}-${room.property_id}`}>
       <tr className={styles.roomRow}>
         <th colSpan={17} key={room._id}>
           <p className={styles.roomDescription}>{room.description}</p>
         </th>
       </tr>
-      {room.products.map((product) => (
+      {room.products.map(product => (
         <Fragment key={`${product.beds}-${room._id}`}>
           <tr className={styles.roomRow}>
             <th
