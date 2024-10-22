@@ -26,19 +26,19 @@ export default function Calendar({
   );
 
   // Helper to format day cells
-  const formatDayCell = isToday => ({
+  const formatDayCell = (isToday) => ({
     fontSize: isToday ? "1.25rem" : "0.75rem",
     color: isToday ? "white" : "#636363",
   });
 
-  const formatDayName = isToday => ({
+  const formatDayName = (isToday) => ({
     fontSize: "0.75rem",
     color: isToday ? "white" : "#7c7c7c",
   });
 
   // Render headers (days of week)
 
-  const daysOfWeek = weeksArray.map(day => {
+  const daysOfWeek = weeksArray.map((day) => {
     const isToday = format(today, "yyyyMMdd") === format(day, "yyyyMMdd");
     return (
       <th
@@ -83,7 +83,7 @@ export default function Calendar({
 
   // assigning beds
 
-  const bedAssignment = [];
+  const reservationsTempList = [];
 
   const dynamicAssigningBeds = (reservationList, roomType) => {
     // First step: order the reservations by check in date.
@@ -93,294 +93,263 @@ export default function Calendar({
 
     for (const reservation of reservationsListSorted) {
       if (reservation.assigned_beds.length !== 0) {
-        bedAssignment.push({
+        reservationsTempList.push({
           _id: reservation._id,
           name: reservation.name,
           beds: reservation.assigned_beds,
         });
-      } else if (
-        reservation.assigned_beds.length === 0 &&
-        format(reservation.check_in, "yyyyMMdd") === format(today, "yyyyMMdd")
-      ) {
-        const assignedBeds = handleBedAssignationOnDateBase(
+      } else {
+        const assignedBedsTemporally = handleBedAssignationTemporally(
           reservation,
           reservationList,
           roomType
         );
-      } else {
-        const assignedBeds = handleBedAssignationTemporally();
+        reservationsTempList.push({
+          _id: reservation._id,
+          name: reservation.name,
+          beds: assignedBedsTemporally,
+        });
       }
     }
+  };
 
-    const handleBedAssignationOnDateBase = (
-      currentReservation,
-      reservationList,
-      roomType
-    ) => {
-      // Obtener las reservas que solapan con la actual
-      const overlappingReservations = getOverlappingReservations(
-        currentReservation,
-        reservationList
-      );
-
-      // Obtener el grupo que solo tienen un check in anterior o igual.
-      const overlappingReservationsWithPreviousCheckIn =
-        overlappingReservations.filter(
-          r =>
-            format(r.check_in, "yyyyMMdd") <=
-            format(currentReservation.check_in, "yyyyMMdd")
-        );
-
-      // Obtener la camas libres.
-      const availableBeds = getAvailableBeds();
-    };
-
-    const getOverlappingReservations = (
+  const handleBedAssignationTemporally = (
+    currentReservation,
+    reservationList,
+    roomType
+  ) => {
+    // Obtener las reservas que solapan con la actual
+    const overlappingReservations = getOverlappingReservations(
       currentReservation,
       reservationList
-    ) => {
-      const currentCheckIn = format(currentReservation.check_in, "yyyyMMdd");
-      const currentCheckOut = format(currentReservation.check_out, "yyyyMMdd");
-      // get all overlapping reservations
-      const result = reservationList.filter(
-        r =>
-          format(r.check_out, "yyyyMMdd") > currentCheckIn &&
-          format(r.check_in, "yyyyMMdd") < currentCheckOut
+    );
+
+    // Obtener el grupo que solo tienen un check-in anterior o igual.
+    const overlappingReservationsWithPreviousCheckIn =
+      overlappingReservations.filter(
+        (r) =>
+          format(r.check_in, "yyyyMMdd") <=
+          format(currentReservation.check_in, "yyyyMMdd")
       );
 
-      return result;
-    };
+    // Obtener la camas libres.
+    const availableBeds = getAvailableBeds(
+      overlappingReservationsWithPreviousCheckIn,
+      roomType
+    );
 
-    const getAvailableBeds = (overlappingReservations, roomType) => {
-      const occupiedBedsPermanent = overlappingReservations.flatMap(
-        r => r.assigned_beds
-      );
-      const occupiedBedsTemporally = bedAssignment.filter(r =>
-        overlappingReservations.some(overlap => overlap._id.equals(r._id))
-      );
+    const numberOfGuest = currentReservation.number_of_guest;
 
-      const occupiedBeds = occupiedBedsPermanent.concat(occupiedBedsTemporally);
-
-      const totalBeds = roomType.products.flatMap(product => product.beds);
-
-      const availableBeds = totalBeds.filter(
-        bed => !occupiedBeds.some(occupied => occupied.equals(bed))
-      );
-
-      return availableBeds;
-    };
-
-    const selectBedsForCurrentReservation = (
-      reservation,
+    const assignedBeds = setAssignedBedsToReservation(
       availableBeds,
-      typeOfRoom
-    ) => {
-      let selectedBeds = [];
-
-      const numberOfGuest =
-        typeOfRoom === "private" ? 1 : reservation.number_of_guest;
-      for (let i = 0; i < numberOfGuest; i++) {
-        selectedBeds.push(availableBeds[i]);
-      }
-
-      return selectedBeds;
-    };
-
-    const bedAssignment = [];
-
-    const dynamicAssigningBeds = (reservationList, roomType) => {
-      const reservationsListSorted = reservationList.sort((a, b) => {
-        return new Date(a.check_in) - new Date(b.check_out);
-      });
-
-      for (const reservation in reservationsListSorted) {
-        if (reservation.assigned_beds.length !== 0) {
-          bedAssignment.push({
-            _id: reservation._id,
-            name: reservation.name,
-            beds: reservation.assigned_beds,
-          });
-        } else {
-          const availableBeds = getOverlappingReservations(
-            reservation,
-            reservationsListSorted,
-            roomType
-          );
-
-          const selectedBeds = selectBedsForCurrentReservation(
-            reservation,
-            availableBeds,
-            roomType.type
-          );
-
-          bedAssignment.push({
-            _id: reservation._id,
-            name: reservation.name,
-            beds: selectedBeds,
-          });
-        }
-      }
-    };
-
-    const getReservationDetails = (day, bedId, type = "find") => {
-      const currentDate = format(day, "yyyy-MM-dd");
-
-      const reservation = reservations.find(
-        r =>
-          r.assigned_beds.includes(bedId) &&
-          format(r.check_in, "yyyy-MM-dd") <= currentDate &&
-          format(r.check_out, "yyyy-MM-dd") > currentDate
-      );
-
-      if (
-        !reservation ||
-        (reservation.reservation_status !== "confirmed" &&
-          reservation.reservation_status !== "provisional")
-      )
-        return null;
-
-      const checkIn = format(reservation.check_in, "yyyy-MM-dd");
-      const checkOut = format(reservation.check_out, "yyyy-MM-dd");
-
-      const daysDiff =
-        type === "start"
-          ? Math.abs(parseDate(checkOut) - parseDate(currentDate))
-          : Math.abs(parseDate(checkOut) - parseDate(checkIn));
-
-      const nights = Math.ceil(daysDiff / (1000 * 60 * 60 * 24));
-
-      return {
-        guestName: reservation.guest_info.full_name,
-        checkIn: reservation.check_in,
-        checkOut: reservation.check_out,
-        status: reservation.reservation_status,
-        nights,
-      };
-    };
-
-    // rendering list of rooms and their beds with reservations
-
-    const listOfRooms = roomTypes.map(room => (
-      <Fragment key={`${room._id}-${room.property_id}`}>
-        <tr className={styles.roomRow}>
-          <th colSpan={17} key={room._id}>
-            <p className={styles.roomDescription}>{room.description}</p>
-          </th>
-        </tr>
-        {room.products.map(product => (
-          <Fragment key={`${product.beds}-${room._id}`}>
-            <tr className={styles.roomRow}>
-              <th
-                key={product.room_id}
-                colSpan={2}
-                rowSpan={product.beds.length + 1}
-              >
-                <p className={styles.roomName}>{product.room_name}</p>
-              </th>
-            </tr>
-            {product.beds.map((bed, i) => {
-              let skipDays = 0;
-              return (
-                <tr key={bed} className={styles.rows}>
-                  <th className={styles.beds}>{i + 1}</th>
-                  {weeksArray.map((day, index) => {
-                    if (skipDays > 0) {
-                      skipDays -= 1;
-                      return null;
-                    }
-
-                    const reservationType = index === 0 ? "start" : "find";
-
-                    const reservation = getReservationDetails(
-                      day,
-                      bed,
-                      reservationType
-                    );
-
-                    if (reservation) {
-                      skipDays = reservation.nights - 1;
-                      const colSpan =
-                        index + reservation.nights > weeksArray.length
-                          ? weeksArray.length - index
-                          : reservation.nights;
-                      const statusClassName =
-                        handleReservationClassName(reservation);
-
-                      return (
-                        <td
-                          key={index}
-                          colSpan={colSpan}
-                          className={`${styles.guestName} ${styles[statusClassName]}`}
-                        >
-                          {reservation.guestName}
-                        </td>
-                      );
-                    }
-
-                    return <td key={index}></td>;
-                  })}
-                </tr>
-              );
-            })}
-          </Fragment>
-        ))}
-      </Fragment>
-    ));
-
-    return (
-      <div id={styles.tableContainer}>
-        <table id={styles.calendarTable}>
-          <thead>
-            <tr>
-              <th colSpan={15}>
-                <h3 className={styles.monthDisplay}>
-                  {MMM}&nbsp;
-                  {year}
-                </h3>
-              </th>
-              <th>
-                <button onClick={handlePrevBtn} className={styles.arrowBtn}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="38"
-                    height="38"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M15 18l-6-6 6-6" />
-                  </svg>
-                </button>
-              </th>
-              <th>
-                <button onClick={handleNextBtn} className={styles.arrowBtn}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="38"
-                    height="38"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M9 18l6-6-6-6" />
-                  </svg>
-                </button>
-              </th>
-            </tr>
-            <tr>
-              <th colSpan={3}></th>
-              {daysOfWeek}
-            </tr>
-          </thead>
-          <tbody>{listOfRooms}</tbody>
-        </table>
-      </div>
+      roomType,
+      numberOfGuest
     );
   };
+
+  const getOverlappingReservations = (currentReservation, reservationList) => {
+    const currentCheckIn = format(currentReservation.check_in, "yyyyMMdd");
+    const currentCheckOut = format(currentReservation.check_out, "yyyyMMdd");
+    // get all overlapping reservations
+    const result = reservationList.filter(
+      (r) =>
+        format(r.check_out, "yyyyMMdd") > currentCheckIn &&
+        format(r.check_in, "yyyyMMdd") < currentCheckOut
+    );
+
+    return result;
+  };
+
+  const getAvailableBeds = (overlappingReservations, roomType) => {
+    const overlappingReservationsWithOccupiedBeds = reservationsTempList.filter(
+      (r) => overlappingReservations.some((overlap) => overlap._id === r._id)
+    );
+
+    const occupiedBeds = overlappingReservationsWithOccupiedBeds.flatMap(
+      (reservation) => reservation.beds
+    );
+
+    const totalBeds = roomType.products.flatMap((product) => product.beds);
+
+    const availableBeds = totalBeds.filter(
+      (bed) => !occupiedBeds.includes(bed)
+    );
+
+    return availableBeds;
+  };
+
+  const setAssignedBedsToReservation = (beds, roomType, numberOfGuest) => {
+    const assignedBeds = [];
+
+    if (roomType.type === "dorm") {
+      for (let i = 0; i < numberOfGuest; i++) {
+        assignedBeds.push(beds[i]);
+      }
+    } else {
+      assignedBeds.push(beds[0]);
+    }
+
+    return assignedBeds;
+  };
+
+  const getReservationDetails = (day, bedId, type = "find") => {
+    const currentDate = format(day, "yyyy-MM-dd");
+
+    const reservation = reservations.find(
+      (r) =>
+        r.assigned_beds.includes(bedId) &&
+        format(r.check_in, "yyyy-MM-dd") <= currentDate &&
+        format(r.check_out, "yyyy-MM-dd") > currentDate
+    );
+
+    if (
+      !reservation ||
+      (reservation.reservation_status !== "confirmed" &&
+        reservation.reservation_status !== "provisional")
+    )
+      return null;
+
+    const checkIn = format(reservation.check_in, "yyyy-MM-dd");
+    const checkOut = format(reservation.check_out, "yyyy-MM-dd");
+
+    const daysDiff =
+      type === "start"
+        ? Math.abs(parseDate(checkOut) - parseDate(currentDate))
+        : Math.abs(parseDate(checkOut) - parseDate(checkIn));
+
+    const nights = Math.ceil(daysDiff / (1000 * 60 * 60 * 24));
+
+    return {
+      guestName: reservation.guest_info.full_name,
+      checkIn: reservation.check_in,
+      checkOut: reservation.check_out,
+      status: reservation.reservation_status,
+      nights,
+    };
+  };
+
+  // rendering list of rooms and their beds with reservations
+
+  const listOfRooms = roomTypes.map((room) => (
+    <Fragment key={`${room._id}-${room.property_id}`}>
+      <tr className={styles.roomRow}>
+        <th colSpan={17} key={room._id}>
+          <p className={styles.roomDescription}>{room.description}</p>
+        </th>
+      </tr>
+      {room.products.map((product) => (
+        <Fragment key={`${product.beds}-${room._id}`}>
+          <tr className={styles.roomRow}>
+            <th
+              key={product.room_id}
+              colSpan={2}
+              rowSpan={product.beds.length + 1}
+            >
+              <p className={styles.roomName}>{product.room_name}</p>
+            </th>
+          </tr>
+          {product.beds.map((bed, i) => {
+            let skipDays = 0;
+            return (
+              <tr key={bed} className={styles.rows}>
+                <th className={styles.beds}>{i + 1}</th>
+                {weeksArray.map((day, index) => {
+                  if (skipDays > 0) {
+                    skipDays -= 1;
+                    return null;
+                  }
+
+                  const reservationType = index === 0 ? "start" : "find";
+
+                  const reservation = getReservationDetails(
+                    day,
+                    bed,
+                    reservationType
+                  );
+
+                  if (reservation) {
+                    skipDays = reservation.nights - 1;
+                    const colSpan =
+                      index + reservation.nights > weeksArray.length
+                        ? weeksArray.length - index
+                        : reservation.nights;
+                    const statusClassName =
+                      handleReservationClassName(reservation);
+
+                    return (
+                      <td
+                        key={index}
+                        colSpan={colSpan}
+                        className={`${styles.guestName} ${styles[statusClassName]}`}
+                      >
+                        {reservation.guestName}
+                      </td>
+                    );
+                  }
+
+                  return <td key={index}></td>;
+                })}
+              </tr>
+            );
+          })}
+        </Fragment>
+      ))}
+    </Fragment>
+  ));
+
+  return (
+    <div id={styles.tableContainer}>
+      <table id={styles.calendarTable}>
+        <thead>
+          <tr>
+            <th colSpan={15}>
+              <h3 className={styles.monthDisplay}>
+                {MMM}&nbsp;
+                {year}
+              </h3>
+            </th>
+            <th>
+              <button onClick={handlePrevBtn} className={styles.arrowBtn}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="38"
+                  height="38"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+            </th>
+            <th>
+              <button onClick={handleNextBtn} className={styles.arrowBtn}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="38"
+                  height="38"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </th>
+          </tr>
+          <tr>
+            <th colSpan={3}></th>
+            {daysOfWeek}
+          </tr>
+        </thead>
+        <tbody>{listOfRooms}</tbody>
+      </table>
+    </div>
+  );
 }
 
 Calendar.propTypes = {
