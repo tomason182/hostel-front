@@ -18,17 +18,22 @@
 
 .guestInfo button {
   background: none;
+  color: var(--text-color-light-2);
+  font-size: var(--font-size-xs);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
   margin: 0;
 }
 
 .guestInfo button:hover {
   background: none;
-  transform: scale(1.25);
+  border-color: var(--info-color);
+  color: var(--info-color);
 }
 
 .one dt {
-  font-size: var(--font-size-small);
-  color: var(--text-color-light);
+  font-size: var(--font-size-xs);
+  color: var(--text-color-light-2);
   margin: 0.5rem 0;
 }
 
@@ -42,11 +47,6 @@
   font-size: var(--font-size-large);
 }
 
-/* .two dl {
-  padding-left: 0.5rem;
-  padding-right: 5rem;
-} */
-
 .two dt {
   font-family: var(--font-bold);
   font-size: var(--font-size-small);
@@ -55,8 +55,6 @@
 .two dd {
   text-align: right;
   font-size: calc(var(--font-size-small) * 0.85);
-  color: var(--text-color-dark);
-  /* padding: 0rem 1rem 0.25rem 0; */
-  margin-bottom: 0.5rem;
+  color: var(--text-color);
   border-bottom: 1px solid var(--border-color);
 }

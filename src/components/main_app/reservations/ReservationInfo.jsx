@@ -12,28 +12,14 @@ export default function ReservationInfo({
   const arrivalDate = format(reservationData.check_in, "yyyy-MM-dd");
   const departureDate = format(reservationData.check_out, "yyyy-MM-dd");
   const fullName = guestData.first_name + " " + guestData.last_name;
+  const totalPrice = Number.parseFloat(reservationData.total_price).toFixed(2);
 
   return (
     <div className={styles.reservationDetails}>
       <div className={styles.one}>
         <div className={styles.guestInfo}>
           <h3>{fullName}</h3>
-          <button onClick={() => setToggleDisplay(2)}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#000000"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-              <circle cx="12" cy="12" r="3"></circle>
-            </svg>
-          </button>
+          <button onClick={() => setToggleDisplay(2)}>Guest Info</button>
         </div>
         <dl>
           <dt>Arrival:</dt>
@@ -82,7 +68,7 @@ export default function ReservationInfo({
           <dt>Number of guests</dt>
           <dd>{reservationData.number_of_guest}</dd>
           <dt>Total price</dt>
-          <dd>$&nbsp;{reservationData.total_price}</dd>
+          <dd>$&nbsp;{totalPrice}</dd>
           <dt>Reservation Status</dt>
           <dd>{reservationData.reservation_status}</dd>
           <dt>Payment Status</dt>
