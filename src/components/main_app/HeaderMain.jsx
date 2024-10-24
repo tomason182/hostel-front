@@ -11,7 +11,8 @@ function HeaderMain() {
 
   return (
     <header className={styles.header}>
-      <h1>Booquing.com</h1>
+      <h1>Simple Hostel.</h1>
+
       <MainSearch />
       <div className={styles.info}>
         <div className={styles.hostelInfo}>

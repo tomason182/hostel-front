@@ -26,6 +26,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: Typewriter;
+  src: url("../assets//fonts/typewriter/JMH\ Typewriter-Thin.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-size: normal;
+}
+
 :root {
   /* Primary Colors */
   --primary-color: #284b63;
@@ -58,7 +66,7 @@
   --active-color: #023e8a;
 
   /* Font Family */
-  --font-title-main: "Nerko-One";
+  --font-title-main: "Typewriter";
   --font-primary: "Inter", sans-serif;
   --font-italic: "Inter-Italic", sans-serif;
   --font-bold: "Inter-Bold", sans-serif;
