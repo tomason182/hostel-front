@@ -47,24 +47,28 @@ function Reservations() {
 
   const listItems =
     reservationsList &&
-    reservationsList.map(reservation => (
-      <li key={reservation._id}>
-        <Link to={reservation._id}>
-          {reservation._id.substring(18).toUpperCase()}
-        </Link>
-        <p>{reservation.guest_info.full_name}</p>
-        <p className={styles.dates}>
-          {format(reservation.check_in, "yyyy-MM-dd")}
-        </p>
-        <p className={styles.dates}>
-          {format(reservation.check_out, "yyyy-MM-dd")}
-        </p>
-        <p className={styles.prices}>$&nbsp;{reservation.total_price}</p>
-      </li>
-    ));
+    reservationsList.map(reservation => {
+      const price = Number.parseFloat(reservation.total_price).toFixed(2);
+
+      return (
+        <li key={reservation._id}>
+          <Link to={reservation._id}>
+            {reservation._id.substring(18).toUpperCase()}
+          </Link>
+          <p>{reservation.guest_info.full_name}</p>
+          <p className={styles.dates}>
+            {format(reservation.check_in, "yyyy-MM-dd")}
+          </p>
+          <p className={styles.dates}>
+            {format(reservation.check_out, "yyyy-MM-dd")}
+          </p>
+          <p className={styles.prices}>$&nbsp;{price}</p>
+        </li>
+      );
+    });
 
   return (
-    <div className="main-content">
+    <div className={styles.mainContent}>
       <ContentTitle title={"Reservations"} />
       <form className={styles.form} onSubmit={fetchReservationData}>
         <label>

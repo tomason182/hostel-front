@@ -1,3 +1,7 @@
+.mainContent ul {
+  padding: 0rem 5rem 0rem 2rem;
+}
+
 .form {
   margin-top: 1rem;
   padding-left: 1rem;
@@ -41,9 +45,9 @@
 }
 
 .reservationsList li {
-  display: flex;
-  justify-content: space-between;
-  max-width: 60rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
   border-top: 1px solid var(--border-color);
   padding: 0.5rem 1rem;
   font-size: var(--font-size-small);
@@ -70,7 +74,6 @@
 
 .dates {
   text-align: center;
-  font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 830px) {
