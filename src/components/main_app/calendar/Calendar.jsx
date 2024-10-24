@@ -252,13 +252,25 @@ export default function Calendar({
               colSpan={2}
               rowSpan={product.beds.length + 1}
             >
-              <p className={styles.roomName}>{product.room_name}</p>
+              <p className={styles.roomName}>
+                {product.room_name}
+                {room.type === "dorm" ? (
+                  <span>Dorm</span>
+                ) : (
+                  <span>Private</span>
+                )}
+              </p>
             </th>
           </tr>
           {product.beds.map((bed, i) => {
             let skipDays = 0;
             return (
-              <tr key={bed} className={styles.rows}>
+              <tr
+                key={bed}
+                className={
+                  room.type === "dorm" ? styles.rows : styles.rowsPrivate
+                }
+              >
                 <th className={styles.beds}>{i + 1}</th>
                 {weeksArray.map((day, index) => {
                   if (skipDays > 0) {

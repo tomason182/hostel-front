@@ -42,37 +42,54 @@
 
 .roomDescription {
   font-size: small;
+  text-align: center;
   color: var(--text-color);
+  /*  background-color: #dedede; */
+  padding: 0.25rem 0;
 }
 
 .rows {
+  height: 1.8rem;
+}
+
+.rowsPrivate {
   height: 2.2rem;
 }
 
 .roomName {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
   font-size: small;
   color: var(--text-color-light-2);
 }
 
+.roomName > span {
+  font-size: xx-small;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  padding: 0.2rem;
+}
+
 .beds {
-  border-top: 1px solid var(--border-color);
-  border-right: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
   font-size: small;
   color: var(--text-color-light-2);
 }
 
-.roomRow,
-.roomRow th {
-  border-bottom: 2px solid var(--border-color-dark);
+tr:has(th > p.roomDescription),
+tr:has(th > p.roomDescription) + tr {
+  border-bottom: 2px solid;
+  border-top: 2px solid;
+  border-color: var(--border-color);
 }
 
-.roomRow th:first-child {
-  border-top: 2px solid var(--border-color-dark);
+.rows:last-child {
+  border-bottom: 2px solid var(--border-color);
 }
 
-#tableContainer tr:last-child {
-  border-bottom: 2px solid var(--border-color-dark);
+tr.rows + tr:not(.rows) {
+  border-top: 2px solid var(--border-color);
 }
 
 .roomInfo {
@@ -87,7 +104,7 @@
   font-family: var(--font-primary);
   color: #fff;
   padding-left: 0.75rem;
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-xs);
 }
 
 .confirmed {
