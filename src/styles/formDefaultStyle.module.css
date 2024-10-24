@@ -18,14 +18,15 @@
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1rem;
   margin: 0;
+  border-style: solid;
+  border-color: #dedede;
 }
 
 .mainForm fieldset legend {
-  border: 1px solid #333;
   padding: 0.1rem 0.5rem;
   font-family: var(--font-bold);
   color: #fff;
-  background-color: var(--text-color-dark);
+  background-color: var(--secondary-color-dark);
   font-size: var(--font-size-xs);
 }
 
