@@ -175,7 +175,7 @@ export default function ReservationControlPanel({
         </div>
       </dialog>
       <button
-        className={styles.btnCancel}
+        className={styles.btnNoShow}
         onClick={() => noShowDialogRef?.current.showModal()}
       >
         Mark as no-show
