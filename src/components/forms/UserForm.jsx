@@ -65,55 +65,55 @@ export default function UserForm({
   }
   return (
     <form className={styles.mainForm} onSubmit={handleSubmit}>
-      <label htmlFor="username">User&#39;s Email</label>
-      <input
-        type="email"
-        id="username"
-        name="username"
-        minLength={3}
-        maxLength={50}
-        required
-        aria-required
-      />
-      <label htmlFor="firstName">First Name</label>
-      <input
-        type="text"
-        id="firstName"
-        name="firstName"
-        minLength={2}
-        maxLength={50}
-        required
-        aria-required
-      />
-      <label htmlFor="lastName">Last Name</label>
-      <input
-        type="text"
-        id="lastName"
-        name="lastName"
-        minLength={2}
-        maxLength={50}
-      />
-      <label htmlFor="password">Password</label>
-      <input type="password" name="password" id="password" />
+      <label>
+        User&#39;s Email
+        <input
+          type="email"
+          name="username"
+          minLength={3}
+          maxLength={50}
+          required
+          aria-required
+        />
+      </label>
+      <label>
+        First Name
+        <input
+          type="text"
+          name="firstName"
+          minLength={2}
+          maxLength={50}
+          required
+          aria-required
+        />
+      </label>
+      <label>
+        Last Name
+        <input type="text" name="lastName" minLength={2} maxLength={50} />
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" />
+      </label>
       <fieldset>
         <legend>Select a role for the user</legend>
         <div className={styles.radioContainer}>
-          <label htmlFor="admin">Admin</label>
-          <input type="radio" id="admin" name="role" value="admin" />
+          <label>
+            Admin
+            <input type="radio" name="role" value="admin" />
+          </label>
         </div>
         <div className={styles.radioContainer}>
-          <label htmlFor="manager">Manager</label>
-          <input type="radio" id="manager" name="role" value="manager" />
+          <label>
+            Manager
+            <input type="radio" name="role" value="manager" />
+          </label>
         </div>
         <div className={styles.radioContainer}>
-          <label htmlFor="employee">Employee</label>
-          <input
-            type="radio"
-            id="employee"
-            name="role"
-            value="employee"
-            defaultChecked
-          />
+          <label>
+            Employee
+            <input type="radio" name="role" value="employee" defaultChecked />
+          </label>
         </div>
       </fieldset>
       <menu className={styles.buttonContainer}>

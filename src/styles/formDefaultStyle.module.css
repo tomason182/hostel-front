@@ -53,17 +53,22 @@
   margin-bottom: 0.3rem;
 }
 
+.radioContainer > label {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .mainForm input[type="radio"] {
   appearance: none;
   padding: 0;
   border-radius: 50%;
   width: 16px;
   height: 16px;
-
   border: 2px solid #999;
   transition: 0.2s all linear;
-
   position: relative;
+  float: right;
 }
 
 .mainForm input[type="radio"]:checked {
