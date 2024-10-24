@@ -4,7 +4,7 @@
   justify-content: space-between;
   padding: 0.5rem 2rem;
   /* border-bottom: 1px solid var(--border-color); */
-  background-color: var(--second-background);
+  background-color: var(--background-color);
 }
 
 .header > h1 {
@@ -20,7 +20,7 @@
 
 .hostelInfo h3,
 .hostelInfo p {
-  color: var(--text-color-dark);
+  color: var(--text-color);
 }
 
 .hostelInfo h3 {
