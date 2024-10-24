@@ -1,7 +1,7 @@
 .mainForm {
-  min-width: 25rem;
+  max-width: 32rem;
   margin: 0;
-  padding: 1rem 2rem;
+  padding: 1rem;
   background-color: inherit;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1rem;
-  margin: 1rem 0;
+  margin: 0;
 }
 
 .mainForm fieldset legend {
@@ -101,6 +101,7 @@
 
 .mainForm select {
   width: 100%;
+  margin-top: 0.25rem;
   padding: 0.25rem 0.5rem;
   appearance: none;
   color: black;
@@ -114,4 +115,10 @@
   background-color: #fff;
   color: black;
   width: 100%;
+}
+
+@media (max-width: 984px) {
+  .mainForm {
+    padding: 0;
+  }
 }
