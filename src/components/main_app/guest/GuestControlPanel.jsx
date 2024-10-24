@@ -29,7 +29,7 @@ export default function GuestControlPanel({ guestData, setToggleDisplay }) {
         >
           Update Guest Information
         </button>
-        <button className={styles.btnLarge}>Delete Guest</button>
+        <button className={styles.btnDeleteGuest}>Delete Guest</button>
         <Link
           className={styles.goBackLink}
           to="#"

@@ -12,7 +12,7 @@ export default function GuestInfo({ guestData }) {
           <dl>
             <dt>Name</dt>
             <dd>{guestData.first_name + " " + guestData.last_name}</dd>
-            <dt>Passport number or Id</dt>
+            <dt>Passport or Id number</dt>
             <dd>{guestData.id_number ? guestData.id_number : "N/A"}</dd>
           </dl>
         </div>
