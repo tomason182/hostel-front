@@ -1,5 +1,5 @@
 .mainForm {
-  max-width: 32rem;
+  min-width: 25rem;
   margin: 0;
   padding: 1rem 2rem;
   background-color: inherit;
@@ -30,13 +30,14 @@
 }
 
 .mainForm label {
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-small);
   color: var(--text-color-dark);
 }
 
 .mainForm input {
   width: 100%;
   padding: 0.35rem 0.5rem;
+  margin-top: 0.25rem;
   border-radius: var(--border-radius-large);
   border-color: var(--border-color);
   color: var(--text-color-light-2);
