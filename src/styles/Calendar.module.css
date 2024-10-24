@@ -41,11 +41,10 @@
 }
 
 .roomDescription {
-  font-size: small;
+  font-size: x-small;
   text-align: center;
-  color: var(--text-color);
-  /*  background-color: #dedede; */
-  padding: 0.25rem 0;
+  color: var(--text-color-light-2);
+  padding: 0rem 0;
 }
 
 .rows {
