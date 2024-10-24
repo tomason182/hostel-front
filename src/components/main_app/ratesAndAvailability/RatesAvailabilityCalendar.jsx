@@ -205,7 +205,13 @@ export default function RatesAvailabilityCalendar() {
                     </div>
                     <div className={styles.dlContainer}>
                       <dt>Status</dt>
-                      <dd>{availability === 0 ? "Close" : "Open"}</dd>
+                      <dd
+                        className={`${styles.status} ${
+                          availability === 0 ? styles.close : styles.open
+                        }`}
+                      >
+                        {availability === 0 ? "Close" : "Open"}
+                      </dd>
                     </div>
                   </dl>
                 </div>

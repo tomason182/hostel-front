@@ -48,9 +48,9 @@
 
 .roomsContainer {
   min-height: 3rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
   padding: 1rem;
 }
 
@@ -61,7 +61,6 @@
 
 .roomTypeContainer {
   border: 1px solid #ccc;
-  min-width: 230px;
   padding: 1rem;
 }
 
@@ -73,9 +72,22 @@
 .dlContainer {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-color);
   padding: 0.5rem;
 }
 
-.bulkEditBtn {
+.status {
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 0.15rem 0.25rem;
+}
+
+.close {
+  border-color: red;
+  color: red;
+}
+
+.open {
+  border-color: green;
+  color: green;
 }
