@@ -5,7 +5,6 @@ export default function ContentTitle({ title }) {
   return (
     <>
       <h3 className={styles.dashboardTitles}>{title}</h3>
-      <hr className={styles.solidBreakLine} />
     </>
   );
 }
