@@ -41,6 +41,20 @@
   justify-content: space-between;
 }
 
+.btnMenu > button {
+  background-color: #fff;
+  border: 1px solid var(--error-color);
+  border-radius: 5px;
+  color: var(--error-color);
+  font-size: small;
+}
+
+.btnMenu > button:hover {
+  background-color: var(--error-color);
+  opacity: 0.6;
+  color: #fff;
+}
+
 .editBtn {
   background: none;
   cursor: pointer;
@@ -50,6 +64,10 @@
   stroke: #000;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.editBtn:hover {
+  opacity: 0.5;
 }
 
 #dialog::backdrop {
