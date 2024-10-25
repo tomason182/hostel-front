@@ -1,0 +1,39 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.mainContainer h1 {
+  font-size: var(--font-size-h1);
+  margin-bottom: 1rem;
+}
+
+.mainContainer p {
+  margin-bottom: 2rem;
+}
+
+.contactContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 1rem;
+  box-shadow: var(--box-shadow-large);
+}
+
+.contactContainer h3 {
+  font-size: var(--font-size-large);
+}
+
+.contactContainer p {
+  font-size: var(--font-size-small);
+  margin-bottom: 1rem;
+}
+
+.contactContainer address {
+  color: var(--info-color);
+}

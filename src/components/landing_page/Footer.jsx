@@ -15,14 +15,15 @@ export default function Footer() {
           <ul>
             <li>About</li>
             <li>Team</li>
-            <li>Services</li>
           </ul>
         </div>
         <div className={styles.container}>
           <h4>Support</h4>
           <ul>
             <li>FAQ</li>
-            <li>Contact us</li>
+            <li>
+              <Link to="/contact-us">Contact us</Link>
+            </li>
           </ul>
         </div>
         <div className={styles.container}>

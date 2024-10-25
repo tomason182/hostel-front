@@ -16,6 +16,7 @@ import ProtectedRoutes from "../hooks/ProtectedRoutes";
 import isAuthenticated from "../hooks/isAuthenticated.js";
 import Terms from "../components/landing_page/Terms.jsx";
 import Notifications from "../components/notifications/Notifications.jsx";
+import ContactUs from "../components/landing_page/ContactUs.jsx";
 
 const routes = [
   {
@@ -34,6 +35,10 @@ const routes = [
   {
     path: "/legal/terms-of-use",
     element: <Terms />,
+  },
+  {
+    path: "/contact-us",
+    element: <ContactUs />,
   },
   {
     element: <ProtectedRoutes isAuthenticated={isAuthenticated} />,
