@@ -109,18 +109,6 @@ export default function UserUpdateForm({
         <legend>Change user role?</legend>
         <div className={styles.radioContainer}>
           <label>
-            Admin
-            <input
-              type="radio"
-              name="role"
-              value="admin"
-              checked={role === "admin"}
-              onChange={e => setRole(e.target.value)}
-            />
-          </label>
-        </div>
-        <div className={styles.radioContainer}>
-          <label>
             Manager
             <input
               type="radio"
