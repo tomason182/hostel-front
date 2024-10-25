@@ -99,12 +99,6 @@ export default function UserForm({
         <legend>Select a role for the user</legend>
         <div className={styles.radioContainer}>
           <label>
-            Admin
-            <input type="radio" name="role" value="admin" />
-          </label>
-        </div>
-        <div className={styles.radioContainer}>
-          <label>
             Manager
             <input type="radio" name="role" value="manager" />
           </label>
