@@ -45,6 +45,11 @@
   font-size: var(--font-size-small);
 }
 
+.mainForm input::placeholder {
+  color: #ccc;
+  font-size: small;
+}
+
 .radioContainer {
   display: flex;
   justify-content: space-between;
@@ -56,7 +61,7 @@
 .radioContainer > label {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 70%;
 }
 
 .mainForm input[type="radio"] {
@@ -121,6 +126,54 @@
   background-color: #fff;
   color: black;
   width: 100%;
+}
+
+.infoLabel {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+.tooltipContainer {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  width: 10rem;
+  background-color: #ccc;
+  color: #333;
+  border-radius: 4px;
+  padding: 5px;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ccc transparent transparent transparent;
+}
+
+.tooltipContainer:hover .tooltip,
+.tooltipContainer:focus-within .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.infoIcon {
+  stroke: var(--info-color);
 }
 
 @media (max-width: 984px) {
