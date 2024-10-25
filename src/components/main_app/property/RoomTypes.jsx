@@ -7,14 +7,21 @@ import ErrorComponent from "../../error_page/ErrorComponent.jsx";
 import RoomTypeFormUpdate from "../../forms/RoomTypeFormUpdate.jsx";
 import RoomTypesFormCreate from "../../forms/RoomTypeFormCreate.jsx";
 import ConfirmationDialog from "../../dialogs/ConfirmationDialog.jsx";
+import PermissionsDialog from "../../dialogs/PermissionsDialog.jsx";
 import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider.jsx";
+import { UserProfileContext } from "../../../data_providers/UserProfileProvider.jsx";
 
 function RoomTypes() {
   const dialogRef = useRef(null);
   const editRef = useRef(null);
   const confirmRef = useRef(null);
+  const permissionsRef = useRef(null);
 
   const { roomTypeData, refreshRoomTypeData } = useContext(RoomTypeContext);
+  const { userProfile } = useContext(UserProfileContext);
+
+  const role = userProfile.user_info.role;
+  const roleDenied = "employee";
 
   const [selectedRoomType, setSelectedRoomType] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -69,6 +76,7 @@ function RoomTypes() {
         refProps={confirmRef}
         handleActionFunction={() => handleRoomTypeDelete(selectedRoomType?._id)}
       />
+      <PermissionsDialog refProps={permissionsRef} />
 
       <dialog ref={dialogRef} className="dialog">
         {isDialogOpen && (
@@ -106,7 +114,7 @@ function RoomTypes() {
       <CreateBtn
         title={"Create Room Type"}
         setIsDialogOpen={setIsDialogOpen}
-        refProps={dialogRef}
+        refProps={role === roleDenied ? permissionsRef : dialogRef}
       />
       <div className={styles.roomTypesContainer}>
         {roomTypeData.length === 0 ? (
@@ -136,7 +144,11 @@ function RoomTypes() {
                   disabled={deleteLoading}
                   onClick={() => {
                     handleRoomSelection(roomType._id);
-                    confirmRef?.current.showModal();
+                    {
+                      role === roleDenied
+                        ? permissionsRef?.current.showModal()
+                        : confirmRef?.current.showModal();
+                    }
                   }}
                 >
                   Delete
@@ -148,7 +160,11 @@ function RoomTypes() {
                   onClick={() => {
                     setIsDialogOpen(true);
                     handleRoomSelection(roomType._id);
-                    editRef.current?.showModal();
+                    {
+                      role === roleDenied
+                        ? permissionsRef?.current.showModal()
+                        : editRef.current?.showModal();
+                    }
                   }}
                 >
                   <svg

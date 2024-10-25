@@ -12,14 +12,17 @@ import UserUpdateForm from "../../forms/UserUpdateFrom";
 // Import data providers
 import { PropertyContext } from "../../../data_providers/PropertyDetailsProvider";
 import { UsersContext } from "../../../data_providers/UsersDataProvider";
+import { UserProfileContext } from "../../../data_providers/UserProfileProvider";
 import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider";
 import MessageDialog from "../../dialogs/MessageDialog";
+import PermissionsDialog from "../../dialogs/PermissionsDialog";
 
 function GeneralInfo() {
   const propertyDialogRef = useRef(null);
   const userDialogRef = useRef(null);
   const userUpdateDialogRef = useRef(null);
   const messageDialogRef = useRef(null);
+  const permissionsRef = useRef(null);
   const [message, setMessage] = useState(null);
   const [status, setStatus] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -28,6 +31,7 @@ function GeneralInfo() {
   const { propertyData, refreshPropertyData } = useContext(PropertyContext);
   const { usersData, refreshUsersData } = useContext(UsersContext);
   const { roomTypeData } = useContext(RoomTypeContext);
+  const { userProfile } = useContext(UserProfileContext);
 
   useEffect(() => {
     function handleGeneralInfoDialogCloseOnEsc(e) {
@@ -45,6 +49,9 @@ function GeneralInfo() {
     }
   }, [isDialogOpen]);
 
+  const role = userProfile.user_info.role;
+  const roleDenied = "employee";
+
   return (
     <div className="main-content">
       <ContentTitle title={"General info"} />
@@ -54,6 +61,7 @@ function GeneralInfo() {
           status={status}
           refProps={messageDialogRef}
         />
+        <PermissionsDialog refProps={permissionsRef} />
         <dialog ref={propertyDialogRef} className="dialog">
           {isDialogOpen && (
             <>
@@ -123,7 +131,11 @@ function GeneralInfo() {
             className={styles.editBtn}
             onClick={() => {
               setIsDialogOpen(true);
-              propertyDialogRef.current?.showModal();
+              {
+                role === roleDenied
+                  ? permissionsRef?.current.showModal()
+                  : propertyDialogRef.current?.showModal();
+              }
             }}
           >
             Edit
@@ -154,6 +166,8 @@ function GeneralInfo() {
               setMessage={setMessage}
               setStatus={setStatus}
               refreshUsersData={refreshUsersData}
+              role={role}
+              permissionsProps={permissionsRef}
             />
           )}
 
@@ -161,7 +175,11 @@ function GeneralInfo() {
             className={styles.editBtn}
             onClick={() => {
               setIsDialogOpen(true);
-              userDialogRef.current?.showModal();
+              {
+                role === roleDenied
+                  ? permissionsRef?.current.showModal()
+                  : userDialogRef?.current.showModal();
+              }
             }}
           >
             Add user

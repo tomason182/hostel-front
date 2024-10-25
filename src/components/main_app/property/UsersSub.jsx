@@ -12,10 +12,14 @@ export default function UsersSub({
   setMessage,
   setStatus,
   refreshUsersData,
+  role,
+  permissionsProps,
 }) {
   const deleteUserRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState(null);
+
+  const roleDenied = "employee";
 
   async function handleUserDelete() {
     setLoading(true);
@@ -86,7 +90,11 @@ export default function UsersSub({
                 role: user.role,
               });
               setIsDialogOpen(true);
-              refProps.current?.showModal();
+              {
+                role === roleDenied
+                  ? permissionsProps?.current.showModal()
+                  : refProps.current?.showModal();
+              }
             }}
           >
             <svg
@@ -108,7 +116,11 @@ export default function UsersSub({
             disabled={loading}
             onClick={() => {
               setUserId(user._id);
-              deleteUserRef?.current.showModal();
+              {
+                role === roleDenied
+                  ? permissionsProps?.current.showModal()
+                  : deleteUserRef?.current.showModal();
+              }
             }}
           >
             <svg
@@ -156,4 +168,6 @@ UsersSub.propTypes = {
   setMessage: PropTypes.func.isRequired,
   setStatus: PropTypes.func.isRequired,
   refreshUsersData: PropTypes.func,
+  role: PropTypes.string.isRequired,
+  permissionsProps: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
 };
