@@ -54,3 +54,7 @@
 .btnMenu button svg {
   stroke: var(--muted-color);
 }
+
+.hidden {
+  visibility: hidden;
+}

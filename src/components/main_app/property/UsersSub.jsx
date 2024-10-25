@@ -77,6 +77,7 @@ export default function UsersSub({
         </div>
         <div className={styles.btnMenu}>
           <button
+            className={user.role === "admin" ? styles.hidden : ""}
             onClick={() => {
               setUserValues({
                 userId: user._id,
@@ -103,6 +104,7 @@ export default function UsersSub({
             </svg>
           </button>
           <button
+            className={user.role === "admin" ? styles.hidden : ""}
             disabled={loading}
             onClick={() => {
               setUserId(user._id);
