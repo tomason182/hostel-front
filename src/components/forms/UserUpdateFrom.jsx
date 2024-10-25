@@ -134,6 +134,7 @@ export default function UserUpdateForm({
       </fieldset>
       <menu className={styles.buttonContainer}>
         <button
+          className={styles.resetBtn}
           type="button"
           disabled={loading}
           onClick={() => {
@@ -143,7 +144,7 @@ export default function UserUpdateForm({
         >
           Cancel
         </button>
-        <button type="submit" disabled={loading}>
+        <button className={styles.submitBtn} type="submit" disabled={loading}>
           Update user
         </button>
       </menu>
