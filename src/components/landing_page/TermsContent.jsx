@@ -301,12 +301,43 @@ export default function TermsContent() {
         claim. If you use the Service free of charge, SimpleHostel&apos;s
         liability is limited to the fullest extent allowed by applicable law.
       </p>
-      <h4>9. Governing Law</h4>
+      <h4>8. Governing Law</h4>
       <p>
         These Terms of Service, as well as any disputes arising from or relating
         to the use of SimpleHostel, will be governed by and construed in
-        accordance with the laws of Argentina, without regard to its conflict of
-        law principles.
+        accordance with the laws of Buenos Aires province, Argentina, without
+        regard to its conflict of law principles.
+      </p>
+      <p>
+        By using SimpleHostel, you agree that any legal action or proceeding
+        arising out of or related to these Terms or your use of the Service
+        shall be brought exclusively in the courts of Buenos Aires Province,
+        Argentina. You hereby consent to the jurisdiction of and venue in such
+        courts and waive any objection as to inconvenient forum.
+      </p>
+      <p>
+        If any provision of these Terms is found to be invalid or unenforceable
+        by a court of competent jurisdiction, the remaining provisions will
+        continue to be in full force and effect.
+      </p>
+      <h4>9. Contact Information</h4>
+      <p>
+        If you have any questions, concerns, or feedback regarding these Terms
+        of Service or your use of SimpleHostel, please feel free to reach out to
+        us. We&apos;re here to help and ensure that your experience with our
+        platform is smooth and satisfactory.
+      </p>
+      <ul>
+        <li>Email:support@simplehostel.com</li>
+        <li>Mailing Address: SimpleHostel Support</li>
+        <li>alguna calle 123</li>
+        <li>Azul, Buenos Aires, 7300</li>
+        <li>Argentina</li>
+      </ul>
+      <p>
+        We aim to respond to all inquiries within a reasonable timeframe. Your
+        feedback is valuable to us, and we encourage you to share any comments
+        or suggestions for improvement.
       </p>
     </div>
   );
