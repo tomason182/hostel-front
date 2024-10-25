@@ -18,7 +18,6 @@ function NavigationMenu() {
   return (
     <nav className={styles.nav} role="navigation">
       <Link to="/">Home</Link>
-      <Link to="#">Services</Link>
       <Link to="#">Pricing</Link>
       <Link to="/contact-us">Contact</Link>
       <Link to="#">About us</Link>

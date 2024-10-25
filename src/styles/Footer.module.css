@@ -2,7 +2,7 @@
   position: relative;
   padding: 1rem 2rem;
   background-color: var(--second-background);
-  margin: 0 auto;
+  margin-top: 2rem;
 }
 
 .footer > h3 {
