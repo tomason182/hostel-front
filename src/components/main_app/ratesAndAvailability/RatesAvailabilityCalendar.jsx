@@ -4,14 +4,17 @@ import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider";
 import { useState, useContext, useEffect, useRef } from "react";
 import RatesAndAvailabilityForm from "../../forms/RatesAndAvailabilityForm";
 import DialogHeader from "../../dialogs/DialogHeader";
+import PermissionsDialog from "../../dialogs/PermissionsDialog";
+import PropTypes from "prop-types";
 
-export default function RatesAvailabilityCalendar() {
+export default function RatesAvailabilityCalendar({ role }) {
   const today = new Date();
   const [startDate, setStartDate] = useState(today);
   const [reservationsData, setReservationsData] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const dialogRef = useRef(null);
+  const permissionsRef = useRef(null);
 
   const { roomTypeData, refreshRoomTypeData } = useContext(RoomTypeContext);
 
@@ -224,6 +227,7 @@ export default function RatesAvailabilityCalendar() {
 
   return (
     <div className={styles.mainContainer}>
+      {permissionsRef && <PermissionsDialog refProps={permissionsRef} />}
       {roomTypeData && (
         <dialog ref={dialogRef} className="dialog">
           <DialogHeader
@@ -245,7 +249,9 @@ export default function RatesAvailabilityCalendar() {
         <button
           onClick={() => {
             setIsDialogOpen(true);
-            dialogRef?.current.showModal();
+            role === "employee"
+              ? permissionsRef?.current.showModal()
+              : dialogRef?.current.showModal();
           }}
         >
           Bulk Edit
@@ -288,3 +294,7 @@ export default function RatesAvailabilityCalendar() {
     </div>
   );
 }
+
+RatesAvailabilityCalendar.propTypes = {
+  role: PropTypes.string.isRequired,
+};
