@@ -62,7 +62,7 @@ function RoomTypes() {
   if (!roomTypeData) return <div>Loading...</div>;
 
   return (
-    <div className={`${styles.mainContainer} main-content`}>
+    <div className={styles.mainContainer}>
       <ConfirmationDialog
         title="Delete Room Type?"
         description="This action can not been undone. Make sure there are no reservations for this room type"
