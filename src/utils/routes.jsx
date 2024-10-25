@@ -15,6 +15,7 @@ import Profile from "../components/accounts/Profile.jsx";
 import ProtectedRoutes from "../hooks/ProtectedRoutes";
 import isAuthenticated from "../hooks/isAuthenticated.js";
 import Terms from "../components/landing_page/Terms.jsx";
+import Notifications from "../components/notifications/Notifications.jsx";
 
 const routes = [
   {
@@ -72,6 +73,10 @@ const routes = [
           {
             path: "users/profile/edit",
             element: <Profile />,
+          },
+          {
+            path: "notifications",
+            element: <Notifications />,
           },
         ],
       },
