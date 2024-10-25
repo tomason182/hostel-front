@@ -28,8 +28,7 @@
 
 @font-face {
   font-family: Typewriter;
-  src: url("../assets//fonts/typewriter/JMH\ Typewriter-Thin.ttf")
-    format("truetype");
+  src: url("../assets/fonts/typewriter/typewriter-Thin.ttf") format("truetype");
   font-weight: normal;
   font-size: normal;
 }
@@ -66,7 +65,7 @@
   --active-color: #023e8a;
 
   /* Font Family */
-  --font-title-main: "Typewriter";
+  --font-title-main: "Times New Roman", Times, serif;
   --font-primary: "Inter", sans-serif;
   --font-italic: "Inter-Italic", sans-serif;
   --font-bold: "Inter-Bold", sans-serif;

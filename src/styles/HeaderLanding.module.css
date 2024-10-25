@@ -3,7 +3,8 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 0.5rem 1.5rem;
-  background-color: var(--primary-color);
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow-large);
 }
 
 .logo {
@@ -11,7 +12,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  color: #fff;
+  color: var(--text-color);
 }
 
 .logo h3 {
@@ -29,7 +30,7 @@
 
 .nav > a {
   margin: 0 var(--margin-l);
-  color: #ffff;
+  color: var(--text-color);
   font-family: var(--font-primary);
   font-size: var(--font-size-small);
   font-weight: 500;
