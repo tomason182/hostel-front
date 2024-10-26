@@ -11,12 +11,12 @@ import GeneralInfo from "../components/main_app/property/GeneralInfo";
 import RoomTypes from "../components/main_app/property/RoomTypes";
 import LoginPage from "../components/accounts/LoginPage";
 import Profile from "../components/accounts/Profile.jsx";
-
 import ProtectedRoutes from "../hooks/ProtectedRoutes";
 import isAuthenticated from "../hooks/isAuthenticated.js";
 import Terms from "../components/landing_page/Terms.jsx";
 import Notifications from "../components/notifications/Notifications.jsx";
 import ContactUs from "../components/landing_page/ContactUs.jsx";
+import Pricing from "../components/landing_page/Pricing.jsx";
 
 const routes = [
   {
@@ -39,6 +39,10 @@ const routes = [
   {
     path: "/contact-us",
     element: <ContactUs />,
+  },
+  {
+    path: "/pricing",
+    element: <Pricing />,
   },
   {
     element: <ProtectedRoutes isAuthenticated={isAuthenticated} />,
