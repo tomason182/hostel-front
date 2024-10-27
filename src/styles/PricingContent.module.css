@@ -1,0 +1,39 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 2rem;
+}
+
+.mainContainer h1 {
+  font-size: var(--font-size-h1);
+}
+
+.planContainer {
+  padding: 3rem;
+  width: 75lvw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+}
+
+.plan {
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  box-shadow: var(--box-shadow-large);
+  padding: 1rem;
+}
+
+.plan > button {
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  margin: 0.75rem 0rem 2rem 0rem;
+  color: var(--text-color);
+}
+
+.cost {
+  font-family: var(--font-bold);
+}
