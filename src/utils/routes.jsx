@@ -18,6 +18,7 @@ import Notifications from "../components/notifications/Notifications.jsx";
 import ContactUs from "../components/landing_page/ContactUs.jsx";
 import Pricing from "../components/landing_page/Pricing.jsx";
 import HomePage from "../components/landing_page/HomePage.jsx";
+import ForgotPassword from "../components/landing_page/ForgotPassword.jsx";
 
 const routes = [
   {
@@ -36,6 +37,10 @@ const routes = [
       {
         path: "accounts/signup",
         element: <RegistrationPage />,
+      },
+      {
+        path: "accounts/reset-password",
+        element: <ForgotPassword />,
       },
       {
         path: "pricing",

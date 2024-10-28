@@ -81,7 +81,7 @@ export default function LoginForm() {
         </span>
       )}
 
-      <Link className={styles.extras} to="#">
+      <Link className={styles.extras} to="/accounts/reset-password">
         Forgot your password?
       </Link>
       <button className={styles.submitBtn} type="submit" disabled={loading}>

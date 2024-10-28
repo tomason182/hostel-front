@@ -31,8 +31,8 @@
 }
 
 .mainForm label {
-  font-size: var(--font-size-small);
-  color: var(--text-color-dark);
+  font-size: var(--font-size-xs);
+  color: var(--text-color);
 }
 
 .mainForm input {
