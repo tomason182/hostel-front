@@ -39,7 +39,7 @@
   border: 1px solid var(--border-color);
 }
 
-.mainTitle button:hover {
+.mainTitle a:hover {
   background: var(--second-background);
   border-color: var(--muted-color);
 }
