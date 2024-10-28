@@ -1,4 +1,5 @@
 import styles from "../../styles/PricingContent.module.css";
+import { Link } from "react-router-dom";
 
 export default function PricingContent() {
   return (
@@ -14,7 +15,9 @@ export default function PricingContent() {
             <p className={styles.amount}>0</p>
             <p className={styles.cost}>USD/month</p>
           </div>
-          <button className={styles.getPlanBtn}>Get Started for Free</button>
+          <button className={styles.getPlanBtn}>
+            <Link to="/accounts/signup">Get Started for Free</Link>
+          </button>
           <h3>SimpleHostel Free Plan Features</h3>
           <dl>
             <dt>Home Dashboard</dt>
