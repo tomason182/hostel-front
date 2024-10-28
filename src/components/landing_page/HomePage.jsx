@@ -1,4 +1,5 @@
 import styles from "../../styles/HomePage.module.css";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   return (
@@ -14,7 +15,7 @@ export default function HomePage() {
           life.
         </p>
         <br />
-        <button>Sign up for free</button>
+        <Link to="/accounts/signup">Sign up for free</Link>
       </div>
       <img
         src="src/assets/image/calendar.png"
