@@ -1,13 +1,15 @@
-import Header from "./Header";
-import Footer from "./Footer";
-import ContactUsContent from "./ContactUsContent";
+import styles from "../../styles/ContactUsContent.module.css";
 
-export default function ContactUs() {
+export default function ContactUsContent() {
   return (
-    <>
-      <Header />
-      <ContactUsContent />
-      <Footer />
-    </>
+    <div className={styles.mainContainer}>
+      <h1>Contact us</h1>
+      <p>Have any questions or need assistance? Get in touch with us!</p>
+      <div className={styles.contactContainer}>
+        <h3>Email support</h3>
+        <p>Send us an email and we&apos;get back to you soon</p>
+        <address>support@simplehostel.com</address>
+      </div>
+    </div>
   );
 }

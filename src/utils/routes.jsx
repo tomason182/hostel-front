@@ -17,32 +17,39 @@ import Terms from "../components/landing_page/Terms.jsx";
 import Notifications from "../components/notifications/Notifications.jsx";
 import ContactUs from "../components/landing_page/ContactUs.jsx";
 import Pricing from "../components/landing_page/Pricing.jsx";
+import HomePage from "../components/landing_page/HomePage.jsx";
 
 const routes = [
   {
     path: "/",
     element: <LandingPage />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: "/accounts/signup",
-    element: <RegistrationPage />,
-  },
-  {
-    path: "/accounts/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/legal/terms-of-use",
-    element: <Terms />,
-  },
-  {
-    path: "/contact-us",
-    element: <ContactUs />,
-  },
-  {
-    path: "/pricing",
-    element: <Pricing />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "accounts/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "accounts/signup",
+        element: <RegistrationPage />,
+      },
+      {
+        path: "pricing",
+        element: <Pricing />,
+      },
+      {
+        path: "contact-us",
+        element: <ContactUs />,
+      },
+      {
+        path: "legal/terms-of-use",
+        element: <Terms />,
+      },
+    ],
   },
   {
     element: <ProtectedRoutes isAuthenticated={isAuthenticated} />,

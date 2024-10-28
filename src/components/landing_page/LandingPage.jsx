@@ -1,11 +1,11 @@
 import Header from "./Header";
-import HomePage from "./HomePage";
+import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
 function LandingPage() {
   return (
     <>
       <Header />
-      <HomePage />
+      <Outlet />
       <Footer />
     </>
   );
