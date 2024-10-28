@@ -26,18 +26,26 @@
 }
 
 .getPlanBtn {
+  position: relative;
   background-color: #fff;
   border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 0.5rem 1rem;
   margin: 0.75rem 0rem 2rem 0rem;
-  color: var(--text-color);
   font-size: var(--font-size-small);
+}
+
+.getPlanBtn > a {
+  color: var(--text-color);
 }
 
 .getPlanBtn:hover {
   background: none;
   border-color: var(--active-color);
+  color: var(--active-color);
+}
+
+.getPlanBtn:hover > a {
   color: var(--active-color);
 }
 
