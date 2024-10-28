@@ -23,6 +23,14 @@
   border-radius: var(--border-radius);
 }
 
+.form a {
+  font-size: var(--font-size-small);
+  color: var(--muted-color);
+}
+
+.form a:hover {
+  text-decoration: underline;
+}
 .submitBtn {
   background-color: var(--secondary-color);
   padding: var(--padding-m) var(--padding-m);
