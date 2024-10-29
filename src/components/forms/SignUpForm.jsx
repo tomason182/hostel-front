@@ -2,11 +2,13 @@ import styles from "../../styles/SignUpForm.module.css";
 import { useState } from "react";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import ErrorComponent from "../error_page/ErrorComponent";
+import { useNavigate } from "react-router-dom";
 
 function SignUpForm() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
 
+  const navigate = useNavigate();
   async function handleSubmit(event) {
     event.preventDefault();
     setErrors(null);
@@ -43,6 +45,7 @@ function SignUpForm() {
       if (data) {
         console.log("User register successfully", data);
         // Redirect user to email was send message
+        navigate("/account/confirm-email");
       }
 
       if (errors) {
