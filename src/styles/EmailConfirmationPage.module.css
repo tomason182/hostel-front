@@ -55,3 +55,8 @@
   text-decoration: none;
   text-align: center;
 }
+
+.linkSecondary:hover {
+  border: 1px solid var(--border-color-dark);
+  color: var(--text-color-dark);
+}
