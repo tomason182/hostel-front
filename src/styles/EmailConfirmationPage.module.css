@@ -1,5 +1,6 @@
 .mainContent {
   max-width: 900px;
+  flex: 1;
   margin: 0 auto;
   text-align: center;
   padding: 2.5rem 1rem;
