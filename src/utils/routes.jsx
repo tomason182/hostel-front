@@ -19,6 +19,7 @@ import ContactUs from "../components/landing_page/ContactUs.jsx";
 import Pricing from "../components/landing_page/Pricing.jsx";
 import HomePage from "../components/landing_page/HomePage.jsx";
 import ForgotPassword from "../components/landing_page/ForgotPassword.jsx";
+import EmailConfirmationPage from "../components/landing_page/EmailConfirmationPage.jsx";
 
 const routes = [
   {
@@ -41,6 +42,10 @@ const routes = [
       {
         path: "accounts/reset-password",
         element: <ForgotPassword />,
+      },
+      {
+        path: "account/confir-email",
+        element: <EmailConfirmationPage />,
       },
       {
         path: "pricing",
