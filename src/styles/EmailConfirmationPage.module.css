@@ -30,3 +30,15 @@
 .footerLink:hover {
   text-decoration: underline;
 }
+
+.goToDashboard {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  color: #fff;
+}
+
+.goToDashboard:hover {
+  opacity: 0.9;
+}
