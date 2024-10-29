@@ -21,6 +21,7 @@ import HomePage from "../components/landing_page/HomePage.jsx";
 import ForgotPassword from "../components/landing_page/ForgotPassword.jsx";
 import EmailConfirmationPage from "../components/landing_page/EmailConfirmationPage.jsx";
 import EmailValidationPage from "../components/landing_page/EmailValidationPage.jsx";
+import ResetPassword from "../components/landing_page/ResetPassword.jsx";
 
 const routes = [
   {
@@ -51,6 +52,10 @@ const routes = [
       {
         path: "accounts/email-validation/:token",
         element: <EmailValidationPage />,
+      },
+      {
+        path: "accounts/reset-password/new/:token",
+        element: <ResetPassword />,
       },
       {
         path: "pricing",

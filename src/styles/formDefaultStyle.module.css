@@ -1,6 +1,17 @@
+.formContainer {
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.formContainer h1 {
+  font-size: var(--font-size-large);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
 .mainForm {
   max-width: 32rem;
-  margin: 0;
+  margin: 0 auto;
   padding: 1rem;
   background-color: inherit;
   display: flex;
@@ -174,6 +185,19 @@
 
 .infoIcon {
   stroke: var(--info-color);
+}
+
+.success,
+.error {
+  font-size: var(--font-size-xs);
+}
+
+.success {
+  color: var(--info-color);
+}
+
+.error {
+  color: var(--error-color);
 }
 
 @media (max-width: 984px) {
