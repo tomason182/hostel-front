@@ -31,14 +31,27 @@
   text-decoration: underline;
 }
 
-.goToDashboard {
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  background-color: var(--primary-color);
-  padding: 0.5rem 1rem;
+.link {
+  display: inline-block;
+  padding: 10px 20px;
   color: #fff;
+  background-color: var(--primary-color);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  text-align: center;
 }
 
-.goToDashboard:hover {
+.link:hover {
   opacity: 0.9;
+}
+
+.linkSecondary {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  font-size: var(--font-size-small);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  text-align: center;
 }

@@ -66,11 +66,11 @@ export default function EmailValidationPage() {
       <p>{message}</p>
 
       {isValid ? (
-        <Link to="/accounts/login" className={styles.goToDashboard}>
+        <Link to="/accounts/login" className={styles.link}>
           Log in into your account
         </Link>
       ) : (
-        <Link>Resend token</Link>
+        <Link className={styles.linkSecondary}>Resend token</Link>
       )}
     </div>
   );
