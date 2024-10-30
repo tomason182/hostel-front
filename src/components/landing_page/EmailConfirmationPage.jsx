@@ -27,7 +27,7 @@ export default function EmailConfirmationPage() {
         setMsgStatus("success");
       } else {
         console.log(data);
-        setMessage("Unable to resend email. Please, try again later");
+        setMessage(data.msg);
         setMsgStatus("error");
       }
     } catch (err) {
