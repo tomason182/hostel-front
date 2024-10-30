@@ -6,7 +6,10 @@ export default function EmailValidationPage() {
   const [isValid, setIsValid] = useState(false);
   const [title, setTitle] = useState(null);
   const [message, setMessage] = useState(null);
+  const [resendMessage, setResendMessage] = useState(null);
+  const [msgStatus, setMsgStatus] = useState(null);
   const { token } = useParams();
+  const email = localStorage.getItem("userEmail");
 
   useEffect(() => {
     function handleTokenValidation() {
@@ -28,6 +31,7 @@ export default function EmailValidationPage() {
               "Your email has been confirmed! Your account is now active, and you can access all features of SimpleHostel."
             );
             setIsValid(true);
+            localStorage.removeItem("userEmail");
             return null;
           } else {
             return response.json();
@@ -60,6 +64,37 @@ export default function EmailValidationPage() {
 
     handleTokenValidation();
   }, [token]);
+
+  const handleResendEmail = async () => {
+    try {
+      const url =
+        import.meta.env.VITE_URL_BASE + "users/resend-email-verification";
+      const options = {
+        mode: "cors",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      };
+      const response = await fetch(url, options);
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data);
+        setResendMessage("Successfully resent email");
+        setMsgStatus("success");
+      } else {
+        console.log(data);
+        setResendMessage(data.msg);
+        setMsgStatus("error");
+      }
+    } catch (err) {
+      console.error("Error resending verification email: ", err);
+      setResendMessage("Network error occurred. Unable to resend email");
+      setMsgStatus("error");
+    }
+  };
+
   return (
     <div className={styles.mainContent}>
       <h1>{title}</h1>
@@ -70,7 +105,20 @@ export default function EmailValidationPage() {
           Log in into your account
         </Link>
       ) : (
-        <Link className={styles.linkSecondary}>Resend token</Link>
+        <Link className={styles.linkSecondary} onClick={handleResendEmail}>
+          Resend token
+        </Link>
+      )}
+      {resendMessage && (
+        <p
+          className={
+            msgStatus === "success"
+              ? styles.successMessage
+              : styles.errorMessage
+          }
+        >
+          {resendMessage}
+        </p>
       )}
     </div>
   );

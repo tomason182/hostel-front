@@ -45,6 +45,7 @@ function SignUpForm() {
       if (data) {
         console.log("User register successfully", data);
         // Redirect user to email was send message
+        localStorage.setItem("userEmail", formBody.username);
         const confirmEmailUrl = "/accounts/confirm-email/" + formBody.username;
 
         navigate(confirmEmailUrl);
