@@ -121,3 +121,19 @@ tr.rows + tr:not(.rows) {
 .provisional {
   background-color: #3a86ff;
 }
+
+.noRoomTypesMessage {
+  text-align: center;
+  color: var(--text-color-light-2);
+  padding: 1.2rem;
+  font-size: var(--font-size-small);
+}
+
+.createRoomLink {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.createRoomLink:hover {
+  color: #0056b3;
+}

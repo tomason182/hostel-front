@@ -2,7 +2,7 @@ import { format, sub, add } from "date-fns";
 import styles from "../../../styles/Calendar.module.css";
 import { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-
+import { Link } from "react-router-dom";
 export default function Calendar({
   roomTypes,
   reservations,
@@ -365,7 +365,23 @@ export default function Calendar({
             {daysOfWeek}
           </tr>
         </thead>
-        <tbody>{listOfRooms}</tbody>
+        <tbody>
+          {listOfRooms.length === 0 ? (
+            <tr height={250}>
+              <td colSpan={17} className={styles.noRoomTypesMessage}>
+                There are no room types created. Before you begin, please{" "}
+                <Link
+                  to="/app/property/room-types"
+                  className={styles.createRoomLink}
+                >
+                  create your property room types
+                </Link>
+              </td>
+            </tr>
+          ) : (
+            listOfRooms
+          )}
+        </tbody>
       </table>
     </div>
   );
