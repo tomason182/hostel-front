@@ -1,0 +1,9 @@
+/* Error message class */
+.errorMessage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+  padding: 1rem;
+  font-size: var(--font-size-xs);
+  color: var(--error-color);
+}

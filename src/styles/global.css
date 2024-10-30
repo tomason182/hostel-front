@@ -130,20 +130,6 @@ dialog {
   padding-bottom: 6rem;
 }
 
-/* Error message class */
-.errorMsg {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(2, 1fr);
-  padding-top: 1rem;
-  padding-left: 0;
-}
-
-.errorMsg li {
-  color: red;
-  font-size: small;
-}
-
 /* dl default styles */
 
 dl {
