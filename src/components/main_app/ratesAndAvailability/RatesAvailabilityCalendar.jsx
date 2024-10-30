@@ -6,6 +6,7 @@ import RatesAndAvailabilityForm from "../../forms/RatesAndAvailabilityForm";
 import DialogHeader from "../../dialogs/DialogHeader";
 import PermissionsDialog from "../../dialogs/PermissionsDialog";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export default function RatesAvailabilityCalendar({ role }) {
   const today = new Date();
@@ -228,69 +229,79 @@ export default function RatesAvailabilityCalendar({ role }) {
   return (
     <div className={styles.mainContainer}>
       {permissionsRef && <PermissionsDialog refProps={permissionsRef} />}
-      {roomTypeData && (
-        <dialog ref={dialogRef} className="dialog">
-          <DialogHeader
-            title={"Rates and Availability"}
-            refProps={dialogRef}
-            setIsDialogOpen={setIsDialogOpen}
-          />
-          {isDialogOpen && (
-            <RatesAndAvailabilityForm
-              roomTypeData={roomTypeData}
-              propRef={dialogRef}
-              refreshRoomTypeData={refreshRoomTypeData}
+      {roomTypeData === null || roomTypeData?.length === 0 ? (
+        <div className={styles.noRoomTypesMessage}>
+          There are no room types created. Before you begin, please{" "}
+          <Link to="/app/property/room-types" className={styles.createRoomLink}>
+            create your property room types
+          </Link>
+        </div>
+      ) : (
+        <>
+          <dialog ref={dialogRef} className="dialog">
+            <DialogHeader
+              title={"Rates and Availability"}
+              refProps={dialogRef}
+              setIsDialogOpen={setIsDialogOpen}
             />
-          )}
-        </dialog>
+            {isDialogOpen && (
+              <RatesAndAvailabilityForm
+                roomTypeData={roomTypeData}
+                propRef={dialogRef}
+                refreshRoomTypeData={refreshRoomTypeData}
+              />
+            )}
+          </dialog>
+          <div className={styles.editContainer}>
+            <button
+              onClick={() => {
+                setIsDialogOpen(true);
+                role === "employee"
+                  ? permissionsRef?.current.showModal()
+                  : dialogRef?.current.showModal();
+              }}
+            >
+              Bulk Edit
+            </button>
+          </div>
+          <div className={styles.dateSelectionContainer}>
+            <button
+              onClick={handleDateSelectionBackwards}
+              disabled={
+                format(today, "yyyyMMdd") === format(startDate, "yyyyMMdd")
+              }
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="38"
+                height="38"
+                viewBox="0 0 24 24"
+                fill="none"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <button onClick={handleDateSelectionForwards}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="38"
+                height="38"
+                viewBox="0 0 24 24"
+                fill="none"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+          <div>{dayContainer}</div>
+        </>
       )}
-
-      <div className={styles.editContainer}>
-        <button
-          onClick={() => {
-            setIsDialogOpen(true);
-            role === "employee"
-              ? permissionsRef?.current.showModal()
-              : dialogRef?.current.showModal();
-          }}
-        >
-          Bulk Edit
-        </button>
-      </div>
-      <div className={styles.dateSelectionContainer}>
-        <button
-          onClick={handleDateSelectionBackwards}
-          disabled={format(today, "yyyyMMdd") === format(startDate, "yyyyMMdd")}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="38"
-            height="38"
-            viewBox="0 0 24 24"
-            fill="none"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-        <button onClick={handleDateSelectionForwards}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="38"
-            height="38"
-            viewBox="0 0 24 24"
-            fill="none"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M9 18l6-6-6-6" />
-          </svg>
-        </button>
-      </div>
-      <div>{dayContainer}</div>
     </div>
   );
 }
