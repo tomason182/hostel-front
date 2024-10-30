@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 2rem;
-  max-width: 1326px;
+  padding: 2rem 2rem 6rem 2rem;
+  width: 100%;
   margin: 0 auto;
 }
 
