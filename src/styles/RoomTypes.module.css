@@ -17,6 +17,14 @@
   gap: 1rem;
 }
 
+.roomTypesContainer p {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--text-color-light-2);
+  border: 1px solid var(--border-color);
+  padding: 1rem 0;
+}
+
 .roomsContainer {
   position: relative;
   min-width: 250px;

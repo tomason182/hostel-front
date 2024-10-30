@@ -118,7 +118,7 @@ function RoomTypes() {
       />
       <div className={styles.roomTypesContainer}>
         {roomTypeData.length === 0 ? (
-          <h1>No room types found. Please Create a room type</h1>
+          <p>No room types found. Please Create a room type</p>
         ) : (
           roomTypeData.map(roomType => (
             <div key={roomType._id} className={styles.roomsContainer}>
