@@ -52,7 +52,7 @@ export default function EmailConfirmationPage() {
           Resend confirmation email
         </Link>
         &nbsp;or&nbsp;
-        <Link to="#" className={styles.footerLink}>
+        <Link to="/contact-us" className={styles.footerLink}>
           Contact support
         </Link>
       </p>
