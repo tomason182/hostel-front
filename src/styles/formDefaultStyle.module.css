@@ -10,12 +10,13 @@
 }
 
 .mainForm {
-  max-width: 32rem;
+  width: 90%;
   margin: 0 auto;
-  padding: 1rem;
+  padding-top: 1rem;
   background-color: inherit;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
   gap: 1rem;
 }
 
@@ -27,8 +28,7 @@
   position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-  margin: 0;
+  gap: 0.5rem;
   border-style: solid;
   border-color: #dedede;
 }

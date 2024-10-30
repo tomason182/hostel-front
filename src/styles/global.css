@@ -106,7 +106,8 @@ dialog {
   color: var(--text-color);
   position: fixed;
   margin: 0 0 0 auto;
-  height: 100lvh;
+  height: 100%;
+  width: 40%;
   background-color: rgba(255, 255, 255);
   animation: fade-in 0.8s forwards;
 }
@@ -141,4 +142,11 @@ dl {
 dl dt {
   font-family: var(--font-bold);
   margin: 0.25rem 0;
+}
+
+@media (max-width: 984px) {
+  .dialog {
+    width: max-content;
+    padding: 0.5rem;
+  }
 }
