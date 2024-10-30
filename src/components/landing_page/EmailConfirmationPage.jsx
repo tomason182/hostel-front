@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 
 export default function EmailConfirmationPage() {
   const [message, setMessage] = useState(null);
+  const [msgStatus, setMsgStatus] = useState("");
   const { email } = useParams();
 
   const handleResendEmail = async () => {
@@ -23,13 +24,16 @@ export default function EmailConfirmationPage() {
       if (response.ok) {
         console.log(data);
         setMessage("Successfully resent email");
+        setMsgStatus("success");
       } else {
         console.log(data);
         setMessage("Unable to resend email. Please, try again later");
+        setMsgStatus("error");
       }
     } catch (err) {
       console.error("Error resending verification email: ", err);
       setMessage("Network error occurred. Unable to resend email");
+      setMsgStatus("error");
     }
   };
   return (
@@ -52,7 +56,17 @@ export default function EmailConfirmationPage() {
           Contact support
         </Link>
       </p>
-      <p>{message}</p>
+      {message && (
+        <p
+          className={
+            msgStatus === "success"
+              ? styles.successMessage
+              : styles.errorMessage
+          }
+        >
+          {message}
+        </p>
+      )}
     </div>
   );
 }

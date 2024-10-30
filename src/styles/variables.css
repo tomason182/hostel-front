@@ -58,9 +58,9 @@
   --muted-color: rgb(127, 140, 141);
 
   /* Alert Colors */
-  --error-color: #c1121f;
+  --error-color: #f44336;
   --warning-color: rgb(243, 156, 18);
-  --success-color: rgb(39, 174, 96);
+  --success-color: #4caf50;
   --info-color: rgb(52, 152, 219);
   --active-color: #023e8a;
 

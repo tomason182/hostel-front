@@ -60,3 +60,20 @@
   border: 1px solid var(--border-color-dark);
   color: var(--text-color-dark);
 }
+
+.successMessage,
+.errorMessage {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.successMessage {
+  color: var(--success-color);
+  background-color: #e8f5e9;
+}
+
+.errorMessage {
+  color: var(--error-color);
+  background-color: #ffebee;
+}
