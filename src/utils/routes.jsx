@@ -46,7 +46,7 @@ const routes = [
         element: <ForgotPassword />,
       },
       {
-        path: "accounts/confirm-email",
+        path: "accounts/confirm-email/:email",
         element: <EmailConfirmationPage />,
       },
       {

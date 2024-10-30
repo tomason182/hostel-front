@@ -2,6 +2,7 @@ import styles from "../../styles/EmailConfirmationPage.module.css";
 import { Link } from "react-router-dom";
 
 export default function EmailConfirmationPage() {
+  const handleResendEmail = () => {};
   return (
     <div className={styles.mainContent}>
       <h1>Confirm Your Email Address</h1>

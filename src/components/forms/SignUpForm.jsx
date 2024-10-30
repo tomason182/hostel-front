@@ -45,7 +45,9 @@ function SignUpForm() {
       if (data) {
         console.log("User register successfully", data);
         // Redirect user to email was send message
-        navigate("/accounts/confirm-email");
+        const confirmEmailUrl = "/accounts/confirm-email/" + formBody.username;
+
+        navigate(confirmEmailUrl);
       }
 
       if (errors) {
