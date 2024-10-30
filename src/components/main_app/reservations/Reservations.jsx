@@ -86,7 +86,13 @@ function Reservations() {
         <button type="submit">Search</button>
       </form>
 
-      <ul className={styles.reservationsList}>{listItems}</ul>
+      <ul className={styles.reservationsList}>
+        {listItems?.length === 0 ? (
+          <li>No reservations found for the selected dates</li>
+        ) : (
+          listItems
+        )}
+      </ul>
     </div>
   );
 }
