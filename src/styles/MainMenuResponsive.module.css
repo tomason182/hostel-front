@@ -10,20 +10,16 @@
   z-index: 100;
 }
 
-.menu a svg {
-  stroke: var(--muted-color);
-}
-
 .menu a span {
-  color: var(--muted-color);
+  color: var(--text-color);
 }
 
 .menu a.active svg {
-  stroke: var(--active-color);
+  stroke: blue;
 }
 
 .menu a.active span {
-  color: var(--active-color);
+  color: blue;
 }
 
 .menu a {
