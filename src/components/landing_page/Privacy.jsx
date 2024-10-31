@@ -42,14 +42,14 @@ export default function Privacy() {
       <h5>Property and Reservation Data</h5>
       <ul>
         <li>
-          Property Data: This includes property details such as room types,
-          rates, availability, and other property-related information necessary
-          to manage reservations.
+          <strong>Property Data:</strong> This includes property details such as
+          room types, rates, availability, and other property-related
+          information necessary to manage reservations.
         </li>
         <li>
-          Reservation Data: Data about reservations, including guest names,
-          check-in/check-out dates, and booking status, is stored to assist
-          hostel management in organizing and tracking bookings.
+          <strong>Reservation Data:</strong> Data about reservations, including
+          guest names, check-in/check-out dates, and booking status, is stored
+          to assist hostel management in organizing and tracking bookings.
         </li>
       </ul>
       <h5>Usage Date</h5>
@@ -66,16 +66,16 @@ export default function Privacy() {
       </p>
       <ul>
         <li>
-          Service Delivery: To facilitate reservation management, room
-          availability, rates, and user administration.
+          <strong>Service Delivery:</strong> To facilitate reservation
+          management, room availability, rates, and user administration.
         </li>
         <li>
-          Communication: To send important notifications, updates, or respond to
-          support requests.
+          <strong>Communication:</strong> To send important notifications,
+          updates, or respond to support requests.
         </li>
         <li>
-          Improvement: To analyze usage patterns and improve the platform’s
-          functionality based on user needs.
+          <strong>Improvement:</strong> To analyze usage patterns and improve
+          the platform’s functionality based on user needs.
         </li>
       </ul>
       <h4>4. Data Security</h4>
@@ -93,13 +93,14 @@ export default function Privacy() {
       </p>
       <ul>
         <li>
-          Within the Hostel: Data may be accessed by authorized hostel personnel
-          for managing reservations, availability, and property details.
+          <strong>Within the Hostel:</strong> Data may be accessed by authorized
+          hostel personnel for managing reservations, availability, and property
+          details.
         </li>
         <li>
-          Legal Compliance: We may disclose information if required to comply
-          with legal obligations, such as responding to a subpoena or court
-          order.
+          <strong>Legal Compliance:</strong> We may disclose information if
+          required to comply with legal obligations, such as responding to a
+          subpoena or court order.
         </li>
       </ul>
       <h4>6. Your Data Rights</h4>

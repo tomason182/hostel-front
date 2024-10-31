@@ -3,7 +3,7 @@ import styles from "../../styles/TermsContent.module.css";
 export default function Terms() {
   return (
     <div className={styles.termsContainer}>
-      <h3>Terms of Use</h3>
+      <h1>Terms of Use</h1>
       <p>
         Welcome to <strong>SimpleHostel</strong>, a platform designed to
         simplify hostel management and room booking. These Terms of Service
