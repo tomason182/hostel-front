@@ -1,9 +1,11 @@
 .mainContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding-top: 2rem;
+  align-self: center;
+  margin: 0;
+  width: 900px;
+  text-align: center;
+  padding: 3rem 0;
 }
 
 .mainContainer h1 {
@@ -11,11 +13,10 @@
 }
 
 .planContainer {
-  padding: 3rem;
-  width: 75lvw;
+  margin-top: 4rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .plan {
@@ -88,4 +89,11 @@
   text-align: center;
   border-radius: 8px;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 984px) {
+  .mainContainer {
+    width: auto;
+    padding: 0 1rem;
+  }
 }
