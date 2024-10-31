@@ -2,14 +2,22 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/DeleteAccountForm.module.css";
 import ConfirmationDialog from "../dialogs/ConfirmationDialog";
+import PermissionsDialog from "../dialogs/PermissionsDialog";
 import fetchDataHelper from "../../utils/fetchDataHelper";
+import { UserProfileContext } from "../../../data_providers/UserProfileProvider";
+import { useContext } from "react";
 
 export default function DeleteAccountForm() {
+  const { userProfile } = useContext(UserProfileContext);
+
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const confirmDialog = useRef(null);
+  const permissionsDialogRef = useRef(null);
   const navigate = useNavigate();
+
+  const userRole = userProfile.user_info.role;
 
   const title = "Delete your account";
   const description =
@@ -17,10 +25,10 @@ export default function DeleteAccountForm() {
 
   async function handleSubmit() {
     try {
-      const url = import.meta.env.VITE_URL_BASE + "users/account/delete/";
+      const url = import.meta.env.VITE_URL_BASE + "users/accounts/delete/";
       const options = {
         mode: "cors",
-        method: "PUT",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
@@ -74,12 +82,17 @@ export default function DeleteAccountForm() {
 
   return (
     <>
-      <ConfirmationDialog
-        title={title}
-        description={description}
-        refProps={confirmDialog}
-        handleActionFunction={handleSubmit}
-      />
+      {userRole === "admin" ? (
+        <ConfirmationDialog
+          title={title}
+          description={description}
+          refProps={confirmDialog}
+          handleActionFunction={handleSubmit}
+        />
+      ) : (
+        <PermissionsDialog refProps={permissionsDialogRef} />
+      )}
+
       <h3>Delete Your Account</h3>
       <p className={styles.pNormal}>
         Permanently remove your account and all associated data. These actions
