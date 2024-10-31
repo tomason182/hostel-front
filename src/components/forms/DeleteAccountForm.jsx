@@ -5,7 +5,7 @@ import ConfirmationDialog from "../dialogs/ConfirmationDialog";
 import PermissionsDialog from "../dialogs/PermissionsDialog";
 import MessageDialog from "../dialogs/MessageDialog";
 import fetchDataHelper from "../../utils/fetchDataHelper";
-import { UserProfileContext } from "../../../data_providers/UserProfileProvider";
+import { UserProfileContext } from "../../data_providers/UserProfileProvider";
 import { useContext } from "react";
 
 export default function DeleteAccountForm() {
