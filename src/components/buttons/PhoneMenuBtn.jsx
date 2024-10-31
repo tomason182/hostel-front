@@ -55,7 +55,7 @@ function PhoneMenuBtn() {
           <div className={styles.titleContainer}>
             <h1>Simple Hostel.</h1>
           </div>
-          <Link to="/">
+          <Link to="/" onClick={handleClick}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -72,7 +72,7 @@ function PhoneMenuBtn() {
             </svg>
             Home
           </Link>
-          <Link to="/pricing">
+          <Link to="/pricing" onClick={handleClick}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -89,7 +89,7 @@ function PhoneMenuBtn() {
             </svg>
             Pricing
           </Link>
-          <Link to="/contact-us">
+          <Link to="/contact-us" onClick={handleClick}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -106,7 +106,7 @@ function PhoneMenuBtn() {
             </svg>
             Contact
           </Link>
-          <Link to="/about-us">
+          <Link to="/about-us" onClick={handleClick}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -124,7 +124,7 @@ function PhoneMenuBtn() {
             </svg>
             About As
           </Link>
-          <Link to="/accounts/login">
+          <Link to="/accounts/login" onClick={handleClick}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -140,7 +140,7 @@ function PhoneMenuBtn() {
             </svg>
             Sign In
           </Link>
-          <Link to="/accounts/signup">
+          <Link to="/accounts/signup" onClick={handleClick}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
