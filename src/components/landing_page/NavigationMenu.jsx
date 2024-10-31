@@ -20,7 +20,7 @@ function NavigationMenu() {
       <Link to="/">Home</Link>
       <Link to="/pricing">Pricing</Link>
       <Link to="/contact-us">Contact</Link>
-      <Link to="#">About us</Link>
+      <Link to="/about-us">About us</Link>
       {isAuth ? (
         <Link to="/app" className={styles.btnPrimary}>
           Go to app

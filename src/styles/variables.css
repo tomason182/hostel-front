@@ -64,6 +64,10 @@
   --info-color: rgb(52, 152, 219);
   --active-color: #023e8a;
 
+  /* Links colors */
+  --link-color: #0077cc;
+  --link-hover-color: #005fa3;
+
   /* Font Family */
   --font-title-main: "Times New Roman", Times, serif;
   --font-primary: "Inter", sans-serif;

@@ -22,7 +22,9 @@ export default function Footer() {
         <div className={styles.container}>
           <h4>Support</h4>
           <ul>
-            <li>FAQ</li>
+            <li>
+              <Link to="/faq">FAQ</Link>
+            </li>
             <li>
               <Link to="/contact-us">Contact us</Link>
             </li>

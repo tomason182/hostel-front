@@ -5,7 +5,7 @@
   text-align: left;
 }
 
-.termsContainer h3 {
+.termsContainer h1 {
   font-size: var(--font-size-h3);
   padding-bottom: 2rem;
   text-align: center;
@@ -15,7 +15,8 @@
   padding-bottom: 1rem;
 }
 
-.termsContainer p strong {
+.termsContainer p strong,
+strong {
   font-family: var(--font-bold);
 }
 
@@ -33,4 +34,12 @@
 
 .termsContainer ul {
   padding-bottom: 1rem;
+}
+
+.links {
+  color: var(--link-color);
+}
+
+.links:hover {
+  color: var(--link-hover-color);
 }

@@ -14,6 +14,9 @@ import Profile from "../components/accounts/Profile.jsx";
 import ProtectedRoutes from "../hooks/ProtectedRoutes";
 import isAuthenticated from "../hooks/isAuthenticated.js";
 import Terms from "../components/landing_page/Terms.jsx";
+import Privacy from "../components/landing_page/Privacy.jsx";
+import AboutUs from "../components/landing_page/AboutUs.jsx";
+import Faq from "../components/landing_page/Faq.jsx";
 import Notifications from "../components/notifications/Notifications.jsx";
 import ContactUs from "../components/landing_page/ContactUs.jsx";
 import Pricing from "../components/landing_page/Pricing.jsx";
@@ -66,8 +69,20 @@ const routes = [
         element: <ContactUs />,
       },
       {
+        path: "about-us",
+        element: <AboutUs />,
+      },
+      {
+        path: "faq",
+        element: <Faq />,
+      },
+      {
         path: "legal/terms-of-use",
         element: <Terms />,
+      },
+      {
+        path: "legal/privacy-policy",
+        element: <Privacy />,
       },
     ],
   },
