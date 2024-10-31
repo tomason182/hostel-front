@@ -1,9 +1,8 @@
 .mainContainer {
   padding: 2.5rem 1rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
   position: relative;
 }
 
@@ -33,6 +32,6 @@
 }
 
 .editBtn:hover {
-  background: var(--text-color-dark);
+  background: var(--primary-color);
   color: var(--text-color-light);
 }
