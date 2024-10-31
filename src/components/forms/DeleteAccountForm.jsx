@@ -1,17 +1,76 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../../styles/DeleteAccountForm.module.css";
 import ConfirmationDialog from "../dialogs/ConfirmationDialog";
+import fetchDataHelper from "../../utils/fetchDataHelper";
 
 export default function DeleteAccountForm() {
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const confirmDialog = useRef(null);
+  const navigate = useNavigate();
 
   const title = "Delete your account";
   const description =
     "Permanently remove your account and all associated data.";
 
-  function handleSubmit() {
-    alert("Account deleted");
+  async function handleSubmit() {
+    try {
+      const url = import.meta.env.VITE_URL_BASE + "users/account/delete/";
+      const options = {
+        mode: "cors",
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      };
+
+      const { data, errors } = await fetchDataHelper(url, options);
+
+      if (data) {
+        console.log(data);
+        handleLogOut();
+        return;
+      }
+
+      if (errors) {
+        console.log(errors);
+        setError(errors);
+        return;
+      }
+    } catch (err) {
+      console.error(err);
+      setError([{ msg: err.message || "Unexpected error ocurred" }]);
+    }
   }
+
+  function handleLogOut() {
+    const url = import.meta.env.VITE_URL_BASE + "users/logout";
+    const options = {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    };
+
+    fetch(url, options)
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error("Unable to log out. Try again");
+        }
+
+        navigate("/");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  if (loading) return <div>Deleting account...</div>;
 
   return (
     <>
@@ -28,6 +87,7 @@ export default function DeleteAccountForm() {
       </p>
       <button
         className={styles.btnDelete}
+        disabled={loading}
         onClick={() => confirmDialog?.current.showModal()}
       >
         <svg
