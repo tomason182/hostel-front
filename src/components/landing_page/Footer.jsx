@@ -13,7 +13,9 @@ export default function Footer() {
         <div className={styles.container}>
           <h4>About us</h4>
           <ul>
-            <li>About</li>
+            <li>
+              <Link to="/about-us">About us</Link>
+            </li>
             <li>Team</li>
           </ul>
         </div>
