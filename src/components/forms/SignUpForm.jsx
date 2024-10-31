@@ -126,6 +126,8 @@ function SignUpForm() {
           name="accept_terms"
           checked={isTermsAccepted}
           onChange={handleAcceptTerms}
+          required
+          aria-required
         />{" "}
         I accept the <Link to="/legal/terms-of-use">Terms and Conditions</Link>{" "}
         and <Link to="/legal/privacy-policy">Privacy Policy</Link>
