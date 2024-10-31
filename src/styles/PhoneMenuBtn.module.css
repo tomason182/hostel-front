@@ -29,7 +29,7 @@
   justify-content: center;
   padding: 0;
   margin: 1.1rem 0;
-  left: 18rem;
+  left: 20rem;
   top: 0.5rem;
 }
 
@@ -43,19 +43,20 @@
 
 .btnClose svg {
   fill: none;
-  stroke: var(--text-color-dark);
+  stroke: #fff;
   stroke-width: 2;
 }
 
 .blurContent {
+  z-index: 999;
   width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
-  position: fixed;
   opacity: 0;
-  backdrop-filter: contrast(50%);
-  transition: backdrop-filter 0.2s ease-in-out, opacity 0.3s ease-in-out;
+  position: fixed;
+  backdrop-filter: contrast(20%);
+  /*   transition: backdrop-filter 0.2s ease-in-out, opacity 0.3s ease-in-out; */
   pointer-events: none;
 }
 
@@ -67,8 +68,8 @@
 .menu {
   position: fixed;
   z-index: 2;
+  width: 85%;
   background-color: #fff;
-  width: 22rem;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -79,24 +80,41 @@
   transition: left 0.6s ease-in-out;
 }
 
+.titleContainer {
+  width: 100%;
+  padding-left: 0.5rem;
+  margin-bottom: 1rem;
+}
+
 .menu h1 {
-  font-size: x-large;
-  margin-bottom: 2rem;
+  font-size: var(--font-size-h3);
+  font-family: var(---font-title-main);
+  margin-bottom: 1rem;
 }
 
 .menu a {
-  margin-bottom: 1rem;
-  color: var(--text-color-light);
-  width: 100%;
-  height: 2.3rem;
-  padding-left: 2rem;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.25rem;
   align-items: center;
+  color: var(--text-color-light-2);
+  width: 100%;
+  padding-left: 1.5rem;
+  height: 2.3rem;
 }
 
 .menu a:hover {
   color: var(--text-color-dark);
   background-color: #f3f3f3;
+}
+
+.menu a:hover svg {
+  stroke: var(--text-color-dark);
+}
+
+.menu a:nth-child(6) {
+  margin-bottom: 3rem;
 }
 
 .showMenu {
