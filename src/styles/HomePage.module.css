@@ -93,4 +93,8 @@
   .calendarImg {
     display: none;
   }
+
+  .mainTitle h1 {
+    font-size: 3rem;
+  }
 }
