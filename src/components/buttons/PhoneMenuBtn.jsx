@@ -54,10 +54,9 @@ function PhoneMenuBtn() {
           </button>
           <h1>Simple Hostel</h1>
           <Link to="/">Home</Link>
-          <Link>Services</Link>
-          <Link>Pricing</Link>
-          <Link>Contact</Link>
-          <Link>About As</Link>
+          <Link to="/pricing">Pricing</Link>
+          <Link to="/contact-us">Contact</Link>
+          <Link to="/about-us">About As</Link>
           <Link to="/accounts/login">Sign In</Link>
           <Link to="/accounts/signup">Create Account</Link>
         </nav>
