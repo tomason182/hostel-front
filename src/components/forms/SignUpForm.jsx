@@ -2,7 +2,7 @@ import styles from "../../styles/SignUpForm.module.css";
 import { useState } from "react";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import ErrorComponent from "../error_page/ErrorComponent";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function SignUpForm() {
   const [loading, setLoading] = useState(false);
@@ -14,14 +14,21 @@ function SignUpForm() {
     setErrors(null);
     setLoading(true);
 
-    const { name, property_name, username, password, psw_confirm } =
-      event.target;
+    const {
+      name,
+      property_name,
+      username,
+      password,
+      psw_confirm,
+      accept_terms,
+    } = event.target;
 
     const formBody = {
       firstName: name.value,
       propertyName: property_name.value,
       username: username.value,
       password: password.value,
+      acceptTerms: accept_terms.value,
     };
 
     try {
@@ -114,6 +121,11 @@ function SignUpForm() {
         aria-required
         aria-describedby={errors ? "passwordError" : null}
       />
+      <label className={styles.checkboxLabel}>
+        <input type="checkbox" name="accept_terms" required aria-required /> I
+        accept the <Link to="/legal/terms-of-use">Terms and Conditions</Link>{" "}
+        and <Link to="/legal/privacy-policy">Privacy Policy</Link>
+      </label>
       {errors && <ErrorComponent errors={errors} />}
       <p id="psw_requirements" className={styles.info}>
         <small>
