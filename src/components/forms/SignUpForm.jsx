@@ -7,28 +7,27 @@ import { useNavigate, Link } from "react-router-dom";
 function SignUpForm() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
 
   const navigate = useNavigate();
+
+  function handleAcceptTerms(e) {
+    setIsTermsAccepted(e.target.checked);
+  }
   async function handleSubmit(event) {
     event.preventDefault();
     setErrors(null);
     setLoading(true);
 
-    const {
-      name,
-      property_name,
-      username,
-      password,
-      psw_confirm,
-      accept_terms,
-    } = event.target;
+    const { name, property_name, username, password, psw_confirm } =
+      event.target;
 
     const formBody = {
       firstName: name.value,
       propertyName: property_name.value,
       username: username.value,
       password: password.value,
-      acceptTerms: accept_terms.value,
+      acceptTerms: isTermsAccepted,
     };
 
     try {
@@ -122,8 +121,13 @@ function SignUpForm() {
         aria-describedby={errors ? "passwordError" : null}
       />
       <label className={styles.checkboxLabel}>
-        <input type="checkbox" name="accept_terms" required aria-required /> I
-        accept the <Link to="/legal/terms-of-use">Terms and Conditions</Link>{" "}
+        <input
+          type="checkbox"
+          name="accept_terms"
+          checked={isTermsAccepted}
+          onChange={handleAcceptTerms}
+        />{" "}
+        I accept the <Link to="/legal/terms-of-use">Terms and Conditions</Link>{" "}
         and <Link to="/legal/privacy-policy">Privacy Policy</Link>
       </label>
       {errors && <ErrorComponent errors={errors} />}
