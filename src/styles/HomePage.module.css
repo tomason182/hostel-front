@@ -1,9 +1,12 @@
 .mainContent {
   display: flex;
+  max-width: 1250px;
+  margin: 0 auto;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   text-align: center;
+  padding: 0 1rem;
 }
 
 .mainContent p {
@@ -13,7 +16,7 @@
 
 .mainTitle {
   max-width: 800px;
-  margin: 0 auto;
+  margin-bottom: 2rem;
   padding: 5rem 0 2rem 0;
 }
 
@@ -25,6 +28,7 @@
 
 .mainTitle p {
   font-size: 1rem;
+  margin-bottom: 2rem;
 }
 
 .mainTitle span {
@@ -45,7 +49,6 @@
 }
 
 .calendarImg {
-  max-width: 1200px;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-large);
 }
@@ -67,9 +70,9 @@
 
 .gridContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;
-  padding: 3rem 5rem;
+  padding: 2rem 0;
 }
 
 .descriptionItem {
@@ -84,4 +87,10 @@
 
 .descriptionItem p {
   margin: 1rem;
+}
+
+@media (max-width: 800px) {
+  .calendarImg {
+    display: none;
+  }
 }
