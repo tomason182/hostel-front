@@ -32,7 +32,6 @@ export default function ProfileEditForm({ setMessage, setStatus }) {
 
     handleFormInitialValues();
   }, [userProfile]);
-  console.log(formData);
 
   function handleFormChange(e) {
     e.preventDefault();

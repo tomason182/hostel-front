@@ -41,7 +41,6 @@ export default function DeleteAccountForm() {
       const { data, errors } = await fetchDataHelper(url, options);
 
       if (data) {
-        console.log(data);
         setMessage("Account deleted successfully");
         setStatus("ok");
         setTimeout(() => handleLogOut(), 2400);
@@ -102,13 +101,15 @@ export default function DeleteAccountForm() {
       ) : (
         <PermissionsDialog refProps={permissionsDialogRef} />
       )}
-      <MessageDialog
-        message={message}
-        status={status}
-        refProps={messageDialogRef}
-        setMessage={setMessage}
-        setStatus={setStatus}
-      />
+      {message && (
+        <MessageDialog
+          message={message}
+          status={status}
+          refProps={messageDialogRef}
+          setMessage={setMessage}
+          setStatus={setStatus}
+        />
+      )}
 
       <h3>Delete Your Account</h3>
       <p className={styles.pNormal}>
