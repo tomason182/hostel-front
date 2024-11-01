@@ -20,6 +20,18 @@ function CalendarMainPage() {
   const today = new Date();
   const [startDate, setStartDate] = useState(today);
   const [reservations, setReservations] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 984);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 984);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
+  });
 
   useEffect(() => {
     function handleCalendarDialogCloseOnEscKey(e) {
@@ -122,18 +134,34 @@ function CalendarMainPage() {
           </>
         )}
       </dialog>
-      {roomTypeData && reservations && (
-        <CalendarPhone
-          roomTypes={roomTypeData}
-          reservations={reservations}
-          startDate={startDate}
-          setStartDate={setStartDate}
+      {roomTypeData &&
+        reservations &&
+        (isMobile ? (
+          <CalendarPhone
+            roomTypes={roomTypeData}
+            reservations={reservations}
+            startDate={startDate}
+            setStartDate={setStartDate}
+          />
+        ) : (
+          <Calendar
+            roomTypes={roomTypeData}
+            reservations={reservations}
+            startDate={startDate}
+            setStartDate={setStartDate}
+          />
+        ))}
+      {isMobile ? (
+        <CalendarFooterPhone
+          dialogRef={dialogRef}
+          setIsDialogOpen={setIsDialogOpen}
+        />
+      ) : (
+        <CalendarFooter
+          dialogRef={dialogRef}
+          setIsDialogOpen={setIsDialogOpen}
         />
       )}
-      <CalendarFooterPhone
-        dialogRef={dialogRef}
-        setIsDialogOpen={setIsDialogOpen}
-      />
     </div>
   );
 }
