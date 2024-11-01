@@ -159,8 +159,6 @@ export default function RatesAvailabilityCalendar({ role }) {
                 day,
                 room
               );
-
-              console.log(ratesAndAvailability);
               const occupancy =
                 room.type === "dorm"
                   ? room.max_occupancy * room.inventory
