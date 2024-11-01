@@ -103,67 +103,30 @@ export default function ChangeReservationsDetailsForm({
         <select
           name="reservationStatus"
           onChange={handleFormChange}
+          value={formData.reservationStatus}
           disabled={
             formData.reservationStatus === "canceled" ||
             formData.reservationStatus === "no_show"
           }
         >
-          <option
-            value="confirmed"
-            selected={formData.reservationStatus === "confirmed"}
-          >
-            Confirmed
-          </option>
-          <option
-            value="provisional"
-            selected={formData.reservationStatus === "provisional"}
-          >
-            Provisional
-          </option>
-          <option
-            value="canceled"
-            selected={formData.reservationStatus === "canceled"}
-          >
-            Canceled
-          </option>
-          <option
-            value="no_show"
-            selected={formData.reservationStatus === "no_show"}
-          >
-            No-show
-          </option>
+          <option value="confirmed">Confirmed</option>
+          <option value="provisional">Provisional</option>
+          <option value="canceled">Canceled</option>
+          <option value="no_show">No-show</option>
         </select>
       </label>
       <label>
         Payment Status
-        <select name="paymentStatus" onChange={handleFormChange}>
-          <option
-            value="pending"
-            selected={formData.paymentStatus === "pending"}
-          >
-            Pending
-          </option>
-          <option
-            value="canceled"
-            selected={formData.paymentStatus === "canceled"}
-          >
-            Canceled
-          </option>
-          <option
-            value="refunded"
-            selected={formData.paymentStatus === "refunded"}
-          >
-            Refunded
-          </option>
-          <option value="paid" selected={formData.paymentStatus === "paid"}>
-            Paid
-          </option>
-          <option
-            value="partial"
-            selected={formData.paymentStatus === "partial"}
-          >
-            Partial
-          </option>
+        <select
+          name="paymentStatus"
+          onChange={handleFormChange}
+          value={formData.paymentStatus}
+        >
+          <option value="pending">Pending</option>
+          <option value="canceled">Canceled</option>
+          <option value="refunded">Refunded</option>
+          <option value="paid">Paid</option>
+          <option value="partial">Partial</option>
         </select>
       </label>
       <fieldset>
@@ -193,22 +156,14 @@ export default function ChangeReservationsDetailsForm({
       </fieldset>
       <label name="source">
         Booking source
-        <select name="source" onChange={handleFormChange}>
-          <option
-            value="booking.com"
-            selected={formData.source === "booking.com"}
-          >
-            Booking.com
-          </option>
-          <option
-            value="hostelWorld.com"
-            selected={formData.source === "hostelWorld.com"}
-          >
-            HostelWorld.com
-          </option>
-          <option value="direct" selected={formData.source === "direct"}>
-            Direct reservation
-          </option>
+        <select
+          name="source"
+          onChange={handleFormChange}
+          value={formData.source}
+        >
+          <option value="booking.com">Booking.com</option>
+          <option value="hostelWorld.com">HostelWorld.com</option>
+          <option value="direct">Direct reservation</option>
         </select>
       </label>
       <label>

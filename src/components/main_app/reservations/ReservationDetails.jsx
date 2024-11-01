@@ -88,6 +88,7 @@ export default function ReservationDetails() {
             <GuestControlPanel
               guestData={guestData}
               setToggleDisplay={setToggleDisplay}
+              refreshData={fetchReservationData}
             />
           )}
         </div>

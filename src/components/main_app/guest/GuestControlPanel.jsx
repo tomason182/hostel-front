@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 
-export default function GuestControlPanel({ guestData, setToggleDisplay }) {
+export default function GuestControlPanel({
+  guestData,
+  setToggleDisplay,
+  refreshData,
+}) {
   const dialogRef = useRef();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   return (
@@ -15,6 +19,7 @@ export default function GuestControlPanel({ guestData, setToggleDisplay }) {
             guestData={guestData}
             propRef={dialogRef}
             setIsDialogOpen={setIsDialogOpen}
+            refreshData={refreshData}
           />
         )}
       </dialog>
@@ -60,4 +65,5 @@ export default function GuestControlPanel({ guestData, setToggleDisplay }) {
 GuestControlPanel.propTypes = {
   guestData: PropTypes.object.isRequired,
   setToggleDisplay: PropTypes.func.isRequired,
+  refreshData: PropTypes.func.isRequired,
 };

@@ -9,6 +9,7 @@ export default function GuestFormUpdate({
   guestData,
   propRef,
   setIsDialogOpen,
+  refreshData,
 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -76,8 +77,8 @@ export default function GuestFormUpdate({
       const { data, errors } = await fetchDataHelper(url, options);
 
       if (data) {
-        console.log(data);
         setIsDialogOpen(false);
+        refreshData();
         propRef?.current.close();
       }
       if (errors) {
@@ -229,4 +230,5 @@ GuestFormUpdate.propTypes = {
   guestData: PropTypes.object.isRequired,
   propRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   setIsDialogOpen: PropTypes.func.isRequired,
+  refreshData: PropTypes.func.isRequired,
 };

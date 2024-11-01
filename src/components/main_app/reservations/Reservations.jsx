@@ -73,11 +73,11 @@ function Reservations() {
       <form className={styles.form} onSubmit={fetchReservationData}>
         <label>
           From
-          <input type="date" name="fromDate" />
+          <input type="date" name="fromDate" required aria-required />
         </label>
         <label>
           Until
-          <input type="date" name="toDate" />
+          <input type="date" name="toDate" required aria-required />
         </label>
         <label>
           Search
@@ -88,7 +88,7 @@ function Reservations() {
 
       <ul className={styles.reservationsList}>
         {listItems?.length === 0 ? (
-          <li>No reservations found for the selected dates</li>
+          <li>No reservations found for the selected dates or guest name</li>
         ) : (
           listItems
         )}
