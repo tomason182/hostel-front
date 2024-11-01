@@ -20,7 +20,7 @@ function RoomTypes() {
   const { roomTypeData, refreshRoomTypeData } = useContext(RoomTypeContext);
   const { userProfile } = useContext(UserProfileContext);
 
-  const role = userProfile.user_info.role;
+  const role = userProfile?.user_info.role;
   const roleDenied = "employee";
 
   const [selectedRoomType, setSelectedRoomType] = useState(null);

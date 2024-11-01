@@ -9,7 +9,7 @@ function RateAndAvailability() {
   if (!userProfile) {
     return <div>Loading...</div>;
   }
-  const role = userProfile.user_info.role;
+  const role = userProfile?.user_info.role;
   return (
     <div className="main-content">
       <ContentTitle title={"Rates & Availability"} />

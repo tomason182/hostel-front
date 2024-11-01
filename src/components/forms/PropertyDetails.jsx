@@ -86,7 +86,12 @@ function PropertyDetails({
   if (!propertyData) return <p>Loading...</p>;
 
   return (
-    <form method="dialog" className={styles.mainForm} onSubmit={handleSubmit}>
+    <form
+      method="dialog"
+      className={styles.mainForm}
+      onSubmit={handleSubmit}
+      autoComplete="off"
+    >
       <label className={styles.label}>
         Property name:
         <input

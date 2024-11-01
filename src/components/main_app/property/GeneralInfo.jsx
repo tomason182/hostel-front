@@ -49,18 +49,23 @@ function GeneralInfo() {
     }
   }, [isDialogOpen]);
 
-  const role = userProfile.user_info.role;
+  const role = userProfile?.user_info.role;
   const roleDenied = "employee";
 
   return (
     <div className="main-content">
       <ContentTitle title={"General info"} />
       <div className={styles.mainContainer}>
-        <MessageDialog
-          message={message}
-          status={status}
-          refProps={messageDialogRef}
-        />
+        {message && (
+          <MessageDialog
+            message={message}
+            setMessage={setMessage}
+            status={status}
+            setStatus={setStatus}
+            refProps={messageDialogRef}
+          />
+        )}
+
         <PermissionsDialog refProps={permissionsRef} />
         <dialog ref={propertyDialogRef} className="dialog">
           {isDialogOpen && (

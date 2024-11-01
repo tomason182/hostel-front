@@ -19,7 +19,7 @@ export default function DeleteAccountForm() {
   const messageDialogRef = useRef(null);
   const navigate = useNavigate();
 
-  const userRole = userProfile.user_info.role;
+  const userRole = userProfile?.user_info.role;
 
   const title = "Delete your account";
   const description =
