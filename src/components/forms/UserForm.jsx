@@ -48,7 +48,6 @@ export default function UserForm({
       }
 
       if (data) {
-        console.log(data);
         // handle successful data.
         setMessage("User added successfully");
         setStatus("ok");
@@ -74,6 +73,7 @@ export default function UserForm({
           maxLength={50}
           required
           aria-required
+          autoComplete="off"
         />
       </label>
       <label>
@@ -93,7 +93,7 @@ export default function UserForm({
       </label>
       <label>
         Password
-        <input type="password" name="password" />
+        <input type="password" name="password" autoComplete="off" />
       </label>
       <fieldset>
         <legend>Select a role for the user</legend>

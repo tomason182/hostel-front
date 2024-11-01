@@ -56,7 +56,6 @@ export default function UserUpdateForm({
       const { data, errors } = await fetchDataHelper(url, options);
 
       if (data) {
-        console.log("user updated successfully", data);
         setMessage("User Updated successfully");
         setStatus("ok");
         setIsDialogOpen(false);
