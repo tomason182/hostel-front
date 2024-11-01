@@ -6,7 +6,8 @@
   display: flex;
   gap: 1rem;
   justify-content: space-between;
-  background-color: #fff;
+  background-color: var(--second-background);
+  border-top: 1px solid var(--border-color);
   z-index: 100;
 }
 
