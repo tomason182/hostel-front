@@ -1,11 +1,14 @@
 import { format, sub, add } from "date-fns";
 import Calendar from "./Calendar";
+import CalendarPhone from "./CalendarPhone";
+import CalendarFooter from "./CalendarFooter";
+import CalendarFooterPhone from "./CalendarFooterPhone";
 import styles from "../../../styles/CalendarMainPage.module.css";
 import DialogHeader from "../../dialogs/DialogHeader";
 import GuestEmailSearch from "../../forms/GuestEmailSearch";
 import GuestForm from "../../forms/GuestForm";
 import ReservationForm from "../../forms/ReservationForm";
-import CalendarFooter from "./CalendarFooter";
+
 import { useRef, useState, useContext, useCallback, useEffect } from "react";
 import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider";
 
@@ -120,14 +123,17 @@ function CalendarMainPage() {
         )}
       </dialog>
       {roomTypeData && reservations && (
-        <Calendar
+        <CalendarPhone
           roomTypes={roomTypeData}
           reservations={reservations}
           startDate={startDate}
           setStartDate={setStartDate}
         />
       )}
-      <CalendarFooter dialogRef={dialogRef} setIsDialogOpen={setIsDialogOpen} />
+      <CalendarFooterPhone
+        dialogRef={dialogRef}
+        setIsDialogOpen={setIsDialogOpen}
+      />
     </div>
   );
 }
