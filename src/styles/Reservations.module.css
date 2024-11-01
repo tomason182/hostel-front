@@ -6,8 +6,6 @@
   margin-top: 1rem;
   padding-left: 1rem;
   display: flex;
-  /*   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
   gap: 1rem;
   justify-content: left;
   flex-wrap: wrap;
