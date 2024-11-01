@@ -147,7 +147,7 @@ function PropertyDetails({
         <label>
           Email
           <input
-            type="text"
+            type="email"
             name="email"
             value={data.email}
             onChange={handleInputChange}
