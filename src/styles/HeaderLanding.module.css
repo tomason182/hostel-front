@@ -58,7 +58,7 @@
   background-color: var(--secondary-color-dark);
 }
 
-@media (max-width: 984px) {
+@media (max-width: 985px) {
   .nav {
     display: none;
   }

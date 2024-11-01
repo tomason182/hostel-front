@@ -200,7 +200,7 @@
   color: var(--error-color);
 }
 
-@media (max-width: 984px) {
+@media (max-width: 985px) {
   .mainForm {
     padding: 0;
   }

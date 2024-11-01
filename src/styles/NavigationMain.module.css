@@ -23,7 +23,7 @@
   color: var(--text-color);
 } */
 
-@media (max-width: 984px) {
+@media (max-width: 985px) {
   #mainMenu {
     display: none;
   }

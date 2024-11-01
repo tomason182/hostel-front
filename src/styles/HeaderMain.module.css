@@ -35,7 +35,7 @@
   font-size: var(--font-size-xs);
 }
 
-@media (max-width: 984px) {
+@media (max-width: 985px) {
   .header {
     display: none;
   }

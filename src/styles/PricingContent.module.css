@@ -91,7 +91,7 @@
   margin-bottom: 1rem;
 }
 
-@media (max-width: 984px) {
+@media (max-width: 985px) {
   .mainContainer {
     width: auto;
     padding: 0 1rem;

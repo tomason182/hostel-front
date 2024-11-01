@@ -144,7 +144,7 @@ dl dt {
   margin: 0.25rem 0;
 }
 
-@media (max-width: 984px) {
+@media (max-width: 985px) {
   .dialog {
     width: max-content;
     padding: 0.5rem;

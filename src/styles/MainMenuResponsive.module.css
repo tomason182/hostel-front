@@ -33,7 +33,7 @@
   font-size: small;
 }
 
-@media (min-width: 984px) {
+@media (min-width: 985px) {
   .menu {
     display: none;
   }
