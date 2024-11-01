@@ -48,12 +48,12 @@
   padding: 0rem 0;
 }
 
-.rows {
-  height: 1.8rem;
+.rows > th {
+  padding: 0.25rem 0;
 }
 
-.rowsPrivate {
-  height: 2.2rem;
+.rowsPrivate > th {
+  padding: 0.75rem 0;
 }
 
 .roomName {
