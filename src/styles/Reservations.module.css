@@ -1,0 +1,113 @@
+.mainContent ul {
+  padding: 0rem 2rem 0rem 2rem;
+}
+
+.form {
+  margin-top: 1rem;
+  padding-left: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+
+.form label {
+  font-size: var(--font-size-small);
+  color: var(--text-color-light-2);
+}
+
+.form > label > input {
+  appearance: none;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-color-dark);
+  font-size: var(--font-size-small);
+  padding: 0.25rem 0.75rem;
+  margin-left: 0.5rem;
+}
+
+.form button {
+  margin-left: 3rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius);
+  background-color: var(--primary-color);
+}
+
+.form button:hover {
+  background-color: var(--primary-color);
+  opacity: 0.9;
+}
+
+.reservationsList {
+  margin-top: 2rem;
+}
+
+.reservationsList li {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+  border-top: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  font-size: var(--font-size-small);
+  color: var(--text-color);
+}
+
+.reservationsList li:last-child {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.reservationsList li a {
+  color: var(--active-color);
+}
+
+.reservationsList li a:hover {
+  color: var(--active-color);
+  opacity: 0.8;
+}
+
+.prices {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.dates {
+  text-align: center;
+}
+
+@media (max-width: 830px) {
+  .form {
+    flex-direction: column;
+    margin: 1rem auto;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .form label {
+    display: block;
+    width: 100%;
+  }
+
+  .form label input {
+    float: right;
+    margin-right: 1rem;
+    width: 80%;
+  }
+
+  .form button {
+    /* max-width: 23rem; */
+    margin: 0;
+  }
+
+  .reservationsList {
+    margin-top: 1rem;
+    padding: 0.5rem;
+  }
+
+  .reservationsList li {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 0.5rem;
+  }
+}

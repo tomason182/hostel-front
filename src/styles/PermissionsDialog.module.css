@@ -1,0 +1,38 @@
+.dialog {
+  background-color: #fff;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 2rem;
+}
+
+.content h3,
+.content p {
+  color: var(--text-color);
+}
+
+.content h3 {
+  font-size: var(--font-size-large);
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.content p {
+  font-size: var(--font-size-small);
+  color: var(--text-color-light-2);
+}
+
+.content button {
+  padding: 0.2rem 0.5rem;
+  margin-top: 1rem;
+  border-radius: 2px;
+  background-color: var(--secondary-color);
+}
+
+.content button:hover {
+  background-color: var(--secondary-color);
+  opacity: 0.8;
+}

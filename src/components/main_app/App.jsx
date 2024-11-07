@@ -1,7 +1,30 @@
+import { Outlet } from "react-router-dom";
+import HeaderMain from "./HeaderMain";
+import NavigationMain from "./NavigationMain";
+import MainMenuResponsive from "../menus/MainMenuResponsive";
+import PropertyDetailsProvider from "../../data_providers/PropertyDetailsProvider";
+import RoomTypeDataProvider from "../../data_providers/RoomTypesDataProvider";
+import UsersDataProvider from "../../data_providers/UsersDataProvider";
+import ReservationsDataProvider from "../../data_providers/ReservationsDataProvider";
+import UserProfileProvider from "../../data_providers/UserProfileProvider";
+
 function App() {
   return (
     <>
-      <h1>Welcome to the main app</h1>
+      <UserProfileProvider>
+        <PropertyDetailsProvider>
+          <RoomTypeDataProvider>
+            <UsersDataProvider>
+              <HeaderMain />
+              <NavigationMain />
+              <MainMenuResponsive />
+              <ReservationsDataProvider>
+                <Outlet />
+              </ReservationsDataProvider>
+            </UsersDataProvider>
+          </RoomTypeDataProvider>
+        </PropertyDetailsProvider>
+      </UserProfileProvider>
     </>
   );
 }

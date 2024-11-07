@@ -1,0 +1,40 @@
+.searchForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#mainSearch {
+  width: 35vw;
+  border-color: var(--border-color);
+  border-radius: 1rem;
+  padding: 0.3rem 0 0.3rem 1.5rem;
+  margin-right: 1rem;
+  font-size: var(--font-size-small);
+  color: var(--text-color-dark);
+  background-color: #fff;
+}
+
+.searchBtn {
+  background-color: none;
+  background: none;
+  padding: 0.3rem 0.3rem 0 0.3rem;
+}
+
+.searchBtn:hover {
+  background-color: none;
+  background: none;
+  border-radius: var(--border-radius);
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: var(--text-color-dark);
+}
+
+.searchIcon {
+  fill: none;
+  stroke: var(--border-color-dark);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

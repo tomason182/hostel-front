@@ -1,0 +1,141 @@
+#tableContainer {
+  /* border: 1px solid red; */
+  padding-top: 2rem;
+}
+
+#calendarTable {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+#calendarTable td {
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.monthDisplay {
+  font-size: 1.5rem;
+  border-bottom: 1px solid #ccc;
+  color: var(--text-color-light-2);
+  text-align: left;
+  padding-left: 1rem;
+}
+
+.arrowBtn {
+  background: none;
+}
+
+.arrowBtn svg {
+  stroke: #333;
+}
+
+.arrowBtn:hover {
+  background: none;
+}
+
+.arrowBtn svg:hover {
+  stroke: #ccc;
+}
+
+.roomDescription {
+  font-size: x-small;
+  text-align: center;
+  color: var(--text-color-light-2);
+  padding: 0rem 0;
+}
+
+.rows {
+  height: 1.8rem;
+}
+
+.rowsPrivate {
+  height: 1.8rem;
+}
+
+.roomName {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  font-size: small;
+  color: var(--text-color-light-2);
+}
+
+.roomName > span {
+  font-size: xx-small;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  padding: 0.2rem;
+}
+
+.beds {
+  border-bottom: 1px solid var(--border-color);
+  font-size: small;
+  color: var(--text-color-light-2);
+}
+
+tr:has(th > p.roomDescription),
+tr:has(th > p.roomDescription) + tr {
+  border-bottom: 2px solid;
+  border-top: 2px solid;
+  border-color: var(--border-color);
+}
+
+.rows:last-child,
+.rowsPrivate:last-child {
+  border-bottom: 2px solid var(--border-color);
+}
+
+tr.rows + tr:not(.rows) {
+  border-top: 2px solid var(--border-color);
+}
+
+.roomInfo {
+  background-color: #ccc;
+}
+
+#today {
+  background-color: var(--secondary-color);
+}
+
+.guestName {
+  font-family: var(--font-primary);
+  color: #fff;
+  padding-left: 0.75rem;
+  font-size: var(--font-size-xs);
+}
+
+.confirmed {
+  background-color: #6a994e;
+}
+
+.checkedOut {
+  background-color: #343a40;
+}
+
+.inHouse {
+  background-color: #e36414;
+}
+
+.provisional {
+  background-color: #3a86ff;
+}
+
+.noRoomTypesMessage {
+  text-align: center;
+  color: var(--text-color-light-2);
+  padding: 1.2rem;
+  font-size: var(--font-size-small);
+}
+
+.createRoomLink {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.createRoomLink:hover {
+  color: #0056b3;
+}
