@@ -1,0 +1,60 @@
+.reservationDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  padding: 1rem;
+}
+
+.one .guestInfo {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.guestInfo h3 {
+  font-size: var(--font-size-h3);
+  margin: 0;
+}
+
+.guestInfo button {
+  background: none;
+  color: var(--text-color-light-2);
+  font-size: var(--font-size-xs);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  margin: 0;
+}
+
+.guestInfo button:hover {
+  background: none;
+  border-color: var(--info-color);
+  color: var(--info-color);
+}
+
+.one dt {
+  font-size: var(--font-size-xs);
+  color: var(--text-color-light-2);
+  margin: 0.5rem 0;
+}
+
+.one dd {
+  display: flex;
+  gap: 0.5rem;
+  font-size: var(--font-size-small);
+}
+
+.two p {
+  font-size: var(--font-size-large);
+}
+
+.two dt {
+  font-family: var(--font-bold);
+  font-size: var(--font-size-small);
+}
+
+.two dd {
+  text-align: right;
+  font-size: calc(var(--font-size-small) * 0.85);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+}

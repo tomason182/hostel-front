@@ -6,42 +6,74 @@
 }
 
 @font-face {
+  font-family: Inter-Bold;
+  src: url("../assets/fonts/inter/Inter_18pt-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
   font-family: Inter-Italic;
-  src: url("../assets//fonts/inter/Inter_18pt-Italic.ttf") format("truetype");
+  src: url("../assets/fonts/inter/Inter_18pt-Italic.ttf") format("truetype");
   font-weight: lighter;
   font-style: italic;
 }
 
+@font-face {
+  font-family: Nerko-One;
+  src: url("../assets/fonts/nerkoOne/NerkoOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Typewriter;
+  src: url("../assets/fonts/typewriter/typewriter-Thin.ttf") format("truetype");
+  font-weight: normal;
+  font-size: normal;
+}
+
 :root {
   /* Primary Colors */
-  --primary-color: #2d6a4f;
-  --primary-color-light: #40916c;
-  --primary-color-dark: #1b4332;
+  --primary-color: #284b63;
+  --primary-color-light: #f9fafb;
+  --primary-color-dark: #353535;
 
   /* Secondary Colors */
-  --secondary-color: rgb(64, 145, 108);
-  --secondary-color-light: rgb(88, 214, 141);
-  --secondary-color-dark: rgb(40, 167, 69);
+  --secondary-color: #005f73;
+  --secondary-color-dark: #014755;
+  --secondary-color-light: rgb(40, 167, 69);
+
+  /* text color */
+  /* --text-color: #131721; */
+  --text-color: #374151;
+  --text-color-dark: #131721;
+  --text-color-light: #dee2e6;
+  --text-color-light-2: #7c7c7c;
 
   /* Neutral Colors */
   --background-color: rgb(255, 255, 255);
-  --second-background: #edf2f4;
-  --text-color: rgb(0 0 0);
-  --text-color-dark: rgb(51 51 51);
-  --text-color-light: rgb(51 51 51 / 0.75);
+  --second-background: #f9fafb;
+
   --muted-color: rgb(127, 140, 141);
-  --border-color: rgb(209 213 219);
 
   /* Alert Colors */
-  --error-color: rgb(231, 76, 60);
+  --error-color: #f44336;
   --warning-color: rgb(243, 156, 18);
-  --success-color: rgb(39, 174, 96);
+  --success-color: #4caf50;
   --info-color: rgb(52, 152, 219);
   --active-color: #023e8a;
 
+  /* Links colors */
+  --link-color: #0077cc;
+  --link-hover-color: #005fa3;
+
   /* Font Family */
+  --font-title-main: "Times New Roman", Times, serif;
   --font-primary: "Inter", sans-serif;
   --font-italic: "Inter-Italic", sans-serif;
+  --font-bold: "Inter-Bold", sans-serif;
+  --font-size-xs: 0.75rem;
   --font-size-small: 0.875rem;
   --font-size-large: 1.25rem;
   --font-size-h1: 2rem;
@@ -72,13 +104,15 @@
   --margin-s: 0.5rem;
   --margin-m: 1rem;
   --margin-l: 1.25rem;
-  --margin-xxl: 5rem;
+  --margin-xxl: 2.5rem;
 
   /* Borders */
   --border-width: 1px;
   --border-style: solid;
   --border-radius: 0.25rem;
   --border-radius-large: 0.5rem;
+  --border-color: #adb5bd;
+  --border-color-dark: #495057;
 
   /* Box Shadow */
   --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

@@ -1,0 +1,45 @@
+.termsContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  text-align: left;
+}
+
+.termsContainer h1 {
+  font-size: var(--font-size-h3);
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+.termsContainer p {
+  padding-bottom: 1rem;
+}
+
+.termsContainer p strong,
+strong {
+  font-family: var(--font-bold);
+}
+
+.termsContainer h4 {
+  font-size: var(--font-size-large);
+  text-align: left;
+  padding-bottom: 1rem;
+  padding-top: 2rem;
+}
+
+.termsContainer h5 {
+  font-family: var(--font-bold);
+  padding-bottom: 1rem;
+}
+
+.termsContainer ul {
+  padding-bottom: 1rem;
+}
+
+.links {
+  color: var(--link-color);
+}
+
+.links:hover {
+  color: var(--link-hover-color);
+}

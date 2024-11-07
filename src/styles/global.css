@@ -13,6 +13,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 html {
   font-size: 100%;
   scroll-behavior: smooth;
@@ -21,7 +33,7 @@ html {
 body {
   font-size: 1rem;
   color: var(--text-color);
-  background-color: var(--background-color);
+  background-color: #fff;
 }
 
 /* Global link style */
@@ -57,14 +69,84 @@ textarea {
 
 input {
   border: 1px solid black;
-  background: none;
+  background: inherit;
   color: black;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  -webkit-appearance: auto;
+  appearance: auto;
+  display: block;
+  background-color: black;
+}
+
 input:focus {
-  outline: 2px solid var(--active-color);
+  outline: 1.5px solid var(--active-color);
 }
 
 button {
   border: none;
+  cursor: pointer;
+}
+
+menu {
+  margin: 0;
+  padding: 0;
+}
+
+/* Dialogs default styles*/
+
+dialog {
+  border: none;
+  max-height: none;
+}
+.dialog {
+  border-right: 5px solid var(--secondary-color);
+  border-top-left-radius: 1rem;
+  color: var(--text-color);
+  position: fixed;
+  margin: 0 0 0 auto;
+  height: 100%;
+  width: 40%;
+  background-color: rgba(255, 255, 255);
+  animation: fade-in 0.8s forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.dialog::backdrop {
+  backdrop-filter: blur(0.1px);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Main content class */
+.main-content {
+  padding-bottom: 6rem;
+}
+
+/* dl default styles */
+
+dl {
+  font-size: var(--font-size-xs);
+  padding: 0 0 1rem 0rem;
+  margin-bottom: 1.5rem;
+}
+
+dl dt {
+  font-family: var(--font-bold);
+  margin: 0.25rem 0;
+}
+
+@media (max-width: 985px) {
+  .dialog {
+    width: max-content;
+    padding: 0.5rem;
+  }
 }

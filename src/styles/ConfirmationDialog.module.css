@@ -1,0 +1,38 @@
+.confirmationDialog {
+  background-color: #fff;
+  z-index: 9999;
+  position: relative;
+  max-width: 30rem;
+  border: 1px solid var(--border-color);
+}
+
+.confirmationDialog p {
+  font-size: var(--font-size-small);
+  color: var(--info-color);
+}
+
+.confirmationDialog span {
+  color: var(--text-color-light-2);
+  font-size: x-small;
+}
+.confirmationDialog button {
+  display: inline-block;
+  margin: 10px;
+}
+
+.confirmationDialog::backdrop {
+  backdrop-filter: blur(0.6px);
+}
+
+.confirmationDialog .btnContainer {
+  display: flex;
+  justify-content: end;
+}
+
+.confirmationDialog .confirmBtn {
+  background-color: var(--info-color);
+}
+
+.confirmationDialog .confirmBtn:hover {
+  background-color: var(--active-color);
+}

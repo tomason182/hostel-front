@@ -1,0 +1,30 @@
+#mainMenu {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0.75rem 13rem 0.75rem 13rem;
+  font-size: var(--font-size-small);
+  font-family: var(--font-primary);
+  background-color: var(--background-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.propertyLink {
+  color: var(--text-color);
+}
+
+.active {
+  text-decoration: underline;
+  text-decoration-thickness: 0.33rem;
+  text-decoration-color: var(--secondary-color);
+}
+
+/* #mainMenu a:hover {
+  color: var(--text-color);
+} */
+
+@media (max-width: 985px) {
+  #mainMenu {
+    display: none;
+  }
+}

@@ -1,0 +1,107 @@
+.mainContainer {
+  padding: 1rem;
+}
+
+.editContainer {
+  display: flex;
+  justify-content: end;
+  padding-bottom: 1rem;
+}
+/* Bulk edit button */
+.editContainer > button {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+}
+
+.editContainer > button:hover {
+  background-color: var(--primary-color);
+  opacity: 0.9;
+}
+
+.dayContainer {
+  padding-top: 1rem;
+}
+
+.dateSelectionContainer {
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.dateSelectionContainer button {
+  background: none;
+}
+
+.dateSelectionContainer button:hover {
+  background: none;
+}
+
+.dateSelectionContainer > button > svg {
+  stroke: #333;
+}
+
+.dateSelectionContainer > button > svg:hover {
+  stroke: #ccc;
+}
+
+.roomsContainer {
+  min-height: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+#isToday h3 {
+  color: green;
+  font-size: 1.25rem;
+}
+
+.roomTypeContainer {
+  border: 1px solid #ccc;
+  padding: 1rem;
+}
+
+.roomsContainer dd,
+.roomsContainer dt {
+  margin: 0;
+}
+
+.dlContainer {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.5rem;
+}
+
+.status {
+  border-radius: 5px;
+  padding: 0.15rem 0.25rem;
+}
+
+.close {
+  background-color: red;
+  color: #fff;
+}
+
+.open {
+  background-color: rgb(0, 128, 0, 0.3);
+  color: rgb(0, 128, 0);
+}
+
+.noRoomTypesMessage {
+  text-align: center;
+  color: var(--text-color-light-2);
+  padding: 1.2rem;
+  font-size: var(--font-size-small);
+}
+
+.createRoomLink {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.createRoomLink:hover {
+  color: #0056b3;
+}
