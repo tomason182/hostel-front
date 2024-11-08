@@ -27,7 +27,7 @@ export default function LoginForm() {
       password: e.target.password.value,
     };
 
-    const url = "http://localhost:5000/api/v1/users/auth";
+    const url = import.meta.env.VITE_URL_BASE + "users/auth";
     const options = {
       mode: "cors",
       method: "POST",
