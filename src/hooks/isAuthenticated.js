@@ -1,5 +1,5 @@
 export default async function isAuthenticated() {
-  const url = import.meta.env.VITE_URL_BASE + "/api/v1/users/validate";
+  const url = import.meta.env.VITE_URL_BASE + "users/validate";
   const options = {
     mode: "cors",
     method: "GET",
