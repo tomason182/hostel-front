@@ -1,4 +1,5 @@
 import styles from "../../styles/HomePage.module.css";
+import calendarImage from "../../assets/image/calendar.png";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
@@ -18,7 +19,7 @@ export default function HomePage() {
         <Link to="/accounts/signup">Sign up for free</Link>
       </div>
       <img
-        src="src/assets/image/calendar.png"
+        src={calendarImage}
         alt="calendar-image"
         className={styles.calendarImg}
       />
