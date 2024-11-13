@@ -1,6 +1,6 @@
 import { format, sub, add } from "date-fns";
 import styles from "../../../styles/Calendar.module.css";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 export default function Calendar({
@@ -9,121 +9,6 @@ export default function Calendar({
   startDate,
   setStartDate,
 }) {
-  const [dynamicReservationList, setDynamicReservationsList] = useState([]);
-
-  useEffect(() => {
-    function checkBedsAssignment(reservationsList) {
-      const today = format(new Date(), "yyyyMMdd");
-      const reservationsInTheHouse = reservationsList.filter(
-        r =>
-          format(new Date(r.check_in), "yyyyMMdd") <= today &&
-          format(new Date(r.check_out), "yyyyMMdd") > today
-      );
-
-      const reservationsWithNoBedsAssigned = reservationsInTheHouse.filter(
-        r => r.assigned_beds.length === 0
-      );
-
-      if (reservationsWithNoBedsAssigned.length > 0) {
-        const url =
-          import.meta.env.VITE_URL_BASE + "reservations/check-in/assign-beds";
-        const options = {
-          mode: "cors",
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        };
-
-        fetch(url, options)
-          .then(response => response.json())
-          .then(data => console.log(data))
-          .catch(err => console.error(err));
-      }
-    }
-
-    checkBedsAssignment(reservations);
-  }, [reservations]);
-
-  useEffect(() => {
-    setDynamicReservationsList([]);
-    // Primer paso. Obtener las reservas que tiene camas asigandas
-    const reservationsWithBeds = reservations.filter(
-      r => r.assigned_beds.length !== 0
-    );
-
-    // Segundo paso. Asignar las reservas con camas a useState.
-    setDynamicReservationsList(prevList => [
-      ...prevList,
-      ...reservationsWithBeds,
-    ]);
-
-    // Tercer paso. Filtrar las reservas que no tiene cama
-    const reservationsWithNoBeds = reservations.filter(
-      r => r.assigned_beds.length === 0
-    );
-
-    // Cuarto paso. Ordenar las reservas por orden de llegada
-    const reservationsWithNoBedsSorted = reservationsWithNoBeds.sort((a, b) => {
-      return new Date(a.check_in) - new Date(b.check_in);
-    });
-
-    let reservationsWithBedsTemp = [...reservationsWithBeds];
-
-    // Quinto paso. Iterar sobre las reservas ordenadas
-    for (const reservation of reservationsWithNoBedsSorted) {
-      // Sexto paso. Buscar reservas con camas para el mismo tipo de cuarto en useState y que se solapen.
-      const checkIn = format(reservation.check_in, "yyyyMMdd");
-      const checkOut = format(reservation.check_out, "yyyyMMdd");
-      const reservationByRoomType = reservationsWithBedsTemp.filter(
-        r => r.room_type_id === reservation.room_type_id
-      );
-
-      const reservationsFilteredByDate = reservationByRoomType.filter(
-        r =>
-          format(r.check_in, "yyyyMMdd") < checkOut &&
-          format(r.check_out, "yyyyMMdd") > checkIn
-      );
-
-      // Septimo. Obtener las camas disponibles.
-      const roomType = roomTypes.find(
-        rt => rt._id === reservation.room_type_id
-      );
-      const totalBeds = roomType.products.flatMap(product => product.beds);
-      const occupiedBeds = reservationsFilteredByDate.flatMap(
-        r => r.assigned_beds
-      );
-      const availableBeds = totalBeds.filter(
-        bed => !occupiedBeds.includes(bed)
-      );
-
-      // Copiar la reserva para evitar mutaciones
-      const updatedReservation = { ...reservation, assigned_beds: [] };
-
-      // Octavo. Asignamos camas segun tipo de cuarto
-      if (roomType.type === "dorm") {
-        if (availableBeds.length >= updatedReservation.number_of_guest) {
-          updatedReservation.assigned_beds = availableBeds.slice(
-            0,
-            updatedReservation.number_of_guest
-          );
-        }
-      } else {
-        if (availableBeds.length > 0) {
-          updatedReservation.assigned_beds = availableBeds.slice(0, 1);
-        }
-      }
-
-      reservationsWithBedsTemp.push(updatedReservation);
-    }
-
-    setDynamicReservationsList(prevList => [
-      ...prevList,
-      ...reservationsWithBedsTemp,
-    ]);
-  }, [roomTypes, reservations]);
-
   const today = new Date();
   // Formatting year and month
   const year = format(startDate, "yyyy");
@@ -170,8 +55,7 @@ export default function Calendar({
     );
   });
 
-  if (!reservations || !roomTypes || !dynamicReservationList)
-    return <p>Loading...</p>;
+  if (!reservations || !roomTypes) return <p>Loading...</p>;
 
   // Reservation finding logic
 
@@ -202,7 +86,7 @@ export default function Calendar({
   const getReservationDetails = (day, bedId, type = "find") => {
     const currentDate = format(day, "yyyy-MM-dd");
 
-    const reservation = dynamicReservationList.find(
+    const reservation = reservations.find(
       r =>
         r.assigned_beds.includes(bedId) &&
         format(r.check_in, "yyyy-MM-dd") <= currentDate &&
