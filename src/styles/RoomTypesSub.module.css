@@ -1,0 +1,60 @@
+.roomTypesList {
+  font-size: var(--font-size-xs);
+  margin: 1rem 0 0 0;
+  padding: 0rem 0rem;
+}
+
+.roomTypesList li {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+  gap: 1rem;
+  align-items: center;
+}
+
+.roomTypesList li:last-child {
+  margin-bottom: 2.5rem;
+}
+
+.info {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.info span {
+  border: 1px solid var(--border-color);
+  padding: 0.25rem;
+  border-radius: 5px;
+  font-size: 0.65rem;
+  color: var(--muted-color);
+}
+
+.btnMenu {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.btnMenu button {
+  background: none;
+}
+
+.btnMenu button:hover {
+  background: none;
+}
+
+.btnMenu button svg:hover {
+  stroke: #000;
+}
+
+.btnMenu button:last-child svg:hover {
+  stroke: red;
+}
+
+.btnMenu button svg {
+  stroke: var(--muted-color);
+}
+
+.hidden {
+  visibility: hidden;
+}

@@ -1,0 +1,47 @@
+.footerContainer {
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 2.2rem 0;
+  height: auto;
+  position: relative;
+  margin: 0;
+  background-color: #f3f4f6;
+}
+
+.footerContainer ul {
+  display: flex;
+  list-style-type: none;
+}
+
+.footerContainer ul li {
+  margin-right: 1rem;
+}
+
+.provisional,
+.confirmed,
+.inHouse,
+.checkedOut {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-large);
+  padding: 0.25rem 0.5rem;
+  font-size: var(--font-size-xs);
+  color: #fff;
+}
+
+.confirmed {
+  background-color: #6a994e;
+}
+
+.provisional {
+  background-color: #3a86ff;
+}
+
+.inHouse {
+  background-color: #e36414;
+}
+
+.checkedOut {
+  background-color: #343a40;
+}

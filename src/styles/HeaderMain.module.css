@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  /* border-bottom: 1px solid var(--border-color); */
+  background-color: var(--background-color);
+}
+
+.header > h1 {
+  font-family: var(--font-title-main);
+  font-size: var(--font-size-h3);
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hostelInfo h3,
+.hostelInfo p {
+  color: var(--text-color);
+}
+
+.hostelInfo h3 {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-small);
+}
+
+.hostelInfo p {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-xs);
+}
+
+@media (max-width: 985px) {
+  .header {
+    display: none;
+  }
+}

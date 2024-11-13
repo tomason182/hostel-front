@@ -1,0 +1,27 @@
+.mainContainer {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.infoContainer {
+  border: 1px solid var(--border-color);
+}
+
+.controlPanelContainer {
+  border: 1px solid var(--border-color);
+}
+
+.goBackLink {
+  display: flex;
+  gap: 0.25rem;
+}
+
+@media (max-width: 1060px) {
+  .mainContainer {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    padding: 1rem 1rem 5rem 1rem;
+  }
+}

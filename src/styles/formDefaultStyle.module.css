@@ -1,0 +1,207 @@
+.formContainer {
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.formContainer h1 {
+  font-size: var(--font-size-large);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.mainForm {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 1rem;
+  background-color: inherit;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.mainForm fieldset {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+  border-style: solid;
+  border-color: #dedede;
+}
+
+.mainForm fieldset legend {
+  padding: 0.1rem 0.5rem;
+  font-family: var(--font-bold);
+  color: #fff;
+  background-color: var(--secondary-color-dark);
+  font-size: var(--font-size-xs);
+}
+
+.mainForm label {
+  font-size: var(--font-size-xs);
+  color: var(--text-color);
+}
+
+.mainForm input {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  margin-top: 0.25rem;
+  border-radius: var(--border-radius-large);
+  border-color: var(--border-color);
+  color: var(--text-color-light-2);
+  font-size: var(--font-size-small);
+}
+
+.mainForm input::placeholder {
+  color: #ccc;
+  font-size: small;
+}
+
+.radioContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.radioContainer > label {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+}
+
+.mainForm input[type="radio"] {
+  appearance: none;
+  padding: 0;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+  position: relative;
+  float: right;
+}
+
+.mainForm input[type="radio"]:checked {
+  border: 6px solid black;
+  padding: 0;
+}
+
+.buttonContainer {
+  display: flex;
+  padding-top: 1rem;
+  justify-content: space-around;
+}
+
+.buttonContainer button {
+  padding: var(--padding-s) var(--padding-m);
+  border-radius: var(--border-radius);
+}
+
+.resetBtn {
+  background-color: #333;
+}
+
+.resetBtn:hover {
+  background-color: #333;
+  opacity: 0.9;
+}
+
+.submitBtn {
+  background-color: var(--primary-color);
+}
+
+.submitBtn:hover {
+  background-color: var(--primary-color);
+  opacity: 0.9;
+}
+
+.mainForm select {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  appearance: none;
+  color: black;
+  border: 1px solid #caced1;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.mainForm textarea {
+  background-color: #fff;
+  color: black;
+  width: 100%;
+}
+
+.infoLabel {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+.tooltipContainer {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  width: 10rem;
+  background-color: #ccc;
+  color: #333;
+  border-radius: 4px;
+  padding: 5px;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ccc transparent transparent transparent;
+}
+
+.tooltipContainer:hover .tooltip,
+.tooltipContainer:focus-within .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.infoIcon {
+  stroke: var(--info-color);
+}
+
+.success,
+.error {
+  font-size: var(--font-size-xs);
+}
+
+.success {
+  color: var(--info-color);
+}
+
+.error {
+  color: var(--error-color);
+}
+
+@media (max-width: 985px) {
+  .mainForm {
+    padding: 0;
+  }
+}
