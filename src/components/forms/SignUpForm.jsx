@@ -1,5 +1,5 @@
 import styles from "../../styles/SignUpForm.module.css";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import ErrorComponent from "../error_page/ErrorComponent";
 import { useNavigate, Link } from "react-router-dom";
@@ -9,15 +9,50 @@ function SignUpForm() {
   const [errors, setErrors] = useState(null);
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
 
+  // Reference to captcha
+  const captchaRef = useRef(null);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Render the reCAPTCHA widget after component mounts
+    if (window.grecaptcha) {
+      window.grecaptcha.ready(() => {
+        captchaRef.current = window.grecaptcha.render("recaptcha-container", {
+          sitekey: import.meta.env.VITE_SITE_PUBLIC_KEY,
+          callback: onloadCallback,
+        });
+      });
+    } else {
+      console.error("reCAPTCHA script not loaded");
+    }
+  }, []);
+
+  function resetCaptcha() {
+    if (captchaRef !== null) {
+      window.grecaptcha.reset(captchaRef.current);
+    }
+  }
+
+  function onloadCallback(token) {
+    console.log("Captcha token: ", token);
+  }
 
   function handleAcceptTerms(e) {
     setIsTermsAccepted(e.target.checked);
   }
+
   async function handleSubmit(event) {
     event.preventDefault();
     setErrors(null);
     setLoading(true);
+
+    // Check if the captcha was complete by verifying the token
+    const token = window.grecaptcha.getResponse(captchaRef.current);
+    if (!token) {
+      alert("Please complete the CAPTCHA");
+      return;
+    }
 
     const { name, property_name, username, password, psw_confirm } =
       event.target;
@@ -28,6 +63,7 @@ function SignUpForm() {
       username: username.value,
       password: password.value,
       acceptTerms: isTermsAccepted,
+      captchaToken: token,
     };
 
     try {
@@ -64,6 +100,7 @@ function SignUpForm() {
       setErrors([{ msg: err.message || "Unexpected error occurred" }]);
     } finally {
       setLoading(false);
+      resetCaptcha();
     }
   }
 
@@ -139,6 +176,7 @@ function SignUpForm() {
           two upper case letters, two digits and two special characters
         </small>
       </p>
+      <div id="recaptcha-container"></div>
       <button className={styles.submitBtn} type="submit" disabled={loading}>
         {loading ? "Signing up..." : "Sign up"}
       </button>
