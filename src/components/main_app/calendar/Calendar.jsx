@@ -122,7 +122,7 @@ export default function Calendar({
   // rendering list of rooms and their beds with reservations
 
   const listOfRooms = roomTypes.map(room => (
-    <Fragment key={`${room._id}-${room.property_id}`}>
+    <tbody key={`${room._id}-${room.property_id}`}>
       <tr className={styles.roomRow}>
         <th colSpan={17} key={room._id}>
           <p className={styles.roomDescription}>{room.description}</p>
@@ -197,7 +197,7 @@ export default function Calendar({
           })}
         </Fragment>
       ))}
-    </Fragment>
+    </tbody>
   ));
 
   return (
@@ -249,8 +249,9 @@ export default function Calendar({
             {daysOfWeek}
           </tr>
         </thead>
-        <tbody>
-          {listOfRooms.length === 0 ? (
+
+        {listOfRooms.length === 0 ? (
+          <tbody>
             <tr height={250}>
               <td colSpan={17} className={styles.noRoomTypesMessage}>
                 There are no room types created. Before you begin, please{" "}
@@ -262,10 +263,10 @@ export default function Calendar({
                 </Link>
               </td>
             </tr>
-          ) : (
-            listOfRooms
-          )}
-        </tbody>
+          </tbody>
+        ) : (
+          listOfRooms
+        )}
       </table>
     </div>
   );
