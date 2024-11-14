@@ -328,7 +328,7 @@ export default function Terms() {
         platform is smooth and satisfactory.
       </p>
       <ul>
-        <li>Email:support@simplehostel.com</li>
+        <li>Email:support@simplehostel.net</li>
         <li>Mailing Address: SimpleHostel Support</li>
         <li>alguna calle 123</li>
         <li>Azul, Buenos Aires, 7300</li>

@@ -1,17 +1,17 @@
 #tableContainer {
-  /* border: 1px solid red; */
   padding-top: 2rem;
   padding-bottom: 3rem;
 }
 
 #calendarTable {
   width: 100%;
-  border-collapse: collapse;
+  border-spacing: 0px;
   table-layout: fixed;
 }
 
 #calendarTable td {
-  border: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -77,20 +77,9 @@
   color: var(--text-color-light-2);
 }
 
-tr:has(th > p.roomDescription),
-tr:has(th > p.roomDescription) + tr {
-  border-bottom: 2px solid;
-  border-top: 2px solid;
-  border-color: var(--border-color);
-}
-
-.rows:last-child,
-.rowsPrivate:last-child {
-  border-bottom: 2px solid var(--border-color);
-}
-
-tr.rows + tr:not(.rows) {
-  border-top: 2px solid var(--border-color);
+.roomRow > th {
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.25rem;
 }
 
 .roomInfo {

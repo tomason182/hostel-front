@@ -8,7 +8,7 @@ export default function ContactUsContent() {
       <div className={styles.contactContainer}>
         <h3>Email support</h3>
         <p>Send us an email and we&apos;get back to you soon</p>
-        <address>support@simplehostel.com</address>
+        <address>support@simplehostel.net</address>
       </div>
     </div>
   );

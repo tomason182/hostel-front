@@ -55,13 +55,13 @@ export default function Faq() {
       <p>
         If you need assistance, our support team is here to help. Please reach
         out to us at{" "}
-        <span className={styles.links}>support@simplehostel.com</span>, and
+        <span className={styles.links}>support@simplehostel.net</span>, and
         we&apos;ll be happy to assist you with any account issues or questions.
       </p>
       <h4>8. How do I delete my account?</h4>
       <p>
         To delete your account, please contact us at{" "}
-        <span className={styles.links}>support@simplehostel.com</span>
+        <span className={styles.links}>support@simplehostel.net</span>
         with your account details, and we&apos;ll guide you through the process.
         For more information, review the Your Data Rights section in our{" "}
         <Link className={styles.links} to="/legal/privacy-policy">
@@ -79,7 +79,7 @@ export default function Faq() {
       <h4>How can I provide feedback?</h4>
       <p>
         We welcome your feedback! Please share your suggestions and ideas with
-        us at <span className={styles.links}>support@simplehostel.com</span>, as
+        us at <span className={styles.links}>support@simplehostel.net</span>, as
         they help us make SimpleHostel better for you.
       </p>
     </div>
