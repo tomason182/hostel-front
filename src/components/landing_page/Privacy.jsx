@@ -116,7 +116,7 @@ export default function Privacy() {
         information, you can sign in to your SimpleHostel account, navigate to
         your profile, and make the necessary changes. If you are unable to make
         changes through your account, you can reach out to us at
-        support@simplehostel.com with your name, email address, and details of
+        support@simplehostel.net with your name, email address, and details of
         the information you wish to access, correct, or delete. We will respond
         to your request in a timely manner.
       </p>
@@ -126,7 +126,7 @@ export default function Privacy() {
         account data—including personal, business, and guest information—at any
         time. If you would like all data associated with your account
         permanently removed from our systems, please contact us at
-        support@simplehostel.com, and we will process your request in accordance
+        support@simplehostel.net, and we will process your request in accordance
         with our data retention policies and any legal requirements.
       </p>
       <h5>Limitation on Request</h5>
@@ -173,7 +173,7 @@ export default function Privacy() {
         support investigations, and enforce our policies. <br />
         As stated in the Your Data Rights section, you have the right to request
         deletion of your account and all associated data. To do so, please
-        contact us at support@simplehostel.com.
+        contact us at support@simplehostel.net.
       </p>
       <h4>9. Changes to This Privacy Policy</h4>
       <p>
@@ -191,7 +191,7 @@ export default function Privacy() {
         We welcome your feedback regarding this Privacy Policy. If you have
         questions, concerns, or believe we have not adhered to these policies,
         please reach out to our Data Protection Officer at
-        support@simplehostel.com. We aim to address all inquiries promptly and
+        support@simplehostel.net. We aim to address all inquiries promptly and
         thoroughly.
       </p>
     </div>
