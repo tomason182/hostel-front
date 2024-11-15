@@ -5,4 +5,4 @@ Disallow: /accounts/email-validation/*
 Disallow: /accounts/reset-password/new/*
 Disallow: /app
 Disallow: /app/*
-sitemap: https://www.simplehostel.net/sitemap.txt
+sitemap: https://www.simplehostel.net/sitemap.xml
