@@ -7,7 +7,9 @@ export default function HomePage() {
     <div className={styles.mainContent}>
       <div className={styles.mainTitle}>
         <h1>
-          Manage Your Hostel,<span>The Simple Way</span>
+          Hostel Management
+          <br />
+          <span>The Simple Way</span>
         </h1>
         <br />
         <p>
@@ -20,19 +22,55 @@ export default function HomePage() {
       </div>
       <img
         src={calendarImage}
-        alt="calendar-image"
+        alt="Calendar page with reservations in simple hostel dashboard"
         className={styles.calendarImg}
       />
       <div className={styles.mainDescription}>
-        <div className={styles.descriptionTitle}>
-          <h2>Simplifying Your Hostel&apos;s Daily Operations, Every Day.</h2>
-          <p>
-            &ldquo;<span>Simple Hostel</span> is the app I wish I had when
-            managing my own hostel. With an intuitive, user-friendly design,
-            we&apos;ve made it easier to simplify your hostel&apos;s daily
-            management tasks—saving you time and reducing stress.&rdquo;
-          </p>
+        <h2>Simplifying Your Hostel&apos;s Daily Operations, Every Day.</h2>
+        <p>
+          &ldquo;<span>Simple Hostel</span> is the app I wish I had when
+          managing my own hostel. With an intuitive, user-friendly design,
+          we&apos;ve made it easier to simplify your hostel&apos;s daily
+          management tasks—saving you time and reducing stress.&rdquo;
+        </p>
+      </div>
+      <section className={styles.mainDescription}>
+        <h2>Features of Our Hostel Management System</h2>
+        <div className={styles.gridContainer}>
+          <div className={styles.descriptionItem}>
+            <h3>Manage your hostel booking with ease</h3>
+            <p>
+              Our intuitive calendar view allows you to see all your
+              reservations at a glance, making it simple to track availability
+              and occupancy. Effortlessly adjust rates, manage room types,
+              update availability and handle seasonal pricing.
+            </p>
+          </div>
+          <div className={styles.descriptionItem}>
+            <h3>Reservation Management System</h3>
+            <p>
+              Easily search for reservations by date range or guest name. Modify
+              reservation statuses—whether it&apos;s confirmed, canceled, or a
+              no-show. Need to adjust details? Update stay dates or pricing to
+              accommodate changes and keep your records accurate. Our system
+              simplifies reservation management, giving you flexibility and
+              efficiency.
+            </p>
+          </div>
+          <div className={styles.descriptionItem}>
+            <h3>Streamlined User Management with Role-Based Access</h3>
+            <p>
+              Grant access to your team while maintaining control over sensitive
+              information. Our system allows you to add users with specific
+              roles, such as managers or receptionists, with specifics
+              permissions tailored to each role, ensuring that every user has
+              access to the tools they need without compromising security.
+            </p>
+          </div>
         </div>
+      </section>
+      <section>
+        <h2>Why SimpleHostel is the Perfect Choice for Your Hostel</h2>
         <div className={styles.gridContainer}>
           <div className={styles.descriptionItem}>
             <h3>Why Choose Us?</h3>
@@ -63,7 +101,7 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
