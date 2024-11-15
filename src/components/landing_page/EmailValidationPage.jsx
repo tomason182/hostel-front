@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import styles from "../../styles/EmailConfirmationPage.module.css";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 
 export default function EmailValidationPage() {
   const [isValid, setIsValid] = useState(false);
@@ -96,30 +97,36 @@ export default function EmailValidationPage() {
   };
 
   return (
-    <div className={styles.mainContent}>
-      <h1>{title}</h1>
-      <p>{message}</p>
+    <>
+      <Helmet>
+        <title>Hostel Management | Simple Hostel</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+      <div className={styles.mainContent}>
+        <h1>{title}</h1>
+        <p>{message}</p>
 
-      {isValid ? (
-        <Link to="/accounts/login" className={styles.link}>
-          Log in into your account
-        </Link>
-      ) : (
-        <Link className={styles.linkSecondary} onClick={handleResendEmail}>
-          Resend token
-        </Link>
-      )}
-      {resendMessage && (
-        <p
-          className={
-            msgStatus === "success"
-              ? styles.successMessage
-              : styles.errorMessage
-          }
-        >
-          {resendMessage}
-        </p>
-      )}
-    </div>
+        {isValid ? (
+          <Link to="/accounts/login" className={styles.link}>
+            Log in into your account
+          </Link>
+        ) : (
+          <Link className={styles.linkSecondary} onClick={handleResendEmail}>
+            Resend token
+          </Link>
+        )}
+        {resendMessage && (
+          <p
+            className={
+              msgStatus === "success"
+                ? styles.successMessage
+                : styles.errorMessage
+            }
+          >
+            {resendMessage}
+          </p>
+        )}
+      </div>
+    </>
   );
 }
