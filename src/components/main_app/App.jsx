@@ -7,10 +7,15 @@ import RoomTypeDataProvider from "../../data_providers/RoomTypesDataProvider";
 import UsersDataProvider from "../../data_providers/UsersDataProvider";
 import ReservationsDataProvider from "../../data_providers/ReservationsDataProvider";
 import UserProfileProvider from "../../data_providers/UserProfileProvider";
+import { Helmet } from "react-helmet";
 
 function App() {
   return (
     <>
+      <Helmet>
+        <title>Dashboard | SimpleHostel</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <UserProfileProvider>
         <PropertyDetailsProvider>
           <RoomTypeDataProvider>
