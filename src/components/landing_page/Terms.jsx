@@ -346,8 +346,6 @@ export default function Terms() {
         </p>
         <ul>
           <li>Email:support@simplehostel.net</li>
-          <li>Mailing Address: SimpleHostel Support</li>
-          <li>alguna calle 123</li>
           <li>Azul, Buenos Aires, 7300</li>
           <li>Argentina</li>
         </ul>
