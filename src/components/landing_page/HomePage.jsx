@@ -31,6 +31,9 @@ export default function HomePage() {
         </div>
         <img
           src={calendarImage}
+          width="100%"
+          height="auto"
+          fetchPriority="high"
           alt="Calendar page with reservations in simple hostel dashboard"
           className={styles.calendarImg}
         />
