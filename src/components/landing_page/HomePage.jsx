@@ -22,7 +22,7 @@ export default function HomePage() {
       </Helmet>
       <div className={styles.mainContent}>
         <div className={styles.mainTitle}>
-          <h1>
+          <h1 style={{ fontFamily: "'Inter', sans-serif" }}>
             Hostel Management
             <br />
             <span>The Simple Way</span>
