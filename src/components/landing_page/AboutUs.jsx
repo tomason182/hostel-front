@@ -1,5 +1,5 @@
 import styles from "../../styles/TermsContent.module.css";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function AboutUs() {
   return (

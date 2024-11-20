@@ -1,7 +1,7 @@
 import styles from "../../styles/HomePage.module.css";
 import calendarImage from "../../assets/image/calendar.png";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function HomePage() {
   return (
@@ -11,6 +11,13 @@ export default function HomePage() {
         <meta
           name="description"
           content="Manage your hostel effortlessly with SimpleHostel. Streamline reservations, track availability, and enhance guest experiences. Get started for free today!"
+        />
+        <link
+          rel="preload"
+          href="/assets/fonts/inter/Inter_18pt-Medium.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin
         />
       </Helmet>
       <div className={styles.mainContent}>

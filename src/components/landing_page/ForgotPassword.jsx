@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "../../styles/ForgotPassword.module.css";
 import formStyles from "../../styles/formDefaultStyle.module.css";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 export default function ForgotPassword() {
   const [message, setMessage] = useState(null);
   const [status, setStatus] = useState(null);

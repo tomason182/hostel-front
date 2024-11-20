@@ -1,5 +1,5 @@
 import styles from "../../styles/ContactUsContent.module.css";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function ContactUsContent() {
   return (

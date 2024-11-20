@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "../../styles/EmailConfirmationPage.module.css";
 import { Link, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function EmailConfirmationPage() {
   const [message, setMessage] = useState(null);

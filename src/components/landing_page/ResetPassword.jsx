@@ -3,7 +3,7 @@ import styles from "../../styles/formDefaultStyle.module.css";
 import { useParams, useNavigate } from "react-router-dom";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import ErrorComponent from "../error_page/ErrorComponent";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function ResetPassword() {
   const [message, setMessage] = useState(null);
