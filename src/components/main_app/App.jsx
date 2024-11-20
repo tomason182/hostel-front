@@ -7,7 +7,7 @@ import RoomTypeDataProvider from "../../data_providers/RoomTypesDataProvider";
 import UsersDataProvider from "../../data_providers/UsersDataProvider";
 import ReservationsDataProvider from "../../data_providers/ReservationsDataProvider";
 import UserProfileProvider from "../../data_providers/UserProfileProvider";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function App() {
   return (

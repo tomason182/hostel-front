@@ -3,6 +3,7 @@
   src: url("../assets/fonts/inter/Inter_18pt-Medium.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -19,30 +20,14 @@
   font-style: italic;
 }
 
-@font-face {
-  font-family: Nerko-One;
-  src: url("../assets/fonts/nerkoOne/NerkoOne-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: Typewriter;
-  src: url("../assets/fonts/typewriter/typewriter-Thin.ttf") format("truetype");
-  font-weight: normal;
-  font-size: normal;
-}
-
 :root {
   /* Primary Colors */
   --primary-color: #284b63;
-  --primary-color-light: #f9fafb;
   --primary-color-dark: #353535;
 
   /* Secondary Colors */
   --secondary-color: #005f73;
   --secondary-color-dark: #014755;
-  --secondary-color-light: rgb(40, 167, 69);
 
   /* text color */
   /* --text-color: #131721; */
@@ -80,19 +65,9 @@
   --font-size-h2: 1.75rem;
   --font-size-h3: 1.5rem;
 
-  /* Font Weight */
-  --font-weight-normal: 400;
-  --font-weight-bold: 700;
-
-  /* Line Height */
-  --line-height-heading: 1.2;
-
   /* Spacing */
-  --spacing-xs: 0.25rem;
+
   --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
 
   /* Padding */
   --padding-xs: 0.25rem;
@@ -107,8 +82,6 @@
   --margin-xxl: 2.5rem;
 
   /* Borders */
-  --border-width: 1px;
-  --border-style: solid;
   --border-radius: 0.25rem;
   --border-radius-large: 0.5rem;
   --border-color: #adb5bd;
@@ -117,18 +90,4 @@
   /* Box Shadow */
   --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --box-shadow-large: 0 4px 8px rgba(0, 0, 0, 0.15);
-
-  /* Z-Index */
-  --z-index-default: 1;
-  --z-index-dropdown: 1000;
-  --z-index-modal: 1100;
-  --z-index-tooltip: 1050;
-
-  /* Transition */
-  --transition-fast: 0.2s ease-in-out;
-  --transition-medium: 0.3s ease-in-out;
-  --transition-slow: 0.5s ease-in-out;
-
-  /* List color transition */
-  --transition-list-elements: color 0.3s ease;
 }

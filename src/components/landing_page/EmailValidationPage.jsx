@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import styles from "../../styles/EmailConfirmationPage.module.css";
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function EmailValidationPage() {
   const [isValid, setIsValid] = useState(false);
