@@ -5,7 +5,6 @@ import MainMenuResponsive from "../menus/MainMenuResponsive";
 import PropertyDetailsProvider from "../../data_providers/PropertyDetailsProvider";
 import RoomTypeDataProvider from "../../data_providers/RoomTypesDataProvider";
 import UsersDataProvider from "../../data_providers/UsersDataProvider";
-import ReservationsDataProvider from "../../data_providers/ReservationsDataProvider";
 import UserProfileProvider from "../../data_providers/UserProfileProvider";
 import { Helmet } from "react-helmet-async";
 
@@ -23,9 +22,7 @@ function App() {
               <HeaderMain />
               <NavigationMain />
               <MainMenuResponsive />
-              <ReservationsDataProvider>
-                <Outlet />
-              </ReservationsDataProvider>
+              <Outlet />
             </UsersDataProvider>
           </RoomTypeDataProvider>
         </PropertyDetailsProvider>

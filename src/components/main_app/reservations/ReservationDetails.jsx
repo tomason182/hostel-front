@@ -5,6 +5,7 @@ import GuestInfo from "../guest/GuestInfo";
 import GuestControlPanel from "../guest/GuestControlPanel";
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
+import formatDateHelper from "../../../utils/formatDatesHelper";
 
 export default function ReservationDetails() {
   const { id } = useParams();
@@ -31,7 +32,15 @@ export default function ReservationDetails() {
         urlReservations,
         optionsReservations
       );
-      const reservationResult = await reservationResponse.json();
+      let reservationResult = await reservationResponse.json();
+      if (reservationResult) {
+        reservationResult.check_in = formatDateHelper(
+          reservationResult.check_in
+        );
+        reservationResult.check_out = formatDateHelper(
+          reservationResult.check_out
+        );
+      }
       setReservationData(reservationResult);
 
       const guestId = await reservationResult.guest_id;
