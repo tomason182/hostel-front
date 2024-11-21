@@ -3,6 +3,7 @@
   padding: 1rem 1rem;
   background-color: var(--primary-color);
   border-radius: var(--border-radius-small);
+  color: #fff;
 }
 
 .btn:hover {
