@@ -7,6 +7,7 @@ import DialogHeader from "../../dialogs/DialogHeader";
 import PermissionsDialog from "../../dialogs/PermissionsDialog";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import formatDateHelper from "../../../utils/formatDatesHelper";
 
 export default function RatesAvailabilityCalendar({ role }) {
   const today = new Date();
@@ -59,7 +60,15 @@ export default function RatesAvailabilityCalendar({ role }) {
 
       fetch(url, options)
         .then(response => response.json())
-        .then(data => setReservationsData(data.msg))
+        .then(data => {
+          const formattedData = data.map(d => ({
+            ...d,
+            check_in: formatDateHelper(d.check_in),
+            check_out: formatDateHelper(d.check_out),
+          }));
+          return formattedData;
+        })
+        .then(formattedData => setReservationsData(formattedData))
         .catch(err =>
           console.error(err.message || "Error fetching reservations data")
         );
