@@ -180,14 +180,29 @@ export default function RoomTypeFormUpdate({
               Currency for the room
             </span>
           </span>
-          <input
-            type="text"
+          <select
             name="currency"
-            required
-            min={1}
             value={formValues?.currency}
             onChange={handleInputChange}
-          />
+            required
+            aria-required
+          >
+            <option value="">--Select a currency--</option>
+            <option value="ARS">Argentine Peso</option>
+            <option value="AUD">Australian Dollar</option>
+            <option value="BOB">Bolivian Peso</option>
+            <option value="BRL">Brazilian Real</option>
+            <option value="CAD">Canadian Dollar</option>
+            <option value="CLP">Chilean peso</option>
+            <option value="COP">Colombian peso</option>
+            <option value="EUR">Euro</option>
+            <option value="MXN">Mexican peso</option>
+            <option value="NZD">New Zealand Dollar</option>
+            <option value="PEN">Nuevo Sol</option>
+            <option value="PYG">Guarani</option>
+            <option value="USD">US Dollar</option>
+            <option value="UYU">Uruguayan peso</option>
+          </select>
         </label>
       </fieldset>
 
