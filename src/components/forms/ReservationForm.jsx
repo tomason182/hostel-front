@@ -1,7 +1,7 @@
 import styles from "../../styles/formDefaultStyle.module.css";
 import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ErrorComponent from "../error_page/ErrorComponent";
 
 export default function ReservationForm({
@@ -13,12 +13,83 @@ export default function ReservationForm({
 }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [currency, setCurrency] = useState("");
+  const [totalPrice, setTotalPrice] = useState("");
+  const [formValues, setFormValues] = useState({
+    roomType: "",
+    checkIn: "",
+    checkOut: "",
+    numberOfGuest: "",
+  });
+
+  useEffect(() => {
+    function handleRoomCurrency() {
+      const selectedRoomType = roomTypeData.find(
+        r => r._id === formValues.roomType
+      );
+
+      if (selectedRoomType) {
+        setCurrency(selectedRoomType.currency);
+      }
+    }
+
+    handleRoomCurrency();
+  }, [formValues.roomType, roomTypeData]);
+
+  useEffect(() => {
+    function handleTotalPrice() {
+      let totalPrice = 0;
+      if (
+        formValues.roomType !== "" &&
+        formValues.checkIn !== "" &&
+        formValues.checkOut !== "" &&
+        formValues.numberOfGuest !== ""
+      ) {
+        const selectedRoomType = roomTypeData.find(
+          r => r._id === formValues.roomType
+        );
+
+        const totalNights =
+          (new Date(formValues.checkOut) - new Date(formValues.checkIn)) /
+          (1000 * 3600 * 24);
+        console.log(totalNights);
+
+        totalPrice =
+          selectedRoomType.type === "dorm"
+            ? totalNights *
+              formValues.numberOfGuest *
+              selectedRoomType.base_rate
+            : totalNights * selectedRoomType.base_rate;
+      }
+
+      setTotalPrice(totalPrice);
+    }
+
+    handleTotalPrice();
+  }, [
+    formValues.roomType,
+    formValues.checkIn,
+    formValues.checkOut,
+    formValues.numberOfGuest,
+    roomTypeData,
+  ]);
 
   const roomTypeList = roomTypeData.map(room => (
     <option key={room._id} value={room._id}>
       {room.description}
     </option>
   ));
+
+  function handleFormValues(e) {
+    e.preventDefault();
+
+    const { name, value } = e.target;
+
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  }
 
   async function handleReservationSubmit(e) {
     e.preventDefault();
@@ -68,7 +139,7 @@ export default function ReservationForm({
       }
     } catch (err) {
       console.error(err.message);
-      setError([{ msg: err.message || "Unexpected error Ocurred" }]);
+      setError([{ msg: err.message || "Unexpected error Occurred" }]);
     } finally {
       setLoading(false);
     }
@@ -83,39 +154,71 @@ export default function ReservationForm({
         <legend>Room type</legend>
         <label>
           Select a room
-          <select name="roomType">{roomTypeList}</select>
+          <select
+            name="roomType"
+            required
+            aria-required
+            onChange={handleFormValues}
+          >
+            <option value="">--Please choose an option--</option>
+            {roomTypeList}
+          </select>
         </label>
       </fieldset>
       <fieldset>
         <legend>Dates</legend>
         <label>
           Check in
-          <input type="date" name="checkIn" required aria-required />
+          <input
+            type="date"
+            name="checkIn"
+            required
+            aria-required
+            onChange={handleFormValues}
+          />
         </label>
         <label>
           Check out
-          <input type="date" name="checkOut" required aria-required />
+          <input
+            type="date"
+            name="checkOut"
+            required
+            aria-required
+            onChange={handleFormValues}
+          />
         </label>
       </fieldset>
       <fieldset>
         <legend>Reservation Details</legend>
         <label>
           Number of Guest
-          <input type="number" name="numberOfGuest" required aria-required />
+          <input
+            type="number"
+            name="numberOfGuest"
+            required
+            aria-required
+            onChange={handleFormValues}
+          />
         </label>
         <label>
-          Total Price
+          Total Price (Estimated)
           <input
             type="number"
             name="totalPrice"
             required
             aria-required
-            defaultValue={e => e.target.numberOfGuest * 2}
+            defaultValue={totalPrice}
           />
         </label>
         <label>
           Currency
-          <input type="text" name="currency" required aria-required />
+          <input
+            type="text"
+            name="currency"
+            required
+            aria-required
+            defaultValue={currency}
+          />
         </label>
         <label>
           Booking source
