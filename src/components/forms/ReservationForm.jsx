@@ -204,6 +204,7 @@ export default function ReservationForm({
           Total Price (Estimated)
           <input
             type="number"
+            step={0.01}
             name="totalPrice"
             required
             aria-required
