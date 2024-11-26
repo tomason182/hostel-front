@@ -1,6 +1,7 @@
 import { useEffect } from "react";
+import PropTypes from "prop-types";
 
-export default function GoogleSignIn() {
+export default function GoogleSignIn({ setToken }) {
   useEffect(() => {
     const idConfig = {
       client_id:
@@ -32,7 +33,12 @@ export default function GoogleSignIn() {
   const handleCredentialResponse = response => {
     console.log("Google sign-in response: ", response.credential);
     // Send credential to the backend for verification
+    setToken(response.credential);
   };
 
   return <div id="google-signin-btn"></div>;
 }
+
+GoogleSignIn.propTypes = {
+  setToken: PropTypes.func.isRequired,
+};

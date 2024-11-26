@@ -97,17 +97,17 @@ export default function PropertyRegistrationForm({ token }) {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <label>
-        Property name
-        <input
-          type="text"
-          name="propertyName"
-          required
-          aria-required
-          minLength={2}
-          maxLength={100}
-        />
-      </label>
+      <label htmlFor="propertyName">Property name</label>
+      <input
+        type="text"
+        id="propertyName"
+        name="propertyName"
+        required
+        aria-required
+        minLength={2}
+        maxLength={100}
+      />
+
       <label className={styles.checkboxLabel}>
         <input
           type="checkbox"

@@ -9,7 +9,7 @@ export default function LoginPage() {
     <div className={styles.mainContent}>
       <LoginHeading />
       <div className={styles.loginContainer}>
-        <div className={styles.auth0}>
+        <div className={styles.oauth}>
           <GoogleSignIn />
         </div>
         <DividerLine />
