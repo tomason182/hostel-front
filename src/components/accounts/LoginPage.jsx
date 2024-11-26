@@ -1,6 +1,7 @@
 import LoginHeading from "./LoginHeading";
 import LoginForm from "../forms/LoginForm";
 import GoogleSignIn from "./GoogleSignIn";
+import DividerLine from "./DividerLine";
 import styles from "../../styles/LoginPage.module.css";
 
 export default function LoginPage() {
@@ -11,11 +12,7 @@ export default function LoginPage() {
         <div className={styles.auth0}>
           <GoogleSignIn />
         </div>
-        <div className={styles.dividerContainer}>
-          <hr className={styles.line} />
-          <span className={styles.text}>or</span>
-          <hr className={styles.line} />
-        </div>
+        <DividerLine />
         <LoginForm />
       </div>
     </div>
