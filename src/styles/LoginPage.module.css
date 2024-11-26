@@ -1,0 +1,30 @@
+.loginContainer {
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.auth0 {
+  display: flex;
+  justify-content: center;
+}
+
+.dividerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.line {
+  flex: 1;
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 0 10px;
+}
+
+.text {
+  font-size: 14px;
+  color: #666;
+  white-space: nowrap;
+}
