@@ -104,7 +104,12 @@ export default function RatesAndAvailabilityForm({
       </label>
       <label>
         Availability (Optional)
-        <input type="number" name="customAvailability" />
+        <input
+          type="number"
+          name="customAvailability"
+          disabled
+          placeholder="NOT AVAILABLE YET"
+        />
       </label>
       <menu className={styles.buttonContainer}>
         <button

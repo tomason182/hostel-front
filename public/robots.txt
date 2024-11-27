@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /accounts/reset-password
+Disallow: /accounts/confirm-email/*
+Disallow: /accounts/email-validation/*
+Disallow: /accounts/reset-password/new/*
+Disallow: /app
+Disallow: /app/*
+sitemap: https://www.simplehostel.net/sitemap.xml

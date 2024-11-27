@@ -11,6 +11,7 @@ import ReservationForm from "../../forms/ReservationForm";
 
 import { useRef, useState, useContext, useCallback, useEffect } from "react";
 import { RoomTypeContext } from "../../../data_providers/RoomTypesDataProvider";
+import formatDateHelper from "../../../utils/formatDatesHelper";
 
 function CalendarMainPage() {
   const dialogRef = useRef(null);
@@ -80,7 +81,15 @@ function CalendarMainPage() {
     };
     fetch(url, options)
       .then(response => response.json())
-      .then(data => setReservations(data))
+      .then(data => {
+        const formattedData = data.map(d => ({
+          ...d,
+          check_in: formatDateHelper(d.check_in),
+          check_out: formatDateHelper(d.check_out),
+        }));
+        return formattedData;
+      })
+      .then(formattedData => setReservations(formattedData))
       .catch(err =>
         console.error("Error fetching reservations data", err.message)
       );

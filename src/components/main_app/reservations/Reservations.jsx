@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ContentTitle from "../../headers/ContentTitle";
 import { useState } from "react";
 import { format } from "date-fns";
+import formatDateHelper from "../../../utils/formatDatesHelper";
 
 function Reservations() {
   const [reservationsList, setReservationsList] = useState(null);
@@ -49,6 +50,8 @@ function Reservations() {
     reservationsList &&
     reservationsList.map(reservation => {
       const price = Number.parseFloat(reservation.total_price).toFixed(2);
+      const formattedCheckIn = formatDateHelper(reservation.check_in);
+      const formattedCheckOut = formatDateHelper(reservation.check_out);
 
       return (
         <li key={reservation._id}>
@@ -57,10 +60,10 @@ function Reservations() {
           </Link>
           <p>{reservation.guest_info.full_name}</p>
           <p className={styles.dates}>
-            {format(reservation.check_in, "yyyy-MM-dd")}
+            {format(formattedCheckIn, "yyyy-MM-dd")}
           </p>
           <p className={styles.dates}>
-            {format(reservation.check_out, "yyyy-MM-dd")}
+            {format(formattedCheckOut, "yyyy-MM-dd")}
           </p>
           <p className={styles.prices}>$&nbsp;{price}</p>
         </li>

@@ -3,6 +3,7 @@ import styles from "../../styles/formDefaultStyle.module.css";
 import { useParams, useNavigate } from "react-router-dom";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import ErrorComponent from "../error_page/ErrorComponent";
+import { Helmet } from "react-helmet-async";
 
 export default function ResetPassword() {
   const [message, setMessage] = useState(null);
@@ -70,25 +71,36 @@ export default function ResetPassword() {
     }
   }
   return (
-    <div className={styles.formContainer}>
-      <h1>Reset your Password</h1>
-      <form className={styles.mainForm} onSubmit={handleSubmit}>
-        <label>
-          New password
-          <input type="password" name="newPass" required aria-required />
-        </label>
-        <label>
-          Repeat new password
-          <input type="password" name="repeatNewPass" required aria-required />
-        </label>
-        <menu className={styles.buttonContainer}>
-          <button className={styles.submitBtn} disabled={loading}>
-            Reset Password
-          </button>
-        </menu>
-      </form>
-      <div>{error && <ErrorComponent errors={error} />}</div>
-      <div className={styles.success}>{message}</div>
-    </div>
+    <>
+      <Helmet>
+        <title>Reset Password | Simple Hostel</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+      <div className={styles.formContainer}>
+        <h1>Reset your Password</h1>
+        <form className={styles.mainForm} onSubmit={handleSubmit}>
+          <label>
+            New password
+            <input type="password" name="newPass" required aria-required />
+          </label>
+          <label>
+            Repeat new password
+            <input
+              type="password"
+              name="repeatNewPass"
+              required
+              aria-required
+            />
+          </label>
+          <menu className={styles.buttonContainer}>
+            <button className={styles.submitBtn} disabled={loading}>
+              Reset Password
+            </button>
+          </menu>
+        </form>
+        <div>{error && <ErrorComponent errors={error} />}</div>
+        <div className={styles.success}>{message}</div>
+      </div>
+    </>
   );
 }

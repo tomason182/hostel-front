@@ -3,6 +3,7 @@ import { format, sub } from "date-fns";
 import ContentTitle from "../../headers/ContentTitle";
 import HomeContainers from "./HomeContainers";
 import { useState, useEffect } from "react";
+import formatDateHelper from "../../../utils/formatDatesHelper";
 function Home() {
   const [reservations, setReservations] = useState(null);
   const [loadingReservations, setLoadingReservations] = useState(false);
@@ -33,7 +34,15 @@ function Home() {
 
       fetch(url, options)
         .then(response => response.json())
-        .then(data => setReservations(data))
+        .then(data => {
+          const formattedData = data.map(d => ({
+            ...d,
+            check_in: formatDateHelper(d.check_in),
+            check_out: formatDateHelper(d.check_out),
+          }));
+          return formattedData;
+        })
+        .then(formattedData => setReservations(formattedData))
         .catch(err => {
           console.error(err);
           setReservationsError("Error Fetching today's reservations");

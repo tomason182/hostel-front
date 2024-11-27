@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "../../styles/EmailConfirmationPage.module.css";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function EmailConfirmationPage() {
   const [message, setMessage] = useState(null);
@@ -37,36 +38,46 @@ export default function EmailConfirmationPage() {
     }
   };
   return (
-    <div className={styles.mainContent}>
-      <h1>Confirm Your Email Address</h1>
-      <p>
-        We&apos;ve sent an email to your inbox with a confirmation link. Please
-        check your email and click the link to complete your account setup. If
-        you don&apos;t see it within a few minutes, check your spam or junk
-        folder.
-      </p>
-
-      <p>
-        Still having trouble?&nbsp;
-        <Link to="#" className={styles.footerLink} onClick={handleResendEmail}>
-          Resend confirmation email
-        </Link>
-        &nbsp;or&nbsp;
-        <Link to="/contact-us" className={styles.footerLink}>
-          Contact support
-        </Link>
-      </p>
-      {message && (
-        <p
-          className={
-            msgStatus === "success"
-              ? styles.successMessage
-              : styles.errorMessage
-          }
-        >
-          {message}
+    <>
+      <Helmet>
+        <title>Hostel Management | Simple Hostel</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+      <div className={styles.mainContent}>
+        <h1>Confirm Your Email Address</h1>
+        <p>
+          We&apos;ve sent an email to your inbox with a confirmation link.
+          Please check your email and click the link to complete your account
+          setup. If you don&apos;t see it within a few minutes, check your spam
+          or junk folder.
         </p>
-      )}
-    </div>
+
+        <p>
+          Still having trouble?&nbsp;
+          <Link
+            to="#"
+            className={styles.footerLink}
+            onClick={handleResendEmail}
+          >
+            Resend confirmation email
+          </Link>
+          &nbsp;or&nbsp;
+          <Link to="/contact-us" className={styles.footerLink}>
+            Contact support
+          </Link>
+        </p>
+        {message && (
+          <p
+            className={
+              msgStatus === "success"
+                ? styles.successMessage
+                : styles.errorMessage
+            }
+          >
+            {message}
+          </p>
+        )}
+      </div>
+    </>
   );
 }

@@ -32,6 +32,7 @@
 }
 
 .mainTitle span {
+  font-size: 3rem;
   color: var(--secondary-color);
 }
 
