@@ -3,6 +3,12 @@ import PropTypes from "prop-types";
 
 export default function GoogleSignIn({ setToken }) {
   useEffect(() => {
+    const handleCredentialResponse = response => {
+      console.log("Google sign-in response: ", response.credential);
+      // Send credential to the backend for verification
+      setToken(response.credential);
+    };
+
     const idConfig = {
       client_id:
         "1042915186082-tc0g6bna870skossgv5trj7qbnp44l0b.apps.googleusercontent.com",
@@ -10,6 +16,7 @@ export default function GoogleSignIn({ setToken }) {
       auto_select: false,
       ux_mode: "popup",
       auto_prompt: "false",
+      use_fedcm_for_prompt: true,
     };
 
     if (window.google) {
@@ -28,13 +35,7 @@ export default function GoogleSignIn({ setToken }) {
         logo_alignment: "left",
       }
     );
-  });
-
-  const handleCredentialResponse = response => {
-    console.log("Google sign-in response: ", response.credential);
-    // Send credential to the backend for verification
-    setToken(response.credential);
-  };
+  }, [setToken]);
 
   return <div id="google-signin-btn"></div>;
 }

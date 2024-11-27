@@ -7,6 +7,9 @@
 
 .mainContainer > p {
   font-size: var(--font-size-small);
+  max-width: 650px;
+  text-align: center;
+  margin: 0.75rem 0;
 }
 
 p > a {
