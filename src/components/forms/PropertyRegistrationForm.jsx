@@ -63,6 +63,8 @@ export default function PropertyRegistrationForm({ token }) {
       captchaToken,
     };
 
+    console.log(formBody);
+
     try {
       const url = import.meta.env.VITE_URL_BASE + "users/auth/google/create";
       const options = {
@@ -85,9 +87,11 @@ export default function PropertyRegistrationForm({ token }) {
       }
 
       if (errors) {
+        console.log(errors);
         setErrors(errors);
       }
     } catch (e) {
+      console.log("Error: ", e.message);
       setErrors([{ msg: e.message || "Unexpected error occurred" }]);
     } finally {
       setLoading(false);
