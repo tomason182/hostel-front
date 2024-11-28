@@ -1,12 +1,36 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-export default function GoogleSignIn({ setToken }) {
+export default function GoogleSignIn({ setUserData }) {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handleCredentialResponse = response => {
       console.log("Google sign-in response: ", response.credential);
+      const token = response.credential;
       // Send credential to the backend for verification
-      setToken(response.credential);
+      const url = import.meta.env.VITE_URL_BASE + "users/auth/google/signin";
+      const options = {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      };
+
+      fetch(url, options)
+        .then(response => {
+          if (response.status === 200) {
+            navigate("/app");
+            return;
+          }
+          if (response.status === 409) {
+            return setUserData({ msg: "need registration" });
+          }
+        })
+        .catch(e => console.error("Error: ", e));
     };
 
     const idConfig = {
@@ -35,11 +59,11 @@ export default function GoogleSignIn({ setToken }) {
         logo_alignment: "left",
       }
     );
-  }, [setToken]);
+  }, []);
 
   return <div id="google-signin-btn"></div>;
 }
 
 GoogleSignIn.propTypes = {
-  setToken: PropTypes.func.isRequired,
+  setUserData: PropTypes.func.isRequired,
 };

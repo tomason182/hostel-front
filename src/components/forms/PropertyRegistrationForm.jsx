@@ -3,9 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import ErrorComponent from "../error_page/ErrorComponent";
-import PropTypes from "prop-types";
 
-export default function PropertyRegistrationForm({ token }) {
+export default function PropertyRegistrationForm() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
 
@@ -18,7 +17,6 @@ export default function PropertyRegistrationForm({ token }) {
     const propertyName = e.target.propertyName.value;
 
     const formBody = {
-      token,
       propertyName,
     };
 
@@ -76,7 +74,3 @@ export default function PropertyRegistrationForm({ token }) {
     </form>
   );
 }
-
-PropertyRegistrationForm.propTypes = {
-  token: PropTypes.string.isRequired,
-};
