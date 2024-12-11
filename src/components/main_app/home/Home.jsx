@@ -10,19 +10,9 @@ function Home() {
   const [reservationsError, setReservationsError] = useState(null);
 
   useEffect(() => {
-    function fetchTodaysReservations(from, to, fullName) {
+    function fetchLast10Reservations() {
       setLoadingReservations(true);
-      const fromDate = format(from, "yyyyMMdd");
-      const toDate = format(to, "yyyyMMdd");
-
-      const url =
-        import.meta.env.VITE_URL_BASE +
-        "reservations/find/" +
-        fromDate +
-        "-" +
-        toDate +
-        "-" +
-        fullName;
+      const url = import.meta.env.VITE_URL_BASE + "reservations/last-10-reservations";
       const options = {
         mode: "cors",
         method: "GET",
@@ -45,15 +35,12 @@ function Home() {
         .then(formattedData => setReservations(formattedData))
         .catch(err => {
           console.error(err);
-          setReservationsError("Error Fetching today's reservations");
+          setReservationsError("Error retrieving last 10 reservations");
         })
         .finally(setLoadingReservations(false));
     }
 
-    const today = new Date();
-    const before = sub(today, { days: 30 });
-    const fullName = "all";
-    fetchTodaysReservations(before, today, fullName);
+    fetchLast10Reservations();
   }, []);
 
   const today = format(new Date(), "yyyyMMdd");
@@ -82,8 +69,8 @@ function Home() {
       );
     });
 
-  const latestReservation =
-    reservations &&
+  const latestReservation = reservations;
+    /*reservations &&
     reservations
       .filter(
         r =>
@@ -91,7 +78,7 @@ function Home() {
           r.reservation_status === "provisional"
       )
       .sort((a, b) => new Date(b.updated_At) - new Date(a.updated_At))
-      .slice(0, 10);
+      .slice(0, 10);*/
 
   // Titles
   const messageOne = {
