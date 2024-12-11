@@ -43,7 +43,10 @@ function Home() {
     fetchLast10Reservations();
   }, []);
 
-  const today = format(new Date(), "yyyyMMdd");
+  const today = new Date();
+  let lower_limit = sub(today, { days: 30 });
+  lower_limit = format(lower_limit, "yyyyMMdd");
+  
 
   const coming =
     reservations &&
@@ -69,16 +72,9 @@ function Home() {
       );
     });
 
-  const latestReservation = reservations;
-    /*reservations &&
-    reservations
-      .filter(
-        r =>
-          r.reservation_status === "confirmed" ||
-          r.reservation_status === "provisional"
-      )
-      .sort((a, b) => new Date(b.updated_At) - new Date(a.updated_At))
-      .slice(0, 10);*/
+  const latestReservation = reservations && reservations
+    .filter(r => (format(r.updated_At, "yyyyMMdd") > lower_limit) && (r.reservation_status === "confirmed" || r.reservation_status === "provisional"));
+  
 
   // Titles
   const messageOne = {
