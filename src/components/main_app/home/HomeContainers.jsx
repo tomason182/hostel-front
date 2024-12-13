@@ -13,7 +13,7 @@ export default function HomeContainers({ message, data, loading, error }) {
     ) : (
       data.map(d => (
         <li key={d._id}>
-          <p>{d.data_guest.first_name} {d.data_guest.last_name}</p>
+          <p>{d.guest_info.full_name}</p>
           <div className={styles.infoContainer}>
             <span>
               {format(d.check_in, "yyyy-MM-dd")}&nbsp;&nbsp;
