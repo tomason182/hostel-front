@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import { useEffect, useState } from "react";
 import ErrorComponent from "../error_page/ErrorComponent";
+import { format, sub } from "date-fns";
 
 export default function ReservationForm({
   guestData,
@@ -48,18 +49,44 @@ export default function ReservationForm({
         const selectedRoomType = roomTypeData.find(
           r => r._id === formValues.roomType
         );
+        
+        const ratesList = selectedRoomType.rates_and_availability.filter(
+          item => format(item.start_date, "yyyy-MM-dd") < formValues.checkOut && format(item.end_date, "yyyy-MM-dd") >= formValues.checkIn
+        );
+        
+        const checkIn = new Date(formValues.checkIn);
+        const checkOut = new Date(formValues.checkOut);
+        let price_per_guest = 0;
+        let formatStartDate;
+        let formatEndDate;
+        let formatCustomRate = 0;
+        const formatBaseRate = parseFloat(selectedRoomType.base_rate);
+        const totalNights = checkOut - checkIn;
 
-        const totalNights =
-          (new Date(formValues.checkOut) - new Date(formValues.checkIn)) /
-          (1000 * 3600 * 24);
-        console.log(totalNights);
+
+        for (let i = 0; i < ratesList.length; i++) {
+
+          formatStartDate = new Date(format(ratesList[i].start_date, "yyyy-MM-dd"));
+          formatEndDate = new Date(format(ratesList[i].end_date, "yyyy-MM-dd"));
+          formatCustomRate = parseFloat(ratesList[i].custom_rate);
+          
+          if ((formatStartDate <= checkIn) && (formatEndDate <= checkOut)) {
+            price_per_guest += ((formatEndDate - checkIn)*(formatCustomRate + formatBaseRate)) + ((totalNights - (formatEndDate - checkIn))*formatBaseRate);
+          } else if ((formatStartDate > checkIn) && (formatEndDate <= checkOut)) {
+            price_per_guest += (formatEndDate - formatStartDate)*(formatCustomRate + formatBaseRate) + ((totalNights - (formatEndDate - formatStartDate))*formatBaseRate);
+          } else if ((formatStartDate <= checkIn) && (formatEndDate > checkOut)) {
+            price_per_guest += (checkOut - checkIn)*(formatCustomRate + formatBaseRate);
+          } else if ((formatStartDate > checkIn) && (formatEndDate > checkOut)) {
+            price_per_guest += (checkOut - formatStartDate)*(formatCustomRate + formatBaseRate) + ((totalNights - (checkOut - formatStartDate))*formatBaseRate);
+          }
+        }
+
 
         totalPrice =
           selectedRoomType.type === "dorm"
-            ? totalNights *
-              formValues.numberOfGuest *
-              selectedRoomType.base_rate
-            : totalNights * selectedRoomType.base_rate;
+            ? (price_per_guest *
+              parseInt(formValues.numberOfGuest))/(1000*3600*24)
+            : price_per_guest/(1000*3600*24);
       }
 
       setTotalPrice(totalPrice);
