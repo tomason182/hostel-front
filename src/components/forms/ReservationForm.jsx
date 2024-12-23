@@ -56,12 +56,12 @@ export default function ReservationForm({
         
         const checkIn = new Date(formValues.checkIn);
         const checkOut = new Date(formValues.checkOut);
-        let price_per_guest = 0;
+        let customRatePrice = 0;
         let formatStartDate;
         let formatEndDate;
         let formatCustomRate = 0;
         const formatBaseRate = parseFloat(selectedRoomType.base_rate);
-        const totalNights = checkOut - checkIn;
+        const baseRatePrice = (checkOut - checkIn)*formatBaseRate;
 
 
         for (let i = 0; i < ratesList.length; i++) {
@@ -71,22 +71,22 @@ export default function ReservationForm({
           formatCustomRate = parseFloat(ratesList[i].custom_rate);
           
           if ((formatStartDate <= checkIn) && (formatEndDate <= checkOut)) {
-            price_per_guest += ((formatEndDate - checkIn)*(formatCustomRate + formatBaseRate)) + ((totalNights - (formatEndDate - checkIn))*formatBaseRate);
+            customRatePrice += (formatEndDate - checkIn)*formatCustomRate;
           } else if ((formatStartDate > checkIn) && (formatEndDate <= checkOut)) {
-            price_per_guest += (formatEndDate - formatStartDate)*(formatCustomRate + formatBaseRate) + ((totalNights - (formatEndDate - formatStartDate))*formatBaseRate);
+            customRatePrice += (formatEndDate - formatStartDate)*formatCustomRate;
           } else if ((formatStartDate <= checkIn) && (formatEndDate > checkOut)) {
-            price_per_guest += (checkOut - checkIn)*(formatCustomRate + formatBaseRate);
+            customRatePrice += (checkOut - checkIn)*formatCustomRate;
           } else if ((formatStartDate > checkIn) && (formatEndDate > checkOut)) {
-            price_per_guest += (checkOut - formatStartDate)*(formatCustomRate + formatBaseRate) + ((totalNights - (checkOut - formatStartDate))*formatBaseRate);
+            customRatePrice += (checkOut - formatStartDate)*formatCustomRate;
           }
         }
 
 
         totalPrice =
           selectedRoomType.type === "dorm"
-            ? (price_per_guest *
+            ? ((customRatePrice + baseRatePrice) *
               parseInt(formValues.numberOfGuest))/(1000*3600*24)
-            : price_per_guest/(1000*3600*24);
+            : (customRatePrice + baseRatePrice)/(1000*3600*24);
       }
 
       setTotalPrice(totalPrice);
@@ -228,7 +228,7 @@ export default function ReservationForm({
           />
         </label>
         <label>
-          Total Price (Estimated)
+          Total Price
           <input
             type="number"
             name="totalPrice"
