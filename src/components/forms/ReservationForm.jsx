@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import { useEffect, useState } from "react";
 import ErrorComponent from "../error_page/ErrorComponent";
-import { format, sub } from "date-fns";
+import { format } from "date-fns";
 
 export default function ReservationForm({
   guestData,
@@ -51,7 +51,7 @@ export default function ReservationForm({
         );
         
         const ratesList = selectedRoomType.rates_and_availability.filter(
-          item => format(item.start_date, "yyyy-MM-dd") < formValues.checkOut && format(item.end_date, "yyyy-MM-dd") >= formValues.checkIn
+          item => new Date(format(item.start_date, "yyyy-MM-dd")) < new Date(formValues.checkOut) && new Date(format(item.end_date, "yyyy-MM-dd")) >= new Date(formValues.checkIn)
         );
         
         const checkIn = new Date(formValues.checkIn);
