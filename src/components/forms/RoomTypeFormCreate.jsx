@@ -13,6 +13,8 @@ export default function RoomTypesFormCreate({
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const listAmenities = ["bathroom","shower","wifi","toallas"];
+
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
@@ -34,7 +36,9 @@ export default function RoomTypesFormCreate({
       max_occupancy: max_occupancy.value,
       inventory: inventory.value,
       base_rate: base_rate.value,
-      currency: currency.value,
+      currency: currency.value,/*
+      amenities: [{}],
+      url_image: url_image.value,// esto se ingresa en una nueva pestaña*/
     };
 
     try {
@@ -244,6 +248,50 @@ export default function RoomTypesFormCreate({
           </svg>
           <input type="text" name="currency" required min={1} />
         </label>
+      </fieldset>
+
+      <fieldset className={styles.fieldsetContainer}>
+        <legend>Amenities</legend>
+        <div className={styles.checkboxContainer}>
+          <input type="checkbox" name="bathroom"/>
+          <label for="bathroom">Bathroom</label>
+        </div>
+        <div className={styles.checkboxContainer}>
+          <input type="checkbox" name="shower"/>
+          <label for="shower">Shower</label>
+        </div>
+        <div className={styles.checkboxContainer}>
+          <input type="checkbox" name="breakfast"/>
+          <label for="breakfast">Breakfast</label>
+        </div>
+        <div className={styles.checkboxContainer}>
+          <input type="checkbox" name="towels"/>
+          <label for="towels">Towels</label>
+        </div>
+        <div className={styles.checkboxContainer}>
+          <input type="checkbox" name="bedding"/>
+          <label for="bedding">Bedding</label>
+        </div>
+        <div className={styles.checkboxContainer}>
+          <input type="checkbox" name="heating"/>
+          <label for="heating">Heating</label>
+        </div>
+        <div className={styles.checkboxContainer}>
+          <input type="checkbox" name="air-conditioning"/>
+          <label for="air-conditioning">Air-conditioning</label>
+        </div>
+        <div className={styles.checkboxContainer}>
+          <input type="checkbox" name="free-wifi"/>
+          <label for="free-wifi">Free Wi-Fi</label>
+        </div>
+        <div className={styles.checkboxContainer}>
+          <input type="checkbox" name="tv"/>
+          <label for="tv">TV</label>
+        </div>
+        <div className={styles.checkboxContainer}>
+          <input type="checkbox" name="locker"/>
+          <label for="locker">Locker</label>
+        </div>
       </fieldset>
 
       <menu className={styles.buttonContainer}>

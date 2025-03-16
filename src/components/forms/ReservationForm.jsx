@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import fetchDataHelper from "../../utils/fetchDataHelper";
 import { useEffect, useState } from "react";
 import ErrorComponent from "../error_page/ErrorComponent";
-import { format } from "date-fns";
 
 export default function ReservationForm({
   guestData,
@@ -49,44 +48,65 @@ export default function ReservationForm({
         const selectedRoomType = roomTypeData.find(
           r => r._id === formValues.roomType
         );
+
+        let parseDateWithHyphen = dateString => {
+          const [year, month, day] = dateString.split("-").map(Number);
+          return new Date(year, month - 1, day);
+        };
         
         const ratesList = selectedRoomType.rates_and_availability.filter(
-          item => new Date(format(item.start_date, "yyyy-MM-dd")) < new Date(formValues.checkOut) && new Date(format(item.end_date, "yyyy-MM-dd")) >= new Date(formValues.checkIn)
+          item => parseDateWithHyphen(item.start_date.split("T")[0]) < parseDateWithHyphen(formValues.checkOut) && parseDateWithHyphen(item.end_date.split("T")[0]) >= parseDateWithHyphen(formValues.checkIn)
         );
         
-        const checkIn = new Date(formValues.checkIn);
-        const checkOut = new Date(formValues.checkOut);
+        const checkIn = parseDateWithHyphen(formValues.checkIn);
+        const checkOut = parseDateWithHyphen(formValues.checkOut);
         let customRatePrice = 0;
+        let numNightsCustRate = 0;
         let formatStartDate;
         let formatEndDate;
         let formatCustomRate = 0;
         const formatBaseRate = parseFloat(selectedRoomType.base_rate);
-        const baseRatePrice = (checkOut - checkIn)*formatBaseRate;
+        const totalNights = checkOut - checkIn;
 
 
         for (let i = 0; i < ratesList.length; i++) {
 
-          formatStartDate = new Date(format(ratesList[i].start_date, "yyyy-MM-dd"));
-          formatEndDate = new Date(format(ratesList[i].end_date, "yyyy-MM-dd"));
+          formatStartDate = parseDateWithHyphen(ratesList[i].start_date.split("T")[0]);
+          formatEndDate = parseDateWithHyphen(ratesList[i].end_date.split("T")[0]);
           formatCustomRate = parseFloat(ratesList[i].custom_rate);
           
           if ((formatStartDate <= checkIn) && (formatEndDate <= checkOut)) {
             customRatePrice += (formatEndDate - checkIn)*formatCustomRate;
+            numNightsCustRate += formatEndDate - checkIn;
           } else if ((formatStartDate > checkIn) && (formatEndDate <= checkOut)) {
             customRatePrice += (formatEndDate - formatStartDate)*formatCustomRate;
+            numNightsCustRate += formatEndDate - formatStartDate;
           } else if ((formatStartDate <= checkIn) && (formatEndDate > checkOut)) {
             customRatePrice += (checkOut - checkIn)*formatCustomRate;
+            numNightsCustRate += checkOut - checkIn;
           } else if ((formatStartDate > checkIn) && (formatEndDate > checkOut)) {
             customRatePrice += (checkOut - formatStartDate)*formatCustomRate;
+            numNightsCustRate += checkOut - formatStartDate;
           }
         }
 
+        // El siguiente script de la línea 96 a la 109 trata de manera diferenciada a los días afectados por las tarifas
+        // customizadas, de los días de las tarifas de base. 
 
-        totalPrice =
+        if (totalNights == numNightsCustRate) {
+          totalPrice =
           selectedRoomType.type === "dorm"
-            ? ((customRatePrice + baseRatePrice) *
-              parseInt(formValues.numberOfGuest))/(1000*3600*24)
-            : (customRatePrice + baseRatePrice)/(1000*3600*24);
+            ? customRatePrice *
+              parseInt(formValues.numberOfGuest)/(1000*3600*24)
+            : customRatePrice/(1000*3600*24);
+        } else {
+          const difNights = totalNights - numNightsCustRate;
+          totalPrice =
+          selectedRoomType.type === "dorm"
+            ? (customRatePrice + (difNights * formatBaseRate)) *
+              parseInt(formValues.numberOfGuest)/(1000*3600*24)
+            : (customRatePrice + (difNights * formatBaseRate))/(1000*3600*24);
+        }       
       }
 
       setTotalPrice(totalPrice);
