@@ -1,0 +1,72 @@
+################################################################################################################################
+
+ CASO DE PRUEBA
+
+Si en "rates and availabilities" para un determinado room type, creo un registro con un start_date = 30/1, 
+end_date = 30/2 y custom_rate = 0.01 USD entonces el algoritmo de la api setea el custom_rate en 0.01 USD desde el 30/1 
+hasta el 29/2. El 30/2 se excluye del seteo, queda con el base_rate previamente fijado.
+
+En base a lo sucedido anteriormente, si creo nuevos registros para el mismo "room type":
+
+base_rate = 11 USD --> para el room type sobre el que trabajamos.
+
+ |             | start_date | end_date |  custom_rate  |
+ | Registro 1° |    01/02   |   11/02  |     12 USD    |
+ | Registro 2° |    13/02   |   17/02  |     24 USD    |
+ | Registro 3° |    09/02   |   15/02  |    0.25 USD   |
+
+
+Se esperaría obtener los siguientes intérvalos en la db:
+
+
+ |              | start_date | end_date |  custom_rate  |
+ | Intervalo 1° |    01/02   |   08/02  |     12 USD    |
+ | Intervalo 2° |    09/02   |   14/02  |    0.25 USD   |
+ | Intervalo 3° |    15/02   |   16/02  |     24 USD    |
+
+
+Pero en realidad se tiene:
+
+
+ |              | start_date | end_date |  custom_rate  |
+ | Intervalo 1° |    01/02   |   07/02  |     12 USD    |
+ | Intervalo 2° |    09/02   |   14/02  |    0.25 USD   |
+ | Intervalo 3° |    16/02   |   16/02  |     24 USD    |
+
+
+Donde los días 08/02 y 15/02 toman los valores de base_rate, osea 11 USD.
+
+
+********* ESTO NO PUEDE FUNCIONAR ASÍ ****************
+*********     DEBE SOLUCIONARSE       ****************
+
+
+##########################################################################################################################
+ 
+ CONTINUANDO CON EL CASO DE PRUEBA ANTERIOR:
+ AHORA VEMOS EL INGRESO DE UNA HUESPED BAJO LOS INTERVALOS DE DISPONIBILIDAD
+ ESTABLECIDOS.
+
+Grace Kelly reservó 1 cama del room type anterior --> desde el 07/02 --- hasta el 16/02:
+
+resultado esperado --> 12 + 11 + 0.25 + 0.25 + 0.25 + 0.25 + 0.25 + 0.25 + 11 + 24 = 59.5 
+
+resultado obtenido --> 12 + 11 + 0.25 + 0.25 + 0.25 + 0.25 + 0.25 + 0.25 + 11 = 35.5
+
+
+******* FALLA LA LÓGICA ACÁ TAMBIÉN ***********
+
+
+############################################################################################################################
+
+Te muestro el inconveniente que encontré para que estés al tanto.
+Decime, como querés resolverlo, así lo hago.
+No te digo que me des la solución, sino que me digas como querés que termine
+funcionando. Ya que por ejemplo, habría que hacer algo con el tema del end_date
+al dejarlo desafectado de la customización de su tarifa.
+
+
+
+
+
+
